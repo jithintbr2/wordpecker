@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "624711496360",
+    "project_id": "woodle-d0394",
+    "storage_bucket": "woodle-d0394.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624711496360:android:9da9fb83afdee2f7e4889d",
+        "android_client_info": {
+          "package_name": "com.woodle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624711496360-khrtd6daaja0nhis8an6b2tvjdtn37rh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQi2ko17Rm_oTdREA_nPQhDa3uS3XZ7FU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624711496360-khrtd6daaja0nhis8an6b2tvjdtn37rh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
