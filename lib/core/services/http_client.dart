@@ -1,18 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class HttpService {
   late Dio _dio;
 
   HttpService() {
-    _dio = Dio(BaseOptions(
-        baseUrl:
-            "https://woodle.in/delvento/index.php/User_mobile_version_nine"));
-    // initializeInterceptors();
+    _dio = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
+    initializeInterceptors();
   }
 
   void addHeader(Map<String, dynamic> headers) {
     _dio.options.headers = headers;
   }
+
+  void addAuthorization(String token) =>
+      _dio.options.headers["Authorization"] = "Bearer" + token;
 
   Future<dynamic> getRequest(String endPoint,
       {Map<String, dynamic>? parameters}) async {
@@ -28,12 +30,15 @@ class HttpService {
   }
 
   initializeInterceptors() {
-    _dio.interceptors.add(InterceptorsWrapper(onError: (error, _) {
-      print(error.message);
-    }, onRequest: (request, _) {
-      print("${request.method} ${request.path}");
-    }, onResponse: (response, _) {
+    _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
+      print("${options.method} ${options.path}");
+      return handler.next(options);
+    }, onResponse: (response, handler) {
       print("${response.data}");
+      return handler.next(response);
+    }, onError: (error, handler) {
+      print(error.message);
+      return handler.next(error);
     }));
   }
 }
