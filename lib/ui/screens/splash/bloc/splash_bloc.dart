@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
-import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
 

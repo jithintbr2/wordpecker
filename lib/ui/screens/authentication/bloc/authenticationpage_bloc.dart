@@ -55,13 +55,14 @@ class AuthenticationpageBloc
         authenticationStatus.changeState(user: user);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Wrong Credentials'),
-          backgroundColor: Colors.red,
-          elevation: 10,
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.all(10),
-        ));
+        yield _LoginState(isLoading: false);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Wrong Credentials'),
+        backgroundColor: Colors.red,
+        elevation: 10,
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.all(10),
+      ));
     }
 
     if (event is _Register) {

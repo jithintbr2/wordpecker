@@ -30,7 +30,8 @@ class AppLandingScreen extends HookWidget {
                   Expanded(
                       child: ElevatedButton(
                           onPressed: _agreed.value
-                              ? () => Navigator.pushNamed(context, '/home')
+                              ? () => Navigator.pushReplacementNamed(
+                                  context, '/home')
                               : null,
                           child: Text('Skip'))),
                   SizedBox(width: 10),
