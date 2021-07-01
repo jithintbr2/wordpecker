@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/repository/repository.dart';
 
 part 'category_items_event.dart';
@@ -19,11 +20,11 @@ class CategoryItemsBloc extends Bloc<CategoryItemsEvent, CategoryItemsState> {
   ) async* {
     if (event is _FetchData) {
       yield _Loading();
-      try {
-        final response =
-            await repository.fetchCategoryItemsData(event.categoryId);
-        yield _Loaded(response);
-      } catch (e) {}
+      final response =
+          await repository.fetchCategoryItemsData(event.categoryId);
+      response.when(
+          success: (data) => emit(_Loaded(data)),
+          failure: (error) => emit(_Failed(error)));
     }
   }
 }

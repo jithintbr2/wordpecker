@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +28,12 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
   ) async* {
     if (event is _SaveAddress) {
       yield _Loading();
-      try {
-        final franchiseId =
-            await repository.checkServiceAvailability(event.lat, event.lng);
+      final serviceAvailablityResponse =
+          await repository.checkServiceAvailability(event.lat, event.lng);
 
+      serviceAvailablityResponse.when(success: (franchiseId) async {
         if (franchiseId != -1) {
-          final response = await repository.addAddress(
+          final addResponse = await repository.addAddress(
               event.locality,
               event.house,
               event.nickName,
@@ -40,12 +41,13 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
               event.lat,
               event.lng,
               franchiseId);
-          if (response != null) {
+
+          addResponse.when(success: (id) {
             localStorage.set('franchiseId', franchiseId);
             localStorage.set(
                 'currentAddress',
                 AddressModel(
-                    id: response,
+                    id: id,
                     house: event.house,
                     locality: event.locality,
                     pin: int.parse(event.pincode),
@@ -55,18 +57,17 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                     franchiseId: franchiseId));
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/home', (route) => false);
-          } else {
+          }, failure: (error) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
                   'Service Available but could not save address. Try again later.'),
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.orange,
               elevation: 10,
               behavior: SnackBarBehavior.floating,
               margin: EdgeInsets.all(10),
             ));
-
-            yield _Loaded();
-          }
+            emit(_Loaded());
+          });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Service Not Available.'),
@@ -76,21 +77,31 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
             margin: EdgeInsets.all(10),
           ));
 
-          yield _Loaded();
+          emit(_Loaded());
         }
-      } catch (e) {}
+      }, failure: (error) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Something Went Wrong'),
+          backgroundColor: Colors.red,
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(10),
+        ));
+
+        emit(_Loaded());
+      });
     }
 
     if (event is _UseAddress) {
       yield _Loading();
+      final serviceAvailablityResponse =
+          await repository.checkServiceAvailability(event.lat, event.lng);
 
-      try {
-        final franchiseId =
-            await repository.checkServiceAvailability(event.lat, event.lng);
+      serviceAvailablityResponse.when(success: (franchiseId) {
         if (franchiseId != -1) {
           localStorage.set(
               'currentAddress',
-              AddressModel(
+              jsonEncode(AddressModel(
                   id: -1,
                   house: event.house,
                   locality: event.locality,
@@ -98,7 +109,7 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                   lat: event.lat,
                   lng: event.lng,
                   nickName: event.nickName,
-                  franchiseId: franchiseId));
+                  franchiseId: franchiseId)));
           Navigator.of(context)
               .pushNamedAndRemoveUntil('/home', (route) => false);
         } else {
@@ -110,9 +121,19 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
             margin: EdgeInsets.all(10),
           ));
 
-          yield _Loaded();
+          emit(_Loaded());
         }
-      } catch (e) {}
+      }, failure: (error) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Something Went Wrong'),
+          backgroundColor: Colors.red,
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(10),
+        ));
+
+        emit(_Loaded());
+      });
     }
   }
 }

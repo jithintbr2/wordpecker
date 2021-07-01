@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
+import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/item_tile.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -47,17 +48,18 @@ class CategoryItemsPage extends HookWidget {
   }
 
   Widget _buildBloc(CartService service) {
-    Widget _viewer = SizedBox();
     return BlocBuilder<CategoryItemsBloc, CategoryItemsState>(
       builder: (context, state) {
-        state.when(loading: () {
-          _viewer = LoadingView();
-        }, loaded: (data) {
-          _viewer = _buildPage(service, data);
-        }, failed: () {
-          _viewer = Container();
-        });
-        return _viewer;
+        return state.when(
+            loading: () => LoadingView(),
+            loaded: (data) => _buildPage(service, data),
+            failed: (exceptions) => FailedView(
+                exceptions: exceptions,
+                onRetry: () {
+                  context
+                      .read<CategoryItemsBloc>()
+                      .add(CategoryItemsEvent.fetchData(categoryId));
+                }));
       },
     );
   }

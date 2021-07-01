@@ -5,6 +5,7 @@ import 'package:woodle/core/models/notification/notification_model.dart';
 import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/widgets/notification_tile.dart';
 import 'package:woodle/ui/widgets/empty.dart';
+import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
 class NotificationPage extends HookWidget {
@@ -20,7 +21,12 @@ class NotificationPage extends HookWidget {
         body: BlocBuilder<NotificationBloc, NotificationState>(
             builder: (context, state) => state.when(
                 loading: () => LoadingView(),
-                loaded: (data) => _buildPage(data))));
+                loaded: (data) => _buildPage(data),
+                failed: (exceptions) => FailedView(
+                    exceptions: exceptions,
+                    onRetry: () => context
+                        .read<NotificationBloc>()
+                        .add(NotificationEvent.fetchData())))));
   }
 
   Widget _buildPage(List<NotificationModel> data) {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:woodle/core/settings/config.dart';
 
@@ -5,8 +7,20 @@ class HttpService {
   late Dio _dio;
 
   HttpService() {
-    _dio = Dio(BaseOptions(baseUrl: Config.apiBaseUrl));
-    initializeInterceptors();
+    _dio = Dio(BaseOptions(
+        baseUrl: Config.apiBaseUrl,
+        connectTimeout: Duration.millisecondsPerMinute,
+        receiveTimeout: Duration.millisecondsPerMinute));
+    // initializeInterceptors();
+    if (Config.debugger)
+      _dio.interceptors.add(LogInterceptor(
+        responseBody: true,
+        error: true,
+        requestHeader: false,
+        responseHeader: false,
+        request: false,
+        requestBody: false,
+      ));
   }
 
   void addHeader(Map<String, dynamic> headers) {
@@ -27,9 +41,12 @@ class HttpService {
     Response response;
     try {
       response = await _dio.get(endPoint, queryParameters: parameters);
-    } on DioError catch (e) {
-      print(e.message);
-      throw Exception(e.message);
+    } on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (_) {
+      throw FormatException("Unable to process the data");
+    } catch (e) {
+      throw e;
     }
 
     return response.data;

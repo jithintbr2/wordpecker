@@ -21,8 +21,11 @@ class Config {
   static bool get isMultiLocation => false;
   static bool get usePaymentOptionsFromServer => false;
   static bool get usePaymentGateway => false;
+  static int get itemCategoriesLimit => 5;
+  static int get shopCategoriesLimit => 5;
 
-  static int get locationId => 0;
+  static int get locationId => -1;
 
   // Developer Only
+  static bool get debugger => false;
 }

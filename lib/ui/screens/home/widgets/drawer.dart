@@ -20,7 +20,9 @@ class HomeDrawer extends StatelessWidget {
             state.user != null
                 ? Wrap(
                     children: [
-                      DrawerTopBar(),
+                      DrawerTopBar(
+                        name: state.user?.name ?? '',
+                      ),
                       Divider(),
                     ],
                   )
@@ -110,26 +112,39 @@ class TextIconButton extends StatelessWidget {
   }
 }
 
+// class DrawerTopBar extends StatelessWidget {
+//   const DrawerTopBar({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.symmetric(vertical: 16),
+//       child: Row(
+//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//         mainAxisSize: MainAxisSize.max,
+//         children: [
+//           TextIconButton(icon: Icons.track_changes, title: "My Orders"),
+//           TextIconButton(icon: Icons.shopping_cart, title: "View Cart"),
+//           TextIconButton(
+//             icon: Icons.notifications,
+//             title: "Notifications",
+//             onTap: () => Navigator.pushNamed(context, '/notifications'),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }
+
 class DrawerTopBar extends StatelessWidget {
-  const DrawerTopBar({Key? key}) : super(key: key);
+  final String name;
+  const DrawerTopBar({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          TextIconButton(icon: Icons.track_changes, title: "My Orders"),
-          TextIconButton(icon: Icons.shopping_cart, title: "View Cart"),
-          TextIconButton(
-            icon: Icons.notifications,
-            title: "Notifications",
-            onTap: () => Navigator.pushNamed(context, '/notifications'),
-          )
-        ],
-      ),
+    return ListTile(
+      title: Text(name),
+      trailing: Icon(Icons.account_circle),
     );
   }
 }
@@ -184,11 +199,10 @@ class DrawerBody extends StatelessWidget {
       children: [
         _itemTile(context, Icons.line_style, "My Addresses",
             onTap: () => Navigator.pushNamed(context, '/address')),
-        _itemTile(context, Icons.notifications, "Notification",
-            onTap: () => Navigator.pushNamed(context, '/profile')),
+        _itemTile(context, Icons.notifications, "My Notifications",
+            onTap: () => Navigator.pushNamed(context, '/notifications')),
         _itemTile(context, Icons.track_changes, "My Orders",
             onTap: () => Navigator.pushNamed(context, '/orders')),
-        _itemTile(context, Icons.vpn_key, "Change Password"),
         _itemTile(context, Icons.local_atm, "Cancellation & Refund Policy",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {
                   "title": "Cancellation & Refund Policy",

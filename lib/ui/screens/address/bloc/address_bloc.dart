@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/network/api_response/api_response.dart';
+import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
 
@@ -23,10 +25,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     AddressEvent event,
   ) async* {
     if (event is _FetchSavedAddress) {
-      try {
-        final response = await repository.fetchSavedAddress();
-        yield _Loaded(response);
-      } catch (e) {}
+      ApiResponse<List<AddressModel>> response =
+          await repository.fetchSavedAddress();
+      response.when(
+          success: (data) => emit(_Loaded(data)),
+          failure: (error) => emit(_Failed(error)));
     }
   }
 }

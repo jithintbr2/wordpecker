@@ -16,8 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HomeEventTearOff {
   const _$HomeEventTearOff();
 
-  _FetchData fetchData() {
-    return const _FetchData();
+  _FetchData fetchData(int franchiseId) {
+    return _FetchData(
+      franchiseId,
+    );
   }
 }
 
@@ -26,14 +28,16 @@ const $HomeEvent = _$HomeEventTearOff();
 
 /// @nodoc
 mixin _$HomeEvent {
+  int get franchiseId => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchData,
+    required TResult Function(int franchiseId) fetchData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchData,
+    TResult Function(int franchiseId)? fetchData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,12 +52,17 @@ mixin _$HomeEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $HomeEventCopyWith<HomeEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HomeEventCopyWith<$Res> {
   factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
       _$HomeEventCopyWithImpl<$Res>;
+  $Res call({int franchiseId});
 }
 
 /// @nodoc
@@ -63,13 +72,27 @@ class _$HomeEventCopyWithImpl<$Res> implements $HomeEventCopyWith<$Res> {
   final HomeEvent _value;
   // ignore: unused_field
   final $Res Function(HomeEvent) _then;
+
+  @override
+  $Res call({
+    Object? franchiseId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$FetchDataCopyWith<$Res> {
+abstract class _$FetchDataCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
   factory _$FetchDataCopyWith(
           _FetchData value, $Res Function(_FetchData) then) =
       __$FetchDataCopyWithImpl<$Res>;
+  @override
+  $Res call({int franchiseId});
 }
 
 /// @nodoc
@@ -80,42 +103,67 @@ class __$FetchDataCopyWithImpl<$Res> extends _$HomeEventCopyWithImpl<$Res>
 
   @override
   _FetchData get _value => super._value as _FetchData;
+
+  @override
+  $Res call({
+    Object? franchiseId = freezed,
+  }) {
+    return _then(_FetchData(
+      franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_FetchData implements _FetchData {
-  const _$_FetchData();
+  const _$_FetchData(this.franchiseId);
+
+  @override
+  final int franchiseId;
 
   @override
   String toString() {
-    return 'HomeEvent.fetchData()';
+    return 'HomeEvent.fetchData(franchiseId: $franchiseId)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _FetchData);
+    return identical(this, other) ||
+        (other is _FetchData &&
+            (identical(other.franchiseId, franchiseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseId, franchiseId)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(franchiseId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FetchDataCopyWith<_FetchData> get copyWith =>
+      __$FetchDataCopyWithImpl<_FetchData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchData,
+    required TResult Function(int franchiseId) fetchData,
   }) {
-    return fetchData();
+    return fetchData(franchiseId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchData,
+    TResult Function(int franchiseId)? fetchData,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
-      return fetchData();
+      return fetchData(franchiseId);
     }
     return orElse();
   }
@@ -142,7 +190,14 @@ class _$_FetchData implements _FetchData {
 }
 
 abstract class _FetchData implements HomeEvent {
-  const factory _FetchData() = _$_FetchData;
+  const factory _FetchData(int franchiseId) = _$_FetchData;
+
+  @override
+  int get franchiseId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$FetchDataCopyWith<_FetchData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -159,8 +214,10 @@ class _$HomeStateTearOff {
     );
   }
 
-  _Failed failed() {
-    return const _Failed();
+  _Failed failed(NetworkExceptions exceptions) {
+    return _Failed(
+      exceptions,
+    );
   }
 }
 
@@ -173,14 +230,14 @@ mixin _$HomeState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(HomePageModel data) loaded,
-    required TResult Function() failed,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(HomePageModel data)? loaded,
-    TResult Function()? failed,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -255,7 +312,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(HomePageModel data) loaded,
-    required TResult Function() failed,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
   }
@@ -265,7 +322,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(HomePageModel data)? loaded,
-    TResult Function()? failed,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -376,7 +433,7 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(HomePageModel data) loaded,
-    required TResult Function() failed,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
   }
@@ -386,7 +443,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(HomePageModel data)? loaded,
-    TResult Function()? failed,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -432,6 +489,9 @@ abstract class _Loaded implements HomeState {
 abstract class _$FailedCopyWith<$Res> {
   factory _$FailedCopyWith(_Failed value, $Res Function(_Failed) then) =
       __$FailedCopyWithImpl<$Res>;
+  $Res call({NetworkExceptions exceptions});
+
+  $NetworkExceptionsCopyWith<$Res> get exceptions;
 }
 
 /// @nodoc
@@ -442,34 +502,66 @@ class __$FailedCopyWithImpl<$Res> extends _$HomeStateCopyWithImpl<$Res>
 
   @override
   _Failed get _value => super._value as _Failed;
+
+  @override
+  $Res call({
+    Object? exceptions = freezed,
+  }) {
+    return _then(_Failed(
+      exceptions == freezed
+          ? _value.exceptions
+          : exceptions // ignore: cast_nullable_to_non_nullable
+              as NetworkExceptions,
+    ));
+  }
+
+  @override
+  $NetworkExceptionsCopyWith<$Res> get exceptions {
+    return $NetworkExceptionsCopyWith<$Res>(_value.exceptions, (value) {
+      return _then(_value.copyWith(exceptions: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_Failed implements _Failed {
-  const _$_Failed();
+  const _$_Failed(this.exceptions);
+
+  @override
+  final NetworkExceptions exceptions;
 
   @override
   String toString() {
-    return 'HomeState.failed()';
+    return 'HomeState.failed(exceptions: $exceptions)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _Failed);
+    return identical(this, other) ||
+        (other is _Failed &&
+            (identical(other.exceptions, exceptions) ||
+                const DeepCollectionEquality()
+                    .equals(other.exceptions, exceptions)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exceptions);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FailedCopyWith<_Failed> get copyWith =>
+      __$FailedCopyWithImpl<_Failed>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(HomePageModel data) loaded,
-    required TResult Function() failed,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) {
-    return failed();
+    return failed(exceptions);
   }
 
   @override
@@ -477,11 +569,11 @@ class _$_Failed implements _Failed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(HomePageModel data)? loaded,
-    TResult Function()? failed,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed();
+      return failed(exceptions);
     }
     return orElse();
   }
@@ -512,5 +604,9 @@ class _$_Failed implements _Failed {
 }
 
 abstract class _Failed implements HomeState {
-  const factory _Failed() = _$_Failed;
+  const factory _Failed(NetworkExceptions exceptions) = _$_Failed;
+
+  NetworkExceptions get exceptions => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$FailedCopyWith<_Failed> get copyWith => throw _privateConstructorUsedError;
 }

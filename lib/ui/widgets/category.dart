@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:woodle/core/models/category/category_model.dart';
@@ -7,10 +9,12 @@ class Category extends StatelessWidget {
   final String? title;
   final List<CategoryModel> items;
   final void Function(int) onTap;
+  final int limit;
   const Category({
     this.title,
     required this.items,
     required this.onTap,
+    required this.limit,
     Key? key,
   }) : super(key: key);
 
@@ -64,7 +68,7 @@ class Category extends StatelessWidget {
                   onTap: () => onTap(index),
                   child: _buildItem(context, items[index]),
                 ),
-            itemCount: 5)
+            itemCount: min(limit, items.length))
       ],
     );
   }

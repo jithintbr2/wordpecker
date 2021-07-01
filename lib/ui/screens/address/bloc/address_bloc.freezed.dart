@@ -259,6 +259,12 @@ class _$AddressStateTearOff {
       data,
     );
   }
+
+  _Failed failed(NetworkExceptions exceptions) {
+    return _Failed(
+      exceptions,
+    );
+  }
 }
 
 /// @nodoc
@@ -270,12 +276,14 @@ mixin _$AddressState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -283,12 +291,14 @@ mixin _$AddressState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -349,6 +359,7 @@ class _$_Loading implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
   }
@@ -358,6 +369,7 @@ class _$_Loading implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -371,6 +383,7 @@ class _$_Loading implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) {
     return loading(this);
   }
@@ -380,6 +393,7 @@ class _$_Loading implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -457,6 +471,7 @@ class _$_Loaded implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
   }
@@ -466,6 +481,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -479,6 +495,7 @@ class _$_Loaded implements _Loaded {
   TResult map<TResult extends Object?>({
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
   }) {
     return loaded(this);
   }
@@ -488,6 +505,7 @@ class _$_Loaded implements _Loaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -503,4 +521,130 @@ abstract class _Loaded implements AddressState {
   List<AddressModel> get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$FailedCopyWith<$Res> {
+  factory _$FailedCopyWith(_Failed value, $Res Function(_Failed) then) =
+      __$FailedCopyWithImpl<$Res>;
+  $Res call({NetworkExceptions exceptions});
+
+  $NetworkExceptionsCopyWith<$Res> get exceptions;
+}
+
+/// @nodoc
+class __$FailedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+    implements _$FailedCopyWith<$Res> {
+  __$FailedCopyWithImpl(_Failed _value, $Res Function(_Failed) _then)
+      : super(_value, (v) => _then(v as _Failed));
+
+  @override
+  _Failed get _value => super._value as _Failed;
+
+  @override
+  $Res call({
+    Object? exceptions = freezed,
+  }) {
+    return _then(_Failed(
+      exceptions == freezed
+          ? _value.exceptions
+          : exceptions // ignore: cast_nullable_to_non_nullable
+              as NetworkExceptions,
+    ));
+  }
+
+  @override
+  $NetworkExceptionsCopyWith<$Res> get exceptions {
+    return $NetworkExceptionsCopyWith<$Res>(_value.exceptions, (value) {
+      return _then(_value.copyWith(exceptions: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_Failed implements _Failed {
+  const _$_Failed(this.exceptions);
+
+  @override
+  final NetworkExceptions exceptions;
+
+  @override
+  String toString() {
+    return 'AddressState.failed(exceptions: $exceptions)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _Failed &&
+            (identical(other.exceptions, exceptions) ||
+                const DeepCollectionEquality()
+                    .equals(other.exceptions, exceptions)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exceptions);
+
+  @JsonKey(ignore: true)
+  @override
+  _$FailedCopyWith<_Failed> get copyWith =>
+      __$FailedCopyWithImpl<_Failed>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(NetworkExceptions exceptions) failed,
+  }) {
+    return failed(exceptions);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(NetworkExceptions exceptions)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(exceptions);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements AddressState {
+  const factory _Failed(NetworkExceptions exceptions) = _$_Failed;
+
+  NetworkExceptions get exceptions => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$FailedCopyWith<_Failed> get copyWith => throw _privateConstructorUsedError;
 }

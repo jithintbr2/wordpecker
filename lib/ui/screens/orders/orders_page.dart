@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/widgets/empty.dart';
+import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
 class OrdersPage extends HookWidget {
@@ -26,7 +27,11 @@ class OrdersPage extends HookWidget {
     return BlocBuilder<OrdersBloc, OrdersState>(
         builder: (context, state) => state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(context, data)));
+            loaded: (data) => _buildPage(context, data),
+            failed: (exceptions) => FailedView(
+                exceptions: exceptions,
+                onRetry: () =>
+                    context.read<OrdersBloc>().add(OrdersEvent.fetchData()))));
   }
 
   Widget _buildPage(BuildContext context, List<OrdersModel> data) {

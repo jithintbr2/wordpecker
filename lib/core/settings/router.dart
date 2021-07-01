@@ -78,7 +78,9 @@ class AppRouter {
         return _generatePlatformRoute(BlocProvider(
             create: (context) =>
                 HomeBloc(repository: context.read<ApplicationRepository>()),
-            child: HomePage()));
+            child: HomePage(
+              localStorage: LocalStorage(),
+            )));
 
       case '/itemList':
         final Map<String, dynamic> args =

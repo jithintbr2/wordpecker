@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
+import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/repository/repository.dart';
 
 part 'orders_event.dart';
@@ -19,11 +20,10 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
   ) async* {
     if (event is _FetchData) {
       yield _Loading();
-
-      try {
-        final response = await repository.fetchOrderHistroy();
-        yield _Loaded(response);
-      } catch (e) {}
+      final response = await repository.fetchOrderHistroy();
+      response.when(
+          success: (data) => emit(_Loaded(data)),
+          failure: (error) => emit(_Failed(error)));
     }
   }
 }

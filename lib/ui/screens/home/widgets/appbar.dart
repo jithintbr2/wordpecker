@@ -15,6 +15,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('.....');
+    print(location);
     return AppBar(
       title: showLocation
           ? InkWell(

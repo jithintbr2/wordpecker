@@ -9,6 +9,8 @@ import 'package:woodle/core/models/notification/notification_model.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
+import 'package:woodle/core/network/api_response/api_response.dart';
+import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/services/http_client.dart';
 
 class ApplicationRepository {
@@ -110,49 +112,52 @@ class ApplicationRepository {
   }
 
   ///Fetch the home screen data.
-  Future<HomePageModel> fetchHomePageData() {
-    Map<String, dynamic> parameters = {"franchiseId": 2};
+  Future<ApiResponse<HomePageModel>> fetchHomePageData(int franchiseId) {
+    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
     return _client
         .getRequest('/home_page', parameters: parameters)
-        .then((response) => HomePageModel.fromJson(response['data']));
+        .then((response) =>
+            ApiResponse.success(data: HomePageModel.fromJson(response['data'])))
+        .onError((error, _) => ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error)));
   }
 
-  Future<List<ItemModel>> fetchCategoryItemsData(int categoryId) {
+  Future<ApiResponse<List<ItemModel>>> fetchCategoryItemsData(int categoryId) {
     Map<String, dynamic> parameters = {"category_id": categoryId};
-    return _client
-        .getRequest('/category_items', parameters: parameters)
-        .then((response) {
+    return _client.getRequest('/category_items', parameters: parameters).then(
+        (response) {
       List<ItemModel> items = [];
       response["data"].forEach((item) => items.add(ItemModel.fromJson(item)));
-      return items;
-    });
+      return ApiResponse.success(data: items);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 
   ///Fetch User's Saved Addresses
-  Future<List<AddressModel>> fetchSavedAddress() {
+  Future<ApiResponse<List<AddressModel>>> fetchSavedAddress() async {
     return _client.getRequest('/address_list').then((response) {
       List<AddressModel> addresses = [];
       response['data']
           .forEach((address) => addresses.add(AddressModel.fromJson(address)));
-      return addresses;
-    });
+      return ApiResponse.success(data: addresses);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 
   ///Check for service availability at a given location
-  Future<int> checkServiceAvailability(double lat, double lng) {
+  Future<ApiResponse<int>> checkServiceAvailability(double lat, double lng) {
     Map<String, dynamic> parameters = {"lat": lat, "lng": lng};
     return _client
         .getRequest('/check_availability', parameters: parameters)
         .then((response) {
-      // if (response['data'] != null) return response['data']['franchiseId'];
-      // return null;
-      return response['data']['franchiseId'];
-    });
+      return ApiResponse.success(data: response['data']['franchiseId'] as int);
+    }).onError((error, _) => ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error)));
   }
 
   //Add address
-  Future<int?> addAddress(String locality, String house, String nickName,
-      String pincode, double lat, double lng, int franchieId) {
+  Future<ApiResponse<int>> addAddress(String locality, String house,
+      String nickName, String pincode, double lat, double lng, int franchieId) {
     Map<String, dynamic> parameters = {
       'locality': locality,
       'house': house,
@@ -164,44 +169,44 @@ class ApplicationRepository {
     };
     return _client
         .getRequest('/add_address', parameters: parameters)
-        .then((response) {
-      if (response['data'] != null) return response['data'];
-      return null;
-    });
+        .then((response) => ApiResponse.success(data: response['data'] as int))
+        .onError((error, _) => ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error)));
   }
 
   ///Fetch the shop list based on categories
-  Future<List<ShopModel>> fetchShopList(int categoryId) {
+  Future<ApiResponse<List<ShopModel>>> fetchShopList(int categoryId) {
     Map<String, dynamic> parameters = {"franchiseId": 1};
-    return _client
-        .getRequest('/list_shops', parameters: parameters)
-        .then((response) {
+    return _client.getRequest('/list_shops', parameters: parameters).then(
+        (response) {
       List<ShopModel> shops = [];
-      if (response['data'] != null)
-        response['data']['shops']
-            .forEach((shop) => shops.add(ShopModel.fromJson(shop)));
-      return shops;
-    });
+      response['data']['shops']
+          .forEach((shop) => shops.add(ShopModel.fromJson(shop)));
+      return ApiResponse.success(data: shops);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 
   //Fetch the user's notifications
-  Future<List<NotificationModel>> fetchNotifications() {
+  Future<ApiResponse<List<NotificationModel>>> fetchNotifications() {
     return _client.getRequest('/list_notification').then((response) {
       List<NotificationModel> notifications = [];
       response['data'].forEach((notification) {
         notifications.add(NotificationModel.fromJson(notification));
       });
-      return notifications;
-    });
+      return ApiResponse.success(data: notifications);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 
   ///Fetch the user's order history
-  Future<List<OrdersModel>> fetchOrderHistroy() {
+  Future<ApiResponse<List<OrdersModel>>> fetchOrderHistroy() {
     return _client.getRequest('/my_orders').then((response) {
       List<OrdersModel> orders = [];
       response['data']
           .forEach((order) => orders.add(OrdersModel.fromJson(order)));
-      return orders;
-    });
+      return ApiResponse.success(data: orders);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 }

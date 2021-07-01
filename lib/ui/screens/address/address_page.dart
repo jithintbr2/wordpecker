@@ -5,6 +5,7 @@ import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
 import 'package:woodle/ui/screens/address_map/address_map_page.dart';
 import 'package:woodle/ui/widgets/empty.dart';
+import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
 import 'widgets/appbar.dart';
@@ -75,42 +76,52 @@ class AddressPage extends HookWidget {
 
   Widget _buildSavedAddressList() {
     return BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
-      return state.when(loading: () {
-        context.read<AddressBloc>().add(AddressEvent.fetchSavedAddress());
-        return LoadingView();
-      }, loaded: (data) {
-        if (data.isNotEmpty)
-          return SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text("Saved Addresses")),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: data.length,
-                      itemBuilder: (context, index) => ListTile(
-                            leading: Icon(data[index].nickName == 'Work'
-                                ? Icons.work
-                                : data[index].nickName == 'Home'
-                                    ? Icons.home
-                                    : Icons.location_on_rounded),
-                            title: Text(data[index].nickName),
-                            subtitle: Text(
-                              '${data[index].house}, ${data[index].locality}',
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                ],
-              ),
-            ),
-          );
-        return EmptyView(icon: Icons.location_off_rounded, title: 'No Address');
-      });
+      return state.when(
+          loading: () {
+            context.read<AddressBloc>().add(AddressEvent.fetchSavedAddress());
+            return LoadingView();
+          },
+          loaded: (data) {
+            if (data.isNotEmpty)
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text("Saved Addresses")),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: data.length,
+                          itemBuilder: (context, index) => ListTile(
+                                leading: Icon(data[index].nickName == 'Work'
+                                    ? Icons.work
+                                    : data[index].nickName == 'Home'
+                                        ? Icons.home
+                                        : Icons.location_on_rounded),
+                                title: Text(data[index].nickName),
+                                subtitle: Text(
+                                  '${data[index].house}, ${data[index].locality}',
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                    ],
+                  ),
+                ),
+              );
+            return EmptyView(
+                icon: Icons.location_off_rounded, title: 'No Address');
+          },
+          failed: (error) => FailedView(
+              exceptions: error,
+              onRetry: () {
+                context
+                    .read<AddressBloc>()
+                    .add(AddressEvent.fetchSavedAddress());
+              }));
     });
   }
 

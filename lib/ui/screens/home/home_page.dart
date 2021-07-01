@@ -1,50 +1,80 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
+import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 import 'package:woodle/ui/screens/home/widgets/appbar.dart';
 import 'package:woodle/ui/screens/home/widgets/drawer.dart';
 import 'package:woodle/ui/widgets/carousel.dart';
 import 'package:woodle/ui/widgets/category.dart';
+import 'package:woodle/ui/widgets/empty.dart';
+import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 import 'package:woodle/ui/widgets/marquee.dart';
 
 class HomePage extends HookWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final LocalStorage localStorage;
+  const HomePage({Key? key, required this.localStorage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    AddressModel? _getAddress() {
+      if (localStorage.get('currentAddress') != null) {
+        Map<String, dynamic> currentAddressRaw =
+            jsonDecode(localStorage.get('currentAddress') as String);
+        return AddressModel.fromJson(currentAddressRaw);
+      }
+      return null;
+    }
+
+    AddressModel? address = _getAddress();
     useEffect(() {
-      context.read<HomeBloc>().add(HomeEvent.fetchData());
+      if (Config.locationId != -1 || address != null)
+        context.read<HomeBloc>().add(HomeEvent.fetchData(
+            address != null ? address.franchiseId : Config.locationId));
     }, []);
+
     return Scaffold(
       appBar: HomeAppBar(
         showLocation: true,
+        location: address?.locality,
         onTap: () => Navigator.pushNamed(context, '/address'),
       ),
       drawer: HomeDrawer(),
-      body: _buildBloc(),
+      body: Config.locationId != -1 || address != null
+          ? _buildBloc(address)
+          : EmptyView(
+              icon: Icons.location_searching, title: 'No Location Selected.'),
     );
   }
 
-  _buildBloc() {
-    Widget _view = LoadingView();
+  _buildBloc(AddressModel? address) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
-        state.when(loading: () {
-          _view = LoadingView();
-        }, loaded: (data) {
-          _view = RefreshIndicator(
-              child: _buildPage(context, data),
-              onRefresh: () async {
-                context.read<HomeBloc>().add(HomeEvent.fetchData());
-                return null;
-              });
-        }, failed: () {
-          _view = Container();
-        });
-        return _view;
+        return state.when(
+            loading: () => LoadingView(),
+            loaded: (data) => RefreshIndicator(
+                child: _buildPage(context, data),
+                onRefresh: () async {
+                  context.read<HomeBloc>().add(HomeEvent.fetchData(
+                      address != null
+                          ? address.franchiseId
+                          : Config.locationId));
+                  return null;
+                }),
+            failed: (error) => FailedView(
+                exceptions: error,
+                onRetry: () {
+                  context.read<HomeBloc>().add(HomeEvent.fetchData(
+                      address != null
+                          ? address.franchiseId
+                          : Config.locationId));
+                }));
       },
     );
   }
@@ -58,6 +88,7 @@ class HomePage extends HookWidget {
         Category(
           title: 'Explore Items by Category',
           items: data.itemCategories ?? [],
+          limit: Config.itemCategoriesLimit,
           onTap: (index) =>
               Navigator.of(context).pushNamed('/itemList', arguments: {
             "categoryName": data.itemCategories![index].title,
@@ -68,6 +99,7 @@ class HomePage extends HookWidget {
         Category(
           title: 'Explore Shops by Category',
           items: data.shopCategories ?? [],
+          limit: Config.shopCategoriesLimit,
           onTap: (index) =>
               Navigator.of(context).pushNamed('/shopList', arguments: {
             "categoryName": data.shopCategories![index].title,
