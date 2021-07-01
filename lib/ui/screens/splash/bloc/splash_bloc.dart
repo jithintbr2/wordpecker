@@ -14,9 +14,11 @@ part 'splash_bloc.freezed.dart';
 class SplashBloc extends Bloc<SplashEvent, SplashState> {
   final ApplicationRepository repository;
   final AuthenticationCubit authenticationStatus;
+  final BuildContext context;
   SplashBloc({
     required this.repository,
     required this.authenticationStatus,
+    required this.context,
   }) : super(_Unknown());
 
   final LocalStorage _localStorage = LocalStorage();
@@ -35,13 +37,23 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
           if (token != null) {
             final userVerificationResult =
                 await repository.verifyUser(token.toString());
+            if (userVerificationResult != null) {
+              repository.setToken(token.toString());
+              authenticationStatus.changeState(
+                  user: userVerificationResult,
+                  updateAvailable: appVerificationResult.updateAvailable);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/home', (route) => false);
+            } else {
+              authenticationStatus.changeState(
+                  updateAvailable: appVerificationResult.updateAvailable);
+              yield _Verified();
+            }
+          } else {
             authenticationStatus.changeState(
-                user: userVerificationResult,
                 updateAvailable: appVerificationResult.updateAvailable);
-          } else
-            authenticationStatus.changeState(
-                updateAvailable: appVerificationResult.updateAvailable);
-          yield _Verified();
+            yield _Verified();
+          }
         }
       } catch (e) {}
     }

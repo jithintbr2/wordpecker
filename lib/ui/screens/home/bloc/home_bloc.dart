@@ -21,8 +21,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield _Loading();
       try {
         final response = await repository.fetchHomePageData();
-        print(response.categories);
-        print(response.message);
         yield _Loaded(response);
       } catch (e) {
         print('object');

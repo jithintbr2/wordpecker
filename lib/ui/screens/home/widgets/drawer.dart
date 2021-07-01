@@ -9,19 +9,49 @@ class HomeDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          HomeDrawerHeader(),
-          DrawerTopBar(),
-          Divider(),
-          Expanded(child: DrawerBody()),
-          Divider(),
-          DrawerBottomBar()
-        ],
-      ),
+    return Drawer(child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+        builder: (context, state) {
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            HomeDrawerHeader(),
+            state.updateAvailable ? UpdateTile() : SizedBox(),
+            state.user != null
+                ? Wrap(
+                    children: [
+                      DrawerTopBar(),
+                      Divider(),
+                    ],
+                  )
+                : SizedBox(),
+            state.user != null
+                ? Expanded(child: DrawerBody())
+                : Expanded(
+                    child: Center(
+                    child: ElevatedButton(
+                        onPressed: () =>
+                            Navigator.pushNamed(context, '/authenticate'),
+                        child: Text('Login')),
+                  )),
+            Divider(),
+            DrawerBottomBar()
+          ]);
+    }));
+  }
+}
+
+class UpdateTile extends StatelessWidget {
+  const UpdateTile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      tileColor: Theme.of(context).primaryColor,
+      leading: Icon(Icons.update, color: Theme.of(context).canvasColor),
+      title: Text('Update Available',
+          style: TextStyle(color: Theme.of(context).canvasColor)),
+      trailing: Icon(Icons.chevron_right, color: Theme.of(context).canvasColor),
     );
   }
 }
@@ -85,26 +115,22 @@ class DrawerTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget _view = SizedBox();
-    return BlocBuilder<AuthenticationCubit, AuthenticationState>(
-        builder: (context, state) {
-      if (state.user != null)
-        _view = Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              TextIconButton(icon: Icons.track_changes, title: "My Orders"),
-              TextIconButton(icon: Icons.shopping_cart, title: "View Cart"),
-              TextIconButton(icon: Icons.notifications, title: "Notifications")
-            ],
-          ),
-        );
-      else
-        _view = Text('working baby');
-      return _view;
-    });
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          TextIconButton(icon: Icons.track_changes, title: "My Orders"),
+          TextIconButton(icon: Icons.shopping_cart, title: "View Cart"),
+          TextIconButton(
+            icon: Icons.notifications,
+            title: "Notifications",
+            onTap: () => Navigator.pushNamed(context, '/notifications'),
+          )
+        ],
+      ),
+    );
   }
 }
 

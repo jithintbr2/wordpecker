@@ -4,43 +4,46 @@ import 'package:woodle/core/models/category/category_model.dart';
 import 'package:woodle/core/settings/assets.dart';
 
 class Category extends StatelessWidget {
+  final String? title;
   final List<CategoryModel> items;
-  const Category({required this.items, Key? key}) : super(key: key);
+  final void Function(int) onTap;
+  const Category({
+    this.title,
+    required this.items,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   SliverGridDelegate _gridDelegate() =>
       SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 1);
 
-  Widget _buildItem(BuildContext context, CategoryModel item) => InkWell(
-        child: Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Stack(
-            children: [
-              Container(
-                  height: double.infinity,
-                  child: CachedNetworkImage(
-                    imageUrl: item.imageUrl,
-                    fit: BoxFit.cover,
-                    placeholder: (_, __) =>
-                        Center(child: Image.asset(Assets.appIcon)),
-                    errorWidget: (_, __, ___) =>
-                        Center(child: Icon(Icons.error)),
+  Widget _buildItem(BuildContext context, CategoryModel item) => Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Stack(
+          children: [
+            Container(
+                height: double.infinity,
+                child: CachedNetworkImage(
+                  imageUrl: item.imageUrl,
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) =>
+                      Center(child: Image.asset(Assets.appIcon)),
+                  errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
+                )),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(1),
+                  color: Colors.white70,
+                  child: Text(
+                    item.title,
+                    textAlign: TextAlign.center,
                   )),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(1),
-                    color: Colors.white70,
-                    child: Text(
-                      item.title,
-                      textAlign: TextAlign.center,
-                    )),
-              )
-            ],
-          ),
+            )
+          ],
         ),
-        onTap: () => Navigator.pushNamed(context, '/categoryItems'),
       );
 
   @override
@@ -48,14 +51,19 @@ class Category extends StatelessWidget {
     if (items.isEmpty) return SizedBox();
     return Wrap(
       children: [
-        Text('Explore by category',
-            style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, height: 2)),
+        title != null
+            ? Text(title!,
+                style: TextStyle(
+                    fontSize: 20, fontWeight: FontWeight.bold, height: 2))
+            : SizedBox(),
         GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: _gridDelegate(),
-            itemBuilder: (context, index) => _buildItem(context, items[index]),
+            itemBuilder: (context, index) => InkWell(
+                  onTap: () => onTap(index),
+                  child: _buildItem(context, items[index]),
+                ),
             itemCount: 5)
       ],
     );

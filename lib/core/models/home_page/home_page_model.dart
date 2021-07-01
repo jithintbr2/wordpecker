@@ -13,7 +13,8 @@ class HomePageModel with _$HomePageModel {
     @JsonKey(name: 'ad1') List<CarouselModel>? carouselx2,
     @JsonKey(name: 'ad2') List<CarouselModel>? carouselx3,
     @JsonKey(name: 'ad3') List<CarouselModel>? carouselx4,
-    @JsonKey(name: 'categories') List<CategoryModel>? categories,
+    List<CategoryModel>? itemCategories,
+    List<CategoryModel>? shopCategories,
     @JsonKey(name: 'scrollingMessage') String? message,
     @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
   }) = _HomePageModel;

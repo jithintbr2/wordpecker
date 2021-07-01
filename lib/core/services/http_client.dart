@@ -14,10 +14,16 @@ class HttpService {
   }
 
   void addAuthorization(String token) =>
-      _dio.options.headers["Authorization"] = "Bearer" + token;
+      _dio.options.headers["Authorization"] = token;
 
   Future<dynamic> getRequest(String endPoint,
       {Map<String, dynamic>? parameters}) async {
+    if (_dio.options.headers["Authorization"] != null) {
+      if (parameters != null)
+        parameters['token'] = _dio.options.headers["Authorization"];
+      else
+        parameters = {'token': _dio.options.headers["Authorization"]};
+    }
     Response response;
     try {
       response = await _dio.get(endPoint, queryParameters: parameters);

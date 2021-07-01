@@ -5,12 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
+import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/address/address_page.dart';
+import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
+import 'package:woodle/ui/screens/address_map/address_map_page.dart';
+import 'package:woodle/ui/screens/address_map/bloc/address_map_bloc.dart';
 import 'package:woodle/ui/screens/authentication/authentication_page.dart';
 import 'package:woodle/ui/screens/authentication/bloc/authenticationpage_bloc.dart';
 import 'package:woodle/ui/screens/cart/cart_page.dart';
+import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
+import 'package:woodle/ui/screens/category_items/category_items_page.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
+import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
+import 'package:woodle/ui/screens/notification/notification_page.dart';
+import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
+import 'package:woodle/ui/screens/orders/orders_page.dart';
+import 'package:woodle/ui/screens/shop_category_list/bloc/shop_category_list_bloc.dart';
+import 'package:woodle/ui/screens/shop_category_list/shop_category_list_page.dart';
 import 'package:woodle/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:woodle/ui/screens/splash/splash_page.dart';
 import 'package:woodle/ui/screens/web_view/web_view_page.dart';
@@ -21,6 +33,7 @@ class AppRouter {
       case '/':
         return _generatePlatformRoute(BlocProvider(
           create: (context) => SplashBloc(
+              context: context,
               authenticationStatus: context.read<AuthenticationCubit>(),
               repository: context.read<ApplicationRepository>()),
           child: SplashPage(),
@@ -31,21 +44,70 @@ class AppRouter {
           create: (context) => AuthenticationpageBloc(
               authenticationStatus: context.read<AuthenticationCubit>(),
               context: context,
-              repository: context.read<ApplicationRepository>()),
+              repository: context.read<ApplicationRepository>(),
+              localStorage: LocalStorage()),
           child: AuthenticationPage(referredLink: null),
         ));
 
       case '/address':
-        return _generatePlatformRoute(AddressPage());
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => AddressBloc(
+              localStorage: LocalStorage(),
+              repository: context.read<ApplicationRepository>()),
+          child: AddressPage(),
+        ));
+
+      case '/addressMap':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => AddressMapBloc(
+              context: context,
+              localStorage: LocalStorage(),
+              repository: context.read<ApplicationRepository>()),
+          child: AddressMapPage(
+            latitude: args['latitude'],
+            longitude: args['longitude'],
+          ),
+        ));
 
       case '/cart':
         return _generatePlatformRoute(CartPage());
 
-      // case '/categoryItems':
-      //   return _generatePlatformRoute(BlocProvider(
-      //     create: (_) => CategoryItemsBloc(),
-      //     child: CategoryItemsPage(categoryId: 1, categoryName: "categoryName"),
-      //   ));
+      case '/home':
+        return _generatePlatformRoute(BlocProvider(
+            create: (context) =>
+                HomeBloc(repository: context.read<ApplicationRepository>()),
+            child: HomePage()));
+
+      case '/itemList':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => CategoryItemsBloc(
+              repository: context.read<ApplicationRepository>()),
+          child: CategoryItemsPage(
+              categoryId: args['categoryId'],
+              categoryName: args['categoryName']),
+        ));
+
+      case '/shopList':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => ShopCategoryListBloc(
+              repository: context.read<ApplicationRepository>()),
+          child: ShopCategoryListPage(
+              categoryId: args['categoryId'],
+              categoryName: args['categoryName']),
+        ));
+
+      case '/notifications':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => NotificationBloc(
+              repository: context.read<ApplicationRepository>()),
+          child: NotificationPage(),
+        ));
 
       // case '/landing':
       //   return _generatePlatformRoute(LandingPage());
@@ -56,17 +118,15 @@ class AppRouter {
       // case '/orderPreview':
       //   return _generatePlatformRoute(OrderPreview());
 
-      // case '/orders':
-      //   return _generatePlatformRoute(OrdersPage());
+      case '/orders':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              OrdersBloc(repository: context.read<ApplicationRepository>()),
+          child: OrdersPage(),
+        ));
 
       // case '/profile':
       //   return _generatePlatformRoute(ProfilePage());
-
-      case '/home':
-        return _generatePlatformRoute(BlocProvider(
-            create: (context) =>
-                HomeBloc(repository: context.read<ApplicationRepository>()),
-            child: HomePage()));
 
       case '/webView':
         final Map<String, dynamic> args =

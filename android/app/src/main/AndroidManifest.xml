@@ -3,6 +3,11 @@
    <application
         android:label="woodle"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCOtLm7D2gL6HoJ_s3jMTyT2kHzRZZSfx4" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

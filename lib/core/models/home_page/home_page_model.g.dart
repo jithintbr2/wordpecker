@@ -20,7 +20,10 @@ _$_HomePageModel _$_$_HomePageModelFromJson(Map<String, dynamic> json) {
     carouselx4: (json['ad3'] as List<dynamic>?)
         ?.map((e) => CarouselModel.fromJson(e as Map<String, dynamic>))
         .toList(),
-    categories: (json['categories'] as List<dynamic>?)
+    itemCategories: (json['itemCategories'] as List<dynamic>?)
+        ?.map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    shopCategories: (json['shopCategories'] as List<dynamic>?)
         ?.map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
         .toList(),
     message: json['scrollingMessage'] as String?,
@@ -34,7 +37,8 @@ Map<String, dynamic> _$_$_HomePageModelToJson(_$_HomePageModel instance) =>
       'ad1': instance.carouselx2,
       'ad2': instance.carouselx3,
       'ad3': instance.carouselx4,
-      'categories': instance.categories,
+      'itemCategories': instance.itemCategories,
+      'shopCategories': instance.shopCategories,
       'scrollingMessage': instance.message,
       'minimum_order_cost': instance.minOrderCost,
     };

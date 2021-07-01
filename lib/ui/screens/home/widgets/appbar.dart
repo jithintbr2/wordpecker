@@ -3,7 +3,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({Key? key}) : super(key: key);
+  final bool showLocation;
+  final String? location;
+  final void Function()? onTap;
+  const HomeAppBar(
+      {Key? key, required this.showLocation, this.location, this.onTap})
+      : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 55);
@@ -11,7 +16,36 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(Config.applicationName),
+      title: showLocation
+          ? InkWell(
+              onTap: onTap,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Delivery Location",
+                    style:
+                        TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          location ?? 'Select Location',
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Icon(Icons.edit, size: 12),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            )
+          : Text(Config.applicationName),
       actions: [
         IconButton(
             onPressed: () async {

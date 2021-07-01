@@ -1,9 +1,13 @@
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:version/version.dart';
+import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/app_version/app_verification_model.dart';
 import 'package:woodle/core/models/app_version/app_version_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/notification/notification_model.dart';
+import 'package:woodle/core/models/orders/orders_model.dart';
+import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/http_client.dart';
 
@@ -31,8 +35,13 @@ class ApplicationRepository {
   Future<UserModel?> verifyUser(String token) {
     Map<String, dynamic> parameters = {"token": token};
     return _client
-        .getRequest('check_tocken_valid', parameters: parameters)
-        .then((value) => UserModel.fromJson(value));
+        .getRequest('/check_token_valid', parameters: parameters)
+        .then((value) {
+      if (value['data'] != null)
+        return UserModel.fromJson(value['data']);
+      else
+        return null;
+    });
   }
 
   ///Verifies the phone number to check if any account is linked to the number.
@@ -116,6 +125,83 @@ class ApplicationRepository {
       List<ItemModel> items = [];
       response["data"].forEach((item) => items.add(ItemModel.fromJson(item)));
       return items;
+    });
+  }
+
+  ///Fetch User's Saved Addresses
+  Future<List<AddressModel>> fetchSavedAddress() {
+    return _client.getRequest('/address_list').then((response) {
+      List<AddressModel> addresses = [];
+      response['data']
+          .forEach((address) => addresses.add(AddressModel.fromJson(address)));
+      return addresses;
+    });
+  }
+
+  ///Check for service availability at a given location
+  Future<int> checkServiceAvailability(double lat, double lng) {
+    Map<String, dynamic> parameters = {"lat": lat, "lng": lng};
+    return _client
+        .getRequest('/check_availability', parameters: parameters)
+        .then((response) {
+      // if (response['data'] != null) return response['data']['franchiseId'];
+      // return null;
+      return response['data']['franchiseId'];
+    });
+  }
+
+  //Add address
+  Future<int?> addAddress(String locality, String house, String nickName,
+      String pincode, double lat, double lng, int franchieId) {
+    Map<String, dynamic> parameters = {
+      'locality': locality,
+      'house': house,
+      'nickname': nickName,
+      'pincode': pincode,
+      'lat': lat,
+      'lng': lng,
+      'franchiseId': franchieId
+    };
+    return _client
+        .getRequest('/add_address', parameters: parameters)
+        .then((response) {
+      if (response['data'] != null) return response['data'];
+      return null;
+    });
+  }
+
+  ///Fetch the shop list based on categories
+  Future<List<ShopModel>> fetchShopList(int categoryId) {
+    Map<String, dynamic> parameters = {"franchiseId": 1};
+    return _client
+        .getRequest('/list_shops', parameters: parameters)
+        .then((response) {
+      List<ShopModel> shops = [];
+      if (response['data'] != null)
+        response['data']['shops']
+            .forEach((shop) => shops.add(ShopModel.fromJson(shop)));
+      return shops;
+    });
+  }
+
+  //Fetch the user's notifications
+  Future<List<NotificationModel>> fetchNotifications() {
+    return _client.getRequest('/list_notification').then((response) {
+      List<NotificationModel> notifications = [];
+      response['data'].forEach((notification) {
+        notifications.add(NotificationModel.fromJson(notification));
+      });
+      return notifications;
+    });
+  }
+
+  ///Fetch the user's order history
+  Future<List<OrdersModel>> fetchOrderHistroy() {
+    return _client.getRequest('/my_orders').then((response) {
+      List<OrdersModel> orders = [];
+      response['data']
+          .forEach((order) => orders.add(OrdersModel.fromJson(order)));
+      return orders;
     });
   }
 }

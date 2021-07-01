@@ -20,10 +20,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 class _$UserModelTearOff {
   const _$UserModelTearOff();
 
-  _UserModel call({String? name, int? id, String? token}) {
+  _UserModel call({String? name, String? token}) {
     return _UserModel(
       name: name,
-      id: id,
       token: token,
     );
   }
@@ -39,7 +38,6 @@ const $UserModel = _$UserModelTearOff();
 /// @nodoc
 mixin _$UserModel {
   String? get name => throw _privateConstructorUsedError;
-  int? get id => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +50,7 @@ mixin _$UserModel {
 abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res>;
-  $Res call({String? name, int? id, String? token});
+  $Res call({String? name, String? token});
 }
 
 /// @nodoc
@@ -66,7 +64,6 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? id = freezed,
     Object? token = freezed,
   }) {
     return _then(_value.copyWith(
@@ -74,10 +71,6 @@ class _$UserModelCopyWithImpl<$Res> implements $UserModelCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -92,7 +85,7 @@ abstract class _$UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
           _UserModel value, $Res Function(_UserModel) then) =
       __$UserModelCopyWithImpl<$Res>;
   @override
-  $Res call({String? name, int? id, String? token});
+  $Res call({String? name, String? token});
 }
 
 /// @nodoc
@@ -107,7 +100,6 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? id = freezed,
     Object? token = freezed,
   }) {
     return _then(_UserModel(
@@ -115,10 +107,6 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
       token: token == freezed
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
@@ -130,7 +118,7 @@ class __$UserModelCopyWithImpl<$Res> extends _$UserModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserModel implements _UserModel {
-  const _$_UserModel({this.name, this.id, this.token});
+  const _$_UserModel({this.name, this.token});
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$_$_UserModelFromJson(json);
@@ -138,13 +126,11 @@ class _$_UserModel implements _UserModel {
   @override
   final String? name;
   @override
-  final int? id;
-  @override
   final String? token;
 
   @override
   String toString() {
-    return 'UserModel(name: $name, id: $id, token: $token)';
+    return 'UserModel(name: $name, token: $token)';
   }
 
   @override
@@ -153,8 +139,6 @@ class _$_UserModel implements _UserModel {
         (other is _UserModel &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.token, token) ||
                 const DeepCollectionEquality().equals(other.token, token)));
   }
@@ -163,7 +147,6 @@ class _$_UserModel implements _UserModel {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(token);
 
   @JsonKey(ignore: true)
@@ -178,16 +161,13 @@ class _$_UserModel implements _UserModel {
 }
 
 abstract class _UserModel implements UserModel {
-  const factory _UserModel({String? name, int? id, String? token}) =
-      _$_UserModel;
+  const factory _UserModel({String? name, String? token}) = _$_UserModel;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
 
   @override
   String? get name => throw _privateConstructorUsedError;
-  @override
-  int? get id => throw _privateConstructorUsedError;
   @override
   String? get token => throw _privateConstructorUsedError;
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:woodle/ui/screens/splash/screens/app_landing.dart';
 import 'package:woodle/ui/screens/splash/screens/app_splash.dart';

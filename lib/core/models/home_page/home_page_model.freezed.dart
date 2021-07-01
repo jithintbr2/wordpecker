@@ -25,7 +25,8 @@ class _$HomePageModelTearOff {
       @JsonKey(name: 'ad1') List<CarouselModel>? carouselx2,
       @JsonKey(name: 'ad2') List<CarouselModel>? carouselx3,
       @JsonKey(name: 'ad3') List<CarouselModel>? carouselx4,
-      @JsonKey(name: 'categories') List<CategoryModel>? categories,
+      List<CategoryModel>? itemCategories,
+      List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost}) {
     return _HomePageModel(
@@ -33,7 +34,8 @@ class _$HomePageModelTearOff {
       carouselx2: carouselx2,
       carouselx3: carouselx3,
       carouselx4: carouselx4,
-      categories: categories,
+      itemCategories: itemCategories,
+      shopCategories: shopCategories,
       message: message,
       minOrderCost: minOrderCost,
     );
@@ -57,8 +59,8 @@ mixin _$HomePageModel {
   List<CarouselModel>? get carouselx3 => throw _privateConstructorUsedError;
   @JsonKey(name: 'ad3')
   List<CarouselModel>? get carouselx4 => throw _privateConstructorUsedError;
-  @JsonKey(name: 'categories')
-  List<CategoryModel>? get categories => throw _privateConstructorUsedError;
+  List<CategoryModel>? get itemCategories => throw _privateConstructorUsedError;
+  List<CategoryModel>? get shopCategories => throw _privateConstructorUsedError;
   @JsonKey(name: 'scrollingMessage')
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'minimum_order_cost')
@@ -80,7 +82,8 @@ abstract class $HomePageModelCopyWith<$Res> {
       @JsonKey(name: 'ad1') List<CarouselModel>? carouselx2,
       @JsonKey(name: 'ad2') List<CarouselModel>? carouselx3,
       @JsonKey(name: 'ad3') List<CarouselModel>? carouselx4,
-      @JsonKey(name: 'categories') List<CategoryModel>? categories,
+      List<CategoryModel>? itemCategories,
+      List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost});
 }
@@ -100,7 +103,8 @@ class _$HomePageModelCopyWithImpl<$Res>
     Object? carouselx2 = freezed,
     Object? carouselx3 = freezed,
     Object? carouselx4 = freezed,
-    Object? categories = freezed,
+    Object? itemCategories = freezed,
+    Object? shopCategories = freezed,
     Object? message = freezed,
     Object? minOrderCost = freezed,
   }) {
@@ -121,9 +125,13 @@ class _$HomePageModelCopyWithImpl<$Res>
           ? _value.carouselx4
           : carouselx4 // ignore: cast_nullable_to_non_nullable
               as List<CarouselModel>?,
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
+      itemCategories: itemCategories == freezed
+          ? _value.itemCategories
+          : itemCategories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryModel>?,
+      shopCategories: shopCategories == freezed
+          ? _value.shopCategories
+          : shopCategories // ignore: cast_nullable_to_non_nullable
               as List<CategoryModel>?,
       message: message == freezed
           ? _value.message
@@ -149,7 +157,8 @@ abstract class _$HomePageModelCopyWith<$Res>
       @JsonKey(name: 'ad1') List<CarouselModel>? carouselx2,
       @JsonKey(name: 'ad2') List<CarouselModel>? carouselx3,
       @JsonKey(name: 'ad3') List<CarouselModel>? carouselx4,
-      @JsonKey(name: 'categories') List<CategoryModel>? categories,
+      List<CategoryModel>? itemCategories,
+      List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost});
 }
@@ -171,7 +180,8 @@ class __$HomePageModelCopyWithImpl<$Res>
     Object? carouselx2 = freezed,
     Object? carouselx3 = freezed,
     Object? carouselx4 = freezed,
-    Object? categories = freezed,
+    Object? itemCategories = freezed,
+    Object? shopCategories = freezed,
     Object? message = freezed,
     Object? minOrderCost = freezed,
   }) {
@@ -192,9 +202,13 @@ class __$HomePageModelCopyWithImpl<$Res>
           ? _value.carouselx4
           : carouselx4 // ignore: cast_nullable_to_non_nullable
               as List<CarouselModel>?,
-      categories: categories == freezed
-          ? _value.categories
-          : categories // ignore: cast_nullable_to_non_nullable
+      itemCategories: itemCategories == freezed
+          ? _value.itemCategories
+          : itemCategories // ignore: cast_nullable_to_non_nullable
+              as List<CategoryModel>?,
+      shopCategories: shopCategories == freezed
+          ? _value.shopCategories
+          : shopCategories // ignore: cast_nullable_to_non_nullable
               as List<CategoryModel>?,
       message: message == freezed
           ? _value.message
@@ -216,7 +230,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       @JsonKey(name: 'ad1') this.carouselx2,
       @JsonKey(name: 'ad2') this.carouselx3,
       @JsonKey(name: 'ad3') this.carouselx4,
-      @JsonKey(name: 'categories') this.categories,
+      this.itemCategories,
+      this.shopCategories,
       @JsonKey(name: 'scrollingMessage') this.message,
       @JsonKey(name: 'minimum_order_cost') this.minOrderCost});
 
@@ -236,8 +251,9 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
   @JsonKey(name: 'ad3')
   final List<CarouselModel>? carouselx4;
   @override
-  @JsonKey(name: 'categories')
-  final List<CategoryModel>? categories;
+  final List<CategoryModel>? itemCategories;
+  @override
+  final List<CategoryModel>? shopCategories;
   @override
   @JsonKey(name: 'scrollingMessage')
   final String? message;
@@ -247,7 +263,7 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, categories: $categories, message: $message, minOrderCost: $minOrderCost)';
+    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, itemCategories: $itemCategories, shopCategories: $shopCategories, message: $message, minOrderCost: $minOrderCost)';
   }
 
   @override
@@ -259,7 +275,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       ..add(DiagnosticsProperty('carouselx2', carouselx2))
       ..add(DiagnosticsProperty('carouselx3', carouselx3))
       ..add(DiagnosticsProperty('carouselx4', carouselx4))
-      ..add(DiagnosticsProperty('categories', categories))
+      ..add(DiagnosticsProperty('itemCategories', itemCategories))
+      ..add(DiagnosticsProperty('shopCategories', shopCategories))
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('minOrderCost', minOrderCost));
   }
@@ -280,9 +297,12 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
             (identical(other.carouselx4, carouselx4) ||
                 const DeepCollectionEquality()
                     .equals(other.carouselx4, carouselx4)) &&
-            (identical(other.categories, categories) ||
+            (identical(other.itemCategories, itemCategories) ||
                 const DeepCollectionEquality()
-                    .equals(other.categories, categories)) &&
+                    .equals(other.itemCategories, itemCategories)) &&
+            (identical(other.shopCategories, shopCategories) ||
+                const DeepCollectionEquality()
+                    .equals(other.shopCategories, shopCategories)) &&
             (identical(other.message, message) ||
                 const DeepCollectionEquality()
                     .equals(other.message, message)) &&
@@ -298,7 +318,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       const DeepCollectionEquality().hash(carouselx2) ^
       const DeepCollectionEquality().hash(carouselx3) ^
       const DeepCollectionEquality().hash(carouselx4) ^
-      const DeepCollectionEquality().hash(categories) ^
+      const DeepCollectionEquality().hash(itemCategories) ^
+      const DeepCollectionEquality().hash(shopCategories) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(minOrderCost);
 
@@ -319,7 +340,8 @@ abstract class _HomePageModel implements HomePageModel {
           @JsonKey(name: 'ad1') List<CarouselModel>? carouselx2,
           @JsonKey(name: 'ad2') List<CarouselModel>? carouselx3,
           @JsonKey(name: 'ad3') List<CarouselModel>? carouselx4,
-          @JsonKey(name: 'categories') List<CategoryModel>? categories,
+          List<CategoryModel>? itemCategories,
+          List<CategoryModel>? shopCategories,
           @JsonKey(name: 'scrollingMessage') String? message,
           @JsonKey(name: 'minimum_order_cost') double? minOrderCost}) =
       _$_HomePageModel;
@@ -340,8 +362,9 @@ abstract class _HomePageModel implements HomePageModel {
   @JsonKey(name: 'ad3')
   List<CarouselModel>? get carouselx4 => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'categories')
-  List<CategoryModel>? get categories => throw _privateConstructorUsedError;
+  List<CategoryModel>? get itemCategories => throw _privateConstructorUsedError;
+  @override
+  List<CategoryModel>? get shopCategories => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'scrollingMessage')
   String? get message => throw _privateConstructorUsedError;

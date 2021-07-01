@@ -19,7 +19,10 @@ class HomePage extends HookWidget {
       context.read<HomeBloc>().add(HomeEvent.fetchData());
     }, []);
     return Scaffold(
-      appBar: HomeAppBar(),
+      appBar: HomeAppBar(
+        showLocation: true,
+        onTap: () => Navigator.pushNamed(context, '/address'),
+      ),
       drawer: HomeDrawer(),
       body: _buildBloc(),
     );
@@ -33,7 +36,7 @@ class HomePage extends HookWidget {
           _view = LoadingView();
         }, loaded: (data) {
           _view = RefreshIndicator(
-              child: _buildPage(data),
+              child: _buildPage(context, data),
               onRefresh: () async {
                 context.read<HomeBloc>().add(HomeEvent.fetchData());
                 return null;
@@ -46,13 +49,31 @@ class HomePage extends HookWidget {
     );
   }
 
-  _buildPage(HomePageModel data) {
+  _buildPage(BuildContext context, HomePageModel data) {
     return ListView(
       children: [
         Carousel(items: data.carouselx1 ?? []),
         SizedBox(height: 10),
         MarqueeWidget(text: data.message ?? ''),
-        Category(items: data.categories ?? []),
+        Category(
+          title: 'Explore Items by Category',
+          items: data.itemCategories ?? [],
+          onTap: (index) =>
+              Navigator.of(context).pushNamed('/itemList', arguments: {
+            "categoryName": data.itemCategories![index].title,
+            "categoryId": data.itemCategories![index].id
+          }),
+        ),
+        SizedBox(height: 10),
+        Category(
+          title: 'Explore Shops by Category',
+          items: data.shopCategories ?? [],
+          onTap: (index) =>
+              Navigator.of(context).pushNamed('/shopList', arguments: {
+            "categoryName": data.shopCategories![index].title,
+            "categoryId": data.shopCategories![index].id
+          }),
+        ),
         SizedBox(height: 10),
         Carousel(items: data.carouselx2 ?? [])
       ],

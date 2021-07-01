@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
+import 'package:woodle/core/services/storage.dart';
 
 part 'authenticationpage_event.dart';
 part 'authenticationpage_state.dart';
@@ -15,12 +16,14 @@ class AuthenticationpageBloc
     extends Bloc<AuthenticationpageEvent, AuthenticationpageState> {
   final ApplicationRepository repository;
   final AuthenticationCubit authenticationStatus;
+  final LocalStorage localStorage;
   final BuildContext context;
 
   AuthenticationpageBloc({
     required this.authenticationStatus,
     required this.context,
     required this.repository,
+    required this.localStorage,
   }) : super(_Initial(isLoading: false));
 
   @override
@@ -52,17 +55,20 @@ class AuthenticationpageBloc
           password: event.password,
           firebaseId: firebaseId);
       if (user != null) {
+        localStorage.set('token', user.token);
         authenticationStatus.changeState(user: user);
+        repository.setToken(user.token!);
         Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-      } else
+      } else {
         yield _LoginState(isLoading: false);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Wrong Credentials'),
-        backgroundColor: Colors.red,
-        elevation: 10,
-        behavior: SnackBarBehavior.floating,
-        margin: EdgeInsets.all(10),
-      ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Wrong Credentials'),
+          backgroundColor: Colors.red,
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(10),
+        ));
+      }
     }
 
     if (event is _Register) {
@@ -76,7 +82,10 @@ class AuthenticationpageBloc
           referalId: event.referalId,
           referredLink: event.referredLink);
       if (user != null) {
+        localStorage.set('token', user.token);
         authenticationStatus.changeState(user: user);
+        repository.setToken(user.token!);
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       } else
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Something Went Wrong. Try to Login.'),
