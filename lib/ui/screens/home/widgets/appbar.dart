@@ -9,12 +9,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showLocation;
   final String? location;
   final void Function()? onTap;
+  final void Function()? onSearch;
   final CartService service;
   const HomeAppBar({
     Key? key,
     required this.showLocation,
     this.location,
     this.onTap,
+    this.onSearch,
     required this.service,
   }) : super(key: key);
 
@@ -113,9 +115,5 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         preferredSize: Size.fromHeight(55),
       ),
     );
-  }
-
-  void onSearch() {
-    return null;
   }
 }

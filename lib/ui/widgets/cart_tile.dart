@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class CartTile extends StatelessWidget {
-  final Function? onBodyTap;
-  final Function onCheckout;
+  final bool? showCart;
+  // final Function onCheckout;
   final int itemCount;
   final double totalPrice;
   const CartTile({
     Key? key,
     required this.itemCount,
-    this.onBodyTap,
-    required this.onCheckout,
+    this.showCart = true,
+    // required this.onCheckout,
     required this.totalPrice,
   }) : super(key: key);
 
-  Widget _WrapEmpty({required testCase, required Widget child}) {
+  Widget _wrapEmpty({required testCase, required Widget child}) {
     if (testCase == null)
       return SizedBox();
     else
-      return child;
+      return InkWell(
+        onTap: testCase,
+        child: child,
+      );
   }
 
   Widget _buildPopupDialog(BuildContext context, minorder) {
@@ -79,8 +82,10 @@ class CartTile extends StatelessWidget {
                 ),
               ],
             ),
-            _WrapEmpty(
-                testCase: onBodyTap,
+            _wrapEmpty(
+                testCase: showCart!
+                    ? () => Navigator.of(context).pushNamed('/cart')
+                    : null,
                 child: Wrap(
                   spacing: 4,
                   crossAxisAlignment: WrapCrossAlignment.center,

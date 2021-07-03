@@ -11,17 +11,13 @@ class CartPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    CartService service = CartService();
-
-    useEffect(() {
-      service.init();
-      return () => service.dispose();
-    }, []);
+    final CartService service = CartService();
 
     return Scaffold(
         appBar: AppBar(title: Text('Cart')),
         body: StreamBuilder(
             stream: service.controller,
+            initialData: service.initialValue(),
             builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
               if (snap.data != null && snap.data!.isNotEmpty)
                 return _buildPage(snap.data!, service);
@@ -61,9 +57,9 @@ class CartPage extends HookWidget {
           itemCount: sortedData.length,
         )),
         CartTile(
-          onCheckout: () {},
           totalPrice: totalPrice,
           itemCount: itemCount,
+          showCart: false,
         )
       ],
     );

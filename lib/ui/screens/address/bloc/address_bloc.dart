@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
@@ -15,9 +17,11 @@ part 'address_bloc.freezed.dart';
 class AddressBloc extends Bloc<AddressEvent, AddressState> {
   ApplicationRepository repository;
   LocalStorage localStorage;
+  BuildContext context;
   AddressBloc({
     required this.localStorage,
     required this.repository,
+    required this.context,
   }) : super(_Loading());
 
   @override
@@ -30,6 +34,11 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));
+    }
+
+    if (event is _SelectAddress) {
+      localStorage.set('currentAddress', jsonEncode(event.address));
+      Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
     }
   }
 }

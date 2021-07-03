@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'address_bloc.dart';
+part of 'home_search_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,348 +13,148 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$AddressEventTearOff {
-  const _$AddressEventTearOff();
+class _$HomeSearchEventTearOff {
+  const _$HomeSearchEventTearOff();
 
-  _FetchSavedAddress fetchSavedAddress() {
-    return const _FetchSavedAddress();
-  }
-
-  _DeleteAddress deleteAddress() {
-    return const _DeleteAddress();
-  }
-
-  _SelectAddress selectAddress(AddressModel address) {
-    return _SelectAddress(
-      address,
+  _Search search(String searchQuery) {
+    return _Search(
+      searchQuery,
     );
   }
+
+  _Reset reset() {
+    return const _Reset();
+  }
 }
 
 /// @nodoc
-const $AddressEvent = _$AddressEventTearOff();
+const $HomeSearchEvent = _$HomeSearchEventTearOff();
 
 /// @nodoc
-mixin _$AddressEvent {
+mixin _$HomeSearchEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(String searchQuery) search,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(String searchQuery)? search,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_Search value) search,
+    required TResult Function(_Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_Search value)? search,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddressEventCopyWith<$Res> {
-  factory $AddressEventCopyWith(
-          AddressEvent value, $Res Function(AddressEvent) then) =
-      _$AddressEventCopyWithImpl<$Res>;
+abstract class $HomeSearchEventCopyWith<$Res> {
+  factory $HomeSearchEventCopyWith(
+          HomeSearchEvent value, $Res Function(HomeSearchEvent) then) =
+      _$HomeSearchEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AddressEventCopyWithImpl<$Res> implements $AddressEventCopyWith<$Res> {
-  _$AddressEventCopyWithImpl(this._value, this._then);
+class _$HomeSearchEventCopyWithImpl<$Res>
+    implements $HomeSearchEventCopyWith<$Res> {
+  _$HomeSearchEventCopyWithImpl(this._value, this._then);
 
-  final AddressEvent _value;
+  final HomeSearchEvent _value;
   // ignore: unused_field
-  final $Res Function(AddressEvent) _then;
+  final $Res Function(HomeSearchEvent) _then;
 }
 
 /// @nodoc
-abstract class _$FetchSavedAddressCopyWith<$Res> {
-  factory _$FetchSavedAddressCopyWith(
-          _FetchSavedAddress value, $Res Function(_FetchSavedAddress) then) =
-      __$FetchSavedAddressCopyWithImpl<$Res>;
+abstract class _$SearchCopyWith<$Res> {
+  factory _$SearchCopyWith(_Search value, $Res Function(_Search) then) =
+      __$SearchCopyWithImpl<$Res>;
+  $Res call({String searchQuery});
 }
 
 /// @nodoc
-class __$FetchSavedAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$FetchSavedAddressCopyWith<$Res> {
-  __$FetchSavedAddressCopyWithImpl(
-      _FetchSavedAddress _value, $Res Function(_FetchSavedAddress) _then)
-      : super(_value, (v) => _then(v as _FetchSavedAddress));
+class __$SearchCopyWithImpl<$Res> extends _$HomeSearchEventCopyWithImpl<$Res>
+    implements _$SearchCopyWith<$Res> {
+  __$SearchCopyWithImpl(_Search _value, $Res Function(_Search) _then)
+      : super(_value, (v) => _then(v as _Search));
 
   @override
-  _FetchSavedAddress get _value => super._value as _FetchSavedAddress;
-}
-
-/// @nodoc
-
-class _$_FetchSavedAddress implements _FetchSavedAddress {
-  const _$_FetchSavedAddress();
-
-  @override
-  String toString() {
-    return 'AddressEvent.fetchSavedAddress()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _FetchSavedAddress);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
-  }) {
-    return fetchSavedAddress();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (fetchSavedAddress != null) {
-      return fetchSavedAddress();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
-  }) {
-    return fetchSavedAddress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (fetchSavedAddress != null) {
-      return fetchSavedAddress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _FetchSavedAddress implements AddressEvent {
-  const factory _FetchSavedAddress() = _$_FetchSavedAddress;
-}
-
-/// @nodoc
-abstract class _$DeleteAddressCopyWith<$Res> {
-  factory _$DeleteAddressCopyWith(
-          _DeleteAddress value, $Res Function(_DeleteAddress) then) =
-      __$DeleteAddressCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$DeleteAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$DeleteAddressCopyWith<$Res> {
-  __$DeleteAddressCopyWithImpl(
-      _DeleteAddress _value, $Res Function(_DeleteAddress) _then)
-      : super(_value, (v) => _then(v as _DeleteAddress));
-
-  @override
-  _DeleteAddress get _value => super._value as _DeleteAddress;
-}
-
-/// @nodoc
-
-class _$_DeleteAddress implements _DeleteAddress {
-  const _$_DeleteAddress();
-
-  @override
-  String toString() {
-    return 'AddressEvent.deleteAddress()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _DeleteAddress);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
-  }) {
-    return deleteAddress();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (deleteAddress != null) {
-      return deleteAddress();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
-  }) {
-    return deleteAddress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (deleteAddress != null) {
-      return deleteAddress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _DeleteAddress implements AddressEvent {
-  const factory _DeleteAddress() = _$_DeleteAddress;
-}
-
-/// @nodoc
-abstract class _$SelectAddressCopyWith<$Res> {
-  factory _$SelectAddressCopyWith(
-          _SelectAddress value, $Res Function(_SelectAddress) then) =
-      __$SelectAddressCopyWithImpl<$Res>;
-  $Res call({AddressModel address});
-
-  $AddressModelCopyWith<$Res> get address;
-}
-
-/// @nodoc
-class __$SelectAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$SelectAddressCopyWith<$Res> {
-  __$SelectAddressCopyWithImpl(
-      _SelectAddress _value, $Res Function(_SelectAddress) _then)
-      : super(_value, (v) => _then(v as _SelectAddress));
-
-  @override
-  _SelectAddress get _value => super._value as _SelectAddress;
+  _Search get _value => super._value as _Search;
 
   @override
   $Res call({
-    Object? address = freezed,
+    Object? searchQuery = freezed,
   }) {
-    return _then(_SelectAddress(
-      address == freezed
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as AddressModel,
+    return _then(_Search(
+      searchQuery == freezed
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
-  }
-
-  @override
-  $AddressModelCopyWith<$Res> get address {
-    return $AddressModelCopyWith<$Res>(_value.address, (value) {
-      return _then(_value.copyWith(address: value));
-    });
   }
 }
 
 /// @nodoc
 
-class _$_SelectAddress implements _SelectAddress {
-  const _$_SelectAddress(this.address);
+class _$_Search implements _Search {
+  const _$_Search(this.searchQuery);
 
   @override
-  final AddressModel address;
+  final String searchQuery;
 
   @override
   String toString() {
-    return 'AddressEvent.selectAddress(address: $address)';
+    return 'HomeSearchEvent.search(searchQuery: $searchQuery)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SelectAddress &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
+        (other is _Search &&
+            (identical(other.searchQuery, searchQuery) ||
+                const DeepCollectionEquality()
+                    .equals(other.searchQuery, searchQuery)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(searchQuery);
 
   @JsonKey(ignore: true)
   @override
-  _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
-      __$SelectAddressCopyWithImpl<_SelectAddress>(this, _$identity);
+  _$SearchCopyWith<_Search> get copyWith =>
+      __$SearchCopyWithImpl<_Search>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(String searchQuery) search,
+    required TResult Function() reset,
   }) {
-    return selectAddress(address);
+    return search(searchQuery);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(String searchQuery)? search,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (selectAddress != null) {
-      return selectAddress(address);
+    if (search != null) {
+      return search(searchQuery);
     }
     return orElse();
   }
@@ -362,46 +162,126 @@ class _$_SelectAddress implements _SelectAddress {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_Search value) search,
+    required TResult Function(_Reset value) reset,
   }) {
-    return selectAddress(this);
+    return search(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_Search value)? search,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
-    if (selectAddress != null) {
-      return selectAddress(this);
+    if (search != null) {
+      return search(this);
     }
     return orElse();
   }
 }
 
-abstract class _SelectAddress implements AddressEvent {
-  const factory _SelectAddress(AddressModel address) = _$_SelectAddress;
+abstract class _Search implements HomeSearchEvent {
+  const factory _Search(String searchQuery) = _$_Search;
 
-  AddressModel get address => throw _privateConstructorUsedError;
+  String get searchQuery => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$SearchCopyWith<_Search> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$AddressStateTearOff {
-  const _$AddressStateTearOff();
+abstract class _$ResetCopyWith<$Res> {
+  factory _$ResetCopyWith(_Reset value, $Res Function(_Reset) then) =
+      __$ResetCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ResetCopyWithImpl<$Res> extends _$HomeSearchEventCopyWithImpl<$Res>
+    implements _$ResetCopyWith<$Res> {
+  __$ResetCopyWithImpl(_Reset _value, $Res Function(_Reset) _then)
+      : super(_value, (v) => _then(v as _Reset));
+
+  @override
+  _Reset get _value => super._value as _Reset;
+}
+
+/// @nodoc
+
+class _$_Reset implements _Reset {
+  const _$_Reset();
+
+  @override
+  String toString() {
+    return 'HomeSearchEvent.reset()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Reset);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String searchQuery) search,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String searchQuery)? search,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Search value) search,
+    required TResult Function(_Reset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Search value)? search,
+    TResult Function(_Reset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Reset implements HomeSearchEvent {
+  const factory _Reset() = _$_Reset;
+}
+
+/// @nodoc
+class _$HomeSearchStateTearOff {
+  const _$HomeSearchStateTearOff();
 
   _Loading loading() {
     return const _Loading();
   }
 
-  _Loaded loaded(List<AddressModel> data) {
+  _Loaded loaded(HomeSearchModel data) {
     return _Loaded(
       data,
     );
@@ -415,21 +295,21 @@ class _$AddressStateTearOff {
 }
 
 /// @nodoc
-const $AddressState = _$AddressStateTearOff();
+const $HomeSearchState = _$HomeSearchStateTearOff();
 
 /// @nodoc
-mixin _$AddressState {
+mixin _$HomeSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(HomeSearchModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(HomeSearchModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
@@ -452,19 +332,20 @@ mixin _$AddressState {
 }
 
 /// @nodoc
-abstract class $AddressStateCopyWith<$Res> {
-  factory $AddressStateCopyWith(
-          AddressState value, $Res Function(AddressState) then) =
-      _$AddressStateCopyWithImpl<$Res>;
+abstract class $HomeSearchStateCopyWith<$Res> {
+  factory $HomeSearchStateCopyWith(
+          HomeSearchState value, $Res Function(HomeSearchState) then) =
+      _$HomeSearchStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AddressStateCopyWithImpl<$Res> implements $AddressStateCopyWith<$Res> {
-  _$AddressStateCopyWithImpl(this._value, this._then);
+class _$HomeSearchStateCopyWithImpl<$Res>
+    implements $HomeSearchStateCopyWith<$Res> {
+  _$HomeSearchStateCopyWithImpl(this._value, this._then);
 
-  final AddressState _value;
+  final HomeSearchState _value;
   // ignore: unused_field
-  final $Res Function(AddressState) _then;
+  final $Res Function(HomeSearchState) _then;
 }
 
 /// @nodoc
@@ -474,7 +355,7 @@ abstract class _$LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$LoadingCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
     implements _$LoadingCopyWith<$Res> {
   __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
       : super(_value, (v) => _then(v as _Loading));
@@ -490,7 +371,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'AddressState.loading()';
+    return 'HomeSearchState.loading()';
   }
 
   @override
@@ -505,7 +386,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(HomeSearchModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
@@ -515,7 +396,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(HomeSearchModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -550,7 +431,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements AddressState {
+abstract class _Loading implements HomeSearchState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -558,11 +439,13 @@ abstract class _Loading implements AddressState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<AddressModel> data});
+  $Res call({HomeSearchModel data});
+
+  $HomeSearchModelCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$LoadedCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
     implements _$LoadedCopyWith<$Res> {
   __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
       : super(_value, (v) => _then(v as _Loaded));
@@ -578,8 +461,15 @@ class __$LoadedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<AddressModel>,
+              as HomeSearchModel,
     ));
+  }
+
+  @override
+  $HomeSearchModelCopyWith<$Res> get data {
+    return $HomeSearchModelCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
   }
 }
 
@@ -589,11 +479,11 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded(this.data);
 
   @override
-  final List<AddressModel> data;
+  final HomeSearchModel data;
 
   @override
   String toString() {
-    return 'AddressState.loaded(data: $data)';
+    return 'HomeSearchState.loaded(data: $data)';
   }
 
   @override
@@ -617,7 +507,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(HomeSearchModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
@@ -627,7 +517,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(HomeSearchModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -662,10 +552,10 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements AddressState {
-  const factory _Loaded(List<AddressModel> data) = _$_Loaded;
+abstract class _Loaded implements HomeSearchState {
+  const factory _Loaded(HomeSearchModel data) = _$_Loaded;
 
-  List<AddressModel> get data => throw _privateConstructorUsedError;
+  HomeSearchModel get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -680,7 +570,7 @@ abstract class _$FailedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$FailedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$FailedCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
     implements _$FailedCopyWith<$Res> {
   __$FailedCopyWithImpl(_Failed _value, $Res Function(_Failed) _then)
       : super(_value, (v) => _then(v as _Failed));
@@ -718,7 +608,7 @@ class _$_Failed implements _Failed {
 
   @override
   String toString() {
-    return 'AddressState.failed(exceptions: $exceptions)';
+    return 'HomeSearchState.failed(exceptions: $exceptions)';
   }
 
   @override
@@ -743,7 +633,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(HomeSearchModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return failed(exceptions);
@@ -753,7 +643,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(HomeSearchModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -788,7 +678,7 @@ class _$_Failed implements _Failed {
   }
 }
 
-abstract class _Failed implements AddressState {
+abstract class _Failed implements HomeSearchState {
   const factory _Failed(NetworkExceptions exceptions) = _$_Failed;
 
   NetworkExceptions get exceptions => throw _privateConstructorUsedError;

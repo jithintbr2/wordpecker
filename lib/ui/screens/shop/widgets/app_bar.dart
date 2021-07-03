@@ -4,21 +4,29 @@ import 'package:flutter/material.dart';
 class ShopSliverAppBar extends StatelessWidget {
   final String? title;
   final String? imageUrl;
+  final TextEditingController controller;
+  final bool showCancel;
   const ShopSliverAppBar({
     Key? key,
     this.title,
     required this.imageUrl,
+    required this.controller,
+    required this.showCancel,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _focusNode = FocusNode();
     return SliverAppBar(
       backgroundColor: Theme.of(context).primaryColor,
       pinned: true,
       expandedHeight: 200,
+      title: Text(
+        title ?? '',
+        style: TextStyle(color: Theme.of(context).canvasColor),
+      ),
       flexibleSpace: LayoutBuilder(
         builder: (context, constraints) => FlexibleSpaceBar(
-          title: Text(title ?? ''),
           background: imageUrl == null
               ? Center(
                   child: CircularProgressIndicator(),
@@ -45,24 +53,23 @@ class ShopSliverAppBar extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: Colors.white),
           child: TextField(
-              // focusNode: _focusNode,
-              // controller: controller,
+              focusNode: _focusNode,
+              controller: controller,
               decoration: InputDecoration(
-            isDense: true,
-            hintText: "Search in $title",
-            filled: true,
-            border: InputBorder.none,
-            prefixIcon: Icon(Icons.grid_view, color: Colors.grey),
-            // suffixIcon: _focusNode.hasFocus
-            //     ? IconButton(
-            //         icon: Icon(Icons.close),
-            //         onPressed: () {
-            //           _focusNode.unfocus();
-            //           controller.clear();
-            //         },
-            //       )
-            //     : Icon(Icons.search)
-          )),
+                  isDense: true,
+                  hintText: "Search in $title",
+                  filled: true,
+                  border: InputBorder.none,
+                  prefixIcon: Icon(Icons.grid_view, color: Colors.grey),
+                  suffixIcon: showCancel
+                      ? IconButton(
+                          icon: Icon(Icons.close),
+                          onPressed: () {
+                            _focusNode.unfocus();
+                            controller.clear();
+                          },
+                        )
+                      : Icon(Icons.search))),
         ),
         preferredSize: Size.fromHeight(55),
       ),

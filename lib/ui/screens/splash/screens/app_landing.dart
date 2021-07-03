@@ -20,10 +20,10 @@ class AppLandingScreen extends HookWidget {
             children: [
               Expanded(
                   child: Center(
-                child: Image.asset(
-                  Assets.landingIcon,
-                  fit: BoxFit.fitHeight,
-                ),
+                child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(Assets.appIcon,
+                        height: 120, fit: BoxFit.contain)),
               )),
               Row(
                 children: [

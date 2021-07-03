@@ -23,14 +23,27 @@ class ShopPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final CartService service = CartService();
+    final searchController = useTextEditingController();
+
     useEffect(() {
       context.read<ShopBloc>().add(ShopEvent.fetchData(shopId));
     }, []);
+
+    final showCancel = useState(false);
+    useEffect(() {
+      searchController.addListener(() {
+        if (showCancel.value != searchController.text.isNotEmpty)
+          showCancel.value = searchController.text.isNotEmpty;
+      });
+      return () => searchController.dispose();
+    }, []);
+
     return Scaffold(
       body: BlocBuilder<ShopBloc, ShopState>(
           builder: (context, state) => state.when(
               loading: () => LoadingView(),
-              loaded: (data) => _buildPage(context, data, service),
+              loaded: (data) => _buildPage(
+                  context, data, service, searchController, showCancel),
               failed: (exception) => FailedView(
                   exceptions: exception,
                   onRetry: () =>
@@ -38,12 +51,18 @@ class ShopPage extends HookWidget {
     );
   }
 
-  Widget _buildPage(BuildContext context, ShopModel data, CartService service) {
+  Widget _buildPage(BuildContext context, ShopModel data, CartService service,
+      TextEditingController searchController, ValueNotifier<bool> showCancel) {
     List<MenuModel> _filteredCategories = data.category ?? [];
     List<Widget> _slivers = [];
 
     _slivers
-      ..add(ShopSliverAppBar(imageUrl: data.imageUrl))
+      ..add(ShopSliverAppBar(
+        imageUrl: data.imageUrl,
+        title: data.shopName,
+        showCancel: showCancel.value,
+        controller: searchController,
+      ))
       ..add(SliverList(
           delegate: SliverChildListDelegate([ShopHeader(shop: data)])));
 
@@ -98,11 +117,19 @@ class ShopPage extends HookWidget {
               stream: service.controller,
               initialData: service.initialValue(),
               builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
-                if (snap.hasData && snap.data!.length > 0)
+                if (snap.hasData && snap.data!.length > 0) {
+                  double _totalPrice = 0;
+                  int _itemCount = 0;
+
+                  snap.data?.forEach((item) {
+                    _totalPrice += item.salePrice!;
+                    _itemCount += 1;
+                  });
                   return CartTile(
-                      itemCount: snap.data!.length,
-                      onCheckout: () {},
-                      totalPrice: 100);
+                    itemCount: _itemCount,
+                    totalPrice: _totalPrice,
+                  );
+                }
                 return SizedBox();
               }),
         )
@@ -139,6 +166,7 @@ class ShopPage extends HookWidget {
             }
             return ItemVarientContainerTile(
                 item: data[index],
+                service: service,
                 cartItems: snap.data,
                 onAdd: (item) => service.addItem(item),
                 onRemove: (item) => service.removeItem(item));

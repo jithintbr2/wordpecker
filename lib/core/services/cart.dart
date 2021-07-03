@@ -55,5 +55,5 @@ class CartService {
     }
   }
 
-  void dispose() => _controller.close();
+  // void dispose() => _controller.close();
 }

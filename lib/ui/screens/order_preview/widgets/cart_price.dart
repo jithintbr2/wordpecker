@@ -12,6 +12,7 @@ class CartPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: service.controller,
+        initialData: service.initialValue(),
         builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
           if (snap.data != null && snap.data!.isNotEmpty) {
             List<ItemVarientModel> sortedData = snap.data!.toSet().toList();

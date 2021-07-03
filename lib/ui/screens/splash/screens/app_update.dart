@@ -13,10 +13,10 @@ class AppUpdateScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            Assets.landingIcon,
-            fit: BoxFit.fitHeight,
-          ),
+          Hero(
+              tag: 'logo',
+              child: Image.asset(Assets.appIcon,
+                  height: 120, fit: BoxFit.contain)),
           Text("We are better than ever",
               style: Theme.of(context).textTheme.headline6),
           SizedBox(height: 10),

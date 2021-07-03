@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
@@ -11,6 +12,7 @@ class ItemVarientContainerTile extends StatelessWidget {
   final List<ItemVarientModel>? cartItems;
   final void Function(ItemVarientModel) onAdd;
   final void Function(ItemVarientModel) onRemove;
+  final CartService service;
 
   const ItemVarientContainerTile({
     Key? key,
@@ -18,6 +20,7 @@ class ItemVarientContainerTile extends StatelessWidget {
     required this.cartItems,
     required this.onAdd,
     required this.onRemove,
+    required this.service,
   }) : super(key: key);
 
   int _getCartQuantity(List<ItemVarientModel>? data, int id) {
@@ -38,23 +41,29 @@ class ItemVarientContainerTile extends StatelessWidget {
         context: context,
         builder: (context) {
           return Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).canvasColor,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(10),
-                topRight: const Radius.circular(10),
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
               ),
-            ),
-            height: 180,
-            child: ListView.builder(
-                itemBuilder: (context, index) => ItemVarientTile(
-                    elevation: 0,
-                    item: data[index],
-                    onAdd: () => onAdd(data[index]),
-                    onRemove: () => onRemove(data[index]),
-                    quantity: _getCartQuantity(
-                        selectedItems, data[index].varientId))),
-          );
+              child: StreamBuilder(
+                  initialData: service.initialValue(),
+                  stream: service.controller,
+                  builder:
+                      (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) => ItemVarientTile(
+                          elevation: 0,
+                          item: data[index],
+                          onAdd: () => onAdd(data[index]),
+                          onRemove: () => onRemove(data[index]),
+                          quantity: _getCartQuantity(
+                              snap.data, data[index].varientId)),
+                      itemCount: data.length,
+                    );
+                  }));
         });
   }
 

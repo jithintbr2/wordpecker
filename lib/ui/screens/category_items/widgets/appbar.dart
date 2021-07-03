@@ -4,8 +4,12 @@ class CategoryItemsAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final TextEditingController controller;
+  final bool showCancel;
   const CategoryItemsAppBar(
-      {required this.title, required this.controller, Key? key})
+      {required this.title,
+      required this.controller,
+      required this.showCancel,
+      Key? key})
       : super(key: key);
 
   @override
@@ -36,7 +40,7 @@ class CategoryItemsAppBar extends StatelessWidget
                   filled: true,
                   border: InputBorder.none,
                   prefixIcon: Icon(Icons.grid_view, color: Colors.grey),
-                  suffixIcon: _focusNode.hasFocus
+                  suffixIcon: showCancel
                       ? IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {

@@ -97,6 +97,10 @@ class AddressPage extends HookWidget {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: data.length,
                           itemBuilder: (context, index) => ListTile(
+                                onTap: Config.isMultiLocation
+                                    ? () => context.read<AddressBloc>().add(
+                                        AddressEvent.selectAddress(data[index]))
+                                    : null,
                                 leading: Icon(data[index].nickName == 'Work'
                                     ? Icons.work
                                     : data[index].nickName == 'Home'

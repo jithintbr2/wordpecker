@@ -29,6 +29,7 @@ class HomePage extends HookWidget {
       if (localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
             jsonDecode(localStorage.get('currentAddress') as String);
+        print(currentAddressRaw);
         return AddressModel.fromJson(currentAddressRaw);
       }
       return null;
@@ -47,6 +48,7 @@ class HomePage extends HookWidget {
         showLocation: true,
         location: address?.locality,
         onTap: () => Navigator.pushNamed(context, '/address'),
+        onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
       ),
       drawer: HomeDrawer(),
       body: Config.locationId != -1 || address != null
@@ -89,7 +91,7 @@ class HomePage extends HookWidget {
         SizedBox(height: 10),
         MarqueeWidget(text: data.message ?? ''),
         Category(
-          title: 'Explore Items by Category',
+          title: 'Items',
           items: data.itemCategories ?? [],
           limit: Config.itemCategoriesLimit,
           onTap: (index) =>
@@ -100,7 +102,7 @@ class HomePage extends HookWidget {
         ),
         SizedBox(height: 10),
         Category(
-          title: 'Explore Shops by Category',
+          title: 'Shops',
           items: data.shopCategories ?? [],
           limit: Config.shopCategoriesLimit,
           onTap: (index) =>

@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'address_bloc.dart';
+part of 'order_preview_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,109 +13,109 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$AddressEventTearOff {
-  const _$AddressEventTearOff();
+class _$OrderPreviewEventTearOff {
+  const _$OrderPreviewEventTearOff();
 
-  _FetchSavedAddress fetchSavedAddress() {
-    return const _FetchSavedAddress();
+  _CartExpiryCheck cartExpiryCheck() {
+    return const _CartExpiryCheck();
   }
 
-  _DeleteAddress deleteAddress() {
-    return const _DeleteAddress();
-  }
-
-  _SelectAddress selectAddress(AddressModel address) {
-    return _SelectAddress(
-      address,
-    );
+  _GetSupportingData getSupportingData() {
+    return const _GetSupportingData();
   }
 }
 
 /// @nodoc
-const $AddressEvent = _$AddressEventTearOff();
+const $OrderPreviewEvent = _$OrderPreviewEventTearOff();
 
 /// @nodoc
-mixin _$AddressEvent {
+mixin _$OrderPreviewEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function() cartExpiryCheck,
+    required TResult Function() getSupportingData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function()? cartExpiryCheck,
+    TResult Function()? getSupportingData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_CartExpiryCheck value) cartExpiryCheck,
+    required TResult Function(_GetSupportingData value) getSupportingData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_CartExpiryCheck value)? cartExpiryCheck,
+    TResult Function(_GetSupportingData value)? getSupportingData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddressEventCopyWith<$Res> {
-  factory $AddressEventCopyWith(
-          AddressEvent value, $Res Function(AddressEvent) then) =
-      _$AddressEventCopyWithImpl<$Res>;
+abstract class $OrderPreviewEventCopyWith<$Res> {
+  factory $OrderPreviewEventCopyWith(
+          OrderPreviewEvent value, $Res Function(OrderPreviewEvent) then) =
+      _$OrderPreviewEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AddressEventCopyWithImpl<$Res> implements $AddressEventCopyWith<$Res> {
-  _$AddressEventCopyWithImpl(this._value, this._then);
+class _$OrderPreviewEventCopyWithImpl<$Res>
+    implements $OrderPreviewEventCopyWith<$Res> {
+  _$OrderPreviewEventCopyWithImpl(this._value, this._then);
 
-  final AddressEvent _value;
+  final OrderPreviewEvent _value;
   // ignore: unused_field
-  final $Res Function(AddressEvent) _then;
+  final $Res Function(OrderPreviewEvent) _then;
 }
 
 /// @nodoc
-abstract class _$FetchSavedAddressCopyWith<$Res> {
-  factory _$FetchSavedAddressCopyWith(
-          _FetchSavedAddress value, $Res Function(_FetchSavedAddress) then) =
-      __$FetchSavedAddressCopyWithImpl<$Res>;
+abstract class _$CartExpiryCheckCopyWith<$Res> {
+  factory _$CartExpiryCheckCopyWith(
+          _CartExpiryCheck value, $Res Function(_CartExpiryCheck) then) =
+      __$CartExpiryCheckCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$FetchSavedAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$FetchSavedAddressCopyWith<$Res> {
-  __$FetchSavedAddressCopyWithImpl(
-      _FetchSavedAddress _value, $Res Function(_FetchSavedAddress) _then)
-      : super(_value, (v) => _then(v as _FetchSavedAddress));
+class __$CartExpiryCheckCopyWithImpl<$Res>
+    extends _$OrderPreviewEventCopyWithImpl<$Res>
+    implements _$CartExpiryCheckCopyWith<$Res> {
+  __$CartExpiryCheckCopyWithImpl(
+      _CartExpiryCheck _value, $Res Function(_CartExpiryCheck) _then)
+      : super(_value, (v) => _then(v as _CartExpiryCheck));
 
   @override
-  _FetchSavedAddress get _value => super._value as _FetchSavedAddress;
+  _CartExpiryCheck get _value => super._value as _CartExpiryCheck;
 }
 
 /// @nodoc
 
-class _$_FetchSavedAddress implements _FetchSavedAddress {
-  const _$_FetchSavedAddress();
+class _$_CartExpiryCheck
+    with DiagnosticableTreeMixin
+    implements _CartExpiryCheck {
+  const _$_CartExpiryCheck();
 
   @override
-  String toString() {
-    return 'AddressEvent.fetchSavedAddress()';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrderPreviewEvent.cartExpiryCheck()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.cartExpiryCheck'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _FetchSavedAddress);
+    return identical(this, other) || (other is _CartExpiryCheck);
   }
 
   @override
@@ -124,23 +124,21 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function() cartExpiryCheck,
+    required TResult Function() getSupportingData,
   }) {
-    return fetchSavedAddress();
+    return cartExpiryCheck();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function()? cartExpiryCheck,
+    TResult Function()? getSupportingData,
     required TResult orElse(),
   }) {
-    if (fetchSavedAddress != null) {
-      return fetchSavedAddress();
+    if (cartExpiryCheck != null) {
+      return cartExpiryCheck();
     }
     return orElse();
   }
@@ -148,64 +146,71 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_CartExpiryCheck value) cartExpiryCheck,
+    required TResult Function(_GetSupportingData value) getSupportingData,
   }) {
-    return fetchSavedAddress(this);
+    return cartExpiryCheck(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_CartExpiryCheck value)? cartExpiryCheck,
+    TResult Function(_GetSupportingData value)? getSupportingData,
     required TResult orElse(),
   }) {
-    if (fetchSavedAddress != null) {
-      return fetchSavedAddress(this);
+    if (cartExpiryCheck != null) {
+      return cartExpiryCheck(this);
     }
     return orElse();
   }
 }
 
-abstract class _FetchSavedAddress implements AddressEvent {
-  const factory _FetchSavedAddress() = _$_FetchSavedAddress;
+abstract class _CartExpiryCheck implements OrderPreviewEvent {
+  const factory _CartExpiryCheck() = _$_CartExpiryCheck;
 }
 
 /// @nodoc
-abstract class _$DeleteAddressCopyWith<$Res> {
-  factory _$DeleteAddressCopyWith(
-          _DeleteAddress value, $Res Function(_DeleteAddress) then) =
-      __$DeleteAddressCopyWithImpl<$Res>;
+abstract class _$GetSupportingDataCopyWith<$Res> {
+  factory _$GetSupportingDataCopyWith(
+          _GetSupportingData value, $Res Function(_GetSupportingData) then) =
+      __$GetSupportingDataCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$DeleteAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$DeleteAddressCopyWith<$Res> {
-  __$DeleteAddressCopyWithImpl(
-      _DeleteAddress _value, $Res Function(_DeleteAddress) _then)
-      : super(_value, (v) => _then(v as _DeleteAddress));
+class __$GetSupportingDataCopyWithImpl<$Res>
+    extends _$OrderPreviewEventCopyWithImpl<$Res>
+    implements _$GetSupportingDataCopyWith<$Res> {
+  __$GetSupportingDataCopyWithImpl(
+      _GetSupportingData _value, $Res Function(_GetSupportingData) _then)
+      : super(_value, (v) => _then(v as _GetSupportingData));
 
   @override
-  _DeleteAddress get _value => super._value as _DeleteAddress;
+  _GetSupportingData get _value => super._value as _GetSupportingData;
 }
 
 /// @nodoc
 
-class _$_DeleteAddress implements _DeleteAddress {
-  const _$_DeleteAddress();
+class _$_GetSupportingData
+    with DiagnosticableTreeMixin
+    implements _GetSupportingData {
+  const _$_GetSupportingData();
 
   @override
-  String toString() {
-    return 'AddressEvent.deleteAddress()';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrderPreviewEvent.getSupportingData()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.getSupportingData'));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _DeleteAddress);
+    return identical(this, other) || (other is _GetSupportingData);
   }
 
   @override
@@ -214,23 +219,21 @@ class _$_DeleteAddress implements _DeleteAddress {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function() cartExpiryCheck,
+    required TResult Function() getSupportingData,
   }) {
-    return deleteAddress();
+    return getSupportingData();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function()? cartExpiryCheck,
+    TResult Function()? getSupportingData,
     required TResult orElse(),
   }) {
-    if (deleteAddress != null) {
-      return deleteAddress();
+    if (getSupportingData != null) {
+      return getSupportingData();
     }
     return orElse();
   }
@@ -238,170 +241,39 @@ class _$_DeleteAddress implements _DeleteAddress {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_CartExpiryCheck value) cartExpiryCheck,
+    required TResult Function(_GetSupportingData value) getSupportingData,
   }) {
-    return deleteAddress(this);
+    return getSupportingData(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_CartExpiryCheck value)? cartExpiryCheck,
+    TResult Function(_GetSupportingData value)? getSupportingData,
     required TResult orElse(),
   }) {
-    if (deleteAddress != null) {
-      return deleteAddress(this);
+    if (getSupportingData != null) {
+      return getSupportingData(this);
     }
     return orElse();
   }
 }
 
-abstract class _DeleteAddress implements AddressEvent {
-  const factory _DeleteAddress() = _$_DeleteAddress;
+abstract class _GetSupportingData implements OrderPreviewEvent {
+  const factory _GetSupportingData() = _$_GetSupportingData;
 }
 
 /// @nodoc
-abstract class _$SelectAddressCopyWith<$Res> {
-  factory _$SelectAddressCopyWith(
-          _SelectAddress value, $Res Function(_SelectAddress) then) =
-      __$SelectAddressCopyWithImpl<$Res>;
-  $Res call({AddressModel address});
-
-  $AddressModelCopyWith<$Res> get address;
-}
-
-/// @nodoc
-class __$SelectAddressCopyWithImpl<$Res>
-    extends _$AddressEventCopyWithImpl<$Res>
-    implements _$SelectAddressCopyWith<$Res> {
-  __$SelectAddressCopyWithImpl(
-      _SelectAddress _value, $Res Function(_SelectAddress) _then)
-      : super(_value, (v) => _then(v as _SelectAddress));
-
-  @override
-  _SelectAddress get _value => super._value as _SelectAddress;
-
-  @override
-  $Res call({
-    Object? address = freezed,
-  }) {
-    return _then(_SelectAddress(
-      address == freezed
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as AddressModel,
-    ));
-  }
-
-  @override
-  $AddressModelCopyWith<$Res> get address {
-    return $AddressModelCopyWith<$Res>(_value.address, (value) {
-      return _then(_value.copyWith(address: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$_SelectAddress implements _SelectAddress {
-  const _$_SelectAddress(this.address);
-
-  @override
-  final AddressModel address;
-
-  @override
-  String toString() {
-    return 'AddressEvent.selectAddress(address: $address)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _SelectAddress &&
-            (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
-  }
-
-  @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
-
-  @JsonKey(ignore: true)
-  @override
-  _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
-      __$SelectAddressCopyWithImpl<_SelectAddress>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
-  }) {
-    return selectAddress(address);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (selectAddress != null) {
-      return selectAddress(address);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
-    required TResult Function(_DeleteAddress value) deleteAddress,
-    required TResult Function(_SelectAddress value) selectAddress,
-  }) {
-    return selectAddress(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
-    TResult Function(_DeleteAddress value)? deleteAddress,
-    TResult Function(_SelectAddress value)? selectAddress,
-    required TResult orElse(),
-  }) {
-    if (selectAddress != null) {
-      return selectAddress(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _SelectAddress implements AddressEvent {
-  const factory _SelectAddress(AddressModel address) = _$_SelectAddress;
-
-  AddressModel get address => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-class _$AddressStateTearOff {
-  const _$AddressStateTearOff();
+class _$OrderPreviewStateTearOff {
+  const _$OrderPreviewStateTearOff();
 
   _Loading loading() {
     return const _Loading();
   }
 
-  _Loaded loaded(List<AddressModel> data) {
+  _Loaded loaded(OrderPreviewModel data) {
     return _Loaded(
       data,
     );
@@ -415,21 +287,21 @@ class _$AddressStateTearOff {
 }
 
 /// @nodoc
-const $AddressState = _$AddressStateTearOff();
+const $OrderPreviewState = _$OrderPreviewStateTearOff();
 
 /// @nodoc
-mixin _$AddressState {
+mixin _$OrderPreviewState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(OrderPreviewModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(OrderPreviewModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
@@ -452,19 +324,20 @@ mixin _$AddressState {
 }
 
 /// @nodoc
-abstract class $AddressStateCopyWith<$Res> {
-  factory $AddressStateCopyWith(
-          AddressState value, $Res Function(AddressState) then) =
-      _$AddressStateCopyWithImpl<$Res>;
+abstract class $OrderPreviewStateCopyWith<$Res> {
+  factory $OrderPreviewStateCopyWith(
+          OrderPreviewState value, $Res Function(OrderPreviewState) then) =
+      _$OrderPreviewStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$AddressStateCopyWithImpl<$Res> implements $AddressStateCopyWith<$Res> {
-  _$AddressStateCopyWithImpl(this._value, this._then);
+class _$OrderPreviewStateCopyWithImpl<$Res>
+    implements $OrderPreviewStateCopyWith<$Res> {
+  _$OrderPreviewStateCopyWithImpl(this._value, this._then);
 
-  final AddressState _value;
+  final OrderPreviewState _value;
   // ignore: unused_field
-  final $Res Function(AddressState) _then;
+  final $Res Function(OrderPreviewState) _then;
 }
 
 /// @nodoc
@@ -474,7 +347,7 @@ abstract class _$LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$LoadingCopyWithImpl<$Res> extends _$OrderPreviewStateCopyWithImpl<$Res>
     implements _$LoadingCopyWith<$Res> {
   __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
       : super(_value, (v) => _then(v as _Loading));
@@ -485,12 +358,18 @@ class __$LoadingCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Loading implements _Loading {
+class _$_Loading with DiagnosticableTreeMixin implements _Loading {
   const _$_Loading();
 
   @override
-  String toString() {
-    return 'AddressState.loading()';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrderPreviewState.loading()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'OrderPreviewState.loading'));
   }
 
   @override
@@ -505,7 +384,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(OrderPreviewModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
@@ -515,7 +394,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(OrderPreviewModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -550,7 +429,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements AddressState {
+abstract class _Loading implements OrderPreviewState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -558,11 +437,13 @@ abstract class _Loading implements AddressState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<AddressModel> data});
+  $Res call({OrderPreviewModel data});
+
+  $OrderPreviewModelCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$LoadedCopyWithImpl<$Res> extends _$OrderPreviewStateCopyWithImpl<$Res>
     implements _$LoadedCopyWith<$Res> {
   __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
       : super(_value, (v) => _then(v as _Loaded));
@@ -578,22 +459,37 @@ class __$LoadedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<AddressModel>,
+              as OrderPreviewModel,
     ));
+  }
+
+  @override
+  $OrderPreviewModelCopyWith<$Res> get data {
+    return $OrderPreviewModelCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _$_Loaded implements _Loaded {
+class _$_Loaded with DiagnosticableTreeMixin implements _Loaded {
   const _$_Loaded(this.data);
 
   @override
-  final List<AddressModel> data;
+  final OrderPreviewModel data;
 
   @override
-  String toString() {
-    return 'AddressState.loaded(data: $data)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrderPreviewState.loaded(data: $data)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrderPreviewState.loaded'))
+      ..add(DiagnosticsProperty('data', data));
   }
 
   @override
@@ -617,7 +513,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(OrderPreviewModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
@@ -627,7 +523,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(OrderPreviewModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -662,10 +558,10 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements AddressState {
-  const factory _Loaded(List<AddressModel> data) = _$_Loaded;
+abstract class _Loaded implements OrderPreviewState {
+  const factory _Loaded(OrderPreviewModel data) = _$_Loaded;
 
-  List<AddressModel> get data => throw _privateConstructorUsedError;
+  OrderPreviewModel get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -680,7 +576,7 @@ abstract class _$FailedCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$FailedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
+class __$FailedCopyWithImpl<$Res> extends _$OrderPreviewStateCopyWithImpl<$Res>
     implements _$FailedCopyWith<$Res> {
   __$FailedCopyWithImpl(_Failed _value, $Res Function(_Failed) _then)
       : super(_value, (v) => _then(v as _Failed));
@@ -710,15 +606,23 @@ class __$FailedCopyWithImpl<$Res> extends _$AddressStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Failed implements _Failed {
+class _$_Failed with DiagnosticableTreeMixin implements _Failed {
   const _$_Failed(this.exceptions);
 
   @override
   final NetworkExceptions exceptions;
 
   @override
-  String toString() {
-    return 'AddressState.failed(exceptions: $exceptions)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'OrderPreviewState.failed(exceptions: $exceptions)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'OrderPreviewState.failed'))
+      ..add(DiagnosticsProperty('exceptions', exceptions));
   }
 
   @override
@@ -743,7 +647,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<AddressModel> data) loaded,
+    required TResult Function(OrderPreviewModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return failed(exceptions);
@@ -753,7 +657,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<AddressModel> data)? loaded,
+    TResult Function(OrderPreviewModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -788,7 +692,7 @@ class _$_Failed implements _Failed {
   }
 }
 
-abstract class _Failed implements AddressState {
+abstract class _Failed implements OrderPreviewState {
   const factory _Failed(NetworkExceptions exceptions) = _$_Failed;
 
   NetworkExceptions get exceptions => throw _privateConstructorUsedError;

@@ -8,6 +8,7 @@ import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/firebase.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/router.dart';
+import 'package:woodle/core/settings/theme.dart';
 
 import 'core/services/logger.dart';
 
@@ -49,6 +50,7 @@ class Application extends HookWidget {
         create: (context) => AuthenticationCubit(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: appTheme(),
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),

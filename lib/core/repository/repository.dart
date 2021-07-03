@@ -4,8 +4,10 @@ import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/app_version/app_verification_model.dart';
 import 'package:woodle/core/models/app_version/app_version_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
+import 'package:woodle/core/models/home_search/home_search_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/notification/notification_model.dart';
+import 'package:woodle/core/models/order_preview/order_preview_model.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
 import 'package:woodle/core/models/referral/referral_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
@@ -248,6 +250,33 @@ class ApplicationRepository {
         .getRequest('/wallet_details')
         .then((response) =>
             ApiResponse.success(data: WalletModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  /// Fetch Order Preview Options and Addons
+  Future<ApiResponse<OrderPreviewModel>> fetchOrderPreviewOptions() {
+    return _client
+        .getRequest('/general_details')
+        .then((response) => ApiResponse.success(
+            data: OrderPreviewModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  /// Search for results from home page searcher
+  Future<ApiResponse<HomeSearchModel>> searchItems(String searchQuery) {
+    Map<String, dynamic> parameters = {"franchiseId": 2, "search": searchQuery};
+    return _client
+        .getRequest('/search_all_items', parameters: parameters)
+        .then((response) => ApiResponse.success(
+            data: HomeSearchModel.fromJson(response['data'])))
         .onError((error, _) {
       print(_);
       return ApiResponse.failure(

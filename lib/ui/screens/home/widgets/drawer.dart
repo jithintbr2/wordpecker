@@ -64,12 +64,12 @@ class HomeDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      // padding: EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage(Assets.homeDrawerBackground), fit: BoxFit.cover),
       ),
-      height: 200,
+      height: 170,
       child: Column(
         children: [
           SizedBox(height: 49),
@@ -144,7 +144,34 @@ class DrawerTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(name),
-      trailing: Icon(Icons.account_circle),
+      trailing: IconButton(
+          onPressed: () {
+            showDialog<bool>(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext dialogContext) {
+                return AlertDialog(
+                  title: Text('Logout'),
+                  content: Text('Are you sure you want to logout?'),
+                  actions: <Widget>[
+                    TextButton(
+                        child: Text('No'),
+                        onPressed: () => Navigator.of(dialogContext).pop()),
+                    TextButton(
+                      child: Text('Yes'),
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                        context
+                            .read<AuthenticationCubit>()
+                            .changeState(user: null);
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          icon: Icon(Icons.logout)),
     );
   }
 }

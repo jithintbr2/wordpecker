@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:woodle/core/settings/assets.dart';
 
 class BodyCard extends StatelessWidget {
   final TextEditingController controller;
@@ -28,54 +29,68 @@ class BodyCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 20),
         elevation: 5,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
+        child: Container(
+          height: 450,
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 16),
-              _logo(),
-              SizedBox(height: 8),
-              TextFormField(
-                controller: controller,
-                enabled: !isLoading,
-                validator: validator,
-                keyboardType: keyboardType,
-                decoration: InputDecoration(
-                    counterText: "",
-                    labelText: label,
-                    icon: Icon(Icons.phone_android),
-                    isDense: true,
-                    border: OutlineInputBorder()),
+              SizedBox(height: 50),
+              Hero(
+                  tag: 'logo',
+                  child: Image.asset(Assets.appIcon,
+                      height: 80, fit: BoxFit.contain)),
+              SizedBox(height: 30),
+              Padding(
+                padding:
+                    EdgeInsets.only(top: 8.0, bottom: 8, left: 16, right: 48),
+                child: TextFormField(
+                  controller: controller,
+                  enabled: !isLoading,
+                  validator: validator,
+                  keyboardType: keyboardType,
+                  decoration: InputDecoration(
+                      counterText: "",
+                      labelText: label,
+                      icon: Icon(Icons.phone_android),
+                      isDense: true,
+                      border: OutlineInputBorder()),
+                ),
               ),
-              ElevatedButton(
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 50),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          onSubmit!();
+                        }
+                      },
+                      child: isLoading
+                          ? SizedBox(
+                              height: 25,
+                              width: 25,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : Text(buttonText))),
+              Container(
+                height: 100,
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  child: Text("Back",
+                      style: TextStyle(color: Theme.of(context).primaryColor)),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      onSubmit!();
-                    }
+                    Navigator.of(context).pop();
                   },
-                  child: isLoading
-                      ? SizedBox(
-                          height: 25,
-                          width: 25,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : Text(buttonText))
+                ),
+              )
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget _logo() {
-    return SizedBox(height: 80);
-    // child: Image.asset(
-    //   IA_APP_LOGO,
-    // ));
   }
 }

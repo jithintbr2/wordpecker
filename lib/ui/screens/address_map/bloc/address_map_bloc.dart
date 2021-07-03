@@ -43,10 +43,9 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
               franchiseId);
 
           addResponse.when(success: (id) {
-            localStorage.set('franchiseId', franchiseId);
             localStorage.set(
                 'currentAddress',
-                AddressModel(
+                jsonEncode(AddressModel(
                     id: id,
                     house: event.house,
                     locality: event.locality,
@@ -54,7 +53,7 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                     lat: event.lat,
                     lng: event.lng,
                     nickName: event.nickName,
-                    franchiseId: franchiseId));
+                    franchiseId: franchiseId)));
             Navigator.of(context)
                 .pushNamedAndRemoveUntil('/home', (route) => false);
           }, failure: (error) {

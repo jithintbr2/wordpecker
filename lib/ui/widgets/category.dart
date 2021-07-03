@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:woodle/core/models/category/category_model.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/ui/screens/category_view_all/category_view_all.dart';
 
 class Category extends StatelessWidget {
   final String? title;
@@ -55,11 +56,27 @@ class Category extends StatelessWidget {
     if (items.isEmpty) return SizedBox();
     return Wrap(
       children: [
-        title != null
-            ? Text(title!,
-                style: TextStyle(
-                    fontSize: 20, fontWeight: FontWeight.bold, height: 2))
-            : SizedBox(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            title != null
+                ? Text("Explore $title by Category",
+                    style: TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold, height: 2))
+                : SizedBox(),
+            items.length > limit
+                ? OutlinedButton(
+                    onPressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CategoryViewAll(
+                                  items: items,
+                                  title: title ?? '',
+                                  onTap: onTap,
+                                ))),
+                    child: Text('View All'))
+                : SizedBox()
+          ],
+        ),
         GridView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,

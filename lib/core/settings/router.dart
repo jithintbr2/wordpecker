@@ -18,8 +18,12 @@ import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/screens/category_items/category_items_page.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
+import 'package:woodle/ui/screens/home_search/bloc/home_search_bloc.dart';
+import 'package:woodle/ui/screens/home_search/home_search_page.dart';
 import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/notification_page.dart';
+import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
+import 'package:woodle/ui/screens/order_preview/order_preview_page.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/screens/orders/orders_page.dart';
 import 'package:woodle/ui/screens/referral/bloc/referral_bloc.dart';
@@ -59,6 +63,7 @@ class AppRouter {
       case '/address':
         return _generatePlatformRoute(BlocProvider(
           create: (context) => AddressBloc(
+              context: context,
               localStorage: LocalStorage(),
               repository: context.read<ApplicationRepository>()),
           child: AddressPage(),
@@ -88,6 +93,12 @@ class AppRouter {
             child: HomePage(
               localStorage: LocalStorage(),
             )));
+
+      case '/homeSearch':
+        return _generatePlatformRoute(BlocProvider(
+            create: (context) => HomeSearchBloc(
+                repository: context.read<ApplicationRepository>()),
+            child: HomeSearchPage()));
 
       case '/itemList':
         final Map<String, dynamic> args =
@@ -132,8 +143,12 @@ class AppRouter {
       // case '/landing':
       //   return _generatePlatformRoute(LandingPage());
 
-      // case '/orderPreview':
-      //   return _generatePlatformRoute(OrderPreview());
+      case '/orderPreview':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => OrderPreviewBloc(
+              repository: context.read<ApplicationRepository>()),
+          child: OrderPreviewPage(),
+        ));
 
       case '/orders':
         return _generatePlatformRoute(BlocProvider(

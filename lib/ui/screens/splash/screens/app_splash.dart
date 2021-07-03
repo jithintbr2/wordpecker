@@ -7,15 +7,17 @@ class AppSplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          Assets.landingIcon,
-          fit: BoxFit.fitHeight,
-        ),
-        CircularProgressIndicator()
-      ],
+        body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Hero(
+              tag: 'logo',
+              child: Image.asset(Assets.appIcon,
+                  height: 120, fit: BoxFit.contain)),
+          CircularProgressIndicator()
+        ],
+      ),
     ));
   }
 }

@@ -20,8 +20,7 @@ class Config {
   static bool get useDashboardEntry => false;
   static bool get isMultiVendor => false;
   static bool get isMultiLocation => false;
-  static bool get usePaymentOptionsFromServer => false;
-  static bool get usePaymentGateway => false;
+  static bool get isPurchasableFromMultiVendor => true;
   static int get itemCategoriesLimit => 5;
   static int get shopCategoriesLimit => 5;
 

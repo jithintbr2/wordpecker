@@ -32,8 +32,18 @@ class CategoryItemsPage extends HookWidget {
           .add(CategoryItemsEvent.fetchData(categoryId));
     }, []);
 
+    final showCancel = useState(false);
+    useEffect(() {
+      searchController.addListener(() {
+        if (showCancel.value != searchController.text.isNotEmpty)
+          showCancel.value = searchController.text.isNotEmpty;
+      });
+      return () => searchController.dispose();
+    }, []);
+
     return Scaffold(
       appBar: CategoryItemsAppBar(
+        showCancel: showCancel.value,
         controller: searchController,
         title: categoryName,
       ),
@@ -44,17 +54,19 @@ class CategoryItemsPage extends HookWidget {
                 .add(CategoryItemsEvent.fetchData(categoryId));
             return null;
           },
-          child: _buildBloc(service)),
+          child: _buildBloc(service, searchController)),
     );
   }
 
-  Widget _buildBloc(CartService service) {
+  Widget _buildBloc(
+      CartService service, TextEditingController searchController) {
     return BlocBuilder<CategoryItemsBloc, CategoryItemsState>(
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
             loaded: (data) {
-              if (data.isNotEmpty) return _buildPage(service, data);
+              if (data.isNotEmpty)
+                return _buildPage(service, data, searchController);
               return EmptyView(
                   icon: Icons.do_not_disturb,
                   title: "No items in this category");
@@ -80,38 +92,57 @@ class CategoryItemsPage extends HookWidget {
     return quantity;
   }
 
-  Widget _buildPage(CartService service, List<ItemModel> data) {
+  Widget _buildPage(
+      CartService service, List<ItemModel> data, TextEditingController search) {
+    List<ItemModel> filteredData = [];
+
+    if (search.text.isEmpty)
+      filteredData = data;
+    else
+      data.forEach((value) {
+        if (value.name.contains(search.text)) filteredData.add(value);
+      });
+
     return StreamBuilder(
       initialData: service.initialValue(),
       stream: service.controller,
       builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
+        double _totalPrice = 0;
+        int _itemCount = 0;
+
+        snap.data?.forEach((item) {
+          _totalPrice += item.salePrice!;
+          _itemCount += 1;
+        });
+
         return Column(
           children: [
             Expanded(
                 child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                if (data[index].varients.length == 1) {
+                if (filteredData[index].varients.length == 1) {
                   return ItemVarientTile(
-                      item: data[index].varients[0],
-                      onAdd: () => service.addItem(data[index].varients[0]),
+                      item: filteredData[index].varients[0],
+                      onAdd: () =>
+                          service.addItem(filteredData[index].varients[0]),
                       onRemove: () =>
-                          service.removeItem(data[index].varients[0]),
-                      quantity: _getCartQuantity(
-                          snap.data, data[index].varients[0].varientId));
+                          service.removeItem(filteredData[index].varients[0]),
+                      quantity: _getCartQuantity(snap.data,
+                          filteredData[index].varients[0].varientId));
                 }
                 return ItemVarientContainerTile(
-                    item: data[index],
+                    item: filteredData[index],
+                    service: service,
                     cartItems: snap.data,
                     onAdd: (item) => service.addItem(item),
                     onRemove: (item) => service.removeItem(item));
               },
-              itemCount: data.length,
+              itemCount: filteredData.length,
             )),
-            CartTile(
-                itemCount: snap.hasData ? snap.data!.length : 0,
-                onCheckout: () {},
-                totalPrice: 300)
+            snap.hasData && snap.data!.length > 0
+                ? CartTile(itemCount: _itemCount, totalPrice: _totalPrice)
+                : SizedBox()
           ],
         );
       },
