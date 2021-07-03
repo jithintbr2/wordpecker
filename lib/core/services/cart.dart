@@ -1,26 +1,33 @@
 import 'dart:async';
 import 'dart:convert';
-
-import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/storage.dart';
 
 class CartService {
-  LocalStorage _store = LocalStorage();
-  final _controller = StreamController<List<ItemModel>>();
+  factory CartService() => CartService._internal();
+  CartService._internal();
 
-  Stream<List<ItemModel>> get controller => _controller.stream;
+  static late LocalStorage _store;
+  static late StreamController<List<ItemVarientModel>> _controller;
+
+  Stream<List<ItemVarientModel>> get controller => _controller.stream;
 
   void init() {
-    if (_store.get('cart') != null) {
-      List cartItems = _store.get('cart') as List;
-      List<ItemModel> cartStandardizedItems = [];
-      cartItems.forEach((item) =>
-          cartStandardizedItems.add(ItemModel.fromJson(json.decode(item))));
-      _controller.add(cartStandardizedItems);
-    }
+    _store = LocalStorage();
+    _controller = StreamController<List<ItemVarientModel>>.broadcast();
   }
 
-  void addItem(ItemModel item) {
+  List<ItemVarientModel> initialValue() {
+    List<ItemVarientModel> cartStandardizedItems = [];
+    if (_store.get('cart') != null) {
+      List cartItems = _store.get('cart') as List;
+      cartItems.forEach((item) => cartStandardizedItems
+          .add(ItemVarientModel.fromJson(json.decode(item))));
+    }
+    return cartStandardizedItems;
+  }
+
+  void addItem(ItemVarientModel item) {
     final _storeData = _store.get('cart');
     List<String> cartItems = _storeData != null
         ? List.from(_storeData as Iterable<dynamic>, growable: true)
@@ -29,21 +36,21 @@ class CartService {
     cartItems.add(jsonEncode(item.toJson()));
     _store.set('cart', cartItems);
 
-    List<ItemModel> cartStandardizedItems = [];
-    cartItems.forEach((item) =>
-        cartStandardizedItems.add(ItemModel.fromJson(json.decode(item))));
+    List<ItemVarientModel> cartStandardizedItems = [];
+    cartItems.forEach((item) => cartStandardizedItems
+        .add(ItemVarientModel.fromJson(json.decode(item))));
     _controller.add(cartStandardizedItems);
   }
 
-  void removeItem(ItemModel item) {
+  void removeItem(ItemVarientModel item) {
     if (_store.get('cart') != null) {
       List<String> cartItems = _store.get('cart') as List<String>;
       cartItems.remove(jsonEncode(item.toJson()));
       _store.set('cart', cartItems);
 
-      List<ItemModel> cartStandardizedItems = [];
-      cartItems.forEach((item) =>
-          cartStandardizedItems.add(ItemModel.fromJson(json.decode(item))));
+      List<ItemVarientModel> cartStandardizedItems = [];
+      cartItems.forEach((item) => cartStandardizedItems
+          .add(ItemVarientModel.fromJson(json.decode(item))));
       _controller.add(cartStandardizedItems);
     }
   }

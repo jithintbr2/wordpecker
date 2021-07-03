@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +11,15 @@ class ShopTile extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+        onTap: () => Navigator.of(context)
+            .pushNamed('/shopDetail', arguments: {"shopId": shop.shopId}),
         leading: Container(
             height: 64,
             width: 64,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: CachedNetworkImage(
-              imageUrl: shop.image!,
+              imageUrl: shop.imageUrl,
               fit: BoxFit.cover,
               placeholder: (_, __) =>
                   Center(child: Image.asset(Assets.appIcon)),
@@ -27,7 +28,7 @@ class ShopTile extends HookWidget {
         title: Padding(
           padding: EdgeInsets.symmetric(vertical: 4),
           child: Text(
-            shop.name,
+            shop.shopName,
             style:
                 Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
           ),

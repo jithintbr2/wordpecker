@@ -8,9 +8,9 @@ part of 'menu_model.dart';
 
 _$_MenuModel _$_$_MenuModelFromJson(Map<String, dynamic> json) {
   return _$_MenuModel(
-    id: json['id'] as int,
+    id: json['menuId'] as int,
     title: json['title'] as String,
-    items: (json['items'] as List<dynamic>)
+    items: (json['item'] as List<dynamic>)
         .map((e) => ItemModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
@@ -18,7 +18,7 @@ _$_MenuModel _$_$_MenuModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$_$_MenuModelToJson(_$_MenuModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'menuId': instance.id,
       'title': instance.title,
-      'items': instance.items,
+      'item': instance.items,
     };

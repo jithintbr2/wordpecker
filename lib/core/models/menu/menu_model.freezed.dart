@@ -21,9 +21,9 @@ class _$MenuModelTearOff {
   const _$MenuModelTearOff();
 
   _MenuModel call(
-      {required int id,
+      {@JsonKey(name: "menuId") required int id,
       required String title,
-      required List<ItemModel> items}) {
+      @JsonKey(name: "item") required List<ItemModel> items}) {
     return _MenuModel(
       id: id,
       title: title,
@@ -41,8 +41,10 @@ const $MenuModel = _$MenuModelTearOff();
 
 /// @nodoc
 mixin _$MenuModel {
+  @JsonKey(name: "menuId")
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: "item")
   List<ItemModel> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +57,10 @@ mixin _$MenuModel {
 abstract class $MenuModelCopyWith<$Res> {
   factory $MenuModelCopyWith(MenuModel value, $Res Function(MenuModel) then) =
       _$MenuModelCopyWithImpl<$Res>;
-  $Res call({int id, String title, List<ItemModel> items});
+  $Res call(
+      {@JsonKey(name: "menuId") int id,
+      String title,
+      @JsonKey(name: "item") List<ItemModel> items});
 }
 
 /// @nodoc
@@ -95,7 +100,10 @@ abstract class _$MenuModelCopyWith<$Res> implements $MenuModelCopyWith<$Res> {
           _MenuModel value, $Res Function(_MenuModel) then) =
       __$MenuModelCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String title, List<ItemModel> items});
+  $Res call(
+      {@JsonKey(name: "menuId") int id,
+      String title,
+      @JsonKey(name: "item") List<ItemModel> items});
 }
 
 /// @nodoc
@@ -134,16 +142,20 @@ class __$MenuModelCopyWithImpl<$Res> extends _$MenuModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MenuModel with DiagnosticableTreeMixin implements _MenuModel {
   const _$_MenuModel(
-      {required this.id, required this.title, required this.items});
+      {@JsonKey(name: "menuId") required this.id,
+      required this.title,
+      @JsonKey(name: "item") required this.items});
 
   factory _$_MenuModel.fromJson(Map<String, dynamic> json) =>
       _$_$_MenuModelFromJson(json);
 
   @override
+  @JsonKey(name: "menuId")
   final int id;
   @override
   final String title;
   @override
+  @JsonKey(name: "item")
   final List<ItemModel> items;
 
   @override
@@ -193,18 +205,20 @@ class _$_MenuModel with DiagnosticableTreeMixin implements _MenuModel {
 
 abstract class _MenuModel implements MenuModel {
   const factory _MenuModel(
-      {required int id,
+      {@JsonKey(name: "menuId") required int id,
       required String title,
-      required List<ItemModel> items}) = _$_MenuModel;
+      @JsonKey(name: "item") required List<ItemModel> items}) = _$_MenuModel;
 
   factory _MenuModel.fromJson(Map<String, dynamic> json) =
       _$_MenuModel.fromJson;
 
   @override
+  @JsonKey(name: "menuId")
   int get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "item")
   List<ItemModel> get items => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

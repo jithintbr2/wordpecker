@@ -21,23 +21,25 @@ class _$ShopModelTearOff {
   const _$ShopModelTearOff();
 
   _ShopModel call(
-      {required int id,
-      required String name,
-      String? image,
-      @JsonKey(defaultValue: false) bool? serviceAvailable,
+      {@JsonKey(name: 'id') required int shopId,
+      required String shopName,
+      @JsonKey(name: 'imgUrl') required String imageUrl,
+      @JsonKey(defaultValue: false) bool? servicesNow,
       List<String>? services,
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
-      MenuModel? menu}) {
+      List<MenuModel>? category,
+      List<String>? slider}) {
     return _ShopModel(
-      id: id,
-      name: name,
-      image: image,
-      serviceAvailable: serviceAvailable,
+      shopId: shopId,
+      shopName: shopName,
+      imageUrl: imageUrl,
+      servicesNow: servicesNow,
       services: services,
       ratingCount: ratingCount,
       rating: rating,
-      menu: menu,
+      category: category,
+      slider: slider,
     );
   }
 
@@ -51,17 +53,20 @@ const $ShopModel = _$ShopModelTearOff();
 
 /// @nodoc
 mixin _$ShopModel {
-  int get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
-  String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  int get shopId => throw _privateConstructorUsedError;
+  String get shopName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'imgUrl')
+  String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: false)
-  bool? get serviceAvailable => throw _privateConstructorUsedError;
+  bool? get servicesNow => throw _privateConstructorUsedError;
   List<String>? get services => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   int? get ratingCount => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 0)
   double? get rating => throw _privateConstructorUsedError;
-  MenuModel? get menu => throw _privateConstructorUsedError;
+  List<MenuModel>? get category => throw _privateConstructorUsedError;
+  List<String>? get slider => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,16 +79,15 @@ abstract class $ShopModelCopyWith<$Res> {
   factory $ShopModelCopyWith(ShopModel value, $Res Function(ShopModel) then) =
       _$ShopModelCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String name,
-      String? image,
-      @JsonKey(defaultValue: false) bool? serviceAvailable,
+      {@JsonKey(name: 'id') int shopId,
+      String shopName,
+      @JsonKey(name: 'imgUrl') String imageUrl,
+      @JsonKey(defaultValue: false) bool? servicesNow,
       List<String>? services,
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
-      MenuModel? menu});
-
-  $MenuModelCopyWith<$Res>? get menu;
+      List<MenuModel>? category,
+      List<String>? slider});
 }
 
 /// @nodoc
@@ -96,31 +100,32 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
-    Object? serviceAvailable = freezed,
+    Object? shopId = freezed,
+    Object? shopName = freezed,
+    Object? imageUrl = freezed,
+    Object? servicesNow = freezed,
     Object? services = freezed,
     Object? ratingCount = freezed,
     Object? rating = freezed,
-    Object? menu = freezed,
+    Object? category = freezed,
+    Object? slider = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      shopId: shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      shopName: shopName == freezed
+          ? _value.shopName
+          : shopName // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      serviceAvailable: serviceAvailable == freezed
-          ? _value.serviceAvailable
-          : serviceAvailable // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      servicesNow: servicesNow == freezed
+          ? _value.servicesNow
+          : servicesNow // ignore: cast_nullable_to_non_nullable
               as bool?,
       services: services == freezed
           ? _value.services
@@ -134,22 +139,15 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      menu: menu == freezed
-          ? _value.menu
-          : menu // ignore: cast_nullable_to_non_nullable
-              as MenuModel?,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<MenuModel>?,
+      slider: slider == freezed
+          ? _value.slider
+          : slider // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
-  }
-
-  @override
-  $MenuModelCopyWith<$Res>? get menu {
-    if (_value.menu == null) {
-      return null;
-    }
-
-    return $MenuModelCopyWith<$Res>(_value.menu!, (value) {
-      return _then(_value.copyWith(menu: value));
-    });
   }
 }
 
@@ -160,17 +158,15 @@ abstract class _$ShopModelCopyWith<$Res> implements $ShopModelCopyWith<$Res> {
       __$ShopModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String name,
-      String? image,
-      @JsonKey(defaultValue: false) bool? serviceAvailable,
+      {@JsonKey(name: 'id') int shopId,
+      String shopName,
+      @JsonKey(name: 'imgUrl') String imageUrl,
+      @JsonKey(defaultValue: false) bool? servicesNow,
       List<String>? services,
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
-      MenuModel? menu});
-
-  @override
-  $MenuModelCopyWith<$Res>? get menu;
+      List<MenuModel>? category,
+      List<String>? slider});
 }
 
 /// @nodoc
@@ -184,31 +180,32 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
-    Object? serviceAvailable = freezed,
+    Object? shopId = freezed,
+    Object? shopName = freezed,
+    Object? imageUrl = freezed,
+    Object? servicesNow = freezed,
     Object? services = freezed,
     Object? ratingCount = freezed,
     Object? rating = freezed,
-    Object? menu = freezed,
+    Object? category = freezed,
+    Object? slider = freezed,
   }) {
     return _then(_ShopModel(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      shopId: shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
               as int,
-      name: name == freezed
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      shopName: shopName == freezed
+          ? _value.shopName
+          : shopName // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String?,
-      serviceAvailable: serviceAvailable == freezed
-          ? _value.serviceAvailable
-          : serviceAvailable // ignore: cast_nullable_to_non_nullable
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      servicesNow: servicesNow == freezed
+          ? _value.servicesNow
+          : servicesNow // ignore: cast_nullable_to_non_nullable
               as bool?,
       services: services == freezed
           ? _value.services
@@ -222,10 +219,14 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
-      menu: menu == freezed
-          ? _value.menu
-          : menu // ignore: cast_nullable_to_non_nullable
-              as MenuModel?,
+      category: category == freezed
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as List<MenuModel>?,
+      slider: slider == freezed
+          ? _value.slider
+          : slider // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -234,27 +235,30 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ShopModel implements _ShopModel {
   const _$_ShopModel(
-      {required this.id,
-      required this.name,
-      this.image,
-      @JsonKey(defaultValue: false) this.serviceAvailable,
+      {@JsonKey(name: 'id') required this.shopId,
+      required this.shopName,
+      @JsonKey(name: 'imgUrl') required this.imageUrl,
+      @JsonKey(defaultValue: false) this.servicesNow,
       this.services,
       @JsonKey(defaultValue: 0) this.ratingCount,
       @JsonKey(defaultValue: 0) this.rating,
-      this.menu});
+      this.category,
+      this.slider});
 
   factory _$_ShopModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ShopModelFromJson(json);
 
   @override
-  final int id;
+  @JsonKey(name: 'id')
+  final int shopId;
   @override
-  final String name;
+  final String shopName;
   @override
-  final String? image;
+  @JsonKey(name: 'imgUrl')
+  final String imageUrl;
   @override
   @JsonKey(defaultValue: false)
-  final bool? serviceAvailable;
+  final bool? servicesNow;
   @override
   final List<String>? services;
   @override
@@ -264,26 +268,30 @@ class _$_ShopModel implements _ShopModel {
   @JsonKey(defaultValue: 0)
   final double? rating;
   @override
-  final MenuModel? menu;
+  final List<MenuModel>? category;
+  @override
+  final List<String>? slider;
 
   @override
   String toString() {
-    return 'ShopModel(id: $id, name: $name, image: $image, serviceAvailable: $serviceAvailable, services: $services, ratingCount: $ratingCount, rating: $rating, menu: $menu)';
+    return 'ShopModel(shopId: $shopId, shopName: $shopName, imageUrl: $imageUrl, servicesNow: $servicesNow, services: $services, ratingCount: $ratingCount, rating: $rating, category: $category, slider: $slider)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ShopModel &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.image, image) ||
-                const DeepCollectionEquality().equals(other.image, image)) &&
-            (identical(other.serviceAvailable, serviceAvailable) ||
+            (identical(other.shopId, shopId) ||
+                const DeepCollectionEquality().equals(other.shopId, shopId)) &&
+            (identical(other.shopName, shopName) ||
                 const DeepCollectionEquality()
-                    .equals(other.serviceAvailable, serviceAvailable)) &&
+                    .equals(other.shopName, shopName)) &&
+            (identical(other.imageUrl, imageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageUrl, imageUrl)) &&
+            (identical(other.servicesNow, servicesNow) ||
+                const DeepCollectionEquality()
+                    .equals(other.servicesNow, servicesNow)) &&
             (identical(other.services, services) ||
                 const DeepCollectionEquality()
                     .equals(other.services, services)) &&
@@ -292,21 +300,25 @@ class _$_ShopModel implements _ShopModel {
                     .equals(other.ratingCount, ratingCount)) &&
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
-            (identical(other.menu, menu) ||
-                const DeepCollectionEquality().equals(other.menu, menu)));
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
+            (identical(other.slider, slider) ||
+                const DeepCollectionEquality().equals(other.slider, slider)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(image) ^
-      const DeepCollectionEquality().hash(serviceAvailable) ^
+      const DeepCollectionEquality().hash(shopId) ^
+      const DeepCollectionEquality().hash(shopName) ^
+      const DeepCollectionEquality().hash(imageUrl) ^
+      const DeepCollectionEquality().hash(servicesNow) ^
       const DeepCollectionEquality().hash(services) ^
       const DeepCollectionEquality().hash(ratingCount) ^
       const DeepCollectionEquality().hash(rating) ^
-      const DeepCollectionEquality().hash(menu);
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(slider);
 
   @JsonKey(ignore: true)
   @override
@@ -321,27 +333,30 @@ class _$_ShopModel implements _ShopModel {
 
 abstract class _ShopModel implements ShopModel {
   const factory _ShopModel(
-      {required int id,
-      required String name,
-      String? image,
-      @JsonKey(defaultValue: false) bool? serviceAvailable,
+      {@JsonKey(name: 'id') required int shopId,
+      required String shopName,
+      @JsonKey(name: 'imgUrl') required String imageUrl,
+      @JsonKey(defaultValue: false) bool? servicesNow,
       List<String>? services,
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
-      MenuModel? menu}) = _$_ShopModel;
+      List<MenuModel>? category,
+      List<String>? slider}) = _$_ShopModel;
 
   factory _ShopModel.fromJson(Map<String, dynamic> json) =
       _$_ShopModel.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  int get shopId => throw _privateConstructorUsedError;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get shopName => throw _privateConstructorUsedError;
   @override
-  String? get image => throw _privateConstructorUsedError;
+  @JsonKey(name: 'imgUrl')
+  String get imageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(defaultValue: false)
-  bool? get serviceAvailable => throw _privateConstructorUsedError;
+  bool? get servicesNow => throw _privateConstructorUsedError;
   @override
   List<String>? get services => throw _privateConstructorUsedError;
   @override
@@ -351,7 +366,9 @@ abstract class _ShopModel implements ShopModel {
   @JsonKey(defaultValue: 0)
   double? get rating => throw _privateConstructorUsedError;
   @override
-  MenuModel? get menu => throw _privateConstructorUsedError;
+  List<MenuModel>? get category => throw _privateConstructorUsedError;
+  @override
+  List<String>? get slider => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ShopModelCopyWith<_ShopModel> get copyWith =>

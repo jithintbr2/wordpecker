@@ -8,7 +8,7 @@ part of 'wallet_reward_model.dart';
 
 _$_WalletRewardModel _$_$_WalletRewardModelFromJson(Map<String, dynamic> json) {
   return _$_WalletRewardModel(
-    id: json['id'] as int,
+    id: json['ponitId'] as int,
     point: json['point'] as int,
     dateCreate: json['dateCreate'] as String,
     description: json['description'] as String,
@@ -20,7 +20,7 @@ _$_WalletRewardModel _$_$_WalletRewardModelFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$_$_WalletRewardModelToJson(
         _$_WalletRewardModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'ponitId': instance.id,
       'point': instance.point,
       'dateCreate': instance.dateCreate,
       'description': instance.description,

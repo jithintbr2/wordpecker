@@ -1,22 +1,28 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showLocation;
   final String? location;
   final void Function()? onTap;
-  const HomeAppBar(
-      {Key? key, required this.showLocation, this.location, this.onTap})
-      : super(key: key);
+  final CartService service;
+  const HomeAppBar({
+    Key? key,
+    required this.showLocation,
+    this.location,
+    this.onTap,
+    required this.service,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 55);
 
   @override
   Widget build(BuildContext context) {
-    print('.....');
-    print(location);
     return AppBar(
       title: showLocation
           ? InkWell(
@@ -55,9 +61,22 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                 await launch("tel:${Config.contactNumber}");
             },
             icon: Icon(Icons.call)),
-        IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/cart'),
-            icon: Icon(Icons.shopping_cart))
+        StreamBuilder(
+            stream: service.controller,
+            initialData: service.initialValue(),
+            builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
+              return IconButton(
+                  onPressed: () => Navigator.pushNamed(context, '/cart'),
+                  icon: Badge(
+                      badgeContent: Text(
+                          snap.hasData ? snap.data!.length.toString() : "0",
+                          style: TextStyle(
+                              color: Theme.of(context).canvasColor,
+                              fontSize: 10)),
+                      showBadge: snap.hasData && snap.data!.length > 0,
+                      badgeColor: Theme.of(context).errorColor,
+                      child: Icon(Icons.shopping_cart)));
+            }),
       ],
       bottom: PreferredSize(
         child: InkWell(

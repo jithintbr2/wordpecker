@@ -8,28 +8,31 @@ part of 'shop_model.dart';
 
 _$_ShopModel _$_$_ShopModelFromJson(Map<String, dynamic> json) {
   return _$_ShopModel(
-    id: json['id'] as int,
-    name: json['name'] as String,
-    image: json['image'] as String?,
-    serviceAvailable: json['serviceAvailable'] as bool? ?? false,
+    shopId: json['id'] as int,
+    shopName: json['shopName'] as String,
+    imageUrl: json['imgUrl'] as String,
+    servicesNow: json['servicesNow'] as bool? ?? false,
     services:
         (json['services'] as List<dynamic>?)?.map((e) => e as String).toList(),
     ratingCount: json['ratingCount'] as int? ?? 0,
     rating: (json['rating'] as num?)?.toDouble() ?? 0,
-    menu: json['menu'] == null
-        ? null
-        : MenuModel.fromJson(json['menu'] as Map<String, dynamic>),
+    category: (json['category'] as List<dynamic>?)
+        ?.map((e) => MenuModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    slider:
+        (json['slider'] as List<dynamic>?)?.map((e) => e as String).toList(),
   );
 }
 
 Map<String, dynamic> _$_$_ShopModelToJson(_$_ShopModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'image': instance.image,
-      'serviceAvailable': instance.serviceAvailable,
+      'id': instance.shopId,
+      'shopName': instance.shopName,
+      'imgUrl': instance.imageUrl,
+      'servicesNow': instance.servicesNow,
       'services': instance.services,
       'ratingCount': instance.ratingCount,
       'rating': instance.rating,
-      'menu': instance.menu,
+      'category': instance.category,
+      'slider': instance.slider,
     };

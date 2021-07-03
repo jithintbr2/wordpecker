@@ -7,8 +7,10 @@ import 'package:woodle/core/models/home_page/home_page_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/notification/notification_model.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
+import 'package:woodle/core/models/referral/referral_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
+import 'package:woodle/core/models/wallet/wallet_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
 import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/services/http_client.dart';
@@ -175,16 +177,19 @@ class ApplicationRepository {
   }
 
   ///Fetch the shop list based on categories
-  Future<ApiResponse<List<ShopModel>>> fetchShopList(int categoryId) {
-    Map<String, dynamic> parameters = {"franchiseId": 1};
-    return _client.getRequest('/list_shops', parameters: parameters).then(
-        (response) {
+  Future<ApiResponse<List<ShopModel>>> fetchShopList(int franchiseId) {
+    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
+    return _client
+        .getRequest('/list_shops', parameters: parameters)
+        .then((response) {
       List<ShopModel> shops = [];
-      response['data']['shops']
-          .forEach((shop) => shops.add(ShopModel.fromJson(shop)));
+      response['data'].forEach((shop) => shops.add(ShopModel.fromJson(shop)));
       return ApiResponse.success(data: shops);
-    }).onError((error, _) =>
-        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+    }).onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
   }
 
   //Fetch the user's notifications
@@ -208,5 +213,45 @@ class ApplicationRepository {
       return ApiResponse.success(data: orders);
     }).onError((error, _) =>
         ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+  }
+
+  ///Fetch Shop Details
+  Future<ApiResponse<ShopModel>> fetchShopDetails(int shopId) {
+    Map<String, dynamic> parameters = {"shop_id": shopId};
+    return _client
+        .getRequest('/shop_details', parameters: parameters)
+        .then((response) =>
+            ApiResponse.success(data: ShopModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Fetch Referral Details
+  Future<ApiResponse<ReferralModel>> fetchReferralDetails() {
+    return _client
+        .getRequest('/refer_details')
+        .then((response) =>
+            ApiResponse.success(data: ReferralModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Fetch Wallet Details
+  Future<ApiResponse<WalletModel>> fetchWalletDetails() {
+    return _client
+        .getRequest('/wallet_details')
+        .then((response) =>
+            ApiResponse.success(data: WalletModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
   }
 }

@@ -14,6 +14,7 @@ class Config {
 
   // Application UI
   static double get cartTileHeight => 60;
+  static bool get addButtonInvert => false;
 
   // Application Feature
   static bool get useDashboardEntry => false;
@@ -27,5 +28,5 @@ class Config {
   static int get locationId => -1;
 
   // Developer Only
-  static bool get debugger => false;
+  static bool get debugger => true;
 }

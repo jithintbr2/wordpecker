@@ -15,7 +15,7 @@ class ShopSliverAppBar extends StatelessWidget {
     return SliverAppBar(
       backgroundColor: Theme.of(context).primaryColor,
       pinned: true,
-      expandedHeight: 150,
+      expandedHeight: 200,
       flexibleSpace: LayoutBuilder(
         builder: (context, constraints) => FlexibleSpaceBar(
           title: Text(title ?? ''),
@@ -37,6 +37,34 @@ class ShopSliverAppBar extends StatelessWidget {
                   ),
                 ),
         ),
+      ),
+      bottom: PreferredSize(
+        child: Container(
+          margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+          height: 40,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: Colors.white),
+          child: TextField(
+              // focusNode: _focusNode,
+              // controller: controller,
+              decoration: InputDecoration(
+            isDense: true,
+            hintText: "Search in $title",
+            filled: true,
+            border: InputBorder.none,
+            prefixIcon: Icon(Icons.grid_view, color: Colors.grey),
+            // suffixIcon: _focusNode.hasFocus
+            //     ? IconButton(
+            //         icon: Icon(Icons.close),
+            //         onPressed: () {
+            //           _focusNode.unfocus();
+            //           controller.clear();
+            //         },
+            //       )
+            //     : Icon(Icons.search)
+          )),
+        ),
+        preferredSize: Size.fromHeight(55),
       ),
     );
   }

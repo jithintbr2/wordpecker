@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:woodle/core/models/wallet_reward/wallet_reward_model.dart';
+import 'package:woodle/ui/screens/wallet/widgets/reward_card.dart';
 
 class WalletRewardHistory extends StatelessWidget {
   final List<WalletRewardModel> rewards;
@@ -8,19 +9,28 @@ class WalletRewardHistory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.all(8),
-          child: Text("Rewards",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6!
-                  .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
-        ),
-        // GridView.count(crossAxisCount: 2, shrinkWrap: true, padding: EdgeInsets.symmetric(horizontal: 4), physics: NeverScrollableScrollPhysics(), children: rewards.map((reward) => reward.isOpen ?),)
-      ],
-    );
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: EdgeInsets.all(8),
+        child: Text("Rewards",
+            style: Theme.of(context)
+                .textTheme
+                .headline6!
+                .copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
+      ),
+      GridView.count(
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        padding: EdgeInsets.symmetric(horizontal: 4),
+        physics: NeverScrollableScrollPhysics(),
+        children: rewards
+            .map((reward) => reward.isOpen
+                ? reward.scratched
+                    ? PositiveRewardCard(reward: reward)
+                    : ScratchableRewardCard(onTap: () {}, tag: reward.hashCode)
+                : NonScratchableRewardCard(onTap: () {}, tag: reward.hashCode))
+            .toList(),
+      )
+    ]);
   }
 }

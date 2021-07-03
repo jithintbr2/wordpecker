@@ -6,7 +6,7 @@ part 'wallet_reward_model.g.dart';
 @freezed
 class WalletRewardModel with _$WalletRewardModel {
   const factory WalletRewardModel({
-    required int id,
+    @JsonKey(name: 'ponitId') required int id,
     required int point,
     required String dateCreate,
     required String description,

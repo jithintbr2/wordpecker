@@ -21,7 +21,7 @@ class _$WalletRewardModelTearOff {
   const _$WalletRewardModelTearOff();
 
   _WalletRewardModel call(
-      {required int id,
+      {@JsonKey(name: 'ponitId') required int id,
       required int point,
       required String dateCreate,
       required String description,
@@ -47,6 +47,7 @@ const $WalletRewardModel = _$WalletRewardModelTearOff();
 
 /// @nodoc
 mixin _$WalletRewardModel {
+  @JsonKey(name: 'ponitId')
   int get id => throw _privateConstructorUsedError;
   int get point => throw _privateConstructorUsedError;
   String get dateCreate => throw _privateConstructorUsedError;
@@ -66,7 +67,7 @@ abstract class $WalletRewardModelCopyWith<$Res> {
           WalletRewardModel value, $Res Function(WalletRewardModel) then) =
       _$WalletRewardModelCopyWithImpl<$Res>;
   $Res call(
-      {int id,
+      {@JsonKey(name: 'ponitId') int id,
       int point,
       String dateCreate,
       String description,
@@ -129,7 +130,7 @@ abstract class _$WalletRewardModelCopyWith<$Res>
       __$WalletRewardModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
+      {@JsonKey(name: 'ponitId') int id,
       int point,
       String dateCreate,
       String description,
@@ -190,7 +191,7 @@ class __$WalletRewardModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_WalletRewardModel implements _WalletRewardModel {
   const _$_WalletRewardModel(
-      {required this.id,
+      {@JsonKey(name: 'ponitId') required this.id,
       required this.point,
       required this.dateCreate,
       required this.description,
@@ -201,6 +202,7 @@ class _$_WalletRewardModel implements _WalletRewardModel {
       _$_$_WalletRewardModelFromJson(json);
 
   @override
+  @JsonKey(name: 'ponitId')
   final int id;
   @override
   final int point;
@@ -262,7 +264,7 @@ class _$_WalletRewardModel implements _WalletRewardModel {
 
 abstract class _WalletRewardModel implements WalletRewardModel {
   const factory _WalletRewardModel(
-      {required int id,
+      {@JsonKey(name: 'ponitId') required int id,
       required int point,
       required String dateCreate,
       required String description,
@@ -273,6 +275,7 @@ abstract class _WalletRewardModel implements WalletRewardModel {
       _$_WalletRewardModel.fromJson;
 
   @override
+  @JsonKey(name: 'ponitId')
   int get id => throw _privateConstructorUsedError;
   @override
   int get point => throw _privateConstructorUsedError;

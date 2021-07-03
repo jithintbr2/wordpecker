@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/address/address_page.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
@@ -21,10 +22,16 @@ import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/notification_page.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/screens/orders/orders_page.dart';
+import 'package:woodle/ui/screens/referral/bloc/referral_bloc.dart';
+import 'package:woodle/ui/screens/referral/referral_page.dart';
+import 'package:woodle/ui/screens/shop/bloc/shop_bloc.dart';
+import 'package:woodle/ui/screens/shop/shop_page.dart';
 import 'package:woodle/ui/screens/shop_category_list/bloc/shop_category_list_bloc.dart';
 import 'package:woodle/ui/screens/shop_category_list/shop_category_list_page.dart';
 import 'package:woodle/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:woodle/ui/screens/splash/splash_page.dart';
+import 'package:woodle/ui/screens/wallet/bloc/wallet_bloc.dart';
+import 'package:woodle/ui/screens/wallet/wallet_page.dart';
 import 'package:woodle/ui/screens/web_view/web_view_page.dart';
 
 class AppRouter {
@@ -93,6 +100,17 @@ class AppRouter {
               categoryName: args['categoryName']),
         ));
 
+      case '/shopDetail':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              ShopBloc(repository: context.read<ApplicationRepository>()),
+          child: ShopPage(
+            shopId: args['shopId'],
+          ),
+        ));
+
       case '/shopList':
         final Map<String, dynamic> args =
             settings.arguments as Map<String, dynamic>;
@@ -114,9 +132,6 @@ class AppRouter {
       // case '/landing':
       //   return _generatePlatformRoute(LandingPage());
 
-      // case '/login':
-      //   return _generatePlatformRoute(AuthenticationPage());
-
       // case '/orderPreview':
       //   return _generatePlatformRoute(OrderPreview());
 
@@ -129,6 +144,20 @@ class AppRouter {
 
       // case '/profile':
       //   return _generatePlatformRoute(ProfilePage());
+
+      case '/referral':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              ReferralBloc(repository: context.read<ApplicationRepository>()),
+          child: ReferralPage(),
+        ));
+
+      case '/wallet':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              WalletBloc(repository: context.read<ApplicationRepository>()),
+          child: WalletPage(),
+        ));
 
       case '/webView':
         final Map<String, dynamic> args =

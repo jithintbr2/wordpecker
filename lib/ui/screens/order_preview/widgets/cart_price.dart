@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/price_indicator.dart';
-import 'package:woodle/ui/widgets/item_tile.dart';
+import 'package:woodle/ui/widgets/item_varient_tile.dart';
 
 class CartPrice extends StatelessWidget {
   final CartService service;
@@ -12,9 +12,9 @@ class CartPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: service.controller,
-        builder: (context, AsyncSnapshot<List<ItemModel>> snap) {
+        builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
           if (snap.data != null && snap.data!.isNotEmpty) {
-            List<ItemModel> sortedData = snap.data!.toSet().toList();
+            List<ItemVarientModel> sortedData = snap.data!.toSet().toList();
             double totalPrice = 0;
 
             snap.data!.forEach((item) => totalPrice += item.salePrice!);
@@ -28,9 +28,11 @@ class CartPrice extends StatelessWidget {
                     itemBuilder: (context, index) {
                       int quantity = 0;
                       snap.data!.forEach((item) {
-                        if (item.id == sortedData[index].id) quantity += 1;
+                        if (item.varientId == sortedData[index].varientId)
+                          quantity += 1;
                       });
-                      return ItemTile(
+                      return ItemVarientTile(
+                          showParent: true,
                           item: sortedData[index],
                           onAdd: () => service.addItem(sortedData[index]),
                           onRemove: () => service.removeItem(sortedData[index]),

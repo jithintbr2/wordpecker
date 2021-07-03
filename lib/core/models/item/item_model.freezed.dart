@@ -21,21 +21,19 @@ class _$ItemModelTearOff {
   const _$ItemModelTearOff();
 
   _ItemModel call(
-      {required int id,
-      required String image,
-      required String name,
-      String? description,
-      double? salePrice,
-      required double mrp,
-      int? maxQuantity}) {
+      {@JsonKey(name: "itemId")
+          required int id,
+      @JsonKey(name: "itemImage")
+          required String image,
+      @JsonKey(name: "itemName")
+          required String name,
+      @JsonKey(name: "itemVarients")
+          required List<ItemVarientModel> varients}) {
     return _ItemModel(
       id: id,
       image: image,
       name: name,
-      description: description,
-      salePrice: salePrice,
-      mrp: mrp,
-      maxQuantity: maxQuantity,
+      varients: varients,
     );
   }
 
@@ -49,13 +47,14 @@ const $ItemModel = _$ItemModelTearOff();
 
 /// @nodoc
 mixin _$ItemModel {
+  @JsonKey(name: "itemId")
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: "itemImage")
   String get image => throw _privateConstructorUsedError;
+  @JsonKey(name: "itemName")
   String get name => throw _privateConstructorUsedError;
-  String? get description => throw _privateConstructorUsedError;
-  double? get salePrice => throw _privateConstructorUsedError;
-  double get mrp => throw _privateConstructorUsedError;
-  int? get maxQuantity => throw _privateConstructorUsedError;
+  @JsonKey(name: "itemVarients")
+  List<ItemVarientModel> get varients => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -68,13 +67,10 @@ abstract class $ItemModelCopyWith<$Res> {
   factory $ItemModelCopyWith(ItemModel value, $Res Function(ItemModel) then) =
       _$ItemModelCopyWithImpl<$Res>;
   $Res call(
-      {int id,
-      String image,
-      String name,
-      String? description,
-      double? salePrice,
-      double mrp,
-      int? maxQuantity});
+      {@JsonKey(name: "itemId") int id,
+      @JsonKey(name: "itemImage") String image,
+      @JsonKey(name: "itemName") String name,
+      @JsonKey(name: "itemVarients") List<ItemVarientModel> varients});
 }
 
 /// @nodoc
@@ -90,10 +86,7 @@ class _$ItemModelCopyWithImpl<$Res> implements $ItemModelCopyWith<$Res> {
     Object? id = freezed,
     Object? image = freezed,
     Object? name = freezed,
-    Object? description = freezed,
-    Object? salePrice = freezed,
-    Object? mrp = freezed,
-    Object? maxQuantity = freezed,
+    Object? varients = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -108,22 +101,10 @@ class _$ItemModelCopyWithImpl<$Res> implements $ItemModelCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      salePrice: salePrice == freezed
-          ? _value.salePrice
-          : salePrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      mrp: mrp == freezed
-          ? _value.mrp
-          : mrp // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxQuantity: maxQuantity == freezed
-          ? _value.maxQuantity
-          : maxQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
+      varients: varients == freezed
+          ? _value.varients
+          : varients // ignore: cast_nullable_to_non_nullable
+              as List<ItemVarientModel>,
     ));
   }
 }
@@ -135,13 +116,10 @@ abstract class _$ItemModelCopyWith<$Res> implements $ItemModelCopyWith<$Res> {
       __$ItemModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
-      String image,
-      String name,
-      String? description,
-      double? salePrice,
-      double mrp,
-      int? maxQuantity});
+      {@JsonKey(name: "itemId") int id,
+      @JsonKey(name: "itemImage") String image,
+      @JsonKey(name: "itemName") String name,
+      @JsonKey(name: "itemVarients") List<ItemVarientModel> varients});
 }
 
 /// @nodoc
@@ -158,10 +136,7 @@ class __$ItemModelCopyWithImpl<$Res> extends _$ItemModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? image = freezed,
     Object? name = freezed,
-    Object? description = freezed,
-    Object? salePrice = freezed,
-    Object? mrp = freezed,
-    Object? maxQuantity = freezed,
+    Object? varients = freezed,
   }) {
     return _then(_ItemModel(
       id: id == freezed
@@ -176,22 +151,10 @@ class __$ItemModelCopyWithImpl<$Res> extends _$ItemModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String?,
-      salePrice: salePrice == freezed
-          ? _value.salePrice
-          : salePrice // ignore: cast_nullable_to_non_nullable
-              as double?,
-      mrp: mrp == freezed
-          ? _value.mrp
-          : mrp // ignore: cast_nullable_to_non_nullable
-              as double,
-      maxQuantity: maxQuantity == freezed
-          ? _value.maxQuantity
-          : maxQuantity // ignore: cast_nullable_to_non_nullable
-              as int?,
+      varients: varients == freezed
+          ? _value.varients
+          : varients // ignore: cast_nullable_to_non_nullable
+              as List<ItemVarientModel>,
     ));
   }
 }
@@ -200,35 +163,30 @@ class __$ItemModelCopyWithImpl<$Res> extends _$ItemModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ItemModel with DiagnosticableTreeMixin implements _ItemModel {
   const _$_ItemModel(
-      {required this.id,
-      required this.image,
-      required this.name,
-      this.description,
-      this.salePrice,
-      required this.mrp,
-      this.maxQuantity});
+      {@JsonKey(name: "itemId") required this.id,
+      @JsonKey(name: "itemImage") required this.image,
+      @JsonKey(name: "itemName") required this.name,
+      @JsonKey(name: "itemVarients") required this.varients});
 
   factory _$_ItemModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemModelFromJson(json);
 
   @override
+  @JsonKey(name: "itemId")
   final int id;
   @override
+  @JsonKey(name: "itemImage")
   final String image;
   @override
+  @JsonKey(name: "itemName")
   final String name;
   @override
-  final String? description;
-  @override
-  final double? salePrice;
-  @override
-  final double mrp;
-  @override
-  final int? maxQuantity;
+  @JsonKey(name: "itemVarients")
+  final List<ItemVarientModel> varients;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemModel(id: $id, image: $image, name: $name, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity)';
+    return 'ItemModel(id: $id, image: $image, name: $name, varients: $varients)';
   }
 
   @override
@@ -239,10 +197,7 @@ class _$_ItemModel with DiagnosticableTreeMixin implements _ItemModel {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('salePrice', salePrice))
-      ..add(DiagnosticsProperty('mrp', mrp))
-      ..add(DiagnosticsProperty('maxQuantity', maxQuantity));
+      ..add(DiagnosticsProperty('varients', varients));
   }
 
   @override
@@ -255,17 +210,9 @@ class _$_ItemModel with DiagnosticableTreeMixin implements _ItemModel {
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.description, description) ||
+            (identical(other.varients, varients) ||
                 const DeepCollectionEquality()
-                    .equals(other.description, description)) &&
-            (identical(other.salePrice, salePrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.salePrice, salePrice)) &&
-            (identical(other.mrp, mrp) ||
-                const DeepCollectionEquality().equals(other.mrp, mrp)) &&
-            (identical(other.maxQuantity, maxQuantity) ||
-                const DeepCollectionEquality()
-                    .equals(other.maxQuantity, maxQuantity)));
+                    .equals(other.varients, varients)));
   }
 
   @override
@@ -274,10 +221,7 @@ class _$_ItemModel with DiagnosticableTreeMixin implements _ItemModel {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(description) ^
-      const DeepCollectionEquality().hash(salePrice) ^
-      const DeepCollectionEquality().hash(mrp) ^
-      const DeepCollectionEquality().hash(maxQuantity);
+      const DeepCollectionEquality().hash(varients);
 
   @JsonKey(ignore: true)
   @override
@@ -292,31 +236,30 @@ class _$_ItemModel with DiagnosticableTreeMixin implements _ItemModel {
 
 abstract class _ItemModel implements ItemModel {
   const factory _ItemModel(
-      {required int id,
-      required String image,
-      required String name,
-      String? description,
-      double? salePrice,
-      required double mrp,
-      int? maxQuantity}) = _$_ItemModel;
+      {@JsonKey(name: "itemId")
+          required int id,
+      @JsonKey(name: "itemImage")
+          required String image,
+      @JsonKey(name: "itemName")
+          required String name,
+      @JsonKey(name: "itemVarients")
+          required List<ItemVarientModel> varients}) = _$_ItemModel;
 
   factory _ItemModel.fromJson(Map<String, dynamic> json) =
       _$_ItemModel.fromJson;
 
   @override
+  @JsonKey(name: "itemId")
   int get id => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "itemImage")
   String get image => throw _privateConstructorUsedError;
   @override
+  @JsonKey(name: "itemName")
   String get name => throw _privateConstructorUsedError;
   @override
-  String? get description => throw _privateConstructorUsedError;
-  @override
-  double? get salePrice => throw _privateConstructorUsedError;
-  @override
-  double get mrp => throw _privateConstructorUsedError;
-  @override
-  int? get maxQuantity => throw _privateConstructorUsedError;
+  @JsonKey(name: "itemVarients")
+  List<ItemVarientModel> get varients => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ItemModelCopyWith<_ItemModel> get copyWith =>

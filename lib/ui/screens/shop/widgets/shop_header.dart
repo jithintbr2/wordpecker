@@ -8,7 +8,7 @@ class ShopHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+        padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -16,13 +16,13 @@ class ShopHeader extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  shop.name,
+                  shop.shopName,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 _ratingBox(context, shop.rating ?? 0, shop.ratingCount ?? 0)
               ],
             ),
-            shop.services!.isEmpty
+            (shop.services ?? []).isEmpty
                 ? SizedBox()
                 : Text(shop.services!.join(' • ')),
             Divider(height: 1),

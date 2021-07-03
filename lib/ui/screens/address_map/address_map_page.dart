@@ -216,7 +216,18 @@ class AddressPanel extends HookWidget {
                               ],
                             )
                           : ElevatedButton(
-                              onPressed: () {}, child: Text('Use Now'))
+                              onPressed: () => context
+                                  .read<AddressMapBloc>()
+                                  .add(AddressMapEvent.useAddress(
+                                      locality: locality,
+                                      house: _houseKey.currentState != null
+                                          ? _houseKey.currentState!.value
+                                          : '',
+                                      nickName: _addressType.value,
+                                      pincode: pincode,
+                                      lat: latitude,
+                                      lng: longitude)),
+                              child: Text('Use Now'))
                     ],
                   ),
                 )));

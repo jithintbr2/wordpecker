@@ -7,14 +7,15 @@ part 'shop_model.g.dart';
 @freezed
 class ShopModel with _$ShopModel {
   const factory ShopModel({
-    required int id,
-    required String name,
-    String? image,
-    @JsonKey(defaultValue: false) bool? serviceAvailable,
+    @JsonKey(name: 'id') required int shopId,
+    required String shopName,
+    @JsonKey(name: 'imgUrl') required String imageUrl,
+    @JsonKey(defaultValue: false) bool? servicesNow,
     List<String>? services,
     @JsonKey(defaultValue: 0) int? ratingCount,
     @JsonKey(defaultValue: 0) double? rating,
-    MenuModel? menu,
+    List<MenuModel>? category,
+    List<String>? slider,
   }) = _ShopModel;
 
   factory ShopModel.fromJson(Map<String, dynamic> json) =>

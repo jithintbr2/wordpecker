@@ -203,6 +203,10 @@ class DrawerBody extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, '/notifications')),
         _itemTile(context, Icons.track_changes, "My Orders",
             onTap: () => Navigator.pushNamed(context, '/orders')),
+        _itemTile(context, Icons.account_balance_wallet, "Wallet",
+            onTap: () => Navigator.pushNamed(context, '/wallet')),
+        _itemTile(context, Icons.share, "Refer and Earn",
+            onTap: () => Navigator.pushNamed(context, '/referral')),
         _itemTile(context, Icons.local_atm, "Cancellation & Refund Policy",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {
                   "title": "Cancellation & Refund Policy",

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/firebase.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/router.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
   Log.setupLogger();
   await Firebase.initializeApp();
   await LocalStorage().init();
+  CartService().init();
   runApp(Application(
     appRouter: AppRouter(),
     firebaseServices: FirebaseServices(),
@@ -46,6 +48,7 @@ class Application extends HookWidget {
       child: BlocProvider<AuthenticationCubit>(
         create: (context) => AuthenticationCubit(),
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           onGenerateRoute: appRouter.onGenerateRoute,
         ),
       ),

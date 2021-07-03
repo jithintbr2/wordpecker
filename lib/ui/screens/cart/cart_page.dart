@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/empty.dart';
-import 'package:woodle/ui/widgets/item_tile.dart';
+import 'package:woodle/ui/widgets/item_varient_tile.dart';
 
 class CartPage extends HookWidget {
   const CartPage({Key? key}) : super(key: key);
@@ -22,7 +22,7 @@ class CartPage extends HookWidget {
         appBar: AppBar(title: Text('Cart')),
         body: StreamBuilder(
             stream: service.controller,
-            builder: (context, AsyncSnapshot<List<ItemModel>> snap) {
+            builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
               if (snap.data != null && snap.data!.isNotEmpty)
                 return _buildPage(snap.data!, service);
               return EmptyView(
@@ -32,8 +32,8 @@ class CartPage extends HookWidget {
             }));
   }
 
-  Widget _buildPage(List<ItemModel> data, CartService service) {
-    List<ItemModel> sortedData = data.toSet().toList();
+  Widget _buildPage(List<ItemVarientModel> data, CartService service) {
+    List<ItemVarientModel> sortedData = data.toSet().toList();
     double totalPrice = 0;
     int itemCount = 0;
 
@@ -49,9 +49,10 @@ class CartPage extends HookWidget {
           itemBuilder: (context, index) {
             int quantity = 0;
             data.forEach((item) {
-              if (item.id == sortedData[index].id) quantity += 1;
+              if (item.varientId == sortedData[index].varientId) quantity += 1;
             });
-            return ItemTile(
+            return ItemVarientTile(
+                showParent: true,
                 item: sortedData[index],
                 onAdd: () => service.addItem(sortedData[index]),
                 onRemove: () => service.removeItem(sortedData[index]),

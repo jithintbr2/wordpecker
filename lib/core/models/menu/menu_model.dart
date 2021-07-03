@@ -8,9 +8,9 @@ part 'menu_model.g.dart';
 @freezed
 class MenuModel with _$MenuModel {
   const factory MenuModel({
-    required int id,
+    @JsonKey(name: "menuId") required int id,
     required String title,
-    required List<ItemModel> items,
+    @JsonKey(name: "item") required List<ItemModel> items,
   }) = _MenuModel;
 
   factory MenuModel.fromJson(Map<String, dynamic> json) =>

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
@@ -23,6 +24,7 @@ class HomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartService service = CartService();
     AddressModel? _getAddress() {
       if (localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
@@ -41,6 +43,7 @@ class HomePage extends HookWidget {
 
     return Scaffold(
       appBar: HomeAppBar(
+        service: service,
         showLocation: true,
         location: address?.locality,
         onTap: () => Navigator.pushNamed(context, '/address'),
