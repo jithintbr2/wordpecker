@@ -10,6 +10,7 @@ class ItemVarientTile extends HookWidget {
   final int quantity;
   final void Function()? onAdd;
   final void Function()? onRemove;
+  final void Function()? onTap;
   final bool? showParent;
   final double? elevation;
   const ItemVarientTile({
@@ -17,6 +18,7 @@ class ItemVarientTile extends HookWidget {
     required this.onAdd,
     required this.onRemove,
     required this.quantity,
+    this.onTap,
     this.showParent = false,
     this.elevation = 1,
     Key? key,
@@ -27,6 +29,7 @@ class ItemVarientTile extends HookWidget {
     return Card(
       elevation: elevation,
       child: ListTile(
+          onTap: onTap,
           leading: Container(
               height: 64,
               width: 64,

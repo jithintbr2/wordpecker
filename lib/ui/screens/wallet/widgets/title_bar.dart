@@ -39,7 +39,7 @@ class WalletTitlebar extends StatelessWidget {
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             SizedBox(height: 30),
             TextButton(
-              child: Text("Withdraw from Wallet",
+              child: Text("",
                   style:
                       TextStyle(color: Theme.of(context).secondaryHeaderColor)),
               onPressed: () {},
@@ -49,7 +49,7 @@ class WalletTitlebar extends StatelessWidget {
               child: Text("How to Earn Cashback",
                   style:
                       TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).pushNamed('/referral'),
             )
           ])
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class AppLandingScreen extends HookWidget {
   const AppLandingScreen({Key? key}) : super(key: key);
@@ -31,7 +32,10 @@ class AppLandingScreen extends HookWidget {
                       child: ElevatedButton(
                           onPressed: _agreed.value
                               ? () => Navigator.pushReplacementNamed(
-                                  context, '/home')
+                                  context,
+                                  Config.useDashboardEntry
+                                      ? '/homeDashboard'
+                                      : '/home')
                               : null,
                           child: Text('Skip'))),
                   SizedBox(width: 10),

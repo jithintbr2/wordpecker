@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 
 part 'address_map_event.dart';
 part 'address_map_state.dart';
@@ -54,8 +55,9 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                     lng: event.lng,
                     nickName: event.nickName,
                     franchiseId: franchiseId)));
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/home', (route) => false);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                Config.useDashboardEntry ? '/homeDashboard' : '/home',
+                (route) => false);
           }, failure: (error) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
@@ -109,8 +111,9 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                   lng: event.lng,
                   nickName: event.nickName,
                   franchiseId: franchiseId)));
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/home', (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              Config.useDashboardEntry ? '/homeDashboard' : '/home',
+              (route) => false);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Service Not Available.'),

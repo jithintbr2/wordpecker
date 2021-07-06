@@ -6,6 +6,7 @@ import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/delivery_options.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/instruction_box.dart';
+import 'package:woodle/ui/screens/order_preview/widgets/payment_options.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -53,9 +54,11 @@ class OrderPreviewPage extends HookWidget {
       children: [
         Expanded(
             child: ListView(
+          padding: EdgeInsets.all(10),
           children: [
             CartPrice(service: service),
             DeliveryOptions(),
+            PaymentOptions(),
             InstructionBox(),
           ],
         )),

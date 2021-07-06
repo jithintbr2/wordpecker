@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class CartService {
   factory CartService() => CartService._internal();
@@ -33,13 +34,31 @@ class CartService {
         ? List.from(_storeData as Iterable<dynamic>, growable: true)
         : List.empty(growable: true);
 
-    cartItems.add(jsonEncode(item.toJson()));
-    _store.set('cart', cartItems);
+    if (Config.isPurchasableFromMultiVendor || cartItems.length == 0) {
+      cartItems.add(jsonEncode(item.toJson()));
+      _store.set('cart', cartItems);
 
-    List<ItemVarientModel> cartStandardizedItems = [];
-    cartItems.forEach((item) => cartStandardizedItems
-        .add(ItemVarientModel.fromJson(json.decode(item))));
-    _controller.add(cartStandardizedItems);
+      List<ItemVarientModel> cartStandardizedItems = [];
+      cartItems.forEach((item) => cartStandardizedItems
+          .add(ItemVarientModel.fromJson(json.decode(item))));
+      _controller.add(cartStandardizedItems);
+    } else {
+      ItemVarientModel _anItemFromCart =
+          ItemVarientModel.fromJson(json.decode(cartItems[0]));
+
+      if (_anItemFromCart.shopId == item.shopId) {
+        cartItems.add(jsonEncode(item.toJson()));
+        _store.set('cart', cartItems);
+
+        List<ItemVarientModel> cartStandardizedItems = [];
+        cartItems.forEach((item) => cartStandardizedItems
+            .add(ItemVarientModel.fromJson(json.decode(item))));
+        _controller.add(cartStandardizedItems);
+      } else {
+        _store.set('cart', [jsonEncode(item.toJson())]);
+        _controller.add([item]);
+      }
+    }
   }
 
   void removeItem(ItemVarientModel item) {

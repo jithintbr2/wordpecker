@@ -123,20 +123,32 @@ class CategoryItemsPage extends HookWidget {
               itemBuilder: (context, index) {
                 if (filteredData[index].varients.length == 1) {
                   return ItemVarientTile(
-                      item: filteredData[index].varients[0],
-                      onAdd: () =>
-                          service.addItem(filteredData[index].varients[0]),
-                      onRemove: () =>
-                          service.removeItem(filteredData[index].varients[0]),
-                      quantity: _getCartQuantity(snap.data,
-                          filteredData[index].varients[0].varientId));
+                    item: filteredData[index].varients[0],
+                    onAdd: () =>
+                        service.addItem(filteredData[index].varients[0]),
+                    onRemove: () =>
+                        service.removeItem(filteredData[index].varients[0]),
+                    quantity: _getCartQuantity(
+                        snap.data, filteredData[index].varients[0].varientId),
+                    onTap: () => Navigator.of(context).pushNamed('/item',
+                        arguments: {
+                          'itemId': data[index].id,
+                          'itemName': data[index].name
+                        }),
+                  );
                 }
                 return ItemVarientContainerTile(
-                    item: filteredData[index],
-                    service: service,
-                    cartItems: snap.data,
-                    onAdd: (item) => service.addItem(item),
-                    onRemove: (item) => service.removeItem(item));
+                  item: filteredData[index],
+                  service: service,
+                  cartItems: snap.data,
+                  onAdd: (item) => service.addItem(item),
+                  onRemove: (item) => service.removeItem(item),
+                  onTap: () => Navigator.of(context).pushNamed('/item',
+                      arguments: {
+                        'itemId': data[index].id,
+                        'itemName': data[index].name
+                      }),
+                );
               },
               itemCount: filteredData.length,
             )),

@@ -52,6 +52,28 @@ class HttpService {
     return response.data;
   }
 
+  Future<dynamic> postRequest(String endPoint,
+      {Map<String, dynamic>? parameters}) async {
+    if (_dio.options.headers["Authorization"] != null) {
+      if (parameters != null)
+        parameters['token'] = _dio.options.headers["Authorization"];
+      else
+        parameters = {'token': _dio.options.headers["Authorization"]};
+    }
+    Response response;
+    try {
+      response = await _dio.post(endPoint, queryParameters: parameters);
+    } on SocketException catch (e) {
+      throw SocketException(e.toString());
+    } on FormatException catch (_) {
+      throw FormatException("Unable to process the data");
+    } catch (e) {
+      throw e;
+    }
+
+    return response.data;
+  }
+
   initializeInterceptors() {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
       print("${options.method} ${options.path}");

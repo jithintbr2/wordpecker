@@ -29,7 +29,6 @@ class HomePage extends HookWidget {
       if (localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
             jsonDecode(localStorage.get('currentAddress') as String);
-        print(currentAddressRaw);
         return AddressModel.fromJson(currentAddressRaw);
       }
       return null;
@@ -43,14 +42,16 @@ class HomePage extends HookWidget {
     }, []);
 
     return Scaffold(
-      appBar: HomeAppBar(
-        service: service,
-        showLocation: true,
-        location: address?.locality,
-        onTap: () => Navigator.pushNamed(context, '/address'),
-        onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
-      ),
-      drawer: HomeDrawer(),
+      appBar: Config.useDashboardEntry
+          ? null
+          : HomeAppBar(
+              service: service,
+              showLocation: Config.isMultiLocation,
+              location: address?.locality,
+              onTap: () => Navigator.pushNamed(context, '/address'),
+              onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
+            ),
+      endDrawer: HomeDrawer(),
       body: Config.locationId != -1 || address != null
           ? _buildBloc(address)
           : EmptyView(
@@ -90,6 +91,7 @@ class HomePage extends HookWidget {
         Carousel(items: data.carouselx1 ?? []),
         SizedBox(height: 10),
         MarqueeWidget(text: data.message ?? ''),
+        Carousel(items: data.carouselx2 ?? [], viewportFraction: 1),
         Category(
           title: 'Items',
           items: data.itemCategories ?? [],
@@ -112,7 +114,8 @@ class HomePage extends HookWidget {
           }),
         ),
         SizedBox(height: 10),
-        Carousel(items: data.carouselx2 ?? [])
+        Carousel(items: data.carouselx3 ?? [], viewportFraction: 1),
+        Carousel(items: data.carouselx4 ?? [], viewportFraction: 1)
       ],
     );
   }

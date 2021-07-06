@@ -6,6 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 
 part 'splash_event.dart';
 part 'splash_state.dart';
@@ -42,8 +43,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
               authenticationStatus.changeState(
                   user: userVerificationResult,
                   updateAvailable: appVerificationResult.updateAvailable);
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/home', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  Config.useDashboardEntry ? '/homeDashboard' : '/home',
+                  (route) => false);
             } else {
               authenticationStatus.changeState(
                   updateAvailable: appVerificationResult.updateAvailable);

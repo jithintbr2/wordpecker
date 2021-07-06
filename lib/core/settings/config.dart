@@ -17,10 +17,10 @@ class Config {
   static bool get addButtonInvert => false;
 
   // Application Feature
-  static bool get useDashboardEntry => false;
+  static bool get useDashboardEntry => true;
   static bool get isMultiVendor => false;
-  static bool get isMultiLocation => false;
-  static bool get isPurchasableFromMultiVendor => true;
+  static bool get isMultiLocation => true;
+  static bool get isPurchasableFromMultiVendor => false;
   static int get itemCategoriesLimit => 5;
   static int get shopCategoriesLimit => 5;
 

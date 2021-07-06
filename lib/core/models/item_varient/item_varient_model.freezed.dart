@@ -25,21 +25,25 @@ class _$ItemVarientModelTearOff {
       required String varientType,
       required String varientName,
       required String itemName,
+      required int shopId,
       @JsonKey(name: "imgUrl") required String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
       required double mrp,
-      int? maxQuantity}) {
+      int? maxQuantity,
+      @JsonKey(defaultValue: const []) List<String>? itemImages}) {
     return _ItemVarientModel(
       varientId: varientId,
       varientType: varientType,
       varientName: varientName,
       itemName: itemName,
+      shopId: shopId,
       image: image,
       description: description,
       salePrice: salePrice,
       mrp: mrp,
       maxQuantity: maxQuantity,
+      itemImages: itemImages,
     );
   }
 
@@ -57,6 +61,7 @@ mixin _$ItemVarientModel {
   String get varientType => throw _privateConstructorUsedError;
   String get varientName => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
+  int get shopId => throw _privateConstructorUsedError;
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -64,6 +69,8 @@ mixin _$ItemVarientModel {
   double? get salePrice => throw _privateConstructorUsedError;
   double get mrp => throw _privateConstructorUsedError;
   int? get maxQuantity => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: const [])
+  List<String>? get itemImages => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -81,11 +88,13 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       String varientType,
       String varientName,
       String itemName,
+      int shopId,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
-      int? maxQuantity});
+      int? maxQuantity,
+      @JsonKey(defaultValue: const []) List<String>? itemImages});
 }
 
 /// @nodoc
@@ -103,11 +112,13 @@ class _$ItemVarientModelCopyWithImpl<$Res>
     Object? varientType = freezed,
     Object? varientName = freezed,
     Object? itemName = freezed,
+    Object? shopId = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
     Object? mrp = freezed,
     Object? maxQuantity = freezed,
+    Object? itemImages = freezed,
   }) {
     return _then(_value.copyWith(
       varientId: varientId == freezed
@@ -126,6 +137,10 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
+      shopId: shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
+              as int,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -146,6 +161,10 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.maxQuantity
           : maxQuantity // ignore: cast_nullable_to_non_nullable
               as int?,
+      itemImages: itemImages == freezed
+          ? _value.itemImages
+          : itemImages // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -162,11 +181,13 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       String varientType,
       String varientName,
       String itemName,
+      int shopId,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
-      int? maxQuantity});
+      int? maxQuantity,
+      @JsonKey(defaultValue: const []) List<String>? itemImages});
 }
 
 /// @nodoc
@@ -186,11 +207,13 @@ class __$ItemVarientModelCopyWithImpl<$Res>
     Object? varientType = freezed,
     Object? varientName = freezed,
     Object? itemName = freezed,
+    Object? shopId = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
     Object? mrp = freezed,
     Object? maxQuantity = freezed,
+    Object? itemImages = freezed,
   }) {
     return _then(_ItemVarientModel(
       varientId: varientId == freezed
@@ -209,6 +232,10 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
+      shopId: shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
+              as int,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -229,6 +256,10 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.maxQuantity
           : maxQuantity // ignore: cast_nullable_to_non_nullable
               as int?,
+      itemImages: itemImages == freezed
+          ? _value.itemImages
+          : itemImages // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -243,11 +274,13 @@ class _$_ItemVarientModel
       required this.varientType,
       required this.varientName,
       required this.itemName,
+      required this.shopId,
       @JsonKey(name: "imgUrl") required this.image,
       this.description,
       @JsonKey(name: "itemCost") this.salePrice,
       required this.mrp,
-      this.maxQuantity});
+      this.maxQuantity,
+      @JsonKey(defaultValue: const []) this.itemImages});
 
   factory _$_ItemVarientModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemVarientModelFromJson(json);
@@ -261,6 +294,8 @@ class _$_ItemVarientModel
   @override
   final String itemName;
   @override
+  final int shopId;
+  @override
   @JsonKey(name: "imgUrl")
   final String image;
   @override
@@ -272,10 +307,13 @@ class _$_ItemVarientModel
   final double mrp;
   @override
   final int? maxQuantity;
+  @override
+  @JsonKey(defaultValue: const [])
+  final List<String>? itemImages;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity)';
+    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, shopId: $shopId, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages)';
   }
 
   @override
@@ -287,11 +325,13 @@ class _$_ItemVarientModel
       ..add(DiagnosticsProperty('varientType', varientType))
       ..add(DiagnosticsProperty('varientName', varientName))
       ..add(DiagnosticsProperty('itemName', itemName))
+      ..add(DiagnosticsProperty('shopId', shopId))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('salePrice', salePrice))
       ..add(DiagnosticsProperty('mrp', mrp))
-      ..add(DiagnosticsProperty('maxQuantity', maxQuantity));
+      ..add(DiagnosticsProperty('maxQuantity', maxQuantity))
+      ..add(DiagnosticsProperty('itemImages', itemImages));
   }
 
   @override
@@ -310,6 +350,8 @@ class _$_ItemVarientModel
             (identical(other.itemName, itemName) ||
                 const DeepCollectionEquality()
                     .equals(other.itemName, itemName)) &&
+            (identical(other.shopId, shopId) ||
+                const DeepCollectionEquality().equals(other.shopId, shopId)) &&
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.description, description) ||
@@ -322,7 +364,10 @@ class _$_ItemVarientModel
                 const DeepCollectionEquality().equals(other.mrp, mrp)) &&
             (identical(other.maxQuantity, maxQuantity) ||
                 const DeepCollectionEquality()
-                    .equals(other.maxQuantity, maxQuantity)));
+                    .equals(other.maxQuantity, maxQuantity)) &&
+            (identical(other.itemImages, itemImages) ||
+                const DeepCollectionEquality()
+                    .equals(other.itemImages, itemImages)));
   }
 
   @override
@@ -332,11 +377,13 @@ class _$_ItemVarientModel
       const DeepCollectionEquality().hash(varientType) ^
       const DeepCollectionEquality().hash(varientName) ^
       const DeepCollectionEquality().hash(itemName) ^
+      const DeepCollectionEquality().hash(shopId) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(salePrice) ^
       const DeepCollectionEquality().hash(mrp) ^
-      const DeepCollectionEquality().hash(maxQuantity);
+      const DeepCollectionEquality().hash(maxQuantity) ^
+      const DeepCollectionEquality().hash(itemImages);
 
   @JsonKey(ignore: true)
   @override
@@ -351,15 +398,18 @@ class _$_ItemVarientModel
 
 abstract class _ItemVarientModel implements ItemVarientModel {
   const factory _ItemVarientModel(
-      {required int varientId,
-      required String varientType,
-      required String varientName,
-      required String itemName,
-      @JsonKey(name: "imgUrl") required String image,
-      String? description,
-      @JsonKey(name: "itemCost") double? salePrice,
-      required double mrp,
-      int? maxQuantity}) = _$_ItemVarientModel;
+          {required int varientId,
+          required String varientType,
+          required String varientName,
+          required String itemName,
+          required int shopId,
+          @JsonKey(name: "imgUrl") required String image,
+          String? description,
+          @JsonKey(name: "itemCost") double? salePrice,
+          required double mrp,
+          int? maxQuantity,
+          @JsonKey(defaultValue: const []) List<String>? itemImages}) =
+      _$_ItemVarientModel;
 
   factory _ItemVarientModel.fromJson(Map<String, dynamic> json) =
       _$_ItemVarientModel.fromJson;
@@ -373,6 +423,8 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   @override
   String get itemName => throw _privateConstructorUsedError;
   @override
+  int get shopId => throw _privateConstructorUsedError;
+  @override
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;
   @override
@@ -384,6 +436,9 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   double get mrp => throw _privateConstructorUsedError;
   @override
   int? get maxQuantity => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: const [])
+  List<String>? get itemImages => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ItemVarientModelCopyWith<_ItemVarientModel> get copyWith =>

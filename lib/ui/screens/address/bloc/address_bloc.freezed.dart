@@ -20,13 +20,16 @@ class _$AddressEventTearOff {
     return const _FetchSavedAddress();
   }
 
-  _DeleteAddress deleteAddress() {
-    return const _DeleteAddress();
+  _DeleteAddress deleteAddress(AddressModel address) {
+    return _DeleteAddress(
+      address,
+    );
   }
 
-  _SelectAddress selectAddress(AddressModel address) {
+  _SelectAddress selectAddress(AddressModel address, bool shouldReturn) {
     return _SelectAddress(
       address,
+      shouldReturn,
     );
   }
 }
@@ -39,15 +42,16 @@ mixin _$AddressEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(AddressModel address) deleteAddress,
+    required TResult Function(AddressModel address, bool shouldReturn)
+        selectAddress,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(AddressModel address)? deleteAddress,
+    TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,8 +129,9 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(AddressModel address) deleteAddress,
+    required TResult Function(AddressModel address, bool shouldReturn)
+        selectAddress,
   }) {
     return fetchSavedAddress();
   }
@@ -135,8 +140,8 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(AddressModel address)? deleteAddress,
+    TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
     required TResult orElse(),
   }) {
     if (fetchSavedAddress != null) {
@@ -179,6 +184,9 @@ abstract class _$DeleteAddressCopyWith<$Res> {
   factory _$DeleteAddressCopyWith(
           _DeleteAddress value, $Res Function(_DeleteAddress) then) =
       __$DeleteAddressCopyWithImpl<$Res>;
+  $Res call({AddressModel address});
+
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -191,46 +199,78 @@ class __$DeleteAddressCopyWithImpl<$Res>
 
   @override
   _DeleteAddress get _value => super._value as _DeleteAddress;
+
+  @override
+  $Res call({
+    Object? address = freezed,
+  }) {
+    return _then(_DeleteAddress(
+      address == freezed
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as AddressModel,
+    ));
+  }
+
+  @override
+  $AddressModelCopyWith<$Res> get address {
+    return $AddressModelCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$_DeleteAddress implements _DeleteAddress {
-  const _$_DeleteAddress();
+  const _$_DeleteAddress(this.address);
+
+  @override
+  final AddressModel address;
 
   @override
   String toString() {
-    return 'AddressEvent.deleteAddress()';
+    return 'AddressEvent.deleteAddress(address: $address)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _DeleteAddress);
+    return identical(this, other) ||
+        (other is _DeleteAddress &&
+            (identical(other.address, address) ||
+                const DeepCollectionEquality().equals(other.address, address)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
+
+  @JsonKey(ignore: true)
+  @override
+  _$DeleteAddressCopyWith<_DeleteAddress> get copyWith =>
+      __$DeleteAddressCopyWithImpl<_DeleteAddress>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(AddressModel address) deleteAddress,
+    required TResult Function(AddressModel address, bool shouldReturn)
+        selectAddress,
   }) {
-    return deleteAddress();
+    return deleteAddress(address);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(AddressModel address)? deleteAddress,
+    TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
     required TResult orElse(),
   }) {
     if (deleteAddress != null) {
-      return deleteAddress();
+      return deleteAddress(address);
     }
     return orElse();
   }
@@ -261,7 +301,12 @@ class _$_DeleteAddress implements _DeleteAddress {
 }
 
 abstract class _DeleteAddress implements AddressEvent {
-  const factory _DeleteAddress() = _$_DeleteAddress;
+  const factory _DeleteAddress(AddressModel address) = _$_DeleteAddress;
+
+  AddressModel get address => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$DeleteAddressCopyWith<_DeleteAddress> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -269,7 +314,7 @@ abstract class _$SelectAddressCopyWith<$Res> {
   factory _$SelectAddressCopyWith(
           _SelectAddress value, $Res Function(_SelectAddress) then) =
       __$SelectAddressCopyWithImpl<$Res>;
-  $Res call({AddressModel address});
+  $Res call({AddressModel address, bool shouldReturn});
 
   $AddressModelCopyWith<$Res> get address;
 }
@@ -288,12 +333,17 @@ class __$SelectAddressCopyWithImpl<$Res>
   @override
   $Res call({
     Object? address = freezed,
+    Object? shouldReturn = freezed,
   }) {
     return _then(_SelectAddress(
       address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as AddressModel,
+      shouldReturn == freezed
+          ? _value.shouldReturn
+          : shouldReturn // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -308,14 +358,16 @@ class __$SelectAddressCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SelectAddress implements _SelectAddress {
-  const _$_SelectAddress(this.address);
+  const _$_SelectAddress(this.address, this.shouldReturn);
 
   @override
   final AddressModel address;
+  @override
+  final bool shouldReturn;
 
   @override
   String toString() {
-    return 'AddressEvent.selectAddress(address: $address)';
+    return 'AddressEvent.selectAddress(address: $address, shouldReturn: $shouldReturn)';
   }
 
   @override
@@ -323,12 +375,18 @@ class _$_SelectAddress implements _SelectAddress {
     return identical(this, other) ||
         (other is _SelectAddress &&
             (identical(other.address, address) ||
-                const DeepCollectionEquality().equals(other.address, address)));
+                const DeepCollectionEquality()
+                    .equals(other.address, address)) &&
+            (identical(other.shouldReturn, shouldReturn) ||
+                const DeepCollectionEquality()
+                    .equals(other.shouldReturn, shouldReturn)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(address);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(address) ^
+      const DeepCollectionEquality().hash(shouldReturn);
 
   @JsonKey(ignore: true)
   @override
@@ -339,22 +397,23 @@ class _$_SelectAddress implements _SelectAddress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchSavedAddress,
-    required TResult Function() deleteAddress,
-    required TResult Function(AddressModel address) selectAddress,
+    required TResult Function(AddressModel address) deleteAddress,
+    required TResult Function(AddressModel address, bool shouldReturn)
+        selectAddress,
   }) {
-    return selectAddress(address);
+    return selectAddress(address, shouldReturn);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchSavedAddress,
-    TResult Function()? deleteAddress,
-    TResult Function(AddressModel address)? selectAddress,
+    TResult Function(AddressModel address)? deleteAddress,
+    TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
     required TResult orElse(),
   }) {
     if (selectAddress != null) {
-      return selectAddress(address);
+      return selectAddress(address, shouldReturn);
     }
     return orElse();
   }
@@ -385,9 +444,11 @@ class _$_SelectAddress implements _SelectAddress {
 }
 
 abstract class _SelectAddress implements AddressEvent {
-  const factory _SelectAddress(AddressModel address) = _$_SelectAddress;
+  const factory _SelectAddress(AddressModel address, bool shouldReturn) =
+      _$_SelectAddress;
 
   AddressModel get address => throw _privateConstructorUsedError;
+  bool get shouldReturn => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
       throw _privateConstructorUsedError;

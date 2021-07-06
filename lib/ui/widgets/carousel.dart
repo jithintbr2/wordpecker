@@ -6,13 +6,16 @@ import 'package:woodle/core/settings/assets.dart';
 
 class Carousel extends StatelessWidget {
   final List<CarouselModel> items;
-  const Carousel({required this.items, Key? key}) : super(key: key);
+  final double? viewportFraction;
+  const Carousel({required this.items, this.viewportFraction, Key? key})
+      : super(key: key);
 
   CarouselOptions _options() => CarouselOptions(
       aspectRatio: items[0].aspectRatio ?? 6.4,
       autoPlay: true,
       autoPlayInterval: Duration(seconds: 5),
       enlargeCenterPage: true,
+      viewportFraction: viewportFraction ?? 0.8,
       pauseAutoPlayOnTouch: true);
 
   Widget _buildItem(CarouselModel item) => InkWell(

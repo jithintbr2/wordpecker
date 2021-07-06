@@ -16,8 +16,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$OrderPreviewEventTearOff {
   const _$OrderPreviewEventTearOff();
 
-  _CartExpiryCheck cartExpiryCheck() {
-    return const _CartExpiryCheck();
+  _CartExpiryCheck cartExpiryCheck(
+      List<ItemVarientModel> items, int shopId, int addressId, String remark) {
+    return _CartExpiryCheck(
+      items,
+      shopId,
+      addressId,
+      remark,
+    );
   }
 
   _GetSupportingData getSupportingData() {
@@ -32,13 +38,17 @@ const $OrderPreviewEvent = _$OrderPreviewEventTearOff();
 mixin _$OrderPreviewEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() cartExpiryCheck,
+    required TResult Function(List<ItemVarientModel> items, int shopId,
+            int addressId, String remark)
+        cartExpiryCheck,
     required TResult Function() getSupportingData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? cartExpiryCheck,
+    TResult Function(List<ItemVarientModel> items, int shopId, int addressId,
+            String remark)?
+        cartExpiryCheck,
     TResult Function()? getSupportingData,
     required TResult orElse(),
   }) =>
@@ -80,6 +90,8 @@ abstract class _$CartExpiryCheckCopyWith<$Res> {
   factory _$CartExpiryCheckCopyWith(
           _CartExpiryCheck value, $Res Function(_CartExpiryCheck) then) =
       __$CartExpiryCheckCopyWithImpl<$Res>;
+  $Res call(
+      {List<ItemVarientModel> items, int shopId, int addressId, String remark});
 }
 
 /// @nodoc
@@ -92,6 +104,33 @@ class __$CartExpiryCheckCopyWithImpl<$Res>
 
   @override
   _CartExpiryCheck get _value => super._value as _CartExpiryCheck;
+
+  @override
+  $Res call({
+    Object? items = freezed,
+    Object? shopId = freezed,
+    Object? addressId = freezed,
+    Object? remark = freezed,
+  }) {
+    return _then(_CartExpiryCheck(
+      items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<ItemVarientModel>,
+      shopId == freezed
+          ? _value.shopId
+          : shopId // ignore: cast_nullable_to_non_nullable
+              as int,
+      addressId == freezed
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int,
+      remark == freezed
+          ? _value.remark
+          : remark // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
@@ -99,46 +138,84 @@ class __$CartExpiryCheckCopyWithImpl<$Res>
 class _$_CartExpiryCheck
     with DiagnosticableTreeMixin
     implements _CartExpiryCheck {
-  const _$_CartExpiryCheck();
+  const _$_CartExpiryCheck(
+      this.items, this.shopId, this.addressId, this.remark);
+
+  @override
+  final List<ItemVarientModel> items;
+  @override
+  final int shopId;
+  @override
+  final int addressId;
+  @override
+  final String remark;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'OrderPreviewEvent.cartExpiryCheck()';
+    return 'OrderPreviewEvent.cartExpiryCheck(items: $items, shopId: $shopId, addressId: $addressId, remark: $remark)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.cartExpiryCheck'));
+      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.cartExpiryCheck'))
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('shopId', shopId))
+      ..add(DiagnosticsProperty('addressId', addressId))
+      ..add(DiagnosticsProperty('remark', remark));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _CartExpiryCheck);
+    return identical(this, other) ||
+        (other is _CartExpiryCheck &&
+            (identical(other.items, items) ||
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.shopId, shopId) ||
+                const DeepCollectionEquality().equals(other.shopId, shopId)) &&
+            (identical(other.addressId, addressId) ||
+                const DeepCollectionEquality()
+                    .equals(other.addressId, addressId)) &&
+            (identical(other.remark, remark) ||
+                const DeepCollectionEquality().equals(other.remark, remark)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(shopId) ^
+      const DeepCollectionEquality().hash(addressId) ^
+      const DeepCollectionEquality().hash(remark);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CartExpiryCheckCopyWith<_CartExpiryCheck> get copyWith =>
+      __$CartExpiryCheckCopyWithImpl<_CartExpiryCheck>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() cartExpiryCheck,
+    required TResult Function(List<ItemVarientModel> items, int shopId,
+            int addressId, String remark)
+        cartExpiryCheck,
     required TResult Function() getSupportingData,
   }) {
-    return cartExpiryCheck();
+    return cartExpiryCheck(items, shopId, addressId, remark);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? cartExpiryCheck,
+    TResult Function(List<ItemVarientModel> items, int shopId, int addressId,
+            String remark)?
+        cartExpiryCheck,
     TResult Function()? getSupportingData,
     required TResult orElse(),
   }) {
     if (cartExpiryCheck != null) {
-      return cartExpiryCheck();
+      return cartExpiryCheck(items, shopId, addressId, remark);
     }
     return orElse();
   }
@@ -167,7 +244,16 @@ class _$_CartExpiryCheck
 }
 
 abstract class _CartExpiryCheck implements OrderPreviewEvent {
-  const factory _CartExpiryCheck() = _$_CartExpiryCheck;
+  const factory _CartExpiryCheck(List<ItemVarientModel> items, int shopId,
+      int addressId, String remark) = _$_CartExpiryCheck;
+
+  List<ItemVarientModel> get items => throw _privateConstructorUsedError;
+  int get shopId => throw _privateConstructorUsedError;
+  int get addressId => throw _privateConstructorUsedError;
+  String get remark => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$CartExpiryCheckCopyWith<_CartExpiryCheck> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -219,7 +305,9 @@ class _$_GetSupportingData
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() cartExpiryCheck,
+    required TResult Function(List<ItemVarientModel> items, int shopId,
+            int addressId, String remark)
+        cartExpiryCheck,
     required TResult Function() getSupportingData,
   }) {
     return getSupportingData();
@@ -228,7 +316,9 @@ class _$_GetSupportingData
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? cartExpiryCheck,
+    TResult Function(List<ItemVarientModel> items, int shopId, int addressId,
+            String remark)?
+        cartExpiryCheck,
     TResult Function()? getSupportingData,
     required TResult orElse(),
   }) {

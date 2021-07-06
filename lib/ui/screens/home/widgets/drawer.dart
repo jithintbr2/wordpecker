@@ -224,6 +224,10 @@ class DrawerBody extends StatelessWidget {
       shrinkWrap: true,
       padding: EdgeInsets.all(0),
       children: [
+        Config.useDashboardEntry
+            ? SizedBox()
+            : _itemTile(context, Icons.room_service, "Services",
+                onTap: () => Navigator.pushNamed(context, '/services')),
         _itemTile(context, Icons.line_style, "My Addresses",
             onTap: () => Navigator.pushNamed(context, '/address')),
         _itemTile(context, Icons.notifications, "My Notifications",
@@ -234,6 +238,7 @@ class DrawerBody extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, '/wallet')),
         _itemTile(context, Icons.share, "Refer and Earn",
             onTap: () => Navigator.pushNamed(context, '/referral')),
+        Divider(color: Theme.of(context).accentColor.withOpacity(0.5)),
         _itemTile(context, Icons.local_atm, "Cancellation & Refund Policy",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {
                   "title": "Cancellation & Refund Policy",

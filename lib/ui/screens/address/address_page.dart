@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_place/google_place.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
+import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
-import 'package:woodle/ui/screens/address_map/address_map_page.dart';
 import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
@@ -13,11 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class AddressPage extends HookWidget {
-  const AddressPage({Key? key}) : super(key: key);
+  final bool? returnToPrevious;
+  final int? franchiseId;
+  const AddressPage({Key? key, this.returnToPrevious, this.franchiseId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     GooglePlace _googlePlace = GooglePlace(Config.kGoogleApiKey);
+    final _isDeleting = useState(false);
     final _focusNode = useFocusNode();
     final _locationSearchController = useTextEditingController();
     final _isSearching = useState(false);
@@ -43,11 +47,13 @@ class AddressPage extends HookWidget {
           _locationSearchController.clear();
           _isSearching.value = false;
         },
+        onDelete: () => _isDeleting.value = !_isDeleting.value,
+        isDeleting: _isDeleting.value,
       ),
       body: _isSearching.value
           ? _buildLocationSearchList(_searchResults.value, _googlePlace)
           : _user != null
-              ? _buildSavedAddressList()
+              ? _buildSavedAddressList(_isDeleting.value)
               : _unAuthenticatedLocationMessage(),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
@@ -74,15 +80,22 @@ class AddressPage extends HookWidget {
     );
   }
 
-  Widget _buildSavedAddressList() {
+  Widget _buildSavedAddressList(bool isDeleting) {
     return BlocBuilder<AddressBloc, AddressState>(builder: (context, state) {
       return state.when(
           loading: () {
             context.read<AddressBloc>().add(AddressEvent.fetchSavedAddress());
             return LoadingView();
           },
-          loaded: (data) {
-            if (data.isNotEmpty)
+          loaded: (dataRaw) {
+            if (dataRaw.isNotEmpty) {
+              List<AddressModel> data;
+              if (franchiseId != null) {
+                data = dataRaw
+                    .where((address) => address.franchiseId == franchiseId)
+                    .toList();
+              } else
+                data = dataRaw;
               return SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
@@ -93,29 +106,43 @@ class AddressPage extends HookWidget {
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Text("Saved Addresses")),
                       ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) => ListTile(
-                                onTap: Config.isMultiLocation
-                                    ? () => context.read<AddressBloc>().add(
-                                        AddressEvent.selectAddress(data[index]))
-                                    : null,
-                                leading: Icon(data[index].nickName == 'Work'
-                                    ? Icons.work
-                                    : data[index].nickName == 'Home'
-                                        ? Icons.home
-                                        : Icons.location_on_rounded),
-                                title: Text(data[index].nickName),
-                                subtitle: Text(
-                                  '${data[index].house}, ${data[index].locality}',
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ))
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: data.length,
+                        itemBuilder: (context, index) => ListTile(
+                          onTap: Config.isMultiLocation
+                              ? () => context.read<AddressBloc>().add(
+                                  AddressEvent.selectAddress(
+                                      data[index], returnToPrevious ?? false))
+                              : null,
+                          leading: Icon(data[index].nickName == 'Work'
+                              ? Icons.work
+                              : data[index].nickName == 'Home'
+                                  ? Icons.home
+                                  : Icons.location_on_rounded),
+                          title: Text(data[index].nickName),
+                          subtitle: Text(
+                            '${data[index].house}, ${data[index].locality}',
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: isDeleting
+                              ? IconButton(
+                                  onPressed: () => context
+                                      .read<AddressBloc>()
+                                      .add(AddressEvent.deleteAddress(
+                                          data[index])),
+                                  icon: Icon(
+                                    Icons.delete,
+                                    color: Theme.of(context).errorColor,
+                                  ))
+                              : null,
+                        ),
+                      )
                     ],
                   ),
                 ),
               );
+            }
             return EmptyView(
                 icon: Icons.location_off_rounded, title: 'No Address');
           },

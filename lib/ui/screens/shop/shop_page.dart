@@ -158,6 +158,11 @@ class ShopPage extends HookWidget {
           itemBuilder: (context, index) {
             if (data[index].varients.length == 1) {
               return ItemVarientTile(
+                  onTap: () => Navigator.of(context).pushNamed('/item',
+                          arguments: {
+                            'itemId': data[index].id,
+                            'itemName': data[index].name
+                          }),
                   item: data[index].varients[0],
                   onAdd: () => service.addItem(data[index].varients[0]),
                   onRemove: () => service.removeItem(data[index].varients[0]),
@@ -165,6 +170,11 @@ class ShopPage extends HookWidget {
                       snap.data, data[index].varients[0].varientId));
             }
             return ItemVarientContainerTile(
+                onTap: () => Navigator.of(context).pushNamed('/item',
+                        arguments: {
+                          'itemId': data[index].id,
+                          'itemName': data[index].name
+                        }),
                 item: data[index],
                 service: service,
                 cartItems: snap.data,

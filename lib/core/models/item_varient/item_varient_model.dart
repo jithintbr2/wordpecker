@@ -11,11 +11,13 @@ class ItemVarientModel with _$ItemVarientModel {
     required String varientType,
     required String varientName,
     required String itemName,
+    required int shopId,
     @JsonKey(name: "imgUrl") required String image,
     String? description,
     @JsonKey(name: "itemCost") double? salePrice,
     required double mrp,
     int? maxQuantity,
+    @JsonKey(defaultValue: []) List<String>? itemImages,
   }) = _ItemVarientModel;
 
   factory ItemVarientModel.fromJson(Map<String, dynamic> json) =>

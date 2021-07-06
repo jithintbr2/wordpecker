@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
-import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/address/address_page.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
@@ -17,17 +16,24 @@ import 'package:woodle/ui/screens/cart/cart_page.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/screens/category_items/category_items_page.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
+import 'package:woodle/ui/screens/home/dashboard_page.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
 import 'package:woodle/ui/screens/home_search/bloc/home_search_bloc.dart';
 import 'package:woodle/ui/screens/home_search/home_search_page.dart';
+import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
+import 'package:woodle/ui/screens/item/item_page.dart';
 import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/notification_page.dart';
+import 'package:woodle/ui/screens/order_details/bloc/order_details_bloc.dart';
+import 'package:woodle/ui/screens/order_details/order_details_page.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/order_preview_page.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/screens/orders/orders_page.dart';
 import 'package:woodle/ui/screens/referral/bloc/referral_bloc.dart';
 import 'package:woodle/ui/screens/referral/referral_page.dart';
+import 'package:woodle/ui/screens/service/bloc/service_bloc.dart';
+import 'package:woodle/ui/screens/service/service_page.dart';
 import 'package:woodle/ui/screens/shop/bloc/shop_bloc.dart';
 import 'package:woodle/ui/screens/shop/shop_page.dart';
 import 'package:woodle/ui/screens/shop_category_list/bloc/shop_category_list_bloc.dart';
@@ -61,12 +67,18 @@ class AppRouter {
         ));
 
       case '/address':
+        Map<String, dynamic> args = {};
+        if (settings.arguments != null)
+          args = settings.arguments as Map<String, dynamic>;
         return _generatePlatformRoute(BlocProvider(
           create: (context) => AddressBloc(
               context: context,
               localStorage: LocalStorage(),
               repository: context.read<ApplicationRepository>()),
-          child: AddressPage(),
+          child: AddressPage(
+            franchiseId: args['franchiseId'],
+            returnToPrevious: args['returnToPrevious'],
+          ),
         ));
 
       case '/addressMap':
@@ -94,11 +106,33 @@ class AppRouter {
               localStorage: LocalStorage(),
             )));
 
+      case '/homeDashboard':
+        return _generatePlatformRoute(MultiBlocProvider(providers: [
+          BlocProvider(
+              create: (context) =>
+                  HomeBloc(repository: context.read<ApplicationRepository>())),
+          BlocProvider(
+              create: (context) => ServiceBloc(
+                  repository: context.read<ApplicationRepository>())),
+        ], child: DashboardPage(localStorage: LocalStorage())));
+
       case '/homeSearch':
         return _generatePlatformRoute(BlocProvider(
             create: (context) => HomeSearchBloc(
                 repository: context.read<ApplicationRepository>()),
             child: HomeSearchPage()));
+
+      case '/item':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              ItemBloc(repository: context.read<ApplicationRepository>()),
+          child: ItemPage(
+            itemId: args['itemId'],
+            itemName: args['itemName'],
+          ),
+        ));
 
       case '/itemList':
         final Map<String, dynamic> args =
@@ -110,6 +144,14 @@ class AppRouter {
               categoryId: args['categoryId'],
               categoryName: args['categoryName']),
         ));
+
+      case '/services':
+        return _generatePlatformRoute(BlocProvider(
+            create: (context) =>
+                ServiceBloc(repository: context.read<ApplicationRepository>()),
+            child: ServicePage(
+              localStorage: LocalStorage(),
+            )));
 
       case '/shopDetail':
         final Map<String, dynamic> args =
@@ -140,12 +182,10 @@ class AppRouter {
           child: NotificationPage(),
         ));
 
-      // case '/landing':
-      //   return _generatePlatformRoute(LandingPage());
-
       case '/orderPreview':
         return _generatePlatformRoute(BlocProvider(
           create: (context) => OrderPreviewBloc(
+              context: context,
               repository: context.read<ApplicationRepository>()),
           child: OrderPreviewPage(),
         ));
@@ -155,6 +195,18 @@ class AppRouter {
           create: (context) =>
               OrdersBloc(repository: context.read<ApplicationRepository>()),
           child: OrdersPage(),
+        ));
+
+      case '/orderDetails':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => OrderDetailsBloc(
+              repository: context.read<ApplicationRepository>()),
+          child: OrderDetailsPage(
+            orderId: args['orderId'],
+            tempId: args['tempId'],
+          ),
         ));
 
       // case '/profile':

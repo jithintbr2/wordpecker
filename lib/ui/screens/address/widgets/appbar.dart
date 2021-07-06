@@ -9,14 +9,19 @@ class AddressAppBar extends StatelessWidget implements PreferredSizeWidget {
   final ValueNotifier<List<AutocompletePrediction>> predictions;
   final GooglePlace googlePlace;
   final void Function()? onCancel;
+  final void Function() onDelete;
+  final bool isDeleting;
 
-  AddressAppBar(
-      {required this.locationSearchController,
-      required this.focusNode,
-      required this.isSearching,
-      required this.onCancel,
-      required this.googlePlace,
-      required this.predictions});
+  AddressAppBar({
+    required this.locationSearchController,
+    required this.focusNode,
+    required this.isSearching,
+    required this.onCancel,
+    required this.googlePlace,
+    required this.predictions,
+    required this.onDelete,
+    required this.isDeleting,
+  });
 
   @override
   Size get preferredSize => isSearching
@@ -29,6 +34,13 @@ class AddressAppBar extends StatelessWidget implements PreferredSizeWidget {
         ? _searchLocationAppBar(context, focusNode)
         : AppBar(
             title: Text('Address'),
+            actions: [
+              IconButton(
+                  onPressed: onDelete,
+                  icon: Icon(isDeleting
+                      ? Icons.delete_forever_outlined
+                      : Icons.delete_outline))
+            ],
           );
   }
 

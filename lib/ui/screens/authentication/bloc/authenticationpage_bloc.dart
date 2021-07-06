@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 
 part 'authenticationpage_event.dart';
 part 'authenticationpage_state.dart';
@@ -58,7 +59,10 @@ class AuthenticationpageBloc
         localStorage.set('token', user.token);
         authenticationStatus.changeState(user: user);
         repository.setToken(user.token!);
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            Config.useDashboardEntry ? '/homeDashboard' : '/home',
+            (route) => false);
       } else {
         yield _LoginState(isLoading: false);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -85,7 +89,10 @@ class AuthenticationpageBloc
         localStorage.set('token', user.token);
         authenticationStatus.changeState(user: user);
         repository.setToken(user.token!);
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        Navigator.pushNamedAndRemoveUntil(
+            context,
+            Config.useDashboardEntry ? '/homeDashboard' : '/home',
+            (route) => false);
       } else
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Something Went Wrong. Try to Login.'),

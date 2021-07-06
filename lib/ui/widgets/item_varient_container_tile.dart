@@ -12,6 +12,7 @@ class ItemVarientContainerTile extends StatelessWidget {
   final List<ItemVarientModel>? cartItems;
   final void Function(ItemVarientModel) onAdd;
   final void Function(ItemVarientModel) onRemove;
+  final void Function()? onTap;
   final CartService service;
 
   const ItemVarientContainerTile({
@@ -21,6 +22,7 @@ class ItemVarientContainerTile extends StatelessWidget {
     required this.onAdd,
     required this.onRemove,
     required this.service,
+    this.onTap,
   }) : super(key: key);
 
   int _getCartQuantity(List<ItemVarientModel>? data, int id) {
@@ -53,15 +55,49 @@ class ItemVarientContainerTile extends StatelessWidget {
                   stream: service.controller,
                   builder:
                       (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) => ItemVarientTile(
-                          elevation: 0,
-                          item: data[index],
-                          onAdd: () => onAdd(data[index]),
-                          onRemove: () => onRemove(data[index]),
-                          quantity: _getCartQuantity(
-                              snap.data, data[index].varientId)),
-                      itemCount: data.length,
+                    List<String> varientTypes = data
+                        .map((varient) => varient.varientType)
+                        .toSet()
+                        .toList();
+
+                    return ListView(
+                      children: varientTypes
+                          .map((type) => Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 20),
+                                    child: Text(
+                                      type,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.3),
+                                  ),
+                                  ListView.builder(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      if (data[index].varientType == type)
+                                        return ItemVarientTile(
+                                            elevation: 0,
+                                            item: data[index],
+                                            onAdd: () => onAdd(data[index]),
+                                            onRemove: () =>
+                                                onRemove(data[index]),
+                                            quantity: _getCartQuantity(
+                                                snap.data,
+                                                data[index].varientId));
+                                      return SizedBox();
+                                    },
+                                    itemCount: data.length,
+                                  )
+                                ],
+                              ))
+                          .toList(),
                     );
                   }));
         });
@@ -85,6 +121,7 @@ class ItemVarientContainerTile extends StatelessWidget {
         child: Column(
       children: [
         ListTile(
+            onTap: onTap,
             leading: Container(
                 height: 64,
                 width: 64,

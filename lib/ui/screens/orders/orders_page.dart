@@ -73,6 +73,8 @@ class OrdersPage extends HookWidget {
   Widget _buildTabView(List<OrdersModel> data) {
     return ListView.separated(
         itemBuilder: (context, index) => ListTile(
+              onTap: () => Navigator.of(context).pushNamed('/orderDetails',
+                  arguments: {"orderId": data[index].orderId}),
               leading: Icon(Icons.ac_unit),
               title: Wrap(
                 spacing: 4,

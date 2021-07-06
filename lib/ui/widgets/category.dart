@@ -23,7 +23,7 @@ class Category extends StatelessWidget {
       SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3, childAspectRatio: 1);
 
-  Widget _buildItem(BuildContext context, CategoryModel item) => Card(
+  Widget _buildItem(CategoryModel item) => Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Stack(
           children: [
@@ -54,39 +54,44 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (items.isEmpty) return SizedBox();
-    return Wrap(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            title != null
-                ? Text("Explore $title by Category",
-                    style: TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.bold, height: 2))
-                : SizedBox(),
-            items.length > limit
-                ? OutlinedButton(
-                    onPressed: () =>
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => CategoryViewAll(
-                                  items: items,
-                                  title: title ?? '',
-                                  onTap: onTap,
-                                ))),
-                    child: Text('View All'))
-                : SizedBox()
-          ],
-        ),
-        GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: _gridDelegate(),
-            itemBuilder: (context, index) => InkWell(
-                  onTap: () => onTap(index),
-                  child: _buildItem(context, items[index]),
-                ),
-            itemCount: min(limit, items.length))
-      ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Wrap(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              title != null
+                  ? Text("Explore $title by Category",
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold, height: 2))
+                  : SizedBox(),
+              items.length > limit
+                  ? OutlinedButton(
+                      style:
+                          OutlinedButton.styleFrom(padding: EdgeInsets.all(0)),
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CategoryViewAll(
+                                    items: items,
+                                    title: title ?? '',
+                                    onTap: onTap,
+                                  ))),
+                      child: Text('View All'))
+                  : SizedBox()
+            ],
+          ),
+          GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: _gridDelegate(),
+              itemBuilder: (context, index) => InkWell(
+                    onTap: () => onTap(index),
+                    child: _buildItem(items[index]),
+                  ),
+              itemCount: min(limit, items.length))
+        ],
+      ),
     );
   }
 }
