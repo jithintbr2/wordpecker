@@ -10,10 +10,12 @@ import 'package:woodle/ui/widgets/loading.dart';
 class AddressMapPage extends HookWidget {
   final double latitude;
   final double longitude;
+  final bool? returnToPrevious;
   const AddressMapPage({
     Key? key,
     required this.latitude,
     required this.longitude,
+    this.returnToPrevious,
   }) : super(key: key);
 
   @override
@@ -39,6 +41,7 @@ class AddressMapPage extends HookWidget {
             pincode: _pincode.value,
             latitude: _latitude.value,
             longitude: _longitude.value,
+            shouldReturn: returnToPrevious ?? false,
           ),
         ],
       ),
@@ -130,13 +133,14 @@ class AddressPanel extends HookWidget {
   final String pincode;
   final double latitude;
   final double longitude;
+  final bool shouldReturn;
 
-  AddressPanel({
-    required this.locality,
-    required this.pincode,
-    required this.latitude,
-    required this.longitude,
-  });
+  AddressPanel(
+      {required this.locality,
+      required this.pincode,
+      required this.latitude,
+      required this.longitude,
+      required this.shouldReturn});
 
   @override
   Widget build(BuildContext context) {
@@ -179,17 +183,16 @@ class AddressPanel extends HookWidget {
                                                 context
                                                     .read<AddressMapBloc>()
                                                     .add(AddressMapEvent
-                                                        .useAddress(
-                                                            locality: locality,
-                                                            house: _houseKey
-                                                                .currentState!
-                                                                .value,
-                                                            nickName:
-                                                                _addressType
-                                                                    .value,
-                                                            pincode: pincode,
-                                                            lat: latitude,
-                                                            lng: longitude));
+                                                        .saveAddress(
+                                                      locality: locality,
+                                                      house: _houseKey
+                                                          .currentState!.value,
+                                                      nickName:
+                                                          _addressType.value,
+                                                      pincode: pincode,
+                                                      lat: latitude,
+                                                      lng: longitude,
+                                                    ));
                                             },
                                             child: Text('Save'))),
                                     SizedBox(width: 10),
@@ -209,7 +212,9 @@ class AddressPanel extends HookWidget {
                                                         _addressType.value,
                                                     pincode: pincode,
                                                     lat: latitude,
-                                                    lng: longitude)),
+                                                    lng: longitude,
+                                                    shouldReturn:
+                                                        shouldReturn)),
                                             child: Text('Use Now')))
                                   ],
                                 )
@@ -226,7 +231,8 @@ class AddressPanel extends HookWidget {
                                       nickName: _addressType.value,
                                       pincode: pincode,
                                       lat: latitude,
-                                      lng: longitude)),
+                                      lng: longitude,
+                                      shouldReturn: shouldReturn)),
                               child: Text('Use Now'))
                     ],
                   ),

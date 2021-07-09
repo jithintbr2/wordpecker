@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class CartTile extends StatelessWidget {
@@ -41,15 +43,18 @@ class CartTile extends StatelessWidget {
     );
   }
 
-  void checkout(BuildContext context) {
-    Navigator.pushNamed(context, '/orderPreview');
-  }
+  // void checkout(BuildContext context) {
+  //   if (user != null)
+  //     Navigator.pushNamed(context, '/orderPreview');
+  //   else
+  //     Navigator.pushNamed(context, '/authenticate');
+  // }
 
   void handleCheckout(context) {
     final double minimumOrder = 100;
-    if (totalPrice > minimumOrder)
-      checkout(context);
-    else
+    if (totalPrice > minimumOrder) {
+      Navigator.pushNamed(context, '/orderPreview');
+    } else
       showDialog(
         context: context,
         builder: (BuildContext context) =>
@@ -65,65 +70,90 @@ class CartTile extends StatelessWidget {
       height: Config.cartTileHeight,
       child: InkWell(
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Wrap(
-              direction: Axis.vertical,
-              spacing: 4,
-              children: [
-                Text(
-                  "$itemCount items",
-                  style: TextStyle(fontSize: 14, color: Colors.white),
-                ),
-                Text(
-                  "₹${totalPrice.toStringAsFixed(2)}",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ],
-            ),
-            _wrapEmpty(
-                testCase: showCart!
-                    ? () => Navigator.of(context).pushNamed('/cart')
-                    : null,
-                child: Wrap(
-                  spacing: 4,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.shopping_cart,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      "View Cart",
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ],
-                )),
-            InkWell(
-              onTap: () => handleCheckout(context),
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  vertical: 16.0,
-                ),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Checkout",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.play_arrow,
-                      size: 16,
-                      color: Colors.white,
-                    )
-                  ],
-                ),
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Wrap(
+                direction: Axis.vertical,
+                spacing: 4,
+                children: [
+                  Text(
+                    "$itemCount items",
+                    style: TextStyle(fontSize: 14, color: Colors.white),
+                  ),
+                  Text(
+                    "₹${totalPrice.toStringAsFixed(2)}",
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ],
               ),
-            )
-          ],
-        ),
+              _wrapEmpty(
+                  testCase: showCart!
+                      ? () => Navigator.of(context).pushNamed('/cart')
+                      : null,
+                  child: Wrap(
+                    spacing: 4,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.shopping_cart,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        "View Cart",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  )),
+              BlocBuilder<AuthenticationCubit, AuthenticationState>(
+                  builder: (context, state) {
+                if (state.user != null) {
+                  return InkWell(
+                    onTap: () => handleCheckout(context),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16.0,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "Checkout",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.play_arrow,
+                            size: 16,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                return InkWell(
+                  onTap: () => Navigator.pushNamed(context, '/authenticate'),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 16.0,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Icon(
+                          Icons.play_arrow,
+                          size: 16,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              })
+            ]),
       ),
     );
   }

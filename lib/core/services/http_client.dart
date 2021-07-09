@@ -60,9 +60,12 @@ class HttpService {
       else
         parameters = {'token': _dio.options.headers["Authorization"]};
     }
+    print(parameters);
     Response response;
     try {
-      response = await _dio.post(endPoint, queryParameters: parameters);
+      response = await _dio.post(endPoint,
+          data: parameters,
+          queryParameters: {'token': _dio.options.headers["Authorization"]});
     } on SocketException catch (e) {
       throw SocketException(e.toString());
     } on FormatException catch (_) {

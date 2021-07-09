@@ -2,10 +2,12 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final UserModel? user;
   final bool showLocation;
   final String? location;
   final void Function()? onTap;
@@ -17,6 +19,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.location,
     this.onTap,
     this.onSearch,
+    required this.user,
     required this.service,
   }) : super(key: key);
 
@@ -68,7 +71,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             initialData: service.initialValue(),
             builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
               return IconButton(
-                  onPressed: () => Navigator.pushNamed(context, '/cart'),
+                  onPressed: () => Navigator.pushNamed(context, '/cart',
+                      arguments: {'user': user}),
                   icon: Badge(
                       badgeContent: Text(
                           snap.hasData ? snap.data!.length.toString() : "0",

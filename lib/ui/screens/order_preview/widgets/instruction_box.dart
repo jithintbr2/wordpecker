@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class InstructionBox extends StatelessWidget {
-  const InstructionBox({Key? key}) : super(key: key);
+  final TextEditingController controller;
+  const InstructionBox({Key? key, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class InstructionBox extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
             TextField(
+                controller: controller,
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: TextInputType.multiline,
                 maxLines: 2,

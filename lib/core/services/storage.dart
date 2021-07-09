@@ -28,4 +28,6 @@ class LocalStorage {
     if (content is double) _preferences.setDouble(key, content);
     if (content is List<String>) _preferences.setStringList(key, content);
   }
+
+  void remove(String key) => _preferences.remove(key);
 }

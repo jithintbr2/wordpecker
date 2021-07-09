@@ -22,7 +22,8 @@ class ShopCategoryListBloc
   ) async* {
     if (event is _FetchData) {
       yield _Loading();
-      final response = await repository.fetchShopList(2);
+      final response =
+          await repository.fetchShopList(event.franchiseId, event.categoryId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

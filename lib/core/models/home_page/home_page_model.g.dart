@@ -28,6 +28,10 @@ _$_HomePageModel _$_$_HomePageModelFromJson(Map<String, dynamic> json) {
         .toList(),
     message: json['scrollingMessage'] as String?,
     minOrderCost: (json['minimum_order_cost'] as num?)?.toDouble(),
+    homeCategoreis: json['homeCategoreis'] == null
+        ? null
+        : HomeCategoriesModel.fromJson(
+            json['homeCategoreis'] as Map<String, dynamic>),
   );
 }
 
@@ -41,4 +45,24 @@ Map<String, dynamic> _$_$_HomePageModelToJson(_$_HomePageModel instance) =>
       'shopCategories': instance.shopCategories,
       'scrollingMessage': instance.message,
       'minimum_order_cost': instance.minOrderCost,
+      'homeCategoreis': instance.homeCategoreis,
+    };
+
+_$_HomeCategoriesModel _$_$_HomeCategoriesModelFromJson(
+    Map<String, dynamic> json) {
+  return _$_HomeCategoriesModel(
+    catId: json['catId'] as int,
+    categoryName: json['categoryName'] as String,
+    itemVarients: (json['itemVarients'] as List<dynamic>)
+        .map((e) => ItemVarientModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+  );
+}
+
+Map<String, dynamic> _$_$_HomeCategoriesModelToJson(
+        _$_HomeCategoriesModel instance) =>
+    <String, dynamic>{
+      'catId': instance.catId,
+      'categoryName': instance.categoryName,
+      'itemVarients': instance.itemVarients,
     };

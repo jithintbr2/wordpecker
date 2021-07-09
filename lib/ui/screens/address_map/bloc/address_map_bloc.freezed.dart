@@ -39,7 +39,8 @@ class _$AddressMapEventTearOff {
       required String nickName,
       required String pincode,
       required double lat,
-      required double lng}) {
+      required double lng,
+      required bool shouldReturn}) {
     return _UseAddress(
       locality: locality,
       house: house,
@@ -47,6 +48,7 @@ class _$AddressMapEventTearOff {
       pincode: pincode,
       lat: lat,
       lng: lng,
+      shouldReturn: shouldReturn,
     );
   }
 }
@@ -69,7 +71,7 @@ mixin _$AddressMapEvent {
             String pincode, double lat, double lng)
         saveAddress,
     required TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)
+            String pincode, double lat, double lng, bool shouldReturn)
         useAddress,
   }) =>
       throw _privateConstructorUsedError;
@@ -79,7 +81,7 @@ mixin _$AddressMapEvent {
             String pincode, double lat, double lng)?
         saveAddress,
     TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)?
+            String pincode, double lat, double lng, bool shouldReturn)?
         useAddress,
     required TResult orElse(),
   }) =>
@@ -301,7 +303,7 @@ class _$_SaveAddress implements _SaveAddress {
             String pincode, double lat, double lng)
         saveAddress,
     required TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)
+            String pincode, double lat, double lng, bool shouldReturn)
         useAddress,
   }) {
     return saveAddress(locality, house, nickName, pincode, lat, lng);
@@ -314,7 +316,7 @@ class _$_SaveAddress implements _SaveAddress {
             String pincode, double lat, double lng)?
         saveAddress,
     TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)?
+            String pincode, double lat, double lng, bool shouldReturn)?
         useAddress,
     required TResult orElse(),
   }) {
@@ -387,7 +389,8 @@ abstract class _$UseAddressCopyWith<$Res>
       String nickName,
       String pincode,
       double lat,
-      double lng});
+      double lng,
+      bool shouldReturn});
 }
 
 /// @nodoc
@@ -409,6 +412,7 @@ class __$UseAddressCopyWithImpl<$Res>
     Object? pincode = freezed,
     Object? lat = freezed,
     Object? lng = freezed,
+    Object? shouldReturn = freezed,
   }) {
     return _then(_UseAddress(
       locality: locality == freezed
@@ -435,6 +439,10 @@ class __$UseAddressCopyWithImpl<$Res>
           ? _value.lng
           : lng // ignore: cast_nullable_to_non_nullable
               as double,
+      shouldReturn: shouldReturn == freezed
+          ? _value.shouldReturn
+          : shouldReturn // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -448,7 +456,8 @@ class _$_UseAddress implements _UseAddress {
       required this.nickName,
       required this.pincode,
       required this.lat,
-      required this.lng});
+      required this.lng,
+      required this.shouldReturn});
 
   @override
   final String locality;
@@ -462,10 +471,12 @@ class _$_UseAddress implements _UseAddress {
   final double lat;
   @override
   final double lng;
+  @override
+  final bool shouldReturn;
 
   @override
   String toString() {
-    return 'AddressMapEvent.useAddress(locality: $locality, house: $house, nickName: $nickName, pincode: $pincode, lat: $lat, lng: $lng)';
+    return 'AddressMapEvent.useAddress(locality: $locality, house: $house, nickName: $nickName, pincode: $pincode, lat: $lat, lng: $lng, shouldReturn: $shouldReturn)';
   }
 
   @override
@@ -486,7 +497,10 @@ class _$_UseAddress implements _UseAddress {
             (identical(other.lat, lat) ||
                 const DeepCollectionEquality().equals(other.lat, lat)) &&
             (identical(other.lng, lng) ||
-                const DeepCollectionEquality().equals(other.lng, lng)));
+                const DeepCollectionEquality().equals(other.lng, lng)) &&
+            (identical(other.shouldReturn, shouldReturn) ||
+                const DeepCollectionEquality()
+                    .equals(other.shouldReturn, shouldReturn)));
   }
 
   @override
@@ -497,7 +511,8 @@ class _$_UseAddress implements _UseAddress {
       const DeepCollectionEquality().hash(nickName) ^
       const DeepCollectionEquality().hash(pincode) ^
       const DeepCollectionEquality().hash(lat) ^
-      const DeepCollectionEquality().hash(lng);
+      const DeepCollectionEquality().hash(lng) ^
+      const DeepCollectionEquality().hash(shouldReturn);
 
   @JsonKey(ignore: true)
   @override
@@ -511,10 +526,11 @@ class _$_UseAddress implements _UseAddress {
             String pincode, double lat, double lng)
         saveAddress,
     required TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)
+            String pincode, double lat, double lng, bool shouldReturn)
         useAddress,
   }) {
-    return useAddress(locality, house, nickName, pincode, lat, lng);
+    return useAddress(
+        locality, house, nickName, pincode, lat, lng, shouldReturn);
   }
 
   @override
@@ -524,12 +540,13 @@ class _$_UseAddress implements _UseAddress {
             String pincode, double lat, double lng)?
         saveAddress,
     TResult Function(String locality, String house, String nickName,
-            String pincode, double lat, double lng)?
+            String pincode, double lat, double lng, bool shouldReturn)?
         useAddress,
     required TResult orElse(),
   }) {
     if (useAddress != null) {
-      return useAddress(locality, house, nickName, pincode, lat, lng);
+      return useAddress(
+          locality, house, nickName, pincode, lat, lng, shouldReturn);
     }
     return orElse();
   }
@@ -564,7 +581,8 @@ abstract class _UseAddress implements AddressMapEvent {
       required String nickName,
       required String pincode,
       required double lat,
-      required double lng}) = _$_UseAddress;
+      required double lng,
+      required bool shouldReturn}) = _$_UseAddress;
 
   @override
   String get locality => throw _privateConstructorUsedError;
@@ -578,6 +596,7 @@ abstract class _UseAddress implements AddressMapEvent {
   double get lat => throw _privateConstructorUsedError;
   @override
   double get lng => throw _privateConstructorUsedError;
+  bool get shouldReturn => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$UseAddressCopyWith<_UseAddress> get copyWith =>

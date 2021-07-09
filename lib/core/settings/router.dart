@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/address/address_page.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
@@ -24,9 +25,12 @@ import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
 import 'package:woodle/ui/screens/item/item_page.dart';
 import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/notification_page.dart';
+import 'package:woodle/ui/screens/order_cancel/bloc/order_cancel_bloc.dart';
+import 'package:woodle/ui/screens/order_cancel/order_cancel_page.dart';
 import 'package:woodle/ui/screens/order_details/bloc/order_details_bloc.dart';
 import 'package:woodle/ui/screens/order_details/order_details_page.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
+import 'package:woodle/ui/screens/order_preview/bloc/place_order_button_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/order_preview_page.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/screens/orders/orders_page.dart';
@@ -92,6 +96,7 @@ class AppRouter {
           child: AddressMapPage(
             latitude: args['latitude'],
             longitude: args['longitude'],
+            returnToPrevious: args['returnToPrevious'],
           ),
         ));
 
@@ -120,7 +125,10 @@ class AppRouter {
         return _generatePlatformRoute(BlocProvider(
             create: (context) => HomeSearchBloc(
                 repository: context.read<ApplicationRepository>()),
-            child: HomeSearchPage()));
+            child: HomeSearchPage(
+              service: CartService(),
+              localStorage: LocalStorage(),
+            )));
 
       case '/item':
         final Map<String, dynamic> args =
@@ -171,6 +179,7 @@ class AppRouter {
           create: (context) => ShopCategoryListBloc(
               repository: context.read<ApplicationRepository>()),
           child: ShopCategoryListPage(
+              localStorage: LocalStorage(),
               categoryId: args['categoryId'],
               categoryName: args['categoryName']),
         ));
@@ -183,12 +192,16 @@ class AppRouter {
         ));
 
       case '/orderPreview':
-        return _generatePlatformRoute(BlocProvider(
-          create: (context) => OrderPreviewBloc(
-              context: context,
-              repository: context.read<ApplicationRepository>()),
-          child: OrderPreviewPage(),
-        ));
+        return _generatePlatformRoute(MultiBlocProvider(providers: [
+          BlocProvider(
+              create: (context) => OrderPreviewBloc(
+                  context: context,
+                  repository: context.read<ApplicationRepository>())),
+          BlocProvider(
+              create: (context) => PlaceOrderButtonBloc(
+                  context: context,
+                  repository: context.read<ApplicationRepository>()))
+        ], child: OrderPreviewPage()));
 
       case '/orders':
         return _generatePlatformRoute(BlocProvider(
@@ -197,16 +210,23 @@ class AppRouter {
           child: OrdersPage(),
         ));
 
+      case '/orderCancel':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => OrderCancelBloc(
+              repository: context.read<ApplicationRepository>(),
+              context: context),
+          child: OrderCancelPage(orderId: args['orderId']),
+        ));
+
       case '/orderDetails':
         final Map<String, dynamic> args =
             settings.arguments as Map<String, dynamic>;
         return _generatePlatformRoute(BlocProvider(
           create: (context) => OrderDetailsBloc(
               repository: context.read<ApplicationRepository>()),
-          child: OrderDetailsPage(
-            orderId: args['orderId'],
-            tempId: args['tempId'],
-          ),
+          child: OrderDetailsPage(orderId: args['orderId']),
         ));
 
       // case '/profile':

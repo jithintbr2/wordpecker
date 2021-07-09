@@ -16,8 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ShopCategoryListEventTearOff {
   const _$ShopCategoryListEventTearOff();
 
-  _FetchData fetchData(int categoryId) {
+  _FetchData fetchData(int franchiseId, int categoryId) {
     return _FetchData(
+      franchiseId,
       categoryId,
     );
   }
@@ -28,16 +29,17 @@ const $ShopCategoryListEvent = _$ShopCategoryListEventTearOff();
 
 /// @nodoc
 mixin _$ShopCategoryListEvent {
+  int get franchiseId => throw _privateConstructorUsedError;
   int get categoryId => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int categoryId) fetchData,
+    required TResult Function(int franchiseId, int categoryId) fetchData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int categoryId)? fetchData,
+    TResult Function(int franchiseId, int categoryId)? fetchData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +65,7 @@ abstract class $ShopCategoryListEventCopyWith<$Res> {
   factory $ShopCategoryListEventCopyWith(ShopCategoryListEvent value,
           $Res Function(ShopCategoryListEvent) then) =
       _$ShopCategoryListEventCopyWithImpl<$Res>;
-  $Res call({int categoryId});
+  $Res call({int franchiseId, int categoryId});
 }
 
 /// @nodoc
@@ -77,9 +79,14 @@ class _$ShopCategoryListEventCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? franchiseId = freezed,
     Object? categoryId = freezed,
   }) {
     return _then(_value.copyWith(
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
       categoryId: categoryId == freezed
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
@@ -95,7 +102,7 @@ abstract class _$FetchDataCopyWith<$Res>
           _FetchData value, $Res Function(_FetchData) then) =
       __$FetchDataCopyWithImpl<$Res>;
   @override
-  $Res call({int categoryId});
+  $Res call({int franchiseId, int categoryId});
 }
 
 /// @nodoc
@@ -110,9 +117,14 @@ class __$FetchDataCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? franchiseId = freezed,
     Object? categoryId = freezed,
   }) {
     return _then(_FetchData(
+      franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
       categoryId == freezed
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
@@ -124,20 +136,25 @@ class __$FetchDataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FetchData implements _FetchData {
-  const _$_FetchData(this.categoryId);
+  const _$_FetchData(this.franchiseId, this.categoryId);
 
+  @override
+  final int franchiseId;
   @override
   final int categoryId;
 
   @override
   String toString() {
-    return 'ShopCategoryListEvent.fetchData(categoryId: $categoryId)';
+    return 'ShopCategoryListEvent.fetchData(franchiseId: $franchiseId, categoryId: $categoryId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _FetchData &&
+            (identical(other.franchiseId, franchiseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseId, franchiseId)) &&
             (identical(other.categoryId, categoryId) ||
                 const DeepCollectionEquality()
                     .equals(other.categoryId, categoryId)));
@@ -145,7 +162,9 @@ class _$_FetchData implements _FetchData {
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(categoryId);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(franchiseId) ^
+      const DeepCollectionEquality().hash(categoryId);
 
   @JsonKey(ignore: true)
   @override
@@ -155,19 +174,19 @@ class _$_FetchData implements _FetchData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int categoryId) fetchData,
+    required TResult Function(int franchiseId, int categoryId) fetchData,
   }) {
-    return fetchData(categoryId);
+    return fetchData(franchiseId, categoryId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int categoryId)? fetchData,
+    TResult Function(int franchiseId, int categoryId)? fetchData,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
-      return fetchData(categoryId);
+      return fetchData(franchiseId, categoryId);
     }
     return orElse();
   }
@@ -194,8 +213,10 @@ class _$_FetchData implements _FetchData {
 }
 
 abstract class _FetchData implements ShopCategoryListEvent {
-  const factory _FetchData(int categoryId) = _$_FetchData;
+  const factory _FetchData(int franchiseId, int categoryId) = _$_FetchData;
 
+  @override
+  int get franchiseId => throw _privateConstructorUsedError;
   @override
   int get categoryId => throw _privateConstructorUsedError;
   @override

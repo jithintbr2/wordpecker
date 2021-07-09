@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
 import 'package:woodle/core/models/carousel/carousel_model.dart';
 import 'package:woodle/core/models/category/category_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 
 part 'home_page_model.freezed.dart';
 part 'home_page_model.g.dart';
@@ -17,8 +18,21 @@ class HomePageModel with _$HomePageModel {
     List<CategoryModel>? shopCategories,
     @JsonKey(name: 'scrollingMessage') String? message,
     @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+    HomeCategoriesModel? homeCategoreis,
   }) = _HomePageModel;
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) =>
       _$HomePageModelFromJson(json);
+}
+
+@freezed
+class HomeCategoriesModel with _$HomeCategoriesModel {
+  const factory HomeCategoriesModel({
+    required int catId,
+    required String categoryName,
+    required List<ItemVarientModel> itemVarients,
+  }) = _HomeCategoriesModel;
+
+  factory HomeCategoriesModel.fromJson(Map<String, dynamic> json) =>
+      _$HomeCategoriesModelFromJson(json);
 }

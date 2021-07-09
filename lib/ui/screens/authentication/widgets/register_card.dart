@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/ui/screens/authentication/bloc/referal_check_bloc.dart';
+import 'package:woodle/ui/screens/authentication/referral_code_widget_section.dart';
 
 class RegisterCard extends HookWidget {
   final void Function() onRegister;
@@ -139,23 +143,32 @@ class RegisterCard extends HookWidget {
                   ),
                 ),
               ),
-              Visibility(
-                visible: _showReferralBox.value,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
-                  child: TextFormField(
-                    controller: referalId,
-                    keyboardType: TextInputType.text,
-                    enabled: !isLoading,
-                    decoration: InputDecoration(
-                        labelText: "Referral ID (optional)",
-                        icon: Icon(Icons.perm_identity),
-                        isDense: true,
-                        border: OutlineInputBorder()),
-                  ),
-                ),
-              ),
+              referalId != null
+                  ? BlocProvider(
+                      create: (context) => ReferalCheckBloc(
+                          repository: context.read<ApplicationRepository>()),
+                      child: ReferralCodeWidgetSection(
+                          visible: _showReferralBox.value,
+                          controller: referalId!),
+                    )
+                  : SizedBox(),
+              // Visibility(
+              //   visible: _showReferralBox.value,
+              //   child: Padding(
+              //     padding:
+              //         const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              //     child: TextFormField(
+              //       controller: referalId,
+              //       keyboardType: TextInputType.text,
+              //       enabled: !isLoading,
+              //       decoration: InputDecoration(
+              //           labelText: "Referral ID (optional)",
+              //           icon: Icon(Icons.perm_identity),
+              //           isDense: true,
+              //           border: OutlineInputBorder()),
+              //     ),
+              //   ),
+              // ),
               // SizedBox(height: 10),
               // referalId != null
               //     ? TextFormField(

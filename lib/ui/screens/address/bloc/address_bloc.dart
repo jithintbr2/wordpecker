@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
@@ -38,13 +39,52 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     }
 
     if (event is _SelectAddress) {
-      localStorage.set('currentAddress', jsonEncode(event.address));
-      if (event.shouldReturn)
+      AddressModel? _getAddress() {
+        if (localStorage.get('currentAddress') != null) {
+          Map<String, dynamic> currentAddressRaw =
+              jsonDecode(localStorage.get('currentAddress') as String);
+          return AddressModel.fromJson(currentAddressRaw);
+        }
+        return null;
+      }
+
+      AddressModel? address = _getAddress();
+
+      if (event.shouldReturn) {
+        localStorage.set('currentAddress', jsonEncode(event.address));
         Navigator.of(context).pop(event.address);
-      else
+      } else if (address != null &&
+          event.address.franchiseId != address.franchiseId) {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  title: Text('Warning'),
+                  content: Text(
+                      'This service location is different from your current service location. By selecting this location your cart will be cleared.'),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () {
+                          localStorage.set('cart', []);
+                          localStorage.set(
+                              'currentAddress', jsonEncode(event.address));
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              Config.useDashboardEntry
+                                  ? '/homeDashboard'
+                                  : '/home',
+                              (route) => false);
+                        },
+                        child: Text('Okay')),
+                    ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text('Cancel'))
+                  ],
+                ));
+      } else {
+        localStorage.set('currentAddress', jsonEncode(event.address));
         Navigator.of(context).pushNamedAndRemoveUntil(
             Config.useDashboardEntry ? '/homeDashboard' : '/home',
             (route) => false);
+      }
     }
 
     if (event is _DeleteAddress) {

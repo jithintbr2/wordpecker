@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
-part of 'home_search_bloc.dart';
+part of 'referal_check_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,13 +13,12 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$HomeSearchEventTearOff {
-  const _$HomeSearchEventTearOff();
+class _$ReferalCheckEventTearOff {
+  const _$ReferalCheckEventTearOff();
 
-  _Search search(String searchQuery, int franchiseId) {
-    return _Search(
-      searchQuery,
-      franchiseId,
+  _CheckValidity checkValidity(String referalCode) {
+    return _CheckValidity(
+      referalCode,
     );
   }
 
@@ -29,32 +28,32 @@ class _$HomeSearchEventTearOff {
 }
 
 /// @nodoc
-const $HomeSearchEvent = _$HomeSearchEventTearOff();
+const $ReferalCheckEvent = _$ReferalCheckEventTearOff();
 
 /// @nodoc
-mixin _$HomeSearchEvent {
+mixin _$ReferalCheckEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery, int franchiseId) search,
+    required TResult Function(String referalCode) checkValidity,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery, int franchiseId)? search,
+    TResult Function(String referalCode)? checkValidity,
     TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Search value) search,
+    required TResult Function(_CheckValidity value) checkValidity,
     required TResult Function(_Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Search value)? search,
+    TResult Function(_CheckValidity value)? checkValidity,
     TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) =>
@@ -62,112 +61,103 @@ mixin _$HomeSearchEvent {
 }
 
 /// @nodoc
-abstract class $HomeSearchEventCopyWith<$Res> {
-  factory $HomeSearchEventCopyWith(
-          HomeSearchEvent value, $Res Function(HomeSearchEvent) then) =
-      _$HomeSearchEventCopyWithImpl<$Res>;
+abstract class $ReferalCheckEventCopyWith<$Res> {
+  factory $ReferalCheckEventCopyWith(
+          ReferalCheckEvent value, $Res Function(ReferalCheckEvent) then) =
+      _$ReferalCheckEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HomeSearchEventCopyWithImpl<$Res>
-    implements $HomeSearchEventCopyWith<$Res> {
-  _$HomeSearchEventCopyWithImpl(this._value, this._then);
+class _$ReferalCheckEventCopyWithImpl<$Res>
+    implements $ReferalCheckEventCopyWith<$Res> {
+  _$ReferalCheckEventCopyWithImpl(this._value, this._then);
 
-  final HomeSearchEvent _value;
+  final ReferalCheckEvent _value;
   // ignore: unused_field
-  final $Res Function(HomeSearchEvent) _then;
+  final $Res Function(ReferalCheckEvent) _then;
 }
 
 /// @nodoc
-abstract class _$SearchCopyWith<$Res> {
-  factory _$SearchCopyWith(_Search value, $Res Function(_Search) then) =
-      __$SearchCopyWithImpl<$Res>;
-  $Res call({String searchQuery, int franchiseId});
+abstract class _$CheckValidityCopyWith<$Res> {
+  factory _$CheckValidityCopyWith(
+          _CheckValidity value, $Res Function(_CheckValidity) then) =
+      __$CheckValidityCopyWithImpl<$Res>;
+  $Res call({String referalCode});
 }
 
 /// @nodoc
-class __$SearchCopyWithImpl<$Res> extends _$HomeSearchEventCopyWithImpl<$Res>
-    implements _$SearchCopyWith<$Res> {
-  __$SearchCopyWithImpl(_Search _value, $Res Function(_Search) _then)
-      : super(_value, (v) => _then(v as _Search));
+class __$CheckValidityCopyWithImpl<$Res>
+    extends _$ReferalCheckEventCopyWithImpl<$Res>
+    implements _$CheckValidityCopyWith<$Res> {
+  __$CheckValidityCopyWithImpl(
+      _CheckValidity _value, $Res Function(_CheckValidity) _then)
+      : super(_value, (v) => _then(v as _CheckValidity));
 
   @override
-  _Search get _value => super._value as _Search;
+  _CheckValidity get _value => super._value as _CheckValidity;
 
   @override
   $Res call({
-    Object? searchQuery = freezed,
-    Object? franchiseId = freezed,
+    Object? referalCode = freezed,
   }) {
-    return _then(_Search(
-      searchQuery == freezed
-          ? _value.searchQuery
-          : searchQuery // ignore: cast_nullable_to_non_nullable
+    return _then(_CheckValidity(
+      referalCode == freezed
+          ? _value.referalCode
+          : referalCode // ignore: cast_nullable_to_non_nullable
               as String,
-      franchiseId == freezed
-          ? _value.franchiseId
-          : franchiseId // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_Search implements _Search {
-  const _$_Search(this.searchQuery, this.franchiseId);
+class _$_CheckValidity implements _CheckValidity {
+  const _$_CheckValidity(this.referalCode);
 
   @override
-  final String searchQuery;
-  @override
-  final int franchiseId;
+  final String referalCode;
 
   @override
   String toString() {
-    return 'HomeSearchEvent.search(searchQuery: $searchQuery, franchiseId: $franchiseId)';
+    return 'ReferalCheckEvent.checkValidity(referalCode: $referalCode)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Search &&
-            (identical(other.searchQuery, searchQuery) ||
+        (other is _CheckValidity &&
+            (identical(other.referalCode, referalCode) ||
                 const DeepCollectionEquality()
-                    .equals(other.searchQuery, searchQuery)) &&
-            (identical(other.franchiseId, franchiseId) ||
-                const DeepCollectionEquality()
-                    .equals(other.franchiseId, franchiseId)));
+                    .equals(other.referalCode, referalCode)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(searchQuery) ^
-      const DeepCollectionEquality().hash(franchiseId);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(referalCode);
 
   @JsonKey(ignore: true)
   @override
-  _$SearchCopyWith<_Search> get copyWith =>
-      __$SearchCopyWithImpl<_Search>(this, _$identity);
+  _$CheckValidityCopyWith<_CheckValidity> get copyWith =>
+      __$CheckValidityCopyWithImpl<_CheckValidity>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery, int franchiseId) search,
+    required TResult Function(String referalCode) checkValidity,
     required TResult Function() reset,
   }) {
-    return search(searchQuery, franchiseId);
+    return checkValidity(referalCode);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery, int franchiseId)? search,
+    TResult Function(String referalCode)? checkValidity,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
-    if (search != null) {
-      return search(searchQuery, franchiseId);
+    if (checkValidity != null) {
+      return checkValidity(referalCode);
     }
     return orElse();
   }
@@ -175,33 +165,33 @@ class _$_Search implements _Search {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Search value) search,
+    required TResult Function(_CheckValidity value) checkValidity,
     required TResult Function(_Reset value) reset,
   }) {
-    return search(this);
+    return checkValidity(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Search value)? search,
+    TResult Function(_CheckValidity value)? checkValidity,
     TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
-    if (search != null) {
-      return search(this);
+    if (checkValidity != null) {
+      return checkValidity(this);
     }
     return orElse();
   }
 }
 
-abstract class _Search implements HomeSearchEvent {
-  const factory _Search(String searchQuery, int franchiseId) = _$_Search;
+abstract class _CheckValidity implements ReferalCheckEvent {
+  const factory _CheckValidity(String referalCode) = _$_CheckValidity;
 
-  String get searchQuery => throw _privateConstructorUsedError;
-  int get franchiseId => throw _privateConstructorUsedError;
+  String get referalCode => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$SearchCopyWith<_Search> get copyWith => throw _privateConstructorUsedError;
+  _$CheckValidityCopyWith<_CheckValidity> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -211,7 +201,7 @@ abstract class _$ResetCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$ResetCopyWithImpl<$Res> extends _$HomeSearchEventCopyWithImpl<$Res>
+class __$ResetCopyWithImpl<$Res> extends _$ReferalCheckEventCopyWithImpl<$Res>
     implements _$ResetCopyWith<$Res> {
   __$ResetCopyWithImpl(_Reset _value, $Res Function(_Reset) _then)
       : super(_value, (v) => _then(v as _Reset));
@@ -227,7 +217,7 @@ class _$_Reset implements _Reset {
 
   @override
   String toString() {
-    return 'HomeSearchEvent.reset()';
+    return 'ReferalCheckEvent.reset()';
   }
 
   @override
@@ -241,7 +231,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String searchQuery, int franchiseId) search,
+    required TResult Function(String referalCode) checkValidity,
     required TResult Function() reset,
   }) {
     return reset();
@@ -250,7 +240,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String searchQuery, int franchiseId)? search,
+    TResult Function(String referalCode)? checkValidity,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
@@ -263,7 +253,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Search value) search,
+    required TResult Function(_CheckValidity value) checkValidity,
     required TResult Function(_Reset value) reset,
   }) {
     return reset(this);
@@ -272,7 +262,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Search value)? search,
+    TResult Function(_CheckValidity value)? checkValidity,
     TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
@@ -283,53 +273,56 @@ class _$_Reset implements _Reset {
   }
 }
 
-abstract class _Reset implements HomeSearchEvent {
+abstract class _Reset implements ReferalCheckEvent {
   const factory _Reset() = _$_Reset;
 }
 
 /// @nodoc
-class _$HomeSearchStateTearOff {
-  const _$HomeSearchStateTearOff();
+class _$ReferalCheckStateTearOff {
+  const _$ReferalCheckStateTearOff();
+
+  _Initial initial() {
+    return const _Initial();
+  }
 
   _Loading loading() {
     return const _Loading();
   }
 
-  _Loaded loaded(HomeSearchModel data) {
-    return _Loaded(
-      data,
-    );
+  _Loaded loaded() {
+    return const _Loaded();
   }
 
-  _Failed failed(NetworkExceptions exceptions) {
-    return _Failed(
-      exceptions,
-    );
+  _Failed failed() {
+    return const _Failed();
   }
 }
 
 /// @nodoc
-const $HomeSearchState = _$HomeSearchStateTearOff();
+const $ReferalCheckState = _$ReferalCheckStateTearOff();
 
 /// @nodoc
-mixin _$HomeSearchState {
+mixin _$ReferalCheckState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeSearchModel data) loaded,
-    required TResult Function(NetworkExceptions exceptions) failed,
+    required TResult Function() loaded,
+    required TResult Function() failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeSearchModel data)? loaded,
-    TResult Function(NetworkExceptions exceptions)? failed,
+    TResult Function()? loaded,
+    TResult Function()? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failed value) failed,
@@ -337,6 +330,7 @@ mixin _$HomeSearchState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failed value)? failed,
@@ -346,20 +340,111 @@ mixin _$HomeSearchState {
 }
 
 /// @nodoc
-abstract class $HomeSearchStateCopyWith<$Res> {
-  factory $HomeSearchStateCopyWith(
-          HomeSearchState value, $Res Function(HomeSearchState) then) =
-      _$HomeSearchStateCopyWithImpl<$Res>;
+abstract class $ReferalCheckStateCopyWith<$Res> {
+  factory $ReferalCheckStateCopyWith(
+          ReferalCheckState value, $Res Function(ReferalCheckState) then) =
+      _$ReferalCheckStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HomeSearchStateCopyWithImpl<$Res>
-    implements $HomeSearchStateCopyWith<$Res> {
-  _$HomeSearchStateCopyWithImpl(this._value, this._then);
+class _$ReferalCheckStateCopyWithImpl<$Res>
+    implements $ReferalCheckStateCopyWith<$Res> {
+  _$ReferalCheckStateCopyWithImpl(this._value, this._then);
 
-  final HomeSearchState _value;
+  final ReferalCheckState _value;
   // ignore: unused_field
-  final $Res Function(HomeSearchState) _then;
+  final $Res Function(ReferalCheckState) _then;
+}
+
+/// @nodoc
+abstract class _$InitialCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) then) =
+      __$InitialCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$InitialCopyWithImpl<$Res> extends _$ReferalCheckStateCopyWithImpl<$Res>
+    implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(_Initial _value, $Res Function(_Initial) _then)
+      : super(_value, (v) => _then(v as _Initial));
+
+  @override
+  _Initial get _value => super._value as _Initial;
+}
+
+/// @nodoc
+
+class _$_Initial implements _Initial {
+  const _$_Initial();
+
+  @override
+  String toString() {
+    return 'ReferalCheckState.initial()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Initial);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() loaded,
+    required TResult Function() failed,
+  }) {
+    return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? loaded,
+    TResult Function()? failed,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Loaded value) loaded,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return initial(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Loaded value)? loaded,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (initial != null) {
+      return initial(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initial implements ReferalCheckState {
+  const factory _Initial() = _$_Initial;
 }
 
 /// @nodoc
@@ -369,7 +454,7 @@ abstract class _$LoadingCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$LoadingCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
+class __$LoadingCopyWithImpl<$Res> extends _$ReferalCheckStateCopyWithImpl<$Res>
     implements _$LoadingCopyWith<$Res> {
   __$LoadingCopyWithImpl(_Loading _value, $Res Function(_Loading) _then)
       : super(_value, (v) => _then(v as _Loading));
@@ -385,7 +470,7 @@ class _$_Loading implements _Loading {
 
   @override
   String toString() {
-    return 'HomeSearchState.loading()';
+    return 'ReferalCheckState.loading()';
   }
 
   @override
@@ -399,9 +484,10 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeSearchModel data) loaded,
-    required TResult Function(NetworkExceptions exceptions) failed,
+    required TResult Function() loaded,
+    required TResult Function() failed,
   }) {
     return loading();
   }
@@ -409,9 +495,10 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeSearchModel data)? loaded,
-    TResult Function(NetworkExceptions exceptions)? failed,
+    TResult Function()? loaded,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -423,6 +510,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failed value) failed,
@@ -433,6 +521,7 @@ class _$_Loading implements _Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failed value)? failed,
@@ -445,7 +534,7 @@ class _$_Loading implements _Loading {
   }
 }
 
-abstract class _Loading implements HomeSearchState {
+abstract class _Loading implements ReferalCheckState {
   const factory _Loading() = _$_Loading;
 }
 
@@ -453,90 +542,58 @@ abstract class _Loading implements HomeSearchState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({HomeSearchModel data});
-
-  $HomeSearchModelCopyWith<$Res> get data;
 }
 
 /// @nodoc
-class __$LoadedCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
+class __$LoadedCopyWithImpl<$Res> extends _$ReferalCheckStateCopyWithImpl<$Res>
     implements _$LoadedCopyWith<$Res> {
   __$LoadedCopyWithImpl(_Loaded _value, $Res Function(_Loaded) _then)
       : super(_value, (v) => _then(v as _Loaded));
 
   @override
   _Loaded get _value => super._value as _Loaded;
-
-  @override
-  $Res call({
-    Object? data = freezed,
-  }) {
-    return _then(_Loaded(
-      data == freezed
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as HomeSearchModel,
-    ));
-  }
-
-  @override
-  $HomeSearchModelCopyWith<$Res> get data {
-    return $HomeSearchModelCopyWith<$Res>(_value.data, (value) {
-      return _then(_value.copyWith(data: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$_Loaded implements _Loaded {
-  const _$_Loaded(this.data);
-
-  @override
-  final HomeSearchModel data;
+  const _$_Loaded();
 
   @override
   String toString() {
-    return 'HomeSearchState.loaded(data: $data)';
+    return 'ReferalCheckState.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Loaded &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
+    return identical(this, other) || (other is _Loaded);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(data);
-
-  @JsonKey(ignore: true)
-  @override
-  _$LoadedCopyWith<_Loaded> get copyWith =>
-      __$LoadedCopyWithImpl<_Loaded>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeSearchModel data) loaded,
-    required TResult Function(NetworkExceptions exceptions) failed,
+    required TResult Function() loaded,
+    required TResult Function() failed,
   }) {
-    return loaded(data);
+    return loaded();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeSearchModel data)? loaded,
-    TResult Function(NetworkExceptions exceptions)? failed,
+    TResult Function()? loaded,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(data);
+      return loaded();
     }
     return orElse();
   }
@@ -544,6 +601,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failed value) failed,
@@ -554,6 +612,7 @@ class _$_Loaded implements _Loaded {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failed value)? failed,
@@ -566,103 +625,66 @@ class _$_Loaded implements _Loaded {
   }
 }
 
-abstract class _Loaded implements HomeSearchState {
-  const factory _Loaded(HomeSearchModel data) = _$_Loaded;
-
-  HomeSearchModel get data => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
+abstract class _Loaded implements ReferalCheckState {
+  const factory _Loaded() = _$_Loaded;
 }
 
 /// @nodoc
 abstract class _$FailedCopyWith<$Res> {
   factory _$FailedCopyWith(_Failed value, $Res Function(_Failed) then) =
       __$FailedCopyWithImpl<$Res>;
-  $Res call({NetworkExceptions exceptions});
-
-  $NetworkExceptionsCopyWith<$Res> get exceptions;
 }
 
 /// @nodoc
-class __$FailedCopyWithImpl<$Res> extends _$HomeSearchStateCopyWithImpl<$Res>
+class __$FailedCopyWithImpl<$Res> extends _$ReferalCheckStateCopyWithImpl<$Res>
     implements _$FailedCopyWith<$Res> {
   __$FailedCopyWithImpl(_Failed _value, $Res Function(_Failed) _then)
       : super(_value, (v) => _then(v as _Failed));
 
   @override
   _Failed get _value => super._value as _Failed;
-
-  @override
-  $Res call({
-    Object? exceptions = freezed,
-  }) {
-    return _then(_Failed(
-      exceptions == freezed
-          ? _value.exceptions
-          : exceptions // ignore: cast_nullable_to_non_nullable
-              as NetworkExceptions,
-    ));
-  }
-
-  @override
-  $NetworkExceptionsCopyWith<$Res> get exceptions {
-    return $NetworkExceptionsCopyWith<$Res>(_value.exceptions, (value) {
-      return _then(_value.copyWith(exceptions: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$_Failed implements _Failed {
-  const _$_Failed(this.exceptions);
-
-  @override
-  final NetworkExceptions exceptions;
+  const _$_Failed();
 
   @override
   String toString() {
-    return 'HomeSearchState.failed(exceptions: $exceptions)';
+    return 'ReferalCheckState.failed()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is _Failed &&
-            (identical(other.exceptions, exceptions) ||
-                const DeepCollectionEquality()
-                    .equals(other.exceptions, exceptions)));
+    return identical(this, other) || (other is _Failed);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(exceptions);
-
-  @JsonKey(ignore: true)
-  @override
-  _$FailedCopyWith<_Failed> get copyWith =>
-      __$FailedCopyWithImpl<_Failed>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(HomeSearchModel data) loaded,
-    required TResult Function(NetworkExceptions exceptions) failed,
+    required TResult Function() loaded,
+    required TResult Function() failed,
   }) {
-    return failed(exceptions);
+    return failed();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(HomeSearchModel data)? loaded,
-    TResult Function(NetworkExceptions exceptions)? failed,
+    TResult Function()? loaded,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (failed != null) {
-      return failed(exceptions);
+      return failed();
     }
     return orElse();
   }
@@ -670,6 +692,7 @@ class _$_Failed implements _Failed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Failed value) failed,
@@ -680,6 +703,7 @@ class _$_Failed implements _Failed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Failed value)? failed,
@@ -692,10 +716,6 @@ class _$_Failed implements _Failed {
   }
 }
 
-abstract class _Failed implements HomeSearchState {
-  const factory _Failed(NetworkExceptions exceptions) = _$_Failed;
-
-  NetworkExceptions get exceptions => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  _$FailedCopyWith<_Failed> get copyWith => throw _privateConstructorUsedError;
+abstract class _Failed implements ReferalCheckState {
+  const factory _Failed() = _$_Failed;
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
+import 'package:woodle/ui/screens/item/widgets/varient_lister.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -43,12 +44,32 @@ class ItemPage extends HookWidget {
   }
 
   Widget _buildPage(ItemModel data, ValueNotifier<int> currentVarient) {
+    List<String> itemImages =
+        data.varients[currentVarient.value].itemImages!.length > 0
+            ? data.varients[currentVarient.value].itemImages!
+            : [data.varients[currentVarient.value].image];
     return ListView(
       children: [
         ItemImages(
-          imgList: data.varients[currentVarient.value].itemImages!,
+          imgList: itemImages,
         ),
         Divider(),
+        VarientLister(
+            varients: data.varients,
+            currentVarientId: data.varients[currentVarient.value].varientId,
+            onPressed: (varientId) {
+              currentVarient.value = data.varients
+                  .indexWhere((varient) => varient.varientId == varientId);
+            }),
+        Divider(),
+        data.varients[currentVarient.value].description != null
+            ? Column(
+                children: [
+                  Text('Description'),
+                  Text(data.varients[currentVarient.value].description!)
+                ],
+              )
+            : SizedBox()
       ],
     ); //Carousel builder #Check pub readme
   }
@@ -78,7 +99,6 @@ class ItemImages extends HookWidget {
 
     return Container(
       height: 300,
-      color: Colors.yellow,
       child: Stack(
         children: [
           CarouselSlider.builder(

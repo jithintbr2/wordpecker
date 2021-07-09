@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
@@ -13,8 +14,10 @@ import 'package:woodle/ui/screens/home/widgets/drawer.dart';
 import 'package:woodle/ui/screens/service/service_page.dart';
 
 class DashboardPage extends HookWidget {
+  final UserModel? user;
   final LocalStorage localStorage;
-  const DashboardPage({Key? key, required this.localStorage}) : super(key: key);
+  const DashboardPage({Key? key, required this.localStorage, this.user})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,7 @@ class DashboardPage extends HookWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: HomeAppBar(
+        user: user,
         service: service,
         showLocation: Config.isMultiLocation,
         location: address?.locality,

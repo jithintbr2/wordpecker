@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/empty.dart';

@@ -3,6 +3,7 @@ import 'package:google_place/google_place.dart';
 import 'package:woodle/ui/screens/address/widgets/gps_indicator.dart';
 
 class AddressAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final bool returnToPrevious;
   final TextEditingController locationSearchController;
   final FocusNode focusNode;
   final bool isSearching;
@@ -13,6 +14,7 @@ class AddressAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isDeleting;
 
   AddressAppBar({
+    required this.returnToPrevious,
     required this.locationSearchController,
     required this.focusNode,
     required this.isSearching,
@@ -82,7 +84,7 @@ class AddressAppBar extends StatelessWidget implements PreferredSizeWidget {
           ],
         ),
         bottom: PreferredSize(
-          child: GPSIndicator(),
+          child: GPSIndicator(returnToPrevious: returnToPrevious),
           preferredSize: Size.fromHeight(55),
         ));
   }

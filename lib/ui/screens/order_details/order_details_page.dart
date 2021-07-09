@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/models/order_details/order_details_model.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/order_details/bloc/order_details_bloc.dart';
 import 'package:woodle/ui/screens/order_details/widgets/order_cancele_option.dart';
 import 'package:woodle/ui/screens/order_details/widgets/order_delivery_address.dart';
@@ -12,10 +14,8 @@ import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
 class OrderDetailsPage extends HookWidget {
-  final int? orderId;
-  final int? tempId;
-  const OrderDetailsPage({Key? key, this.orderId, this.tempId})
-      : super(key: key);
+  final int orderId;
+  const OrderDetailsPage({Key? key, required this.orderId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +23,23 @@ class OrderDetailsPage extends HookWidget {
     useEffect(() {
       context
           .read<OrderDetailsBloc>()
-          .add(OrderDetailsEvent.fetchDetails(tempId ?? orderId!));
+          .add(OrderDetailsEvent.fetchDetails(orderId));
     }, []);
     return Scaffold(
-      appBar: AppBar(title: Text('Order Details')),
+      appBar: AppBar(
+        title: Text('Order Details'),
+        leading: IconButton(
+            onPressed: () {
+              if (Navigator.of(context).canPop())
+                Navigator.of(context).pop();
+              else
+                Navigator.pushReplacementNamed(
+                  context,
+                  Config.useDashboardEntry ? '/homeDashboard' : '/home',
+                );
+            },
+            icon: Icon(Icons.arrow_back)),
+      ),
       body: _buildBloc(_showCashback),
     );
   }
@@ -40,7 +53,7 @@ class OrderDetailsPage extends HookWidget {
                 exceptions: exceptions,
                 onRetry: () => context
                     .read<OrderDetailsBloc>()
-                    .add(OrderDetailsEvent.fetchDetails(tempId ?? orderId!)))));
+                    .add(OrderDetailsEvent.fetchDetails(orderId)))));
   }
 
   Widget _buildPage(BuildContext context, OrderDetailsModel data,
@@ -88,17 +101,20 @@ class OrderDetailsPage extends HookWidget {
                             left: 16, right: 16, top: 16, bottom: 8),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: Colors.green, width: 2)),
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 2)),
                         padding: EdgeInsets.all(8),
                         child: Text(
                           data.paymentMethod,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                 Divider(),
-                data.remarks != null || data.remarks!.trim().isNotEmpty
+                data.remarks != null && data.remarks!.trim().isNotEmpty
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
@@ -127,19 +143,25 @@ class OrderDetailsPage extends HookWidget {
                 OrderDeliveryAddress(data: data)
               ],
             )),
-            ElevatedButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.call),
-                    SizedBox(width: 10),
-                    Text(
-                      'Call',
-                      style: TextStyle(color: Theme.of(context).canvasColor),
-                    )
-                  ],
-                ))
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: ElevatedButton(
+                  onPressed: () async {
+                    if (await canLaunch("tel:${data.contactNumber}"))
+                      await launch("tel:${data.contactNumber}");
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.call),
+                      SizedBox(width: 10),
+                      Text(
+                        'Call',
+                        style: TextStyle(color: Theme.of(context).canvasColor),
+                      )
+                    ],
+                  )),
+            )
           ],
         ),
         OrderDetailsCashback(

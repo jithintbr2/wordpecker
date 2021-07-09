@@ -87,10 +87,10 @@ class OrdersPage extends HookWidget {
                         .subtitle1!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Text(
-                    "item.itemCount Items",
-                    style: Theme.of(context).textTheme.caption,
-                  ),
+                  // Text(
+                  //   "item.itemCount Items",
+                  //   style: Theme.of(context).textTheme.caption,
+                  // ),
                 ],
               ),
               subtitle: Text(data[index].status,
@@ -123,6 +123,6 @@ class OrdersPage extends HookWidget {
               ),
             ),
         separatorBuilder: (_, __) => Divider(),
-        itemCount: 5);
+        itemCount: data.length);
   }
 }

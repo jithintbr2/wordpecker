@@ -37,6 +37,7 @@ class AddressPage extends HookWidget {
 
     return Scaffold(
       appBar: AddressAppBar(
+        returnToPrevious: returnToPrevious ?? false,
         focusNode: _focusNode,
         isSearching: _isSearching.value,
         locationSearchController: _locationSearchController,
@@ -179,7 +180,8 @@ class AddressPage extends HookWidget {
                         place.result!.geometry!.location != null)
                       Navigator.pushNamed(context, '/addressMap', arguments: {
                         'latitude': place.result!.geometry!.location!.lat!,
-                        'longitude': place.result!.geometry!.location!.lng!
+                        'longitude': place.result!.geometry!.location!.lng!,
+                        'returnToPrevious': returnToPrevious
                       });
                   });
                 }

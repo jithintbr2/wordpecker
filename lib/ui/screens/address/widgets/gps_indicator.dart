@@ -5,7 +5,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geolocator/geolocator.dart';
 
 class GPSIndicator extends HookWidget {
-  const GPSIndicator({Key? key}) : super(key: key);
+  final bool returnToPrevious;
+  const GPSIndicator({Key? key, required this.returnToPrevious})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class GPSIndicator extends HookWidget {
         style: ButtonStyle(
             backgroundColor:
                 MaterialStateProperty.all(Theme.of(context).canvasColor)),
-        onPressed: null,
+        onPressed: () => Geolocator.openLocationSettings(),
       ),
       // onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AddressMapPage())),
     );
@@ -61,7 +63,19 @@ class GPSIndicator extends HookWidget {
           style: ButtonStyle(
               backgroundColor:
                   MaterialStateProperty.all(Theme.of(context).canvasColor)),
-          onPressed: null,
+          onPressed: () async {
+            LocationPermission permission =
+                await Geolocator.requestPermission();
+            if (permission == LocationPermission.always ||
+                permission == LocationPermission.whileInUse) {
+              Position position = await Geolocator.getCurrentPosition();
+              Navigator.pushNamed(context, '/addressMap', arguments: {
+                'latitude': position.latitude,
+                'longitude': position.longitude,
+                'returnToPrevious': returnToPrevious
+              });
+            }
+          },
         ));
   }
 }

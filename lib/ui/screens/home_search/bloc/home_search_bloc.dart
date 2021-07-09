@@ -23,7 +23,7 @@ class HomeSearchBloc extends Bloc<HomeSearchEvent, HomeSearchState> {
     if (event is _Search) {
       yield _Loading();
       ApiResponse<HomeSearchModel> response =
-          await repository.searchItems(event.searchQuery);
+          await repository.searchItems(event.searchQuery, event.franchiseId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

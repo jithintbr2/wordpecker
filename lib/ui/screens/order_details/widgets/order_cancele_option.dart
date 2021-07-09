@@ -30,7 +30,10 @@ class OrderCancelOption extends StatelessWidget {
                       ? ElevatedButton(
                           onPressed: () {
                             if (data.cancelable &&
-                                !data.cancellationRequested) {}
+                                !data.cancellationRequested) {
+                              Navigator.of(context).pushNamed('/orderCancel',
+                                  arguments: {'orderId': data.orderId});
+                            }
                           },
                           child: Text('Cancel'),
                           style: ElevatedButton.styleFrom(

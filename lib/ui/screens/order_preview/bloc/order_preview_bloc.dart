@@ -32,22 +32,5 @@ class OrderPreviewBloc extends Bloc<OrderPreviewEvent, OrderPreviewState> {
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));
     }
-
-    if (event is _CartExpiryCheck) {
-      final List items = [];
-      event.items.forEach((item) {
-        items.add(item.toJson());
-      });
-      final response = await repository.placeOrder(
-          items, event.shopId, event.addressId, event.remark);
-      response.when(
-          success: (data) {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/homeDashboard', (route) => false);
-            Navigator.pushNamed(context, '/orderDetails',
-                arguments: {'tempId': data});
-          },
-          failure: (error) => emit(_Failed(error)));
-    }
   }
 }

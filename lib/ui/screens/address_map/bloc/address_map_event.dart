@@ -17,5 +17,6 @@ class AddressMapEvent with _$AddressMapEvent {
     required String pincode,
     required double lat,
     required double lng,
+    required bool shouldReturn,
   }) = _UseAddress;
 }

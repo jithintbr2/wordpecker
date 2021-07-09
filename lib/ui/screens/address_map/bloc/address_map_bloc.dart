@@ -100,20 +100,67 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
 
       serviceAvailablityResponse.when(success: (franchiseId) {
         if (franchiseId != -1) {
-          localStorage.set(
-              'currentAddress',
-              jsonEncode(AddressModel(
-                  id: -1,
-                  house: event.house,
-                  locality: event.locality,
-                  pin: int.parse(event.pincode),
-                  lat: event.lat,
-                  lng: event.lng,
-                  nickName: event.nickName,
-                  franchiseId: franchiseId)));
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              Config.useDashboardEntry ? '/homeDashboard' : '/home',
-              (route) => false);
+          if (event.shouldReturn && Config.isMultiLocation) {
+            AddressModel? _getAddress() {
+              if (localStorage.get('currentAddress') != null) {
+                Map<String, dynamic> currentAddressRaw =
+                    jsonDecode(localStorage.get('currentAddress') as String);
+                return AddressModel.fromJson(currentAddressRaw);
+              }
+              return null;
+            }
+
+            AddressModel? address = _getAddress();
+            if (franchiseId != address!.franchiseId) {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text('Warning'),
+                        content: Text(
+                            'This service location is different from your current service location. By selecting this location your cart will be cleared.'),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                localStorage.set('cart', []);
+                                localStorage.set(
+                                    'currentAddress',
+                                    jsonEncode(AddressModel(
+                                        id: -1,
+                                        house: event.house,
+                                        locality: event.locality,
+                                        pin: int.parse(event.pincode),
+                                        lat: event.lat,
+                                        lng: event.lng,
+                                        nickName: event.nickName,
+                                        franchiseId: franchiseId)));
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    Config.useDashboardEntry
+                                        ? '/homeDashboard'
+                                        : '/home',
+                                    (route) => false);
+                              },
+                              child: Text('Okay')),
+                          ElevatedButton(
+                              onPressed: () {}, child: Text('Cancel'))
+                        ],
+                      ));
+            }
+          } else {
+            localStorage.set(
+                'currentAddress',
+                jsonEncode(AddressModel(
+                    id: -1,
+                    house: event.house,
+                    locality: event.locality,
+                    pin: int.parse(event.pincode),
+                    lat: event.lat,
+                    lng: event.lng,
+                    nickName: event.nickName,
+                    franchiseId: franchiseId)));
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                Config.useDashboardEntry ? '/homeDashboard' : '/home',
+                (route) => false);
+          }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text('Service Not Available.'),

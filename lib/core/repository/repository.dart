@@ -129,7 +129,7 @@ class ApplicationRepository {
   }
 
   Future<ApiResponse<List<ItemModel>>> fetchCategoryItemsData(int categoryId) {
-    Map<String, dynamic> parameters = {"category_id": categoryId};
+    Map<String, dynamic> parameters = {"categoryId": categoryId};
     return _client.getRequest('/category_items', parameters: parameters).then(
         (response) {
       List<ItemModel> items = [];
@@ -191,8 +191,12 @@ class ApplicationRepository {
   }
 
   ///Fetch the shop list based on categories
-  Future<ApiResponse<List<ShopModel>>> fetchShopList(int franchiseId) {
-    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
+  Future<ApiResponse<List<ShopModel>>> fetchShopList(
+      int franchiseId, int categoryId) {
+    Map<String, dynamic> parameters = {
+      "franchiseId": franchiseId,
+      "categoryId": categoryId
+    };
     return _client
         .getRequest('/list_shops', parameters: parameters)
         .then((response) {
@@ -282,19 +286,37 @@ class ApplicationRepository {
     });
   }
 
+  /// Check Cart items validity
+  Future<ApiResponse<List>> checkCartValidity(List<int> varientIds) {
+    Map<String, dynamic> parameters = {"varientIds": varientIds};
+    return _client
+        .getRequest('/cart_check', parameters: parameters)
+        .then((response) {
+      print(response['data']['varientIds']);
+      return ApiResponse.success(data: response['data']['varientIds'] as List);
+    }).onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
   /// Place Order
   Future<ApiResponse<int>> placeOrder(
       List items, int shopId, int addressId, String remark) {
     Map<String, dynamic> parameters = {
       "items": items,
-      "shop_id": shopId,
-      "address_id": addressId,
-      "remark": remark,
-      "coupon_id": null,
-      "redeemed_ammount": 0,
-      "advanced_order": false,
-      "payment_mode": null,
-      "scheduled_delivery_date_time": null
+      "shopId": shopId,
+      "addressId": addressId,
+      "remarks": remark,
+      "couponId": -1,
+      "redeemedAmount": 0.0,
+      "couponDiscount": 0.0,
+      "couponType": "",
+      "advancedOrder": false,
+      "paymentMode": "cash_on_delivery",
+      "scheduledDeliveryDateTime": DateTime.now().toString(),
+      "additionalCharges": []
     };
     return _client
         .postRequest('/place_order', parameters: parameters)
@@ -307,8 +329,12 @@ class ApplicationRepository {
   }
 
   /// Search for results from home page searcher
-  Future<ApiResponse<HomeSearchModel>> searchItems(String searchQuery) {
-    Map<String, dynamic> parameters = {"franchiseId": 2, "search": searchQuery};
+  Future<ApiResponse<HomeSearchModel>> searchItems(
+      String searchQuery, int franchiseId) {
+    Map<String, dynamic> parameters = {
+      "franchiseId": franchiseId,
+      "search": searchQuery
+    };
     return _client
         .getRequest('/search_all_items', parameters: parameters)
         .then((response) => ApiResponse.success(
@@ -321,8 +347,8 @@ class ApplicationRepository {
   }
 
   /// Fetch Services
-  Future<ApiResponse<List<ServiceModel>>> fetchServices() {
-    Map<String, dynamic> parameters = {"franchiseId": 2};
+  Future<ApiResponse<List<ServiceModel>>> fetchServices(int franchiseId) {
+    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
     return _client
         .getRequest('/list_services', parameters: parameters)
         .then((response) {
@@ -357,7 +383,34 @@ class ApplicationRepository {
     return _client
         .getRequest('/item_details', parameters: parameters)
         .then((response) =>
-            ApiResponse.success(data: ItemModel.fromJson(response['data'])))
+            ApiResponse.success(data: ItemModel.fromJson(response['data'][0])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  /// Check Referral Validity
+  Future<ApiResponse<bool>> checkReferralValidity(String referralCode) {
+    Map<String, dynamic> parameters = {"referalId": referralCode};
+    return _client
+        .getRequest('/is_referral_id_valid', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  /// Cancel Order
+  Future<ApiResponse<String>> cancelOrder(int orderId, String? reason) {
+    Map<String, dynamic> parameters = {"orderId": orderId, "reason": reason};
+    return _client
+        .getRequest('/cancel_request', parameters: parameters)
+        .then((response) =>
+            ApiResponse.success(data: response['message'] as String))
         .onError((error, _) {
       print(_);
       return ApiResponse.failure(

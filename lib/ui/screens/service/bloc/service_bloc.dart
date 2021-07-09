@@ -20,7 +20,7 @@ class ServiceBloc extends Bloc<ServiceEvent, ServiceState> {
   ) async* {
     if (event is _FetchServices) {
       yield _Loading();
-      final response = await repository.fetchServices();
+      final response = await repository.fetchServices(event.franchiseId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

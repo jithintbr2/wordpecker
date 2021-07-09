@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
@@ -153,7 +154,10 @@ class CategoryItemsPage extends HookWidget {
               itemCount: filteredData.length,
             )),
             snap.hasData && snap.data!.length > 0
-                ? CartTile(itemCount: _itemCount, totalPrice: _totalPrice)
+                ? CartTile(
+                    itemCount: _itemCount,
+                    totalPrice: _totalPrice,
+                  )
                 : SizedBox()
           ],
         );
