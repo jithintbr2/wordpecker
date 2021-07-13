@@ -39,12 +39,14 @@ class ShopPage extends HookWidget {
       return () => searchController.dispose();
     }, []);
 
+    final selectedMenuId = useState(-1);
+
     return Scaffold(
       body: BlocBuilder<ShopBloc, ShopState>(
           builder: (context, state) => state.when(
               loading: () => LoadingView(),
-              loaded: (data) => _buildPage(
-                  context, data, service, searchController, showCancel),
+              loaded: (data) => _buildPage(context, data, service,
+                  searchController, showCancel, selectedMenuId),
               failed: (exception) => FailedView(
                   exceptions: exception,
                   onRetry: () =>
@@ -52,9 +54,20 @@ class ShopPage extends HookWidget {
     );
   }
 
-  Widget _buildPage(BuildContext context, ShopModel data, CartService service,
-      TextEditingController searchController, ValueNotifier<bool> showCancel) {
-    List<MenuModel> _filteredCategories = data.category ?? [];
+  Widget _buildPage(
+    BuildContext context,
+    ShopModel data,
+    CartService service,
+    TextEditingController searchController,
+    ValueNotifier<bool> showCancel,
+    ValueNotifier<int> selectedMenuId,
+  ) {
+    List<MenuModel> _filteredCategories = selectedMenuId.value != -1
+        ? data.category
+                ?.where((element) => element.id == selectedMenuId.value)
+                .toList() ??
+            []
+        : data.category ?? [];
     List<Widget> _slivers = [];
 
     _slivers
@@ -65,7 +78,13 @@ class ShopPage extends HookWidget {
         controller: searchController,
       ))
       ..add(SliverList(
-          delegate: SliverChildListDelegate([ShopHeader(shop: data)])));
+          delegate: SliverChildListDelegate([
+        ShopHeader(
+          shop: data,
+          selectedMenuId: selectedMenuId.value,
+          onMenuSelection: (id) => selectedMenuId.value = id,
+        )
+      ])));
 
     _filteredCategories.forEach((category) {
       if (category.items.isNotEmpty)
@@ -82,10 +101,16 @@ class ShopPage extends HookWidget {
               ),
             ),
             sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                  [_buildItemList(service, category.items)]),
+              delegate: SliverChildListDelegate([
+                _buildItemList(service, category.items, searchController.text)
+              ]),
             )));
     });
+
+    _slivers
+      ..add(SliverList(
+        delegate: SliverChildListDelegate([SizedBox(height: 100)]),
+      ));
 
     return Stack(
       fit: StackFit.loose,
@@ -128,39 +153,47 @@ class ShopPage extends HookWidget {
     return quantity;
   }
 
-  Widget _buildItemList(CartService service, List<ItemModel> data) {
+  Widget _buildItemList(
+      CartService service, List<ItemModel> data, String serachValue) {
     return StreamBuilder(
       stream: service.controller,
       initialData: service.initialValue(),
       builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
         return ListView.builder(
+          padding: EdgeInsets.zero,
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            if (data[index].varients.length == 1) {
-              return ItemVarientTile(
+            if (data[index]
+                .name
+                .toLowerCase()
+                .contains(serachValue.toLowerCase())) {
+              if (data[index].varients.length == 1) {
+                return ItemVarientTile(
+                    onTap: () => Navigator.of(context).pushNamed('/item',
+                            arguments: {
+                              'itemId': data[index].id,
+                              'itemName': data[index].name
+                            }),
+                    item: data[index].varients[0],
+                    onAdd: () => service.addItem(data[index].varients[0]),
+                    onRemove: () => service.removeItem(data[index].varients[0]),
+                    quantity: _getCartQuantity(
+                        snap.data, data[index].varients[0].varientId));
+              }
+              return ItemVarientContainerTile(
                   onTap: () => Navigator.of(context).pushNamed('/item',
                           arguments: {
                             'itemId': data[index].id,
                             'itemName': data[index].name
                           }),
-                  item: data[index].varients[0],
-                  onAdd: () => service.addItem(data[index].varients[0]),
-                  onRemove: () => service.removeItem(data[index].varients[0]),
-                  quantity: _getCartQuantity(
-                      snap.data, data[index].varients[0].varientId));
+                  item: data[index],
+                  service: service,
+                  cartItems: snap.data,
+                  onAdd: (item) => service.addItem(item),
+                  onRemove: (item) => service.removeItem(item));
             }
-            return ItemVarientContainerTile(
-                onTap: () => Navigator.of(context).pushNamed('/item',
-                        arguments: {
-                          'itemId': data[index].id,
-                          'itemName': data[index].name
-                        }),
-                item: data[index],
-                service: service,
-                cartItems: snap.data,
-                onAdd: (item) => service.addItem(item),
-                onRemove: (item) => service.removeItem(item));
+            return Container();
           },
           itemCount: data.length,
         );

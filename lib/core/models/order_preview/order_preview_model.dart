@@ -10,6 +10,7 @@ class OrderPreviewModel with _$OrderPreviewModel {
     required double walletAmount,
     required List<ItemVarientModel> addonsList,
     required PaymentOptionsModel paymentMethods,
+    required double deliveryCharge,
   }) = _OrderPreviewModel;
 
   factory OrderPreviewModel.fromJson(Map<String, dynamic> json) =>

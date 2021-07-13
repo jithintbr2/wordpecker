@@ -21,7 +21,7 @@ class WebViewPage extends HookWidget {
       withJavascript: true,
       resizeToAvoidBottomInset: true,
       withZoom: true,
-      hidden: true,
+      // hidden: true,
       appBar: AppBar(
         title: Text(title),
         actions: <Widget>[

@@ -5,9 +5,10 @@ class Config {
   static String get apiBaseUrl =>
       "https://woodle.in/delvento/index.php/User_mobile_version_nine";
   static String get cancellationPolicy =>
-      "http://greensdeliver.com/refund_policy";
+      "https://delvento.in/cancellation_policy/";
   static String get termsConditions =>
-      "http://greensdeliver.com/privacy_terms_and_condition";
+      "https://delvento.in/privacy_terms_and_condition/";
+  static String get aboutUs => "https://delvento.in/about_us/";
 
   // Keys
   static String kGoogleApiKey = "AIzaSyBIFTn0-99un9Vg_irKX9ve2i54xcTMAO4";

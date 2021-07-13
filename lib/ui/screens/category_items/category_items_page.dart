@@ -5,10 +5,12 @@ import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
+import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
+import 'package:woodle/ui/widgets/item_box.dart';
 import 'package:woodle/ui/widgets/item_varient_container_tile.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
 import 'package:woodle/ui/widgets/loading.dart';
@@ -26,6 +28,11 @@ class CategoryItemsPage extends HookWidget {
   Widget build(BuildContext context) {
     final CartService service = CartService();
     final searchController = useTextEditingController();
+
+    final LocalStorage localStorage = LocalStorage();
+    final isGridView = useState(localStorage.get('isGridView') != null
+        ? localStorage.get('isGridView') as bool
+        : false);
 
     useEffect(() {
       context
@@ -47,6 +54,11 @@ class CategoryItemsPage extends HookWidget {
         showCancel: showCancel.value,
         controller: searchController,
         title: categoryName,
+        isGridView: isGridView.value,
+        onViewChange: () {
+          localStorage.set('isGridView', !isGridView.value);
+          isGridView.value = !isGridView.value;
+        },
       ),
       body: RefreshIndicator(
           onRefresh: () async {
@@ -55,19 +67,22 @@ class CategoryItemsPage extends HookWidget {
                 .add(CategoryItemsEvent.fetchData(categoryId));
             return null;
           },
-          child: _buildBloc(service, searchController)),
+          child: _buildBloc(service, searchController, isGridView.value)),
     );
   }
 
   Widget _buildBloc(
-      CartService service, TextEditingController searchController) {
+    CartService service,
+    TextEditingController searchController,
+    bool isGridView,
+  ) {
     return BlocBuilder<CategoryItemsBloc, CategoryItemsState>(
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
             loaded: (data) {
               if (data.isNotEmpty)
-                return _buildPage(service, data, searchController);
+                return _buildPage(service, data, searchController, isGridView);
               return EmptyView(
                   icon: Icons.do_not_disturb,
                   title: "No items in this category");
@@ -93,8 +108,8 @@ class CategoryItemsPage extends HookWidget {
     return quantity;
   }
 
-  Widget _buildPage(
-      CartService service, List<ItemModel> data, TextEditingController search) {
+  Widget _buildPage(CartService service, List<ItemModel> data,
+      TextEditingController search, bool isGridView) {
     List<ItemModel> filteredData = [];
 
     if (search.text.isEmpty)
@@ -103,6 +118,15 @@ class CategoryItemsPage extends HookWidget {
       data.forEach((value) {
         if (value.name.contains(search.text)) filteredData.add(value);
       });
+
+    if (isGridView)
+      return GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3, childAspectRatio: 1),
+        itemBuilder: (context, index) => ItemBox(data: filteredData[index]),
+        itemCount: filteredData.length,
+      );
 
     return StreamBuilder(
       initialData: service.initialValue(),

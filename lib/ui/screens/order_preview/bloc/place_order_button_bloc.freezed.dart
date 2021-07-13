@@ -21,13 +21,17 @@ class _$PlaceOrderButtonEventTearOff {
       required List<ItemVarientModel> items,
       required int shopId,
       required int addressId,
-      required String remark}) {
+      required String remark,
+      required bool isAdvancedOrder,
+      required String dateTime}) {
     return _PlaceOrder(
       service: service,
       items: items,
       shopId: shopId,
       addressId: addressId,
       remark: remark,
+      isAdvancedOrder: isAdvancedOrder,
+      dateTime: dateTime,
     );
   }
 }
@@ -42,18 +46,32 @@ mixin _$PlaceOrderButtonEvent {
   int get shopId => throw _privateConstructorUsedError;
   int get addressId => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
+  bool get isAdvancedOrder => throw _privateConstructorUsedError;
+  String get dateTime => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CartService service, List<ItemVarientModel> items,
-            int shopId, int addressId, String remark)
+    required TResult Function(
+            CartService service,
+            List<ItemVarientModel> items,
+            int shopId,
+            int addressId,
+            String remark,
+            bool isAdvancedOrder,
+            String dateTime)
         placeOrder,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CartService service, List<ItemVarientModel> items,
-            int shopId, int addressId, String remark)?
+    TResult Function(
+            CartService service,
+            List<ItemVarientModel> items,
+            int shopId,
+            int addressId,
+            String remark,
+            bool isAdvancedOrder,
+            String dateTime)?
         placeOrder,
     required TResult orElse(),
   }) =>
@@ -85,7 +103,9 @@ abstract class $PlaceOrderButtonEventCopyWith<$Res> {
       List<ItemVarientModel> items,
       int shopId,
       int addressId,
-      String remark});
+      String remark,
+      bool isAdvancedOrder,
+      String dateTime});
 }
 
 /// @nodoc
@@ -104,6 +124,8 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
     Object? shopId = freezed,
     Object? addressId = freezed,
     Object? remark = freezed,
+    Object? isAdvancedOrder = freezed,
+    Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
       service: service == freezed
@@ -126,6 +148,14 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      isAdvancedOrder: isAdvancedOrder == freezed
+          ? _value.isAdvancedOrder
+          : isAdvancedOrder // ignore: cast_nullable_to_non_nullable
+              as bool,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -142,7 +172,9 @@ abstract class _$PlaceOrderCopyWith<$Res>
       List<ItemVarientModel> items,
       int shopId,
       int addressId,
-      String remark});
+      String remark,
+      bool isAdvancedOrder,
+      String dateTime});
 }
 
 /// @nodoc
@@ -163,6 +195,8 @@ class __$PlaceOrderCopyWithImpl<$Res>
     Object? shopId = freezed,
     Object? addressId = freezed,
     Object? remark = freezed,
+    Object? isAdvancedOrder = freezed,
+    Object? dateTime = freezed,
   }) {
     return _then(_PlaceOrder(
       service: service == freezed
@@ -185,6 +219,14 @@ class __$PlaceOrderCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      isAdvancedOrder: isAdvancedOrder == freezed
+          ? _value.isAdvancedOrder
+          : isAdvancedOrder // ignore: cast_nullable_to_non_nullable
+              as bool,
+      dateTime: dateTime == freezed
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -197,7 +239,9 @@ class _$_PlaceOrder implements _PlaceOrder {
       required this.items,
       required this.shopId,
       required this.addressId,
-      required this.remark});
+      required this.remark,
+      required this.isAdvancedOrder,
+      required this.dateTime});
 
   @override
   final CartService service;
@@ -209,10 +253,14 @@ class _$_PlaceOrder implements _PlaceOrder {
   final int addressId;
   @override
   final String remark;
+  @override
+  final bool isAdvancedOrder;
+  @override
+  final String dateTime;
 
   @override
   String toString() {
-    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark)';
+    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark, isAdvancedOrder: $isAdvancedOrder, dateTime: $dateTime)';
   }
 
   @override
@@ -230,7 +278,13 @@ class _$_PlaceOrder implements _PlaceOrder {
                 const DeepCollectionEquality()
                     .equals(other.addressId, addressId)) &&
             (identical(other.remark, remark) ||
-                const DeepCollectionEquality().equals(other.remark, remark)));
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.isAdvancedOrder, isAdvancedOrder) ||
+                const DeepCollectionEquality()
+                    .equals(other.isAdvancedOrder, isAdvancedOrder)) &&
+            (identical(other.dateTime, dateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateTime, dateTime)));
   }
 
   @override
@@ -240,7 +294,9 @@ class _$_PlaceOrder implements _PlaceOrder {
       const DeepCollectionEquality().hash(items) ^
       const DeepCollectionEquality().hash(shopId) ^
       const DeepCollectionEquality().hash(addressId) ^
-      const DeepCollectionEquality().hash(remark);
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(isAdvancedOrder) ^
+      const DeepCollectionEquality().hash(dateTime);
 
   @JsonKey(ignore: true)
   @override
@@ -250,23 +306,37 @@ class _$_PlaceOrder implements _PlaceOrder {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CartService service, List<ItemVarientModel> items,
-            int shopId, int addressId, String remark)
+    required TResult Function(
+            CartService service,
+            List<ItemVarientModel> items,
+            int shopId,
+            int addressId,
+            String remark,
+            bool isAdvancedOrder,
+            String dateTime)
         placeOrder,
   }) {
-    return placeOrder(service, items, shopId, addressId, remark);
+    return placeOrder(
+        service, items, shopId, addressId, remark, isAdvancedOrder, dateTime);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CartService service, List<ItemVarientModel> items,
-            int shopId, int addressId, String remark)?
+    TResult Function(
+            CartService service,
+            List<ItemVarientModel> items,
+            int shopId,
+            int addressId,
+            String remark,
+            bool isAdvancedOrder,
+            String dateTime)?
         placeOrder,
     required TResult orElse(),
   }) {
     if (placeOrder != null) {
-      return placeOrder(service, items, shopId, addressId, remark);
+      return placeOrder(
+          service, items, shopId, addressId, remark, isAdvancedOrder, dateTime);
     }
     return orElse();
   }
@@ -298,7 +368,9 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
       required List<ItemVarientModel> items,
       required int shopId,
       required int addressId,
-      required String remark}) = _$_PlaceOrder;
+      required String remark,
+      required bool isAdvancedOrder,
+      required String dateTime}) = _$_PlaceOrder;
 
   @override
   CartService get service => throw _privateConstructorUsedError;
@@ -310,6 +382,10 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
   int get addressId => throw _privateConstructorUsedError;
   @override
   String get remark => throw _privateConstructorUsedError;
+  @override
+  bool get isAdvancedOrder => throw _privateConstructorUsedError;
+  @override
+  String get dateTime => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PlaceOrderCopyWith<_PlaceOrder> get copyWith =>

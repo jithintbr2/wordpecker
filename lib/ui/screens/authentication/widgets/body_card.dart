@@ -9,12 +9,14 @@ class BodyCard extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function()? onSubmit;
+  final bool? isPassword;
   const BodyCard({
     required this.buttonText,
     required this.label,
     required this.controller,
     this.keyboardType,
     this.validator,
+    this.isPassword,
     this.isLoading = false,
     required this.onSubmit,
     Key? key,
@@ -50,6 +52,7 @@ class BodyCard extends StatelessWidget {
                   enabled: !isLoading,
                   validator: validator,
                   keyboardType: keyboardType,
+                  obscureText: isPassword ?? false,
                   decoration: InputDecoration(
                       counterText: "",
                       labelText: label,

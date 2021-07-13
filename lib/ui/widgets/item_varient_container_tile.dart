@@ -35,10 +35,11 @@ class ItemVarientContainerTile extends StatelessWidget {
     return quantity;
   }
 
-  void _onButtonPressed(
-      {required BuildContext context,
-      required List<ItemVarientModel> data,
-      required List<ItemVarientModel> selectedItems}) {
+  void _onButtonPressed({
+    required BuildContext context,
+    required List<ItemVarientModel> data,
+    required List<ItemVarientModel> selectedItems,
+  }) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -121,48 +122,50 @@ class ItemVarientContainerTile extends StatelessWidget {
         child: Column(
       children: [
         ListTile(
-            onTap: onTap,
-            leading: Container(
-                height: 64,
-                width: 64,
-                clipBehavior: Clip.antiAlias,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: CachedNetworkImage(
-                  imageUrl: item.image,
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) =>
-                      Center(child: Image.asset(Assets.appIcon)),
-                  errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
-                )),
-            title: Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Text(
-                item.name,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(fontSize: 16),
-              ),
+          onTap: onTap,
+          leading: Container(
+              height: 64,
+              width: 64,
+              clipBehavior: Clip.antiAlias,
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
+              child: CachedNetworkImage(
+                imageUrl: item.image,
+                fit: BoxFit.cover,
+                placeholder: (_, __) =>
+                    Center(child: Image.asset(Assets.appIcon)),
+                errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
+              )),
+          title: Padding(
+            padding: EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              item.name,
+              style:
+                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
             ),
-            trailing: _buildAddButton(
-                context,
-                () => _onButtonPressed(
-                    context: context,
-                    data: item.varients,
-                    selectedItems: selectedVarientItems))),
-        uniqueSelectedVarientItems.length > 0 ? Divider() : SizedBox(),
+          ),
+          trailing: _buildAddButton(
+              context,
+              () => _onButtonPressed(
+                  context: context,
+                  data: item.varients,
+                  selectedItems: selectedVarientItems)),
+          subtitle: Text(''),
+        ),
         ListView.builder(
+            padding: EdgeInsets.zero,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: uniqueSelectedVarientItems.length,
             itemBuilder: (context, index) => ItemVarientTile(
+                margin: EdgeInsets.zero,
+                color: Theme.of(context).primaryColor.withOpacity(0.1),
                 elevation: 0,
                 item: uniqueSelectedVarientItems[index],
                 onAdd: () => onAdd(uniqueSelectedVarientItems[index]),
                 onRemove: () => onRemove(uniqueSelectedVarientItems[index]),
                 quantity: _getCartQuantity(selectedVarientItems,
-                    uniqueSelectedVarientItems[index].varientId)))
+                    uniqueSelectedVarientItems[index].varientId))),
       ],
     ));
   }

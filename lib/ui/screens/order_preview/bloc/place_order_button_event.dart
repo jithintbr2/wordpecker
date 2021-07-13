@@ -8,5 +8,7 @@ class PlaceOrderButtonEvent with _$PlaceOrderButtonEvent {
     required int shopId,
     required int addressId,
     required String remark,
+    required bool isAdvancedOrder,
+    required String dateTime,
   }) = _PlaceOrder;
 }

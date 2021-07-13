@@ -68,7 +68,14 @@ class CartService {
           ? List.from(_storeData as Iterable<dynamic>, growable: true)
           : List.empty(growable: true);
       // List<String> cartItems = _store.get('cart') as List<String>;
-      cartItems.remove(jsonEncode(item.toJson()));
+
+      // cartItems.remove(jsonEncode(item.toJson()));
+
+      final matchingItem = cartItems.firstWhere((element) =>
+          ItemVarientModel.fromJson(json.decode(element)).itemId ==
+          item.itemId);
+      cartItems.remove(matchingItem);
+
       _store.set('cart', cartItems);
 
       List<ItemVarientModel> cartStandardizedItems = [];

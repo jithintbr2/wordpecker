@@ -6,7 +6,12 @@ import 'package:woodle/ui/widgets/item_varient_tile.dart';
 
 class CartPrice extends StatelessWidget {
   final CartService service;
-  const CartPrice({required this.service, Key? key}) : super(key: key);
+  final double deliveryCharge;
+  const CartPrice({
+    required this.service,
+    required this.deliveryCharge,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +49,19 @@ class CartPrice extends StatelessWidget {
                   Divider(),
                   Padding(
                       padding: EdgeInsets.all(10),
-                      child: PriceIndicator(
-                          price: totalPrice, title: 'Order Total'))
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          PriceIndicator(
+                              price: totalPrice, title: 'Order Total'),
+                          PriceIndicator(
+                              price: deliveryCharge, title: 'Delivery Charges'),
+                          Divider(),
+                          PriceIndicator(
+                              price: deliveryCharge + totalPrice,
+                              title: 'Grand Total')
+                        ],
+                      ))
                 ],
               ),
             );

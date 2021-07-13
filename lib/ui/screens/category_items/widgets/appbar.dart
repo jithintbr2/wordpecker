@@ -5,12 +5,16 @@ class CategoryItemsAppBar extends StatelessWidget
   final String title;
   final TextEditingController controller;
   final bool showCancel;
-  const CategoryItemsAppBar(
-      {required this.title,
-      required this.controller,
-      required this.showCancel,
-      Key? key})
-      : super(key: key);
+  final bool isGridView;
+  final void Function() onViewChange;
+  const CategoryItemsAppBar({
+    required this.title,
+    required this.controller,
+    required this.showCancel,
+    required this.isGridView,
+    required this.onViewChange,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight + 55);
@@ -23,7 +27,9 @@ class CategoryItemsAppBar extends StatelessWidget
       title: Text(title),
       actions: [
         IconButton(
-            icon: Icon(Icons.list, color: Colors.white), onPressed: () => null)
+            icon: Icon(isGridView ? Icons.list : Icons.grid_3x3,
+                color: Colors.white),
+            onPressed: onViewChange)
       ],
       bottom: PreferredSize(
         child: Container(

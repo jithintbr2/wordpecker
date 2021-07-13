@@ -27,7 +27,8 @@ class OrderPreviewBloc extends Bloc<OrderPreviewEvent, OrderPreviewState> {
   ) async* {
     if (event is _GetSupportingData) {
       yield _Loading();
-      final response = await repository.fetchOrderPreviewOptions();
+      final response = await repository.fetchOrderPreviewOptions(
+          event.franchiseId, event.addressId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

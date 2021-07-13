@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({Key? key}) : super(key: key);
+  final int? whatsappNumber;
+  const HomeDrawer({Key? key, this.whatsappNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class HomeDrawer extends StatelessWidget {
                         child: Text('Login')),
                   )),
             Divider(),
-            DrawerBottomBar()
+            DrawerBottomBar(whatsappNumber: whatsappNumber)
           ]);
     }));
   }
@@ -99,7 +101,7 @@ class TextIconButton extends StatelessWidget {
     return InkWell(
       child: Column(
         children: [
-          Icon(icon),
+          Icon(icon, color: Theme.of(context).primaryColor),
           SizedBox(height: 8),
           Text(
             title,
@@ -177,7 +179,8 @@ class DrawerTopBar extends StatelessWidget {
 }
 
 class DrawerBottomBar extends StatelessWidget {
-  const DrawerBottomBar({Key? key}) : super(key: key);
+  final int? whatsappNumber;
+  const DrawerBottomBar({Key? key, this.whatsappNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -187,9 +190,24 @@ class DrawerBottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          TextIconButton(icon: Icons.chat_bubble_outline, title: "WhatsApp"),
-          TextIconButton(icon: Icons.info_outline, title: "About Us"),
-          TextIconButton(icon: Icons.language, title: "Conntact Us")
+          TextIconButton(
+              icon: Icons.chat_bubble_outline,
+              title: "WhatsApp",
+              onTap: () async {
+                final whatsappLink =
+                    "https://api.WhatsApp.com/send?phone=$whatsappNumber";
+                if (await canLaunch(whatsappLink)) await launch(whatsappLink);
+              }),
+          TextIconButton(
+              icon: Icons.info_outline,
+              title: "About Us",
+              onTap: () => Navigator.pushNamed(context, '/webView',
+                  arguments: {"title": "About Us", "url": Config.aboutUs})),
+          TextIconButton(
+              icon: Icons.language,
+              title: "Contact Us",
+              onTap: () => Navigator.pushNamed(context, '/webView',
+                  arguments: {"title": "About Us", "url": Config.aboutUs}))
         ],
       ),
     );
@@ -204,6 +222,7 @@ class DrawerBody extends StatelessWidget {
       dense: true,
       leading: Icon(
         icon,
+        color: Theme.of(context).primaryColor,
         size: 20,
       ),
       title: Text(

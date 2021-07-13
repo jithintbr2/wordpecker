@@ -16,8 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$OrderPreviewEventTearOff {
   const _$OrderPreviewEventTearOff();
 
-  _GetSupportingData getSupportingData() {
-    return const _GetSupportingData();
+  _GetSupportingData getSupportingData(
+      {required int franchiseId, required int addressId}) {
+    return _GetSupportingData(
+      franchiseId: franchiseId,
+      addressId: addressId,
+    );
   }
 }
 
@@ -26,14 +30,17 @@ const $OrderPreviewEvent = _$OrderPreviewEventTearOff();
 
 /// @nodoc
 mixin _$OrderPreviewEvent {
+  int get franchiseId => throw _privateConstructorUsedError;
+  int get addressId => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getSupportingData,
+    required TResult Function(int franchiseId, int addressId) getSupportingData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getSupportingData,
+    TResult Function(int franchiseId, int addressId)? getSupportingData,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +55,10 @@ mixin _$OrderPreviewEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $OrderPreviewEventCopyWith<OrderPreviewEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +66,7 @@ abstract class $OrderPreviewEventCopyWith<$Res> {
   factory $OrderPreviewEventCopyWith(
           OrderPreviewEvent value, $Res Function(OrderPreviewEvent) then) =
       _$OrderPreviewEventCopyWithImpl<$Res>;
+  $Res call({int franchiseId, int addressId});
 }
 
 /// @nodoc
@@ -65,13 +77,33 @@ class _$OrderPreviewEventCopyWithImpl<$Res>
   final OrderPreviewEvent _value;
   // ignore: unused_field
   final $Res Function(OrderPreviewEvent) _then;
+
+  @override
+  $Res call({
+    Object? franchiseId = freezed,
+    Object? addressId = freezed,
+  }) {
+    return _then(_value.copyWith(
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
+      addressId: addressId == freezed
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
-abstract class _$GetSupportingDataCopyWith<$Res> {
+abstract class _$GetSupportingDataCopyWith<$Res>
+    implements $OrderPreviewEventCopyWith<$Res> {
   factory _$GetSupportingDataCopyWith(
           _GetSupportingData value, $Res Function(_GetSupportingData) then) =
       __$GetSupportingDataCopyWithImpl<$Res>;
+  @override
+  $Res call({int franchiseId, int addressId});
 }
 
 /// @nodoc
@@ -84,6 +116,23 @@ class __$GetSupportingDataCopyWithImpl<$Res>
 
   @override
   _GetSupportingData get _value => super._value as _GetSupportingData;
+
+  @override
+  $Res call({
+    Object? franchiseId = freezed,
+    Object? addressId = freezed,
+  }) {
+    return _then(_GetSupportingData(
+      franchiseId: franchiseId == freezed
+          ? _value.franchiseId
+          : franchiseId // ignore: cast_nullable_to_non_nullable
+              as int,
+      addressId: addressId == freezed
+          ? _value.addressId
+          : addressId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
@@ -91,44 +140,67 @@ class __$GetSupportingDataCopyWithImpl<$Res>
 class _$_GetSupportingData
     with DiagnosticableTreeMixin
     implements _GetSupportingData {
-  const _$_GetSupportingData();
+  const _$_GetSupportingData(
+      {required this.franchiseId, required this.addressId});
+
+  @override
+  final int franchiseId;
+  @override
+  final int addressId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'OrderPreviewEvent.getSupportingData()';
+    return 'OrderPreviewEvent.getSupportingData(franchiseId: $franchiseId, addressId: $addressId)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.getSupportingData'));
+      ..add(DiagnosticsProperty('type', 'OrderPreviewEvent.getSupportingData'))
+      ..add(DiagnosticsProperty('franchiseId', franchiseId))
+      ..add(DiagnosticsProperty('addressId', addressId));
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _GetSupportingData);
+    return identical(this, other) ||
+        (other is _GetSupportingData &&
+            (identical(other.franchiseId, franchiseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.franchiseId, franchiseId)) &&
+            (identical(other.addressId, addressId) ||
+                const DeepCollectionEquality()
+                    .equals(other.addressId, addressId)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(franchiseId) ^
+      const DeepCollectionEquality().hash(addressId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetSupportingDataCopyWith<_GetSupportingData> get copyWith =>
+      __$GetSupportingDataCopyWithImpl<_GetSupportingData>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getSupportingData,
+    required TResult Function(int franchiseId, int addressId) getSupportingData,
   }) {
-    return getSupportingData();
+    return getSupportingData(franchiseId, addressId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getSupportingData,
+    TResult Function(int franchiseId, int addressId)? getSupportingData,
     required TResult orElse(),
   }) {
     if (getSupportingData != null) {
-      return getSupportingData();
+      return getSupportingData(franchiseId, addressId);
     }
     return orElse();
   }
@@ -155,7 +227,18 @@ class _$_GetSupportingData
 }
 
 abstract class _GetSupportingData implements OrderPreviewEvent {
-  const factory _GetSupportingData() = _$_GetSupportingData;
+  const factory _GetSupportingData(
+      {required int franchiseId,
+      required int addressId}) = _$_GetSupportingData;
+
+  @override
+  int get franchiseId => throw _privateConstructorUsedError;
+  @override
+  int get addressId => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$GetSupportingDataCopyWith<_GetSupportingData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

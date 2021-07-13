@@ -28,10 +28,10 @@ _$_HomePageModel _$_$_HomePageModelFromJson(Map<String, dynamic> json) {
         .toList(),
     message: json['scrollingMessage'] as String?,
     minOrderCost: (json['minimum_order_cost'] as num?)?.toDouble(),
-    homeCategoreis: json['homeCategoreis'] == null
-        ? null
-        : HomeCategoriesModel.fromJson(
-            json['homeCategoreis'] as Map<String, dynamic>),
+    homeCategoreis: (json['homeCategoreis'] as List<dynamic>?)
+        ?.map((e) => HomeCategoriesModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    contactNumber: json['contactNumber'] as int?,
   );
 }
 
@@ -46,6 +46,7 @@ Map<String, dynamic> _$_$_HomePageModelToJson(_$_HomePageModel instance) =>
       'scrollingMessage': instance.message,
       'minimum_order_cost': instance.minOrderCost,
       'homeCategoreis': instance.homeCategoreis,
+      'contactNumber': instance.contactNumber,
     };
 
 _$_HomeCategoriesModel _$_$_HomeCategoriesModelFromJson(

@@ -21,11 +21,11 @@ class _$CarouselModelTearOff {
   const _$CarouselModelTearOff();
 
   _CarouselModel call(
-      {int? id,
-      int? shopId,
-      int? itemId,
+      {required int id,
+      required int shopId,
+      required int itemId,
       required String imageUrl,
-      double? aspectRatio,
+      required double aspectRatio,
       String? externalLink}) {
     return _CarouselModel(
       id: id,
@@ -47,11 +47,11 @@ const $CarouselModel = _$CarouselModelTearOff();
 
 /// @nodoc
 mixin _$CarouselModel {
-  int? get id => throw _privateConstructorUsedError;
-  int? get shopId => throw _privateConstructorUsedError;
-  int? get itemId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
+  int get shopId => throw _privateConstructorUsedError;
+  int get itemId => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  double? get aspectRatio => throw _privateConstructorUsedError;
+  double get aspectRatio => throw _privateConstructorUsedError;
   String? get externalLink => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -66,11 +66,11 @@ abstract class $CarouselModelCopyWith<$Res> {
           CarouselModel value, $Res Function(CarouselModel) then) =
       _$CarouselModelCopyWithImpl<$Res>;
   $Res call(
-      {int? id,
-      int? shopId,
-      int? itemId,
+      {int id,
+      int shopId,
+      int itemId,
       String imageUrl,
-      double? aspectRatio,
+      double aspectRatio,
       String? externalLink});
 }
 
@@ -96,15 +96,15 @@ class _$CarouselModelCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       shopId: shopId == freezed
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -112,7 +112,7 @@ class _$CarouselModelCopyWithImpl<$Res>
       aspectRatio: aspectRatio == freezed
           ? _value.aspectRatio
           : aspectRatio // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       externalLink: externalLink == freezed
           ? _value.externalLink
           : externalLink // ignore: cast_nullable_to_non_nullable
@@ -129,11 +129,11 @@ abstract class _$CarouselModelCopyWith<$Res>
       __$CarouselModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int? id,
-      int? shopId,
-      int? itemId,
+      {int id,
+      int shopId,
+      int itemId,
       String imageUrl,
-      double? aspectRatio,
+      double aspectRatio,
       String? externalLink});
 }
 
@@ -161,15 +161,15 @@ class __$CarouselModelCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       shopId: shopId == freezed
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       itemId: itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -177,7 +177,7 @@ class __$CarouselModelCopyWithImpl<$Res>
       aspectRatio: aspectRatio == freezed
           ? _value.aspectRatio
           : aspectRatio // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as double,
       externalLink: externalLink == freezed
           ? _value.externalLink
           : externalLink // ignore: cast_nullable_to_non_nullable
@@ -190,26 +190,26 @@ class __$CarouselModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
   const _$_CarouselModel(
-      {this.id,
-      this.shopId,
-      this.itemId,
+      {required this.id,
+      required this.shopId,
+      required this.itemId,
       required this.imageUrl,
-      this.aspectRatio,
+      required this.aspectRatio,
       this.externalLink});
 
   factory _$_CarouselModel.fromJson(Map<String, dynamic> json) =>
       _$_$_CarouselModelFromJson(json);
 
   @override
-  final int? id;
+  final int id;
   @override
-  final int? shopId;
+  final int shopId;
   @override
-  final int? itemId;
+  final int itemId;
   @override
   final String imageUrl;
   @override
-  final double? aspectRatio;
+  final double aspectRatio;
   @override
   final String? externalLink;
 
@@ -275,26 +275,26 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
 
 abstract class _CarouselModel implements CarouselModel {
   const factory _CarouselModel(
-      {int? id,
-      int? shopId,
-      int? itemId,
+      {required int id,
+      required int shopId,
+      required int itemId,
       required String imageUrl,
-      double? aspectRatio,
+      required double aspectRatio,
       String? externalLink}) = _$_CarouselModel;
 
   factory _CarouselModel.fromJson(Map<String, dynamic> json) =
       _$_CarouselModel.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @override
-  int? get shopId => throw _privateConstructorUsedError;
+  int get shopId => throw _privateConstructorUsedError;
   @override
-  int? get itemId => throw _privateConstructorUsedError;
+  int get itemId => throw _privateConstructorUsedError;
   @override
   String get imageUrl => throw _privateConstructorUsedError;
   @override
-  double? get aspectRatio => throw _privateConstructorUsedError;
+  double get aspectRatio => throw _privateConstructorUsedError;
   @override
   String? get externalLink => throw _privateConstructorUsedError;
   @override

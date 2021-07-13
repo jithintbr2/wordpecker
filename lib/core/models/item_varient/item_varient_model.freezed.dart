@@ -25,7 +25,9 @@ class _$ItemVarientModelTearOff {
       required String varientType,
       required String varientName,
       required String itemName,
+      required int itemId,
       required int shopId,
+      required String shopName,
       @JsonKey(name: "imgUrl") required String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -37,7 +39,9 @@ class _$ItemVarientModelTearOff {
       varientType: varientType,
       varientName: varientName,
       itemName: itemName,
+      itemId: itemId,
       shopId: shopId,
+      shopName: shopName,
       image: image,
       description: description,
       salePrice: salePrice,
@@ -61,7 +65,9 @@ mixin _$ItemVarientModel {
   String get varientType => throw _privateConstructorUsedError;
   String get varientName => throw _privateConstructorUsedError;
   String get itemName => throw _privateConstructorUsedError;
+  int get itemId => throw _privateConstructorUsedError;
   int get shopId => throw _privateConstructorUsedError;
+  String get shopName => throw _privateConstructorUsedError;
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -88,7 +94,9 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       String varientType,
       String varientName,
       String itemName,
+      int itemId,
       int shopId,
+      String shopName,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -112,7 +120,9 @@ class _$ItemVarientModelCopyWithImpl<$Res>
     Object? varientType = freezed,
     Object? varientName = freezed,
     Object? itemName = freezed,
+    Object? itemId = freezed,
     Object? shopId = freezed,
+    Object? shopName = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
@@ -137,10 +147,18 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int,
       shopId: shopId == freezed
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
               as int,
+      shopName: shopName == freezed
+          ? _value.shopName
+          : shopName // ignore: cast_nullable_to_non_nullable
+              as String,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -181,7 +199,9 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       String varientType,
       String varientName,
       String itemName,
+      int itemId,
       int shopId,
+      String shopName,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -207,7 +227,9 @@ class __$ItemVarientModelCopyWithImpl<$Res>
     Object? varientType = freezed,
     Object? varientName = freezed,
     Object? itemName = freezed,
+    Object? itemId = freezed,
     Object? shopId = freezed,
+    Object? shopName = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
@@ -232,10 +254,18 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as int,
       shopId: shopId == freezed
           ? _value.shopId
           : shopId // ignore: cast_nullable_to_non_nullable
               as int,
+      shopName: shopName == freezed
+          ? _value.shopName
+          : shopName // ignore: cast_nullable_to_non_nullable
+              as String,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -274,7 +304,9 @@ class _$_ItemVarientModel
       required this.varientType,
       required this.varientName,
       required this.itemName,
+      required this.itemId,
       required this.shopId,
+      required this.shopName,
       @JsonKey(name: "imgUrl") required this.image,
       this.description,
       @JsonKey(name: "itemCost") this.salePrice,
@@ -294,7 +326,11 @@ class _$_ItemVarientModel
   @override
   final String itemName;
   @override
+  final int itemId;
+  @override
   final int shopId;
+  @override
+  final String shopName;
   @override
   @JsonKey(name: "imgUrl")
   final String image;
@@ -313,7 +349,7 @@ class _$_ItemVarientModel
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, shopId: $shopId, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages)';
+    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages)';
   }
 
   @override
@@ -325,7 +361,9 @@ class _$_ItemVarientModel
       ..add(DiagnosticsProperty('varientType', varientType))
       ..add(DiagnosticsProperty('varientName', varientName))
       ..add(DiagnosticsProperty('itemName', itemName))
+      ..add(DiagnosticsProperty('itemId', itemId))
       ..add(DiagnosticsProperty('shopId', shopId))
+      ..add(DiagnosticsProperty('shopName', shopName))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('salePrice', salePrice))
@@ -350,8 +388,13 @@ class _$_ItemVarientModel
             (identical(other.itemName, itemName) ||
                 const DeepCollectionEquality()
                     .equals(other.itemName, itemName)) &&
+            (identical(other.itemId, itemId) ||
+                const DeepCollectionEquality().equals(other.itemId, itemId)) &&
             (identical(other.shopId, shopId) ||
                 const DeepCollectionEquality().equals(other.shopId, shopId)) &&
+            (identical(other.shopName, shopName) ||
+                const DeepCollectionEquality()
+                    .equals(other.shopName, shopName)) &&
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.description, description) ||
@@ -377,7 +420,9 @@ class _$_ItemVarientModel
       const DeepCollectionEquality().hash(varientType) ^
       const DeepCollectionEquality().hash(varientName) ^
       const DeepCollectionEquality().hash(itemName) ^
+      const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(shopId) ^
+      const DeepCollectionEquality().hash(shopName) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(salePrice) ^
@@ -402,7 +447,9 @@ abstract class _ItemVarientModel implements ItemVarientModel {
           required String varientType,
           required String varientName,
           required String itemName,
+          required int itemId,
           required int shopId,
+          required String shopName,
           @JsonKey(name: "imgUrl") required String image,
           String? description,
           @JsonKey(name: "itemCost") double? salePrice,
@@ -423,7 +470,11 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   @override
   String get itemName => throw _privateConstructorUsedError;
   @override
+  int get itemId => throw _privateConstructorUsedError;
+  @override
   int get shopId => throw _privateConstructorUsedError;
+  @override
+  String get shopName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;

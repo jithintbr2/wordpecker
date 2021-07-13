@@ -23,7 +23,10 @@ import 'package:woodle/ui/widgets/marquee.dart';
 
 class HomePage extends HookWidget {
   final LocalStorage localStorage;
-  const HomePage({Key? key, required this.localStorage}) : super(key: key);
+  final ValueNotifier<int>? dashboardContactNumber;
+  const HomePage(
+      {Key? key, required this.localStorage, this.dashboardContactNumber})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,8 @@ class HomePage extends HookWidget {
             address != null ? address.franchiseId : Config.locationId));
     }, []);
 
+    final conactNumber = useState(-1);
+
     return Scaffold(
       appBar: Config.useDashboardEntry
           ? null
@@ -52,31 +57,35 @@ class HomePage extends HookWidget {
               service: service,
               showLocation: Config.isMultiLocation,
               location: address?.locality,
+              contactNumber: conactNumber.value,
               onTap: () => Navigator.pushNamed(context, '/address'),
               onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
             ),
-      endDrawer: HomeDrawer(),
+      endDrawer: HomeDrawer(whatsappNumber: conactNumber.value),
       body: Config.locationId != -1 || address != null
-          ? _buildBloc(address)
+          ? _buildBloc(address, dashboardContactNumber ?? conactNumber)
           : EmptyView(
               icon: Icons.location_searching, title: 'No Location Selected.'),
     );
   }
 
-  _buildBloc(AddressModel? address) {
+  _buildBloc(AddressModel? address, ValueNotifier conactNumber) {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => RefreshIndicator(
-                child: _buildPage(context, data),
-                onRefresh: () async {
-                  context.read<HomeBloc>().add(HomeEvent.fetchData(
-                      address != null
-                          ? address.franchiseId
-                          : Config.locationId));
-                  return null;
-                }),
+            loaded: (data) {
+              conactNumber.value = data.contactNumber;
+              return RefreshIndicator(
+                  child: _buildPage(context, data),
+                  onRefresh: () async {
+                    context.read<HomeBloc>().add(HomeEvent.fetchData(
+                        address != null
+                            ? address.franchiseId
+                            : Config.locationId));
+                    return null;
+                  });
+            },
             failed: (error) => FailedView(
                 exceptions: error,
                 onRetry: () {
@@ -95,7 +104,10 @@ class HomePage extends HookWidget {
         Carousel(items: data.carouselx1 ?? []),
         SizedBox(height: 10),
         MarqueeWidget(text: data.message ?? ''),
-        Carousel(items: data.carouselx2 ?? [], viewportFraction: 1),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx2 ?? [], viewportFraction: 1)),
+        SizedBox(height: 10),
         Category(
           title: 'Items',
           items: data.itemCategories ?? [],
@@ -118,10 +130,15 @@ class HomePage extends HookWidget {
           }),
         ),
         SizedBox(height: 10),
-        Carousel(items: data.carouselx3 ?? [], viewportFraction: 1),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx3 ?? [], viewportFraction: 1)),
         SizedBox(height: 10),
         SpecialOffers(data: data.homeCategoreis),
-        Carousel(items: data.carouselx4 ?? [], viewportFraction: 1)
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx4 ?? [], viewportFraction: 1))
       ],
     );
   }

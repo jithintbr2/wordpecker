@@ -18,7 +18,8 @@ class HomePageModel with _$HomePageModel {
     List<CategoryModel>? shopCategories,
     @JsonKey(name: 'scrollingMessage') String? message,
     @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
-    HomeCategoriesModel? homeCategoreis,
+    List<HomeCategoriesModel>? homeCategoreis,
+    int? contactNumber,
   }) = _HomePageModel;
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) =>

@@ -5,7 +5,7 @@ import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/widgets/item_varient_box.dart';
 
 class SpecialOffers extends StatelessWidget {
-  final HomeCategoriesModel? data;
+  final List<HomeCategoriesModel>? data;
   const SpecialOffers({Key? key, this.data}) : super(key: key);
 
   int _getCartQuantity(List<ItemVarientModel>? data, int id) {
@@ -26,34 +26,45 @@ class SpecialOffers extends StatelessWidget {
           initialData: service.initialValue(),
           stream: service.controller,
           builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    child: Text(data!.categoryName,
-                        style: TextStyle(fontWeight: FontWeight.bold))),
-                SizedBox(
-                    height: 200,
-                    child: ListView.builder(
-                        itemBuilder: (_, int index) {
-                          return ItemVarientBox(
-                            data: data!.itemVarients[index],
-                            quantity: _getCartQuantity(
-                                snap.data, data!.itemVarients[index].varientId),
-                            onAdd: () =>
-                                service.addItem(data!.itemVarients[index]),
-                            onRemove: () =>
-                                service.removeItem(data!.itemVarients[index]),
-                          );
-                        },
-                        itemCount: data!.itemVarients.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        padding: EdgeInsets.symmetric(horizontal: 5)))
-              ],
-            );
+            return ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data!.length,
+                itemBuilder: (context, index) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 8),
+                              child: Text(data![index].categoryName,
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold))),
+                          SizedBox(
+                              height: 200,
+                              child: ListView.builder(
+                                  itemBuilder: (_, int childIndex) {
+                                    return ItemVarientBox(
+                                      data:
+                                          data![index].itemVarients[childIndex],
+                                      quantity: _getCartQuantity(
+                                          snap.data,
+                                          data![index]
+                                              .itemVarients[childIndex]
+                                              .varientId),
+                                      onAdd: () => service.addItem(data![index]
+                                          .itemVarients[childIndex]),
+                                      onRemove: () => service.removeItem(
+                                          data![index]
+                                              .itemVarients[childIndex]),
+                                    );
+                                  },
+                                  itemCount: data![index].itemVarients.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 10)))
+                        ]),
+                separatorBuilder: (_, __) => SizedBox(height: 10));
           });
     }
     return Container();

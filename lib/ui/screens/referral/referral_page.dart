@@ -37,7 +37,7 @@ class ReferralPage extends HookWidget {
 
   Widget _buildPage(ReferralModel data) {
     return ListView(
-      padding: EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       children: [
         ReferralTitlebar(currentBalance: data.walletBalance),
         ReferBox(

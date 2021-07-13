@@ -54,7 +54,13 @@ class PlaceOrderButtonBloc
       cartCheckValidityResponse.when(success: (data) async {
         if (data.isEmpty) {
           final placeOrderResponse = await repository.placeOrder(
-              sentableData, event.shopId, event.addressId, event.remark);
+            sentableData,
+            event.shopId,
+            event.addressId,
+            event.remark,
+            event.isAdvancedOrder,
+            event.dateTime,
+          );
           placeOrderResponse.when(success: (orderId) {
             LocalStorage localStorage = LocalStorage();
             localStorage.remove('cart');

@@ -22,6 +22,8 @@ class ItemVarientBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: () => Navigator.of(context).pushNamed('/item',
+          arguments: {'itemId': data.itemId, 'itemName': data.itemName}),
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -53,7 +55,7 @@ class ItemVarientBox extends StatelessWidget {
               SizedBox(height: 4),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text("item.shopName",
+                  child: Text(data.shopName,
                       style: Theme.of(context)
                           .textTheme
                           .caption!
@@ -62,13 +64,14 @@ class ItemVarientBox extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text("₹${data.salePrice}",
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2!
                                 .copyWith(color: Colors.orange[700])),
+                        SizedBox(width: 10),
                         data.mrp == data.salePrice
                             ? Container()
                             : Text("₹${data.mrp}",
@@ -154,7 +157,7 @@ class PurchaseControlButton extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 30,
+            width: 35,
             child: IconButton(
               onPressed: onRemove,
               icon: Icon(
@@ -180,7 +183,7 @@ class PurchaseControlButton extends StatelessWidget {
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).canvasColor)))),
           SizedBox(
-            width: 30,
+            width: 35,
             child: IconButton(
               onPressed: onAdd,
               icon: Icon(

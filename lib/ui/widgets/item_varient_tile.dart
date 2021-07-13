@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class ItemVarientTile extends HookWidget {
+  final Color? color;
   final ItemVarientModel item;
   final int quantity;
   final void Function()? onAdd;
@@ -13,22 +14,27 @@ class ItemVarientTile extends HookWidget {
   final void Function()? onTap;
   final bool? showParent;
   final double? elevation;
+  final EdgeInsetsGeometry? margin;
   const ItemVarientTile({
     required this.item,
     required this.onAdd,
     required this.onRemove,
     required this.quantity,
+    this.color,
     this.onTap,
     this.showParent = false,
     this.elevation = 1,
+    this.margin,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: margin,
       elevation: elevation,
       child: ListTile(
+          tileColor: color,
           onTap: onTap,
           leading: Container(
               height: 64,
@@ -136,7 +142,7 @@ class PurchaseControlButton extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 30,
+            width: 35,
             child: IconButton(
               onPressed: onRemove,
               icon: Icon(
@@ -162,7 +168,7 @@ class PurchaseControlButton extends StatelessWidget {
                               ? Theme.of(context).primaryColor
                               : Theme.of(context).canvasColor)))),
           SizedBox(
-            width: 30,
+            width: 35,
             child: IconButton(
               onPressed: onAdd,
               icon: Icon(

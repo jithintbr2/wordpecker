@@ -29,7 +29,8 @@ class _$HomePageModelTearOff {
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
-      HomeCategoriesModel? homeCategoreis}) {
+      List<HomeCategoriesModel>? homeCategoreis,
+      int? contactNumber}) {
     return _HomePageModel(
       carouselx1: carouselx1,
       carouselx2: carouselx2,
@@ -40,6 +41,7 @@ class _$HomePageModelTearOff {
       message: message,
       minOrderCost: minOrderCost,
       homeCategoreis: homeCategoreis,
+      contactNumber: contactNumber,
     );
   }
 
@@ -67,7 +69,9 @@ mixin _$HomePageModel {
   String? get message => throw _privateConstructorUsedError;
   @JsonKey(name: 'minimum_order_cost')
   double? get minOrderCost => throw _privateConstructorUsedError;
-  HomeCategoriesModel? get homeCategoreis => throw _privateConstructorUsedError;
+  List<HomeCategoriesModel>? get homeCategoreis =>
+      throw _privateConstructorUsedError;
+  int? get contactNumber => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -89,9 +93,8 @@ abstract class $HomePageModelCopyWith<$Res> {
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
-      HomeCategoriesModel? homeCategoreis});
-
-  $HomeCategoriesModelCopyWith<$Res>? get homeCategoreis;
+      List<HomeCategoriesModel>? homeCategoreis,
+      int? contactNumber});
 }
 
 /// @nodoc
@@ -114,6 +117,7 @@ class _$HomePageModelCopyWithImpl<$Res>
     Object? message = freezed,
     Object? minOrderCost = freezed,
     Object? homeCategoreis = freezed,
+    Object? contactNumber = freezed,
   }) {
     return _then(_value.copyWith(
       carouselx1: carouselx1 == freezed
@@ -151,19 +155,12 @@ class _$HomePageModelCopyWithImpl<$Res>
       homeCategoreis: homeCategoreis == freezed
           ? _value.homeCategoreis
           : homeCategoreis // ignore: cast_nullable_to_non_nullable
-              as HomeCategoriesModel?,
+              as List<HomeCategoriesModel>?,
+      contactNumber: contactNumber == freezed
+          ? _value.contactNumber
+          : contactNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
-  }
-
-  @override
-  $HomeCategoriesModelCopyWith<$Res>? get homeCategoreis {
-    if (_value.homeCategoreis == null) {
-      return null;
-    }
-
-    return $HomeCategoriesModelCopyWith<$Res>(_value.homeCategoreis!, (value) {
-      return _then(_value.copyWith(homeCategoreis: value));
-    });
   }
 }
 
@@ -183,10 +180,8 @@ abstract class _$HomePageModelCopyWith<$Res>
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
-      HomeCategoriesModel? homeCategoreis});
-
-  @override
-  $HomeCategoriesModelCopyWith<$Res>? get homeCategoreis;
+      List<HomeCategoriesModel>? homeCategoreis,
+      int? contactNumber});
 }
 
 /// @nodoc
@@ -211,6 +206,7 @@ class __$HomePageModelCopyWithImpl<$Res>
     Object? message = freezed,
     Object? minOrderCost = freezed,
     Object? homeCategoreis = freezed,
+    Object? contactNumber = freezed,
   }) {
     return _then(_HomePageModel(
       carouselx1: carouselx1 == freezed
@@ -248,7 +244,11 @@ class __$HomePageModelCopyWithImpl<$Res>
       homeCategoreis: homeCategoreis == freezed
           ? _value.homeCategoreis
           : homeCategoreis // ignore: cast_nullable_to_non_nullable
-              as HomeCategoriesModel?,
+              as List<HomeCategoriesModel>?,
+      contactNumber: contactNumber == freezed
+          ? _value.contactNumber
+          : contactNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -265,7 +265,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       this.shopCategories,
       @JsonKey(name: 'scrollingMessage') this.message,
       @JsonKey(name: 'minimum_order_cost') this.minOrderCost,
-      this.homeCategoreis});
+      this.homeCategoreis,
+      this.contactNumber});
 
   factory _$_HomePageModel.fromJson(Map<String, dynamic> json) =>
       _$_$_HomePageModelFromJson(json);
@@ -293,11 +294,13 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
   @JsonKey(name: 'minimum_order_cost')
   final double? minOrderCost;
   @override
-  final HomeCategoriesModel? homeCategoreis;
+  final List<HomeCategoriesModel>? homeCategoreis;
+  @override
+  final int? contactNumber;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, itemCategories: $itemCategories, shopCategories: $shopCategories, message: $message, minOrderCost: $minOrderCost, homeCategoreis: $homeCategoreis)';
+    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, itemCategories: $itemCategories, shopCategories: $shopCategories, message: $message, minOrderCost: $minOrderCost, homeCategoreis: $homeCategoreis, contactNumber: $contactNumber)';
   }
 
   @override
@@ -313,7 +316,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       ..add(DiagnosticsProperty('shopCategories', shopCategories))
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('minOrderCost', minOrderCost))
-      ..add(DiagnosticsProperty('homeCategoreis', homeCategoreis));
+      ..add(DiagnosticsProperty('homeCategoreis', homeCategoreis))
+      ..add(DiagnosticsProperty('contactNumber', contactNumber));
   }
 
   @override
@@ -346,7 +350,10 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
                     .equals(other.minOrderCost, minOrderCost)) &&
             (identical(other.homeCategoreis, homeCategoreis) ||
                 const DeepCollectionEquality()
-                    .equals(other.homeCategoreis, homeCategoreis)));
+                    .equals(other.homeCategoreis, homeCategoreis)) &&
+            (identical(other.contactNumber, contactNumber) ||
+                const DeepCollectionEquality()
+                    .equals(other.contactNumber, contactNumber)));
   }
 
   @override
@@ -360,7 +367,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       const DeepCollectionEquality().hash(shopCategories) ^
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(minOrderCost) ^
-      const DeepCollectionEquality().hash(homeCategoreis);
+      const DeepCollectionEquality().hash(homeCategoreis) ^
+      const DeepCollectionEquality().hash(contactNumber);
 
   @JsonKey(ignore: true)
   @override
@@ -383,7 +391,8 @@ abstract class _HomePageModel implements HomePageModel {
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
-      HomeCategoriesModel? homeCategoreis}) = _$_HomePageModel;
+      List<HomeCategoriesModel>? homeCategoreis,
+      int? contactNumber}) = _$_HomePageModel;
 
   factory _HomePageModel.fromJson(Map<String, dynamic> json) =
       _$_HomePageModel.fromJson;
@@ -411,7 +420,10 @@ abstract class _HomePageModel implements HomePageModel {
   @JsonKey(name: 'minimum_order_cost')
   double? get minOrderCost => throw _privateConstructorUsedError;
   @override
-  HomeCategoriesModel? get homeCategoreis => throw _privateConstructorUsedError;
+  List<HomeCategoriesModel>? get homeCategoreis =>
+      throw _privateConstructorUsedError;
+  @override
+  int? get contactNumber => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$HomePageModelCopyWith<_HomePageModel> get copyWith =>

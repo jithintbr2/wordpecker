@@ -49,7 +49,11 @@ class AppLandingScreen extends HookWidget {
                 ],
               ),
               InkWell(
-                onTap: () {},
+                onTap: () => Navigator.pushNamed(context, '/webView',
+                    arguments: {
+                      "title": "Terms and Conditions",
+                      "url": Config.termsConditions
+                    }),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -63,8 +67,9 @@ class AppLandingScreen extends HookWidget {
                               text: "I agree to the",
                               style: Theme.of(context).textTheme.caption),
                           TextSpan(
-                            text: " terms and conditions",
-                            style: TextStyle(color: Colors.green[900]),
+                            text: " Terms and conditions",
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor),
                           )
                         ],
                       ),

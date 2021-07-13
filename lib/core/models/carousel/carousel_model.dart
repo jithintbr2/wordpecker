@@ -7,11 +7,11 @@ part 'carousel_model.g.dart';
 @freezed
 class CarouselModel with _$CarouselModel {
   const factory CarouselModel({
-    int? id,
-    int? shopId,
-    int? itemId,
+    required int id,
+    required int shopId,
+    required int itemId,
     required String imageUrl,
-    double? aspectRatio,
+    required double aspectRatio,
     String? externalLink,
   }) = _CarouselModel;
 

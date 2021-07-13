@@ -8,11 +8,11 @@ part of 'carousel_model.dart';
 
 _$_CarouselModel _$_$_CarouselModelFromJson(Map<String, dynamic> json) {
   return _$_CarouselModel(
-    id: json['id'] as int?,
-    shopId: json['shopId'] as int?,
-    itemId: json['itemId'] as int?,
+    id: json['id'] as int,
+    shopId: json['shopId'] as int,
+    itemId: json['itemId'] as int,
     imageUrl: json['imageUrl'] as String,
-    aspectRatio: (json['aspectRatio'] as num?)?.toDouble(),
+    aspectRatio: (json['aspectRatio'] as num).toDouble(),
     externalLink: json['externalLink'] as String?,
   );
 }

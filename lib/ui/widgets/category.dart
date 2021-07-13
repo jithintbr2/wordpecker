@@ -56,10 +56,11 @@ class Category extends StatelessWidget {
     if (items.isEmpty) return SizedBox();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Wrap(
+      child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               title != null
                   ? Text("Explore $title by Category",
@@ -67,20 +68,41 @@ class Category extends StatelessWidget {
                           fontSize: 18, fontWeight: FontWeight.bold, height: 2))
                   : SizedBox(),
               items.length > limit
-                  ? OutlinedButton(
-                      style:
-                          OutlinedButton.styleFrom(padding: EdgeInsets.all(0)),
-                      onPressed: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CategoryViewAll(
-                                    items: items,
-                                    title: title ?? '',
-                                    onTap: onTap,
-                                  ))),
-                      child: Text('View All'))
+                  ? InkWell(
+                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategoryViewAll(
+                                items: items,
+                                title: title ?? '',
+                                onTap: onTap,
+                              ))),
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor,
+                                width: 1),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text('View All',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)),
+                      ),
+                    )
+
+                  // OutlinedButton(
+                  //     style: OutlinedButton.styleFrom(padding: EdgeInsets.zero),
+                  //     onPressed: () =>
+                  //         Navigator.of(context).push(MaterialPageRoute(
+                  //             builder: (context) => CategoryViewAll(
+                  //                   items: items,
+                  //                   title: title ?? '',
+                  //                   onTap: onTap,
+                  //                 ))),
+                  //     child: Text('View All'))
                   : SizedBox()
             ],
           ),
+          SizedBox(height: 5),
           GridView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,

@@ -10,42 +10,87 @@ class ShopTile extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-        onTap: () => Navigator.of(context)
-            .pushNamed('/shopDetail', arguments: {"shopId": shop.shopId}),
-        leading: Container(
-            height: 64,
-            width: 64,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: CachedNetworkImage(
-              imageUrl: shop.imageUrl,
-              fit: BoxFit.cover,
-              placeholder: (_, __) =>
-                  Center(child: Image.asset(Assets.appIcon)),
-              errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
-            )),
-        title: Padding(
-          padding: EdgeInsets.symmetric(vertical: 4),
-          child: Text(
-            shop.shopName,
-            style:
-                Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
-          ),
-        ),
-        subtitle: Text(shop.services != null ? shop.services!.join(' | ') : ''),
-        trailing: shop.ratingCount! > 0
-            ? Wrap(children: [
-                Icon(Icons.stars, size: 10),
-                SizedBox(width: 4),
-                Text(
-                  shop.rating.toString(),
+    return Card(
+      child: Stack(
+        children: [
+          ListTile(
+              onTap: shop.servicesNow != null && shop.servicesNow!
+                  ? () => Navigator.of(context).pushNamed('/shopDetail',
+                      arguments: {"shopId": shop.shopId})
+                  : null,
+              leading: Container(
+                  height: 64,
+                  width: 64,
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: CachedNetworkImage(
+                    imageUrl: shop.imageUrl,
+                    fit: BoxFit.cover,
+                    placeholder: (_, __) =>
+                        Center(child: Image.asset(Assets.appIcon)),
+                    errorWidget: (_, __, ___) =>
+                        Center(child: Icon(Icons.error)),
+                  )),
+              title: Padding(
+                padding: EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  shop.shopName,
                   style: Theme.of(context)
                       .textTheme
-                      .subtitle2!
-                      .copyWith(fontSize: 8),
-                )
-              ])
-            : SizedBox());
+                      .bodyText1!
+                      .copyWith(fontSize: 16, color: Colors.black),
+                ),
+              ),
+              subtitle: Text(
+                  shop.services != null ? shop.services!.join(' | ') : '',
+                  style: TextStyle(color: Colors.black)),
+              trailing: shop.ratingCount! > 0
+                  ? Wrap(children: [
+                      Icon(Icons.stars, size: 10),
+                      SizedBox(width: 4),
+                      Text(
+                        shop.rating.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontSize: 8),
+                      )
+                    ])
+                  : SizedBox()),
+          Align(
+            alignment: Alignment.topRight,
+            child: shop.servicesNow != null && shop.servicesNow!
+                ? Container()
+                : Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Container(
+                      width: 60,
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                      color: Colors.red,
+                      child: Center(
+                          child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          SizedBox(height: 10),
+                          Text(
+                            "Closed",
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      )),
+                    ),
+                  ),
+          )
+        ],
+      ),
+    );
   }
 }

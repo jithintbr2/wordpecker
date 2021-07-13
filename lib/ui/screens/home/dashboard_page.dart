@@ -36,17 +36,20 @@ class DashboardPage extends HookWidget {
 
     AddressModel? address = _getAddress();
 
+    final contactNumber = useState(-1);
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: HomeAppBar(
         user: user,
+        contactNumber: contactNumber.value,
         service: service,
         showLocation: Config.isMultiLocation,
         location: address?.locality,
         onTap: () => Navigator.pushNamed(context, '/address'),
         onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
       ),
-      endDrawer: HomeDrawer(),
+      endDrawer: HomeDrawer(whatsappNumber: contactNumber.value),
       bottomNavigationBar: HomeBottomNavigationBar(
         currenTabIndex: _currentTabIndex.value,
         onTap: (index) {
@@ -56,17 +59,18 @@ class DashboardPage extends HookWidget {
             _currentTabIndex.value = index;
         },
       ),
-      body: _buildPage(_currentTabIndex.value),
+      body: _buildPage(_currentTabIndex.value, contactNumber),
     );
   }
 
-  Widget _buildPage(int currentTabIndex) {
+  Widget _buildPage(int currentTabIndex, ValueNotifier<int> conactNumber) {
     if (currentTabIndex == 1) return Container();
     if (currentTabIndex == 2)
       return ServicePage(
         localStorage: LocalStorage(),
       );
     return HomePage(
+      dashboardContactNumber: conactNumber,
       localStorage: LocalStorage(),
     );
   }

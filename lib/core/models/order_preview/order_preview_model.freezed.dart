@@ -23,11 +23,13 @@ class _$OrderPreviewModelTearOff {
   _OrderPreviewModel call(
       {required double walletAmount,
       required List<ItemVarientModel> addonsList,
-      required PaymentOptionsModel paymentMethods}) {
+      required PaymentOptionsModel paymentMethods,
+      required double deliveryCharge}) {
     return _OrderPreviewModel(
       walletAmount: walletAmount,
       addonsList: addonsList,
       paymentMethods: paymentMethods,
+      deliveryCharge: deliveryCharge,
     );
   }
 
@@ -44,6 +46,7 @@ mixin _$OrderPreviewModel {
   double get walletAmount => throw _privateConstructorUsedError;
   List<ItemVarientModel> get addonsList => throw _privateConstructorUsedError;
   PaymentOptionsModel get paymentMethods => throw _privateConstructorUsedError;
+  double get deliveryCharge => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +62,8 @@ abstract class $OrderPreviewModelCopyWith<$Res> {
   $Res call(
       {double walletAmount,
       List<ItemVarientModel> addonsList,
-      PaymentOptionsModel paymentMethods});
+      PaymentOptionsModel paymentMethods,
+      double deliveryCharge});
 
   $PaymentOptionsModelCopyWith<$Res> get paymentMethods;
 }
@@ -78,6 +82,7 @@ class _$OrderPreviewModelCopyWithImpl<$Res>
     Object? walletAmount = freezed,
     Object? addonsList = freezed,
     Object? paymentMethods = freezed,
+    Object? deliveryCharge = freezed,
   }) {
     return _then(_value.copyWith(
       walletAmount: walletAmount == freezed
@@ -92,6 +97,10 @@ class _$OrderPreviewModelCopyWithImpl<$Res>
           ? _value.paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
               as PaymentOptionsModel,
+      deliveryCharge: deliveryCharge == freezed
+          ? _value.deliveryCharge
+          : deliveryCharge // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 
@@ -113,7 +122,8 @@ abstract class _$OrderPreviewModelCopyWith<$Res>
   $Res call(
       {double walletAmount,
       List<ItemVarientModel> addonsList,
-      PaymentOptionsModel paymentMethods});
+      PaymentOptionsModel paymentMethods,
+      double deliveryCharge});
 
   @override
   $PaymentOptionsModelCopyWith<$Res> get paymentMethods;
@@ -135,6 +145,7 @@ class __$OrderPreviewModelCopyWithImpl<$Res>
     Object? walletAmount = freezed,
     Object? addonsList = freezed,
     Object? paymentMethods = freezed,
+    Object? deliveryCharge = freezed,
   }) {
     return _then(_OrderPreviewModel(
       walletAmount: walletAmount == freezed
@@ -149,6 +160,10 @@ class __$OrderPreviewModelCopyWithImpl<$Res>
           ? _value.paymentMethods
           : paymentMethods // ignore: cast_nullable_to_non_nullable
               as PaymentOptionsModel,
+      deliveryCharge: deliveryCharge == freezed
+          ? _value.deliveryCharge
+          : deliveryCharge // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -159,7 +174,8 @@ class _$_OrderPreviewModel implements _OrderPreviewModel {
   const _$_OrderPreviewModel(
       {required this.walletAmount,
       required this.addonsList,
-      required this.paymentMethods});
+      required this.paymentMethods,
+      required this.deliveryCharge});
 
   factory _$_OrderPreviewModel.fromJson(Map<String, dynamic> json) =>
       _$_$_OrderPreviewModelFromJson(json);
@@ -170,10 +186,12 @@ class _$_OrderPreviewModel implements _OrderPreviewModel {
   final List<ItemVarientModel> addonsList;
   @override
   final PaymentOptionsModel paymentMethods;
+  @override
+  final double deliveryCharge;
 
   @override
   String toString() {
-    return 'OrderPreviewModel(walletAmount: $walletAmount, addonsList: $addonsList, paymentMethods: $paymentMethods)';
+    return 'OrderPreviewModel(walletAmount: $walletAmount, addonsList: $addonsList, paymentMethods: $paymentMethods, deliveryCharge: $deliveryCharge)';
   }
 
   @override
@@ -188,7 +206,10 @@ class _$_OrderPreviewModel implements _OrderPreviewModel {
                     .equals(other.addonsList, addonsList)) &&
             (identical(other.paymentMethods, paymentMethods) ||
                 const DeepCollectionEquality()
-                    .equals(other.paymentMethods, paymentMethods)));
+                    .equals(other.paymentMethods, paymentMethods)) &&
+            (identical(other.deliveryCharge, deliveryCharge) ||
+                const DeepCollectionEquality()
+                    .equals(other.deliveryCharge, deliveryCharge)));
   }
 
   @override
@@ -196,7 +217,8 @@ class _$_OrderPreviewModel implements _OrderPreviewModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(walletAmount) ^
       const DeepCollectionEquality().hash(addonsList) ^
-      const DeepCollectionEquality().hash(paymentMethods);
+      const DeepCollectionEquality().hash(paymentMethods) ^
+      const DeepCollectionEquality().hash(deliveryCharge);
 
   @JsonKey(ignore: true)
   @override
@@ -213,7 +235,8 @@ abstract class _OrderPreviewModel implements OrderPreviewModel {
   const factory _OrderPreviewModel(
       {required double walletAmount,
       required List<ItemVarientModel> addonsList,
-      required PaymentOptionsModel paymentMethods}) = _$_OrderPreviewModel;
+      required PaymentOptionsModel paymentMethods,
+      required double deliveryCharge}) = _$_OrderPreviewModel;
 
   factory _OrderPreviewModel.fromJson(Map<String, dynamic> json) =
       _$_OrderPreviewModel.fromJson;
@@ -224,6 +247,8 @@ abstract class _OrderPreviewModel implements OrderPreviewModel {
   List<ItemVarientModel> get addonsList => throw _privateConstructorUsedError;
   @override
   PaymentOptionsModel get paymentMethods => throw _privateConstructorUsedError;
+  @override
+  double get deliveryCharge => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$OrderPreviewModelCopyWith<_OrderPreviewModel> get copyWith =>

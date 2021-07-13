@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:woodle/core/settings/assets.dart';
 
 class WalletTitlebar extends StatelessWidget {
   final double currentBalance;
@@ -10,7 +11,10 @@ class WalletTitlebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage(Assets.rewardAppBarBackground))),
+      // color: Theme.of(context).primaryColor,
       child: Row(
         children: [
           IconButton(

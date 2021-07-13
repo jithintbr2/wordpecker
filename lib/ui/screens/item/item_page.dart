@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
+import 'package:woodle/ui/screens/item/widgets/go_shop.dart';
 import 'package:woodle/ui/screens/item/widgets/varient_lister.dart';
+import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/failed.dart';
+import 'package:woodle/ui/widgets/item_varient_tile.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
 ///ItemPage represents item details page aka. product page.
@@ -43,35 +48,119 @@ class ItemPage extends HookWidget {
                     .add(ItemEvent.fetchData(itemId)))));
   }
 
+  int _getCartQuantity(List<ItemVarientModel>? data, int id) {
+    int quantity = 0;
+    if (data != null)
+      data.forEach((item) {
+        if (item.varientId == id) quantity += 1;
+      });
+
+    return quantity;
+  }
+
   Widget _buildPage(ItemModel data, ValueNotifier<int> currentVarient) {
+    CartService service = CartService();
     List<String> itemImages =
         data.varients[currentVarient.value].itemImages!.length > 0
             ? data.varients[currentVarient.value].itemImages!
             : [data.varients[currentVarient.value].image];
-    return ListView(
-      children: [
-        ItemImages(
-          imgList: itemImages,
-        ),
-        Divider(),
-        VarientLister(
-            varients: data.varients,
-            currentVarientId: data.varients[currentVarient.value].varientId,
-            onPressed: (varientId) {
-              currentVarient.value = data.varients
-                  .indexWhere((varient) => varient.varientId == varientId);
-            }),
-        Divider(),
-        data.varients[currentVarient.value].description != null
-            ? Column(
+    return StreamBuilder(
+        initialData: service.initialValue(),
+        stream: service.controller,
+        builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
+          List<String> varientTypes = data.varients
+              .map((varient) => varient.varientType)
+              .toSet()
+              .toList();
+          double _totalPrice = 0;
+          int _itemCount = 0;
+
+          snap.data?.forEach((item) {
+            _totalPrice += item.salePrice!;
+            _itemCount += 1;
+          });
+          return Column(
+            children: [
+              Expanded(
+                  child: ListView(
                 children: [
-                  Text('Description'),
-                  Text(data.varients[currentVarient.value].description!)
+                  ItemImages(
+                    imgList: itemImages,
+                  ),
+                  Divider(),
+                  // VarientLister(
+                  //     varients: data.varients,
+                  //     currentVarientId: data.varients[currentVarient.value].varientId,
+                  //     onPressed: (varientId) {
+                  //       currentVarient.value = data.varients
+                  //           .indexWhere((varient) => varient.varientId == varientId);
+                  //     }),
+                  ListView(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: varientTypes
+                        .map((type) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 5, horizontal: 20),
+                                  child: Text(
+                                    type,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.3),
+                                ),
+                                ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    if (data.varients[index].varientType ==
+                                        type)
+                                      return ItemVarientTile(
+                                          elevation: 0,
+                                          item: data.varients[index],
+                                          onTap: () =>
+                                              currentVarient.value = index,
+                                          onAdd: () => service
+                                              .addItem(data.varients[index]),
+                                          onRemove: () => service
+                                              .removeItem(data.varients[index]),
+                                          quantity: _getCartQuantity(snap.data,
+                                              data.varients[index].varientId));
+                                    return SizedBox();
+                                  },
+                                  itemCount: data.varients.length,
+                                )
+                              ],
+                            ))
+                        .toList(),
+                  ),
+                  Divider(),
+                  data.varients[currentVarient.value].description != null
+                      ? Column(
+                          children: [
+                            Text('Description'),
+                            Text(data
+                                .varients[currentVarient.value].description!)
+                          ],
+                        )
+                      : SizedBox()
                 ],
-              )
-            : SizedBox()
-      ],
-    ); //Carousel builder #Check pub readme
+              )),
+              GoToShopAddon(shopId: data.varients[0].shopId),
+              snap.hasData && snap.data!.length > 0
+                  ? CartTile(
+                      itemCount: _itemCount,
+                      totalPrice: _totalPrice,
+                    )
+                  : SizedBox()
+            ],
+          );
+        });
   }
 }
 

@@ -43,6 +43,7 @@ class AuthenticationPage extends HookWidget {
             isLoading: isLoading,
             buttonText: "Login",
             label: "Password",
+            isPassword: true,
             keyboardType: TextInputType.visiblePassword,
             validator: (value) {
               if (value!.length < 4) return "Enter a valid password";

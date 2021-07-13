@@ -274,9 +274,14 @@ class ApplicationRepository {
   }
 
   /// Fetch Order Preview Options and Addons
-  Future<ApiResponse<OrderPreviewModel>> fetchOrderPreviewOptions() {
+  Future<ApiResponse<OrderPreviewModel>> fetchOrderPreviewOptions(
+      int franchiseId, int addressId) {
+    Map<String, dynamic> parameters = {
+      "addressId": addressId,
+      "franchiseId": franchiseId
+    };
     return _client
-        .getRequest('/general_details')
+        .getRequest('/general_details', parameters: parameters)
         .then((response) => ApiResponse.success(
             data: OrderPreviewModel.fromJson(response['data'])))
         .onError((error, _) {
@@ -303,7 +308,13 @@ class ApplicationRepository {
 
   /// Place Order
   Future<ApiResponse<int>> placeOrder(
-      List items, int shopId, int addressId, String remark) {
+    List items,
+    int shopId,
+    int addressId,
+    String remark,
+    bool isAdvancedOrder,
+    String datetime,
+  ) {
     Map<String, dynamic> parameters = {
       "items": items,
       "shopId": shopId,
@@ -313,9 +324,9 @@ class ApplicationRepository {
       "redeemedAmount": 0.0,
       "couponDiscount": 0.0,
       "couponType": "",
-      "advancedOrder": false,
+      "advancedOrder": isAdvancedOrder,
       "paymentMode": "cash_on_delivery",
-      "scheduledDeliveryDateTime": DateTime.now().toString(),
+      "scheduledDeliveryDateTime": datetime,
       "additionalCharges": []
     };
     return _client
