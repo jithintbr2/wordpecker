@@ -32,6 +32,10 @@ class _$AddressEventTearOff {
       shouldReturn,
     );
   }
+
+  _EmitLoad emitLoad() {
+    return const _EmitLoad();
+  }
 }
 
 /// @nodoc
@@ -45,6 +49,7 @@ mixin _$AddressEvent {
     required TResult Function(AddressModel address) deleteAddress,
     required TResult Function(AddressModel address, bool shouldReturn)
         selectAddress,
+    required TResult Function() emitLoad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -52,6 +57,7 @@ mixin _$AddressEvent {
     TResult Function()? fetchSavedAddress,
     TResult Function(AddressModel address)? deleteAddress,
     TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
+    TResult Function()? emitLoad,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -60,6 +66,7 @@ mixin _$AddressEvent {
     required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
     required TResult Function(_DeleteAddress value) deleteAddress,
     required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_EmitLoad value) emitLoad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -67,6 +74,7 @@ mixin _$AddressEvent {
     TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
     TResult Function(_DeleteAddress value)? deleteAddress,
     TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_EmitLoad value)? emitLoad,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -132,6 +140,7 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
     required TResult Function(AddressModel address) deleteAddress,
     required TResult Function(AddressModel address, bool shouldReturn)
         selectAddress,
+    required TResult Function() emitLoad,
   }) {
     return fetchSavedAddress();
   }
@@ -142,6 +151,7 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
     TResult Function()? fetchSavedAddress,
     TResult Function(AddressModel address)? deleteAddress,
     TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
+    TResult Function()? emitLoad,
     required TResult orElse(),
   }) {
     if (fetchSavedAddress != null) {
@@ -156,6 +166,7 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
     required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
     required TResult Function(_DeleteAddress value) deleteAddress,
     required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_EmitLoad value) emitLoad,
   }) {
     return fetchSavedAddress(this);
   }
@@ -166,6 +177,7 @@ class _$_FetchSavedAddress implements _FetchSavedAddress {
     TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
     TResult Function(_DeleteAddress value)? deleteAddress,
     TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_EmitLoad value)? emitLoad,
     required TResult orElse(),
   }) {
     if (fetchSavedAddress != null) {
@@ -257,6 +269,7 @@ class _$_DeleteAddress implements _DeleteAddress {
     required TResult Function(AddressModel address) deleteAddress,
     required TResult Function(AddressModel address, bool shouldReturn)
         selectAddress,
+    required TResult Function() emitLoad,
   }) {
     return deleteAddress(address);
   }
@@ -267,6 +280,7 @@ class _$_DeleteAddress implements _DeleteAddress {
     TResult Function()? fetchSavedAddress,
     TResult Function(AddressModel address)? deleteAddress,
     TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
+    TResult Function()? emitLoad,
     required TResult orElse(),
   }) {
     if (deleteAddress != null) {
@@ -281,6 +295,7 @@ class _$_DeleteAddress implements _DeleteAddress {
     required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
     required TResult Function(_DeleteAddress value) deleteAddress,
     required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_EmitLoad value) emitLoad,
   }) {
     return deleteAddress(this);
   }
@@ -291,6 +306,7 @@ class _$_DeleteAddress implements _DeleteAddress {
     TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
     TResult Function(_DeleteAddress value)? deleteAddress,
     TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_EmitLoad value)? emitLoad,
     required TResult orElse(),
   }) {
     if (deleteAddress != null) {
@@ -400,6 +416,7 @@ class _$_SelectAddress implements _SelectAddress {
     required TResult Function(AddressModel address) deleteAddress,
     required TResult Function(AddressModel address, bool shouldReturn)
         selectAddress,
+    required TResult Function() emitLoad,
   }) {
     return selectAddress(address, shouldReturn);
   }
@@ -410,6 +427,7 @@ class _$_SelectAddress implements _SelectAddress {
     TResult Function()? fetchSavedAddress,
     TResult Function(AddressModel address)? deleteAddress,
     TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
+    TResult Function()? emitLoad,
     required TResult orElse(),
   }) {
     if (selectAddress != null) {
@@ -424,6 +442,7 @@ class _$_SelectAddress implements _SelectAddress {
     required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
     required TResult Function(_DeleteAddress value) deleteAddress,
     required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_EmitLoad value) emitLoad,
   }) {
     return selectAddress(this);
   }
@@ -434,6 +453,7 @@ class _$_SelectAddress implements _SelectAddress {
     TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
     TResult Function(_DeleteAddress value)? deleteAddress,
     TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_EmitLoad value)? emitLoad,
     required TResult orElse(),
   }) {
     if (selectAddress != null) {
@@ -452,6 +472,98 @@ abstract class _SelectAddress implements AddressEvent {
   @JsonKey(ignore: true)
   _$SelectAddressCopyWith<_SelectAddress> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$EmitLoadCopyWith<$Res> {
+  factory _$EmitLoadCopyWith(_EmitLoad value, $Res Function(_EmitLoad) then) =
+      __$EmitLoadCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$EmitLoadCopyWithImpl<$Res> extends _$AddressEventCopyWithImpl<$Res>
+    implements _$EmitLoadCopyWith<$Res> {
+  __$EmitLoadCopyWithImpl(_EmitLoad _value, $Res Function(_EmitLoad) _then)
+      : super(_value, (v) => _then(v as _EmitLoad));
+
+  @override
+  _EmitLoad get _value => super._value as _EmitLoad;
+}
+
+/// @nodoc
+
+class _$_EmitLoad implements _EmitLoad {
+  const _$_EmitLoad();
+
+  @override
+  String toString() {
+    return 'AddressEvent.emitLoad()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _EmitLoad);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchSavedAddress,
+    required TResult Function(AddressModel address) deleteAddress,
+    required TResult Function(AddressModel address, bool shouldReturn)
+        selectAddress,
+    required TResult Function() emitLoad,
+  }) {
+    return emitLoad();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchSavedAddress,
+    TResult Function(AddressModel address)? deleteAddress,
+    TResult Function(AddressModel address, bool shouldReturn)? selectAddress,
+    TResult Function()? emitLoad,
+    required TResult orElse(),
+  }) {
+    if (emitLoad != null) {
+      return emitLoad();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchSavedAddress value) fetchSavedAddress,
+    required TResult Function(_DeleteAddress value) deleteAddress,
+    required TResult Function(_SelectAddress value) selectAddress,
+    required TResult Function(_EmitLoad value) emitLoad,
+  }) {
+    return emitLoad(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchSavedAddress value)? fetchSavedAddress,
+    TResult Function(_DeleteAddress value)? deleteAddress,
+    TResult Function(_SelectAddress value)? selectAddress,
+    TResult Function(_EmitLoad value)? emitLoad,
+    required TResult orElse(),
+  }) {
+    if (emitLoad != null) {
+      return emitLoad(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _EmitLoad implements AddressEvent {
+  const factory _EmitLoad() = _$_EmitLoad;
 }
 
 /// @nodoc

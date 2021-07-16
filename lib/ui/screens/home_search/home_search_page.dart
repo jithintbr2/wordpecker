@@ -52,7 +52,7 @@ class HomeSearchPage extends HookWidget {
           showCancel.value = searchController.text.isNotEmpty;
 
         if (searchController.text.isNotEmpty &&
-            searchController.text.length > 3)
+            searchController.text.length > 2)
           context.read<HomeSearchBloc>().add(HomeSearchEvent.search(
               searchController.text, address!.franchiseId));
       });
@@ -106,7 +106,7 @@ class HomeSearchPage extends HookWidget {
           data.items.isNotEmpty
               ? Column(
                   children: [
-                    Text('Items'),
+                    // Text('Items'),
                     isGridView
                         ? GridView.builder(
                             shrinkWrap: true,

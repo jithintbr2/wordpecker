@@ -33,7 +33,7 @@ class _$ItemVarientModelTearOff {
       @JsonKey(name: "itemCost") double? salePrice,
       required double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: const []) List<String>? itemImages}) {
+      @JsonKey(defaultValue: []) List<String>? itemImages}) {
     return _ItemVarientModel(
       varientId: varientId,
       varientType: varientType,
@@ -75,7 +75,7 @@ mixin _$ItemVarientModel {
   double? get salePrice => throw _privateConstructorUsedError;
   double get mrp => throw _privateConstructorUsedError;
   int? get maxQuantity => throw _privateConstructorUsedError;
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: [])
   List<String>? get itemImages => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -102,7 +102,7 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: const []) List<String>? itemImages});
+      @JsonKey(defaultValue: []) List<String>? itemImages});
 }
 
 /// @nodoc
@@ -207,7 +207,7 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: const []) List<String>? itemImages});
+      @JsonKey(defaultValue: []) List<String>? itemImages});
 }
 
 /// @nodoc
@@ -312,7 +312,7 @@ class _$_ItemVarientModel
       @JsonKey(name: "itemCost") this.salePrice,
       required this.mrp,
       this.maxQuantity,
-      @JsonKey(defaultValue: const []) this.itemImages});
+      @JsonKey(defaultValue: []) this.itemImages});
 
   factory _$_ItemVarientModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemVarientModelFromJson(json);
@@ -344,7 +344,7 @@ class _$_ItemVarientModel
   @override
   final int? maxQuantity;
   @override
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: [])
   final List<String>? itemImages;
 
   @override
@@ -455,7 +455,7 @@ abstract class _ItemVarientModel implements ItemVarientModel {
           @JsonKey(name: "itemCost") double? salePrice,
           required double mrp,
           int? maxQuantity,
-          @JsonKey(defaultValue: const []) List<String>? itemImages}) =
+          @JsonKey(defaultValue: []) List<String>? itemImages}) =
       _$_ItemVarientModel;
 
   factory _ItemVarientModel.fromJson(Map<String, dynamic> json) =
@@ -488,7 +488,7 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   @override
   int? get maxQuantity => throw _privateConstructorUsedError;
   @override
-  @JsonKey(defaultValue: const [])
+  @JsonKey(defaultValue: [])
   List<String>? get itemImages => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)

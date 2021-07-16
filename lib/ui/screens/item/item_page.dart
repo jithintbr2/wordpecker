@@ -141,14 +141,21 @@ class ItemPage extends HookWidget {
                   ),
                   Divider(),
                   data.varients[currentVarient.value].description != null
-                      ? Column(
-                          children: [
-                            Text('Description'),
-                            Text(data
-                                .varients[currentVarient.value].description!)
-                          ],
-                        )
-                      : SizedBox()
+                      ? Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Description',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17)),
+                              Text(data
+                                  .varients[currentVarient.value].description!)
+                            ],
+                          ))
+                      : SizedBox(),
+                  SizedBox(height: 50)
                 ],
               )),
               GoToShopAddon(shopId: data.varients[0].shopId),

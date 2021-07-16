@@ -15,9 +15,9 @@ class OrderDeliveryAddress extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline6!
-              .copyWith(fontSize: 20, color: Colors.blueGrey[600]),
+              .copyWith(decoration: TextDecoration.underline),
         ),
-        Divider(),
+        // Divider(),
         ListTile(
           leading: Icon(
             data.nickname.toLowerCase() == "home"
@@ -25,7 +25,7 @@ class OrderDeliveryAddress extends StatelessWidget {
                 : data.nickname.toLowerCase() == "work"
                     ? Icons.work
                     : Icons.place,
-            color: Colors.grey,
+            color: Theme.of(context).primaryColor,
           ),
           title: Container(
             padding: const EdgeInsets.symmetric(vertical: 8.0),

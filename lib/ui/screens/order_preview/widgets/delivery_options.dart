@@ -89,7 +89,8 @@ class DeliveryOptions extends HookWidget {
                   String convertedNewDate = getYmdFromDmy(newDate);
                   if (selectedTime != null) {
                     isScheduledOrder.value = true;
-                    deliveryDate.value = "$convertedNewDate $selectedTime";
+                    deliveryDate.value =
+                        "$convertedNewDate ${selectedTime.format(context)}";
                   } else {
                     isScheduledOrder.value = true;
                     deliveryDate.value =

@@ -100,5 +100,9 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
           },
           failure: (error) => emit(_Failed(error)));
     }
+
+    if (event is _EmitLoad) {
+      yield _Loading();
+    }
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
-import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/models/menu/menu_model.dart';
@@ -41,17 +40,23 @@ class ShopPage extends HookWidget {
 
     final selectedMenuId = useState(-1);
 
-    return Scaffold(
-      body: BlocBuilder<ShopBloc, ShopState>(
-          builder: (context, state) => state.when(
-              loading: () => LoadingView(),
-              loaded: (data) => _buildPage(context, data, service,
-                  searchController, showCancel, selectedMenuId),
-              failed: (exception) => FailedView(
-                  exceptions: exception,
-                  onRetry: () =>
-                      context.read<ShopBloc>().add(ShopEvent.fetchData(70))))),
-    );
+    return RefreshIndicator(
+        child: Scaffold(
+          body: BlocBuilder<ShopBloc, ShopState>(
+              builder: (context, state) => state.when(
+                  loading: () => LoadingView(),
+                  loaded: (data) => _buildPage(context, data, service,
+                      searchController, showCancel, selectedMenuId),
+                  failed: (exception) => FailedView(
+                      exceptions: exception,
+                      onRetry: () => context
+                          .read<ShopBloc>()
+                          .add(ShopEvent.fetchData(70))))),
+        ),
+        onRefresh: () async {
+          context.read<ShopBloc>().add(ShopEvent.fetchData(shopId));
+          return null;
+        });
   }
 
   Widget _buildPage(
@@ -102,7 +107,8 @@ class ShopPage extends HookWidget {
             ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                _buildItemList(service, category.items, searchController.text)
+                _buildItemList(service, category.items, searchController.text,
+                    data.servicesNow ?? true)
               ]),
             )));
     });
@@ -119,25 +125,37 @@ class ShopPage extends HookWidget {
             physics: AlwaysScrollableScrollPhysics(), slivers: _slivers),
         Align(
           alignment: Alignment.bottomCenter,
-          child: StreamBuilder(
-              stream: service.controller,
-              initialData: service.initialValue(),
-              builder: (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
-                if (snap.hasData && snap.data!.length > 0) {
-                  double _totalPrice = 0;
-                  int _itemCount = 0;
+          child: data.servicesNow != null && data.servicesNow!
+              ? StreamBuilder(
+                  stream: service.controller,
+                  initialData: service.initialValue(),
+                  builder:
+                      (context, AsyncSnapshot<List<ItemVarientModel>> snap) {
+                    if (snap.hasData && snap.data!.length > 0) {
+                      double _totalPrice = 0;
+                      int _itemCount = 0;
 
-                  snap.data?.forEach((item) {
-                    _totalPrice += item.salePrice!;
-                    _itemCount += 1;
-                  });
-                  return CartTile(
-                    itemCount: _itemCount,
-                    totalPrice: _totalPrice,
-                  );
-                }
-                return SizedBox();
-              }),
+                      snap.data?.forEach((item) {
+                        _totalPrice += item.salePrice!;
+                        _itemCount += 1;
+                      });
+                      return CartTile(
+                        itemCount: _itemCount,
+                        totalPrice: _totalPrice,
+                      );
+                    }
+                    return SizedBox();
+                  })
+              : Container(
+                  padding: EdgeInsets.all(5),
+                  color: Colors.orange,
+                  width: double.infinity,
+                  // alignment: Alignment.center,
+                  child: Text(
+                    'Service not available',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
         )
       ],
     );
@@ -153,8 +171,8 @@ class ShopPage extends HookWidget {
     return quantity;
   }
 
-  Widget _buildItemList(
-      CartService service, List<ItemModel> data, String serachValue) {
+  Widget _buildItemList(CartService service, List<ItemModel> data,
+      String serachValue, bool isActive) {
     return StreamBuilder(
       stream: service.controller,
       initialData: service.initialValue(),
@@ -170,11 +188,13 @@ class ShopPage extends HookWidget {
                 .contains(serachValue.toLowerCase())) {
               if (data[index].varients.length == 1) {
                 return ItemVarientTile(
+                    isInactive: !isActive,
                     onTap: () => Navigator.of(context).pushNamed('/item',
                             arguments: {
                               'itemId': data[index].id,
                               'itemName': data[index].name
                             }),
+                    margin: EdgeInsets.zero,
                     item: data[index].varients[0],
                     onAdd: () => service.addItem(data[index].varients[0]),
                     onRemove: () => service.removeItem(data[index].varients[0]),
@@ -182,11 +202,14 @@ class ShopPage extends HookWidget {
                         snap.data, data[index].varients[0].varientId));
               }
               return ItemVarientContainerTile(
-                  onTap: () => Navigator.of(context).pushNamed('/item',
-                          arguments: {
-                            'itemId': data[index].id,
-                            'itemName': data[index].name
-                          }),
+                  isInactive: !isActive,
+                  onTap: !isActive
+                      ? null
+                      : () => Navigator.of(context).pushNamed('/item',
+                              arguments: {
+                                'itemId': data[index].id,
+                                'itemName': data[index].name
+                              }),
                   item: data[index],
                   service: service,
                   cartItems: snap.data,

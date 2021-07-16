@@ -127,12 +127,11 @@ class OrderDetailsPage extends HookWidget {
                                     .textTheme
                                     .headline6!
                                     .copyWith(
-                                        fontSize: 20,
-                                        color: Colors.blueGrey[600]),
+                                        decoration: TextDecoration.underline),
                               ),
                             ],
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(height: 8),
                           Text(data.remarks!)
                         ],
                       )

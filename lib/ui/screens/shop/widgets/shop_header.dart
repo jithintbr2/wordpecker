@@ -27,7 +27,12 @@ class ShopHeader extends StatelessWidget {
                   shop.shopName,
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                _ratingBox(context, shop.rating ?? 0, shop.ratingCount ?? 0)
+                InkWell(
+                  onTap: () => Navigator.of(context).pushNamed('/shopReview',
+                      arguments: {'shopId': shop.shopId}),
+                  child: _ratingBox(
+                      context, shop.rating ?? 0, shop.ratingCount ?? 0),
+                )
               ],
             ),
             (shop.services ?? []).isEmpty

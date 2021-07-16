@@ -56,10 +56,12 @@ class OrdersPage extends HookWidget {
               Expanded(
                 child: TabBarView(
                   children: status
-                      .map((value) => _buildTabView(data
-                          .where((order) =>
-                              order.status == value || value == "All")
-                          .toList()))
+                      .map((value) => _buildTabView(
+                          data
+                              .where((order) =>
+                                  order.status == value || value == "All")
+                              .toList(),
+                          context))
                       .toList(),
                 ),
               )
@@ -70,59 +72,67 @@ class OrdersPage extends HookWidget {
     return EmptyView(icon: Icons.receipt_long, title: 'No Orders');
   }
 
-  Widget _buildTabView(List<OrdersModel> data) {
-    return ListView.separated(
-        itemBuilder: (context, index) => ListTile(
-              onTap: () => Navigator.of(context).pushNamed('/orderDetails',
-                  arguments: {"orderId": data[index].orderId}),
-              leading: Icon(Icons.ac_unit),
-              title: Wrap(
-                spacing: 4,
-                direction: Axis.vertical,
-                children: [
-                  Text(
-                    data[index].shopName,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontWeight: FontWeight.bold),
+  Widget _buildTabView(List<OrdersModel> data, BuildContext context) {
+    return RefreshIndicator(
+        child: ListView.separated(
+            itemBuilder: (context, index) => ListTile(
+                  onTap: () => Navigator.of(context).pushNamed('/orderDetails',
+                      arguments: {"orderId": data[index].orderId}),
+                  leading: Icon(
+                    Icons.shopping_cart,
+                    color: Theme.of(context).primaryColor,
                   ),
-                  // Text(
-                  //   "item.itemCount Items",
-                  //   style: Theme.of(context).textTheme.caption,
-                  // ),
-                ],
-              ),
-              subtitle: Text(data[index].status,
-                  style: Theme.of(context).textTheme.caption!.copyWith(
-                      // fontWeight:
-                      //     item.isComplete ? FontWeight.normal : FontWeight.bold,
-                      // color: item.isComplete ? Colors.green : Colors.red),
-                      )),
-              trailing: Wrap(
-                spacing: 4,
-                direction: Axis.vertical,
-                children: [
-                  Text(
-                    data[index].orderTime,
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(fontSize: 11),
+                  title: Wrap(
+                    spacing: 4,
+                    direction: Axis.vertical,
+                    children: [
+                      Text(
+                        data[index].shopName,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                      // Text(
+                      //   "item.itemCount Items",
+                      //   style: Theme.of(context).textTheme.caption,
+                      // ),
+                    ],
                   ),
-                  Text(
-                    data[index].orderDate,
-                    textAlign: TextAlign.end,
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption!
-                        .copyWith(fontSize: 11),
+                  subtitle: Text(data[index].status,
+                      style: Theme.of(context).textTheme.caption!.copyWith(
+                          // fontWeight:
+                          //     item.isComplete ? FontWeight.normal : FontWeight.bold,
+                          // color: item.isComplete ? Colors.green : Colors.red),
+                          )),
+                  trailing: Wrap(
+                    spacing: 4,
+                    direction: Axis.vertical,
+                    children: [
+                      Text(
+                        data[index].orderTime,
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption!
+                            .copyWith(fontSize: 11),
+                      ),
+                      Text(
+                        data[index].orderDate,
+                        textAlign: TextAlign.end,
+                        style: Theme.of(context)
+                            .textTheme
+                            .caption!
+                            .copyWith(fontSize: 11),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-        separatorBuilder: (_, __) => Divider(),
-        itemCount: data.length);
+                ),
+            separatorBuilder: (_, __) => Divider(),
+            itemCount: data.length),
+        onRefresh: () async {
+          context.read<OrdersBloc>().add(OrdersEvent.fetchData());
+          return null;
+        });
   }
 }

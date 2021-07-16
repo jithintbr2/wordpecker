@@ -54,6 +54,7 @@ class CartPrice extends StatelessWidget {
                         children: [
                           PriceIndicator(
                               price: totalPrice, title: 'Order Total'),
+                          SizedBox(height: 10),
                           PriceIndicator(
                               price: deliveryCharge, title: 'Delivery Charges'),
                           Divider(),

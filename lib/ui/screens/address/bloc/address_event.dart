@@ -7,4 +7,5 @@ class AddressEvent with _$AddressEvent {
       _DeleteAddress;
   const factory AddressEvent.selectAddress(
       AddressModel address, bool shouldReturn) = _SelectAddress;
+  const factory AddressEvent.emitLoad() = _EmitLoad;
 }

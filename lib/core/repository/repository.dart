@@ -13,6 +13,7 @@ import 'package:woodle/core/models/orders/orders_model.dart';
 import 'package:woodle/core/models/referral/referral_model.dart';
 import 'package:woodle/core/models/service/service_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
+import 'package:woodle/core/models/shop_review/shop_review_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/models/wallet/wallet_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
@@ -247,6 +248,38 @@ class ApplicationRepository {
     });
   }
 
+  ///Fetch Shop Reviews
+  Future<ApiResponse<ShopReviewModel>> fetchShopReviews(int shopId) {
+    Map<String, dynamic> parameters = {"shop_id": shopId};
+    return _client
+        .getRequest('/list_all_reviews', parameters: parameters)
+        .then((response) => ApiResponse.success(
+            data: ShopReviewModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Fetch Shop Reviews
+  Future<ApiResponse<bool>> addShopReviews(
+      double rating, String? review, int shopId) {
+    Map<String, dynamic> parameters = {
+      "rating": rating,
+      "review": review,
+      "shopId": shopId
+    };
+    return _client
+        .getRequest('/add_shop_review', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
   ///Fetch Referral Details
   Future<ApiResponse<ReferralModel>> fetchReferralDetails() {
     return _client
@@ -329,6 +362,8 @@ class ApplicationRepository {
       "scheduledDeliveryDateTime": datetime,
       "additionalCharges": []
     };
+
+    print(parameters);
     return _client
         .postRequest('/place_order', parameters: parameters)
         .then((response) => ApiResponse.success(data: response['data'] as int))

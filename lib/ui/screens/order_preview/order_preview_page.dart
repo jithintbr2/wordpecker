@@ -13,7 +13,6 @@ import 'package:woodle/ui/screens/order_preview/bloc/place_order_button_bloc.dar
 import 'package:woodle/ui/screens/order_preview/widgets/delivery_options.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/instruction_box.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/payment_options.dart';
-import 'package:woodle/ui/screens/order_preview/widgets/price_indicator.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -76,8 +75,19 @@ class OrderPreviewPage extends HookWidget {
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(context, service, data,
-                remarkController, address, isScheduledOrder, deliveryDate),
+            loaded: (data) =>
+                BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
+                    builder: (context, state) => state.when(
+                        buttonInitial: () => _buildPage(
+                            context,
+                            service,
+                            data,
+                            remarkController,
+                            address,
+                            isScheduledOrder,
+                            deliveryDate),
+                        buttonLoading: () =>
+                            Center(child: CircularProgressIndicator()))),
             failed: (error) => FailedView(
                 exceptions: error,
                 onRetry: () {
@@ -93,7 +103,7 @@ class OrderPreviewPage extends HookWidget {
   _buildButtonBloc(
     List<ItemVarientModel> items,
     LocalStorage localStorage,
-    String remark,
+    TextEditingController remark,
     CartService service,
     String dateTime,
     bool isAdvancedOrder,
@@ -120,17 +130,20 @@ class OrderPreviewPage extends HookWidget {
                           "Are you sure that you want to continue to place the order?"),
                       actions: <Widget>[
                         ElevatedButton(
-                            onPressed: () => context
-                                .read<PlaceOrderButtonBloc>()
-                                .add(PlaceOrderButtonEvent.placeOrder(
-                                  addressId: _address!.id,
-                                  items: items,
-                                  remark: remark,
-                                  service: service,
-                                  shopId: items[0].shopId,
-                                  dateTime: dateTime,
-                                  isAdvancedOrder: isAdvancedOrder,
-                                )),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              context
+                                  .read<PlaceOrderButtonBloc>()
+                                  .add(PlaceOrderButtonEvent.placeOrder(
+                                    addressId: _address!.id,
+                                    items: items,
+                                    remark: remark.text,
+                                    service: service,
+                                    shopId: items[0].shopId,
+                                    dateTime: dateTime,
+                                    isAdvancedOrder: isAdvancedOrder,
+                                  ));
+                            },
                             child: Text('Yes')),
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
@@ -159,55 +172,64 @@ class OrderPreviewPage extends HookWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
-            child: ListView(
-          padding: EdgeInsets.all(10),
-          children: [
-            CartPrice(service: service, deliveryCharge: data.deliveryCharge),
-            // Card(
-            //   child: Padding(
-            //       padding: EdgeInsets.all(10),
-            //       child: StreamBuilder(
-            //           stream: service.controller,
-            //           initialData: service.initialValue(),
-            //           builder: (context,
-            //               AsyncSnapshot<List<ItemVarientModel>> snap) {
-            //             double totalPrice = 0;
-            //             snap.data!
-            //                 .forEach((item) => totalPrice += item.salePrice!);
-            //             return Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               children: [
-            //                 Text("Bill",
-            //                     style: TextStyle(fontWeight: FontWeight.bold)),
-            //                 SizedBox(height: 10),
-            //                 PriceIndicator(
-            //                     price: totalPrice, title: 'Order Total'),
-            //                 PriceIndicator(
-            //                     price: data.deliveryCharge,
-            //                     title: 'Delivery Charges'),
-            //                 Divider(),
-            //                 PriceIndicator(
-            //                     price: data.deliveryCharge + totalPrice,
-            //                     title: 'Grand Total')
-            //               ],
-            //             );
-            //           })),
-            // ),
-            DeliveryOptions(
-              address: address,
-              isScheduledOrder: isScheduledOrder,
-              deliveryDate: deliveryDateTime,
-            ),
-            PaymentOptions(),
-            InstructionBox(controller: remarkController),
-          ],
-        )),
+            child: RefreshIndicator(
+                child: ListView(
+                  padding: EdgeInsets.all(10),
+                  children: [
+                    CartPrice(
+                        service: service, deliveryCharge: data.deliveryCharge),
+                    // Card(
+                    //   child: Padding(
+                    //       padding: EdgeInsets.all(10),
+                    //       child: StreamBuilder(
+                    //           stream: service.controller,
+                    //           initialData: service.initialValue(),
+                    //           builder: (context,
+                    //               AsyncSnapshot<List<ItemVarientModel>> snap) {
+                    //             double totalPrice = 0;
+                    //             snap.data!
+                    //                 .forEach((item) => totalPrice += item.salePrice!);
+                    //             return Column(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Text("Bill",
+                    //                     style: TextStyle(fontWeight: FontWeight.bold)),
+                    //                 SizedBox(height: 10),
+                    //                 PriceIndicator(
+                    //                     price: totalPrice, title: 'Order Total'),
+                    //                 PriceIndicator(
+                    //                     price: data.deliveryCharge,
+                    //                     title: 'Delivery Charges'),
+                    //                 Divider(),
+                    //                 PriceIndicator(
+                    //                     price: data.deliveryCharge + totalPrice,
+                    //                     title: 'Grand Total')
+                    //               ],
+                    //             );
+                    //           })),
+                    // ),
+                    DeliveryOptions(
+                      address: address,
+                      isScheduledOrder: isScheduledOrder,
+                      deliveryDate: deliveryDateTime,
+                    ),
+                    PaymentOptions(),
+                    InstructionBox(controller: remarkController),
+                  ],
+                ),
+                onRefresh: () async {
+                  context.read<OrderPreviewBloc>().add(
+                      OrderPreviewEvent.getSupportingData(
+                          addressId: address.value!.id,
+                          franchiseId: address.value!.franchiseId));
+                  return null;
+                })),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: _buildButtonBloc(
               service.initialValue(),
               LocalStorage(),
-              remarkController.text,
+              remarkController,
               service,
               deliveryDateTime.value,
               isScheduledOrder.value,

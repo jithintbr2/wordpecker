@@ -13,6 +13,8 @@ class GPSIndicator extends HookWidget {
   Widget build(BuildContext context) {
     final _serviceIsEnabled = useState(false);
     useEffect(() {
+      Geolocator.isLocationServiceEnabled()
+          .then((isEnabled) => _serviceIsEnabled.value = isEnabled);
       Geolocator.getServiceStatusStream().listen((ServiceStatus status) =>
           _serviceIsEnabled.value = status == ServiceStatus.enabled);
     }, []);
@@ -23,6 +25,7 @@ class GPSIndicator extends HookWidget {
 
   Widget _disabledLocationIndicator(BuildContext context) {
     return ListTile(
+      tileColor: Theme.of(context).primaryColor,
       leading: Icon(
         Icons.location_searching,
         color: Theme.of(context).canvasColor,
@@ -47,6 +50,7 @@ class GPSIndicator extends HookWidget {
 
   Widget _enabledLocationIndicator(BuildContext context) {
     return ListTile(
+        tileColor: Theme.of(context).primaryColor,
         leading: Icon(
           Icons.my_location_rounded,
           color: Theme.of(context).canvasColor,

@@ -17,7 +17,6 @@ import 'package:woodle/ui/widgets/carousel.dart';
 import 'package:woodle/ui/widgets/category.dart';
 import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
-import 'package:woodle/ui/widgets/item_varient_box.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 import 'package:woodle/ui/widgets/marquee.dart';
 
@@ -114,6 +113,7 @@ class HomePage extends HookWidget {
           limit: Config.itemCategoriesLimit,
           onTap: (index) =>
               Navigator.of(context).pushNamed('/itemList', arguments: {
+            "categories": data.itemCategories,
             "categoryName": data.itemCategories![index].title,
             "categoryId": data.itemCategories![index].id
           }),

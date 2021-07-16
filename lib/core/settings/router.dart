@@ -7,7 +7,8 @@ import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
-import 'package:woodle/ui/screens/address/address_page.dart';
+// import 'package:woodle/ui/screens/address/address_page.dart';
+import 'package:woodle/ui/screens/address/address_page_beta.dart';
 import 'package:woodle/ui/screens/address/bloc/address_bloc.dart';
 import 'package:woodle/ui/screens/address_map/address_map_page.dart';
 import 'package:woodle/ui/screens/address_map/bloc/address_map_bloc.dart';
@@ -42,6 +43,8 @@ import 'package:woodle/ui/screens/shop/bloc/shop_bloc.dart';
 import 'package:woodle/ui/screens/shop/shop_page.dart';
 import 'package:woodle/ui/screens/shop_category_list/bloc/shop_category_list_bloc.dart';
 import 'package:woodle/ui/screens/shop_category_list/shop_category_list_page.dart';
+import 'package:woodle/ui/screens/shop_review/bloc/shop_review_bloc.dart';
+import 'package:woodle/ui/screens/shop_review/shop_review_page.dart';
 import 'package:woodle/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:woodle/ui/screens/splash/splash_page.dart';
 import 'package:woodle/ui/screens/wallet/bloc/wallet_bloc.dart';
@@ -149,6 +152,7 @@ class AppRouter {
           create: (context) => CategoryItemsBloc(
               repository: context.read<ApplicationRepository>()),
           child: CategoryItemsPage(
+              categories: args['categories'],
               categoryId: args['categoryId'],
               categoryName: args['categoryName']),
         ));
@@ -183,6 +187,15 @@ class AppRouter {
               categoryId: args['categoryId'],
               categoryName: args['categoryName']),
         ));
+
+      case '/shopReview':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+            create: (context) => ShopReviewBloc(
+                repository: context.read<ApplicationRepository>(),
+                shopId: args['shopId'] as int),
+            child: ShopReviewPage()));
 
       case '/notifications':
         return _generatePlatformRoute(BlocProvider(

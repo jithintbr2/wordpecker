@@ -6,6 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class ItemVarientTile extends HookWidget {
+  final bool isInactive;
   final Color? color;
   final ItemVarientModel item;
   final int quantity;
@@ -20,6 +21,7 @@ class ItemVarientTile extends HookWidget {
     required this.onAdd,
     required this.onRemove,
     required this.quantity,
+    this.isInactive = false,
     this.color,
     this.onTap,
     this.showParent = false,
@@ -80,8 +82,13 @@ class ItemVarientTile extends HookWidget {
                             fontSize: 12,
                           ))
                 ]),
-          trailing: PurchaseControlButton(
-              onAdd: onAdd, onRemove: onRemove, itemQuantity: quantity)),
+          trailing: isInactive
+              ? Icon(
+                  Icons.timelapse,
+                  color: Colors.grey.withOpacity(0.5),
+                )
+              : PurchaseControlButton(
+                  onAdd: onAdd, onRemove: onRemove, itemQuantity: quantity)),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
 
 class ItemVarientContainerTile extends StatelessWidget {
+  final bool isInactive;
   final ItemModel item;
   final List<ItemVarientModel>? cartItems;
   final void Function(ItemVarientModel) onAdd;
@@ -17,6 +18,7 @@ class ItemVarientContainerTile extends StatelessWidget {
 
   const ItemVarientContainerTile({
     Key? key,
+    this.isInactive = false,
     required this.item,
     required this.cartItems,
     required this.onAdd,
@@ -119,55 +121,64 @@ class ItemVarientContainerTile extends StatelessWidget {
         selectedVarientItems.toSet().toList();
 
     return Card(
+        elevation: 0,
         child: Column(
-      children: [
-        ListTile(
-          onTap: onTap,
-          leading: Container(
-              height: 64,
-              width: 64,
-              clipBehavior: Clip.antiAlias,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(10)),
-              child: CachedNetworkImage(
-                imageUrl: item.image,
-                fit: BoxFit.cover,
-                placeholder: (_, __) =>
-                    Center(child: Image.asset(Assets.appIcon)),
-                errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
-              )),
-          title: Padding(
-            padding: EdgeInsets.symmetric(vertical: 4),
-            child: Text(
-              item.name,
-              style:
-                  Theme.of(context).textTheme.bodyText1!.copyWith(fontSize: 16),
+          children: [
+            ListTile(
+              onTap: onTap,
+              leading: Container(
+                  height: 64,
+                  width: 64,
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: CachedNetworkImage(
+                    imageUrl: item.image,
+                    fit: BoxFit.cover,
+                    placeholder: (_, __) =>
+                        Center(child: Image.asset(Assets.appIcon)),
+                    errorWidget: (_, __, ___) =>
+                        Center(child: Icon(Icons.error)),
+                  )),
+              title: Padding(
+                padding: EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  item.name,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 16),
+                ),
+              ),
+              trailing: isInactive
+                  ? Icon(
+                      Icons.timelapse,
+                      color: Colors.grey.withOpacity(0.5),
+                    )
+                  : _buildAddButton(
+                      context,
+                      () => _onButtonPressed(
+                          context: context,
+                          data: item.varients,
+                          selectedItems: selectedVarientItems)),
+              subtitle: Text(''),
             ),
-          ),
-          trailing: _buildAddButton(
-              context,
-              () => _onButtonPressed(
-                  context: context,
-                  data: item.varients,
-                  selectedItems: selectedVarientItems)),
-          subtitle: Text(''),
-        ),
-        ListView.builder(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: uniqueSelectedVarientItems.length,
-            itemBuilder: (context, index) => ItemVarientTile(
-                margin: EdgeInsets.zero,
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
-                elevation: 0,
-                item: uniqueSelectedVarientItems[index],
-                onAdd: () => onAdd(uniqueSelectedVarientItems[index]),
-                onRemove: () => onRemove(uniqueSelectedVarientItems[index]),
-                quantity: _getCartQuantity(selectedVarientItems,
-                    uniqueSelectedVarientItems[index].varientId))),
-      ],
-    ));
+            ListView.builder(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: uniqueSelectedVarientItems.length,
+                itemBuilder: (context, index) => ItemVarientTile(
+                    margin: EdgeInsets.zero,
+                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    elevation: 0,
+                    item: uniqueSelectedVarientItems[index],
+                    onAdd: () => onAdd(uniqueSelectedVarientItems[index]),
+                    onRemove: () => onRemove(uniqueSelectedVarientItems[index]),
+                    quantity: _getCartQuantity(selectedVarientItems,
+                        uniqueSelectedVarientItems[index].varientId))),
+          ],
+        ));
   }
 
   Widget _buildAddButton(BuildContext context, void Function()? onPressed) {

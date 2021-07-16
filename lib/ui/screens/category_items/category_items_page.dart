@@ -1,11 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
+import 'package:woodle/core/models/category/category_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/empty.dart';
@@ -18,10 +21,14 @@ import 'package:woodle/ui/widgets/loading.dart';
 import 'widgets/appbar.dart';
 
 class CategoryItemsPage extends HookWidget {
+  final List<CategoryModel> categories;
   final int categoryId;
   final String categoryName;
   const CategoryItemsPage(
-      {required this.categoryId, required this.categoryName, Key? key})
+      {required this.categoryId,
+      required this.categoryName,
+      required this.categories,
+      Key? key})
       : super(key: key);
 
   @override
@@ -98,6 +105,35 @@ class CategoryItemsPage extends HookWidget {
     );
   }
 
+  Widget _buildSubCategoryItem(CategoryModel item) => Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Stack(
+          children: [
+            Container(
+                height: 100,
+                width: 100,
+                child: CachedNetworkImage(
+                  imageUrl: item.imageUrl,
+                  fit: BoxFit.cover,
+                  placeholder: (_, __) =>
+                      Center(child: Image.asset(Assets.appIcon)),
+                  errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
+                )),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  width: 100,
+                  padding: EdgeInsets.all(1),
+                  color: Colors.white70,
+                  child: Text(
+                    item.title,
+                    textAlign: TextAlign.center,
+                  )),
+            )
+          ],
+        ),
+      );
+
   int _getCartQuantity(List<ItemVarientModel>? data, int id) {
     int quantity = 0;
     if (data != null)
@@ -120,12 +156,28 @@ class CategoryItemsPage extends HookWidget {
       });
 
     if (isGridView)
-      return GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, childAspectRatio: 1),
-        itemBuilder: (context, index) => ItemBox(data: filteredData[index]),
-        itemCount: filteredData.length,
+      return Column(
+        children: [
+          Container(
+              height: 100,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => InkWell(
+                    onTap: () {},
+                    child: _buildSubCategoryItem(categories[index])),
+                itemCount: categories.length,
+                scrollDirection: Axis.horizontal,
+              )),
+          Divider(),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3, childAspectRatio: 1),
+            itemBuilder: (context, index) => ItemBox(data: filteredData[index]),
+            itemCount: filteredData.length,
+          )
+        ],
       );
 
     return StreamBuilder(
@@ -143,39 +195,56 @@ class CategoryItemsPage extends HookWidget {
         return Column(
           children: [
             Expanded(
-                child: ListView.builder(
+                child: ListView(
               shrinkWrap: true,
-              itemBuilder: (context, index) {
-                if (filteredData[index].varients.length == 1) {
-                  return ItemVarientTile(
-                    item: filteredData[index].varients[0],
-                    onAdd: () =>
-                        service.addItem(filteredData[index].varients[0]),
-                    onRemove: () =>
-                        service.removeItem(filteredData[index].varients[0]),
-                    quantity: _getCartQuantity(
-                        snap.data, filteredData[index].varients[0].varientId),
-                    onTap: () => Navigator.of(context).pushNamed('/item',
-                        arguments: {
-                          'itemId': data[index].id,
-                          'itemName': data[index].name
-                        }),
-                  );
-                }
-                return ItemVarientContainerTile(
-                  item: filteredData[index],
-                  service: service,
-                  cartItems: snap.data,
-                  onAdd: (item) => service.addItem(item),
-                  onRemove: (item) => service.removeItem(item),
-                  onTap: () => Navigator.of(context).pushNamed('/item',
-                      arguments: {
-                        'itemId': data[index].id,
-                        'itemName': data[index].name
-                      }),
-                );
-              },
-              itemCount: filteredData.length,
+              children: [
+                Container(
+                    height: 100,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => InkWell(
+                          onTap: () {},
+                          child: _buildSubCategoryItem(categories[index])),
+                      itemCount: categories.length,
+                      scrollDirection: Axis.horizontal,
+                    )),
+                Divider(),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    if (filteredData[index].varients.length == 1) {
+                      return ItemVarientTile(
+                        item: filteredData[index].varients[0],
+                        onAdd: () =>
+                            service.addItem(filteredData[index].varients[0]),
+                        onRemove: () =>
+                            service.removeItem(filteredData[index].varients[0]),
+                        quantity: _getCartQuantity(snap.data,
+                            filteredData[index].varients[0].varientId),
+                        onTap: () => Navigator.of(context).pushNamed('/item',
+                            arguments: {
+                              'itemId': data[index].id,
+                              'itemName': data[index].name
+                            }),
+                      );
+                    }
+                    return ItemVarientContainerTile(
+                      item: filteredData[index],
+                      service: service,
+                      cartItems: snap.data,
+                      onAdd: (item) => service.addItem(item),
+                      onRemove: (item) => service.removeItem(item),
+                      onTap: () => Navigator.of(context).pushNamed('/item',
+                          arguments: {
+                            'itemId': data[index].id,
+                            'itemName': data[index].name
+                          }),
+                    );
+                  },
+                  itemCount: filteredData.length,
+                )
+              ],
             )),
             snap.hasData && snap.data!.length > 0
                 ? CartTile(

@@ -27,8 +27,8 @@ class CategoryItemsAppBar extends StatelessWidget
       title: Text(title),
       actions: [
         IconButton(
-            icon: Icon(isGridView ? Icons.list : Icons.grid_3x3,
-                color: Colors.white),
+            icon:
+                Icon(isGridView ? Icons.list : Icons.apps, color: Colors.white),
             onPressed: onViewChange)
       ],
       bottom: PreferredSize(
