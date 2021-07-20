@@ -35,7 +35,7 @@ class Carousel extends StatelessWidget {
           margin: EdgeInsets.all(0),
           child: CachedNetworkImage(
             imageUrl: item.imageUrl,
-            placeholder: (_, __) => Image.asset(Assets.homeDrawerBackground),
+            placeholder: (_, __) => Image.asset(Assets.appIcon),
             errorWidget: (context, _, error) => Icon(Icons.error),
           ),
         ),
