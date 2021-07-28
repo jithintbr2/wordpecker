@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/item/item_model.dart';
+import 'package:woodle/core/models/sub_category/sub_category_model.dart';
 import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/repository/repository.dart';
 

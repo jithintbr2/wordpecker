@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
+import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
 
 class CartTile extends StatelessWidget {
@@ -64,6 +68,18 @@ class CartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocalStorage localStorage = LocalStorage();
+    AddressModel? _getAddress() {
+      if (localStorage.get('currentAddress') != null) {
+        Map<String, dynamic> currentAddressRaw =
+            jsonDecode(localStorage.get('currentAddress') as String);
+        return AddressModel.fromJson(currentAddressRaw);
+      }
+      return null;
+    }
+
+    AddressModel? address = _getAddress();
+
     return Container(
       color: Theme.of(context).primaryColor,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -108,7 +124,7 @@ class CartTile extends StatelessWidget {
                   )),
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                   builder: (context, state) {
-                if (state.user != null) {
+                if (state.user != null && address?.id != -1) {
                   return InkWell(
                     onTap: () => handleCheckout(context),
                     child: Container(
@@ -131,6 +147,31 @@ class CartTile extends StatelessWidget {
                     ),
                   );
                 }
+
+                if (state.user != null && address?.id == -1) {
+                  return InkWell(
+                    onTap: () => Navigator.pushNamed(context, '/address'),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 16.0,
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Text(
+                            "Pick Delivery Location",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          Icon(
+                            Icons.play_arrow,
+                            size: 16,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
                 return InkWell(
                   onTap: () => Navigator.pushNamed(context, '/authenticate'),
                   child: Container(

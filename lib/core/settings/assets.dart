@@ -4,6 +4,7 @@ class Assets {
   static String get homeDrawerBackground =>
       "assets/images/bg_drawer_header.jpg";
   static String get appIcon => "assets/images/ic_app.png";
+  static String get offerTagIcon => "assets/images/ic_offer_tag.png";
   static String get rewardCardBackground => "assets/images/bg_scratch_card.jpg";
   static String get rewardLockedIcon => "assets/images/ic_scratch_card_fg.png";
   static String get rewardUnScratched => "assets/images/ic_scratch_card.png";

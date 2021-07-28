@@ -14,6 +14,7 @@ import 'package:woodle/core/models/referral/referral_model.dart';
 import 'package:woodle/core/models/service/service_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/models/shop_review/shop_review_model.dart';
+import 'package:woodle/core/models/sub_category/sub_category_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/models/wallet/wallet_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
@@ -129,15 +130,21 @@ class ApplicationRepository {
             error: NetworkExceptions.getDioExceptions(error)));
   }
 
-  Future<ApiResponse<List<ItemModel>>> fetchCategoryItemsData(int categoryId) {
+  Future<ApiResponse<List<SubCategoryModel>>> fetchCategoryItemsData(
+      int categoryId) {
     Map<String, dynamic> parameters = {"categoryId": categoryId};
-    return _client.getRequest('/category_items', parameters: parameters).then(
-        (response) {
-      List<ItemModel> items = [];
-      response["data"].forEach((item) => items.add(ItemModel.fromJson(item)));
+    return _client
+        .getRequest('/category_items', parameters: parameters)
+        .then((response) {
+      List<SubCategoryModel> items = [];
+      response["data"]
+          .forEach((item) => items.add(SubCategoryModel.fromJson(item)));
       return ApiResponse.success(data: items);
-    }).onError((error, _) =>
-        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+    }).onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
   }
 
   ///Fetch User's Saved Addresses
@@ -347,16 +354,20 @@ class ApplicationRepository {
     String remark,
     bool isAdvancedOrder,
     String datetime,
+    int? couponId,
+    double? redeemedAmount,
+    double? couponDiscount,
+    String? couponType,
   ) {
     Map<String, dynamic> parameters = {
       "items": items,
       "shopId": shopId,
       "addressId": addressId,
       "remarks": remark,
-      "couponId": -1,
-      "redeemedAmount": 0.0,
-      "couponDiscount": 0.0,
-      "couponType": "",
+      "couponId": couponId ?? -1,
+      "redeemedAmount": redeemedAmount ?? 0.0,
+      "couponDiscount": couponDiscount ?? 0.0,
+      "couponType": couponType ?? "",
       "advancedOrder": isAdvancedOrder,
       "paymentMode": "cash_on_delivery",
       "scheduledDeliveryDateTime": datetime,

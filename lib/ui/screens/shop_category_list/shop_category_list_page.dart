@@ -131,7 +131,6 @@ class ShopCategoryListPage extends HookWidget {
         itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
         itemCount: filteredData.length,
       );
-    return EmptyView(
-        icon: Icons.shopping_basket, title: 'No Restaurants Available');
+    return EmptyView(icon: Icons.shopping_basket, title: 'No Shops Available');
   }
 }

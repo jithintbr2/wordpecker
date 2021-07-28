@@ -93,11 +93,20 @@ class AddressPage extends HookWidget {
                   ])),
           GPSIndicator(returnToPrevious: returnToPrevious ?? false),
           Expanded(
-              child: _searchResults.value.length > 0
-                  ? _buildLocationSearchList(_searchResults.value, _googlePlace)
-                  : _buildSavedAddressList(_isDeleting.value))
+            child: _searchResults.value.length > 0
+                ? _buildLocationSearchList(_searchResults.value, _googlePlace)
+                : _user != null
+                    ? _buildSavedAddressList(_isDeleting.value)
+                    : _unAuthenticatedLocationMessage(),
+          )
         ],
       ),
+    );
+  }
+
+  Widget _unAuthenticatedLocationMessage() {
+    return Center(
+      child: Text('Search for your location.'),
     );
   }
 

@@ -24,8 +24,10 @@ class Carousel extends StatelessWidget {
           if (item.externalLink != null && await canLaunch(item.externalLink!))
             await launch(item.externalLink!);
           else if (item.itemId != -1)
-            Navigator.of(context).pushNamed('/item',
-                arguments: {'itemId': item.itemId, 'itemName': "name"});
+            Navigator.of(context).pushNamed('/item', arguments: {
+              'itemId': item.itemId,
+              'itemName': item.name ?? 'Item Details'
+            });
           else if (item.shopId != -1)
             Navigator.of(context)
                 .pushNamed('/shopDetail', arguments: {"shopId": item.shopId});

@@ -49,6 +49,11 @@ class CartPage extends HookWidget {
               if (item.varientId == sortedData[index].varientId) quantity += 1;
             });
             return ItemVarientTile(
+                // onTap: () => Navigator.of(context).pushNamed('/item',
+                //         arguments: {
+                //           'itemId': sortedData[index].itemId,
+                //           'itemName': sortedData[index].itemName
+                //         }),
                 showParent: true,
                 item: sortedData[index],
                 onAdd: () => service.addItem(sortedData[index]),

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 
 part 'order_preview_model.freezed.dart';
@@ -11,6 +12,7 @@ class OrderPreviewModel with _$OrderPreviewModel {
     required List<ItemVarientModel> addonsList,
     required PaymentOptionsModel paymentMethods,
     required double deliveryCharge,
+    required List<CouponModel> coupenList,
   }) = _OrderPreviewModel;
 
   factory OrderPreviewModel.fromJson(Map<String, dynamic> json) =>

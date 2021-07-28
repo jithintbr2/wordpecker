@@ -7,9 +7,13 @@ import 'package:woodle/ui/widgets/item_varient_tile.dart';
 class CartPrice extends StatelessWidget {
   final CartService service;
   final double deliveryCharge;
+  final double redeemedAmount;
+  final double couponDiscount;
   const CartPrice({
     required this.service,
     required this.deliveryCharge,
+    required this.couponDiscount,
+    required this.redeemedAmount,
     Key? key,
   }) : super(key: key);
 
@@ -57,9 +61,26 @@ class CartPrice extends StatelessWidget {
                           SizedBox(height: 10),
                           PriceIndicator(
                               price: deliveryCharge, title: 'Delivery Charges'),
+                          SizedBox(height: 10),
+                          couponDiscount > 0
+                              ? PriceIndicator(
+                                  price: couponDiscount,
+                                  title: 'Coupon Discount')
+                              : SizedBox(),
+                          couponDiscount > 0
+                              ? SizedBox(height: 10)
+                              : SizedBox(),
+                          redeemedAmount > 0
+                              ? PriceIndicator(
+                                  price: redeemedAmount,
+                                  title: 'Redeemed Amount')
+                              : SizedBox(),
                           Divider(),
                           PriceIndicator(
-                              price: deliveryCharge + totalPrice,
+                              price: deliveryCharge +
+                                  totalPrice -
+                                  couponDiscount -
+                                  redeemedAmount,
                               title: 'Grand Total')
                         ],
                       ))

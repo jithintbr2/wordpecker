@@ -99,8 +99,9 @@ class HomePage extends HookWidget {
 
   _buildPage(BuildContext context, HomePageModel data) {
     return ListView(
+      padding: EdgeInsets.symmetric(vertical: 10),
       children: [
-        Carousel(items: data.carouselx1 ?? []),
+        Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
         SizedBox(height: 10),
         MarqueeWidget(text: data.message ?? ''),
         Padding(

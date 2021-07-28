@@ -4,15 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/models/order_preview/order_preview_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/place_order_button_bloc.dart';
+import 'package:woodle/ui/screens/order_preview/coupons_page.dart';
+import 'package:woodle/ui/screens/order_preview/widgets/coupon_redeem.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/delivery_options.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/instruction_box.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/payment_options.dart';
+import 'package:woodle/ui/screens/order_preview/widgets/wallet_redeem.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -50,6 +54,8 @@ class OrderPreviewPage extends HookWidget {
     final _address = useState(_getAddress());
     final _isScheduledOrder = useState(false);
     final _deliveryDate = useState(_getNowDateTime());
+    final _selectedCoupon = useState<CouponModel?>(null);
+    final _walletRedeemController = useTextEditingController();
 
     useEffect(() {
       context.read<OrderPreviewBloc>().add(OrderPreviewEvent.getSupportingData(
@@ -60,7 +66,7 @@ class OrderPreviewPage extends HookWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Order Summary')),
       body: _buildBloc(service, _remarkController, _address, _isScheduledOrder,
-          _deliveryDate),
+          _deliveryDate, _selectedCoupon, _walletRedeemController),
     );
   }
 
@@ -70,6 +76,8 @@ class OrderPreviewPage extends HookWidget {
     ValueNotifier<AddressModel?> address,
     ValueNotifier<bool> isScheduledOrder,
     ValueNotifier<String> deliveryDate,
+    ValueNotifier<CouponModel?> selectedCoupon,
+    TextEditingController walletRedeemController,
   ) {
     return BlocBuilder<OrderPreviewBloc, OrderPreviewState>(
       builder: (context, state) {
@@ -79,13 +87,16 @@ class OrderPreviewPage extends HookWidget {
                 BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
                     builder: (context, state) => state.when(
                         buttonInitial: () => _buildPage(
-                            context,
-                            service,
-                            data,
-                            remarkController,
-                            address,
-                            isScheduledOrder,
-                            deliveryDate),
+                              context,
+                              service,
+                              data,
+                              remarkController,
+                              address,
+                              isScheduledOrder,
+                              deliveryDate,
+                              selectedCoupon,
+                              walletRedeemController,
+                            ),
                         buttonLoading: () =>
                             Center(child: CircularProgressIndicator()))),
             failed: (error) => FailedView(
@@ -101,13 +112,14 @@ class OrderPreviewPage extends HookWidget {
   }
 
   _buildButtonBloc(
-    List<ItemVarientModel> items,
-    LocalStorage localStorage,
-    TextEditingController remark,
-    CartService service,
-    String dateTime,
-    bool isAdvancedOrder,
-  ) {
+      List<ItemVarientModel> items,
+      LocalStorage localStorage,
+      TextEditingController remark,
+      CartService service,
+      String dateTime,
+      bool isAdvancedOrder,
+      CouponModel? selectedCoupon,
+      double? redeemedAmount) {
     AddressModel? _getAddress() {
       if (localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
@@ -132,17 +144,20 @@ class OrderPreviewPage extends HookWidget {
                         ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).pop();
-                              context
-                                  .read<PlaceOrderButtonBloc>()
-                                  .add(PlaceOrderButtonEvent.placeOrder(
-                                    addressId: _address!.id,
-                                    items: items,
-                                    remark: remark.text,
-                                    service: service,
-                                    shopId: items[0].shopId,
-                                    dateTime: dateTime,
-                                    isAdvancedOrder: isAdvancedOrder,
-                                  ));
+                              context.read<PlaceOrderButtonBloc>().add(
+                                  PlaceOrderButtonEvent.placeOrder(
+                                      addressId: _address!.id,
+                                      items: items,
+                                      remark: remark.text,
+                                      service: service,
+                                      shopId: items[0].shopId,
+                                      dateTime: dateTime,
+                                      isAdvancedOrder: isAdvancedOrder,
+                                      couponId: selectedCoupon?.couponId,
+                                      couponDiscount:
+                                          selectedCoupon?.couponDiscount,
+                                      couponType: selectedCoupon?.couponType,
+                                      redeemedAmount: redeemedAmount));
                             },
                             child: Text('Yes')),
                         ElevatedButton(
@@ -167,6 +182,8 @@ class OrderPreviewPage extends HookWidget {
     ValueNotifier<AddressModel?> address,
     ValueNotifier<bool> isScheduledOrder,
     ValueNotifier<String> deliveryDateTime,
+    ValueNotifier<CouponModel?> selectedCoupon,
+    TextEditingController walletRedeemController,
   ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -177,7 +194,15 @@ class OrderPreviewPage extends HookWidget {
                   padding: EdgeInsets.all(10),
                   children: [
                     CartPrice(
-                        service: service, deliveryCharge: data.deliveryCharge),
+                      service: service,
+                      deliveryCharge: data.deliveryCharge,
+                      couponDiscount: selectedCoupon.value != null
+                          ? selectedCoupon.value!.couponDiscount
+                          : 0.0,
+                      redeemedAmount: walletRedeemController.text.isNotEmpty
+                          ? double.parse(walletRedeemController.text)
+                          : 0.0,
+                    ),
                     // Card(
                     //   child: Padding(
                     //       padding: EdgeInsets.all(10),
@@ -214,6 +239,26 @@ class OrderPreviewPage extends HookWidget {
                       deliveryDate: deliveryDateTime,
                     ),
                     PaymentOptions(),
+                    SizedBox(height: 10),
+                    CouponRedeem(
+                      selectedCoupon: selectedCoupon.value,
+                      onSelect: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => CouponsPage(
+                                  coupons: data.coupenList,
+                                  onSelect: (coupon) {
+                                    selectedCoupon.value = coupon;
+                                    Navigator.pop(context);
+                                  }))),
+                      onRemove: () => selectedCoupon.value = null,
+                    ),
+                    SizedBox(height: 10),
+                    selectedCoupon.value == null
+                        ? WalletRedeem(
+                            walletAmount: data.walletAmount,
+                            controller: walletRedeemController,
+                          )
+                        : SizedBox(),
                     InstructionBox(controller: remarkController),
                   ],
                 ),
@@ -227,13 +272,16 @@ class OrderPreviewPage extends HookWidget {
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: _buildButtonBloc(
-              service.initialValue(),
-              LocalStorage(),
-              remarkController,
-              service,
-              deliveryDateTime.value,
-              isScheduledOrder.value,
-            )
+                service.initialValue(),
+                LocalStorage(),
+                remarkController,
+                service,
+                deliveryDateTime.value,
+                isScheduledOrder.value,
+                selectedCoupon.value,
+                walletRedeemController.text.isNotEmpty
+                    ? double.parse(walletRedeemController.text)
+                    : 0.0)
             // ElevatedButton(
             //   child: Text('Place Order'),
             //   onPressed: () {

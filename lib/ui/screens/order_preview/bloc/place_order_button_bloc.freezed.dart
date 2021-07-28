@@ -23,7 +23,11 @@ class _$PlaceOrderButtonEventTearOff {
       required int addressId,
       required String remark,
       required bool isAdvancedOrder,
-      required String dateTime}) {
+      required String dateTime,
+      int? couponId,
+      double? redeemedAmount,
+      double? couponDiscount,
+      String? couponType}) {
     return _PlaceOrder(
       service: service,
       items: items,
@@ -32,6 +36,10 @@ class _$PlaceOrderButtonEventTearOff {
       remark: remark,
       isAdvancedOrder: isAdvancedOrder,
       dateTime: dateTime,
+      couponId: couponId,
+      redeemedAmount: redeemedAmount,
+      couponDiscount: couponDiscount,
+      couponType: couponType,
     );
   }
 }
@@ -48,6 +56,10 @@ mixin _$PlaceOrderButtonEvent {
   String get remark => throw _privateConstructorUsedError;
   bool get isAdvancedOrder => throw _privateConstructorUsedError;
   String get dateTime => throw _privateConstructorUsedError;
+  int? get couponId => throw _privateConstructorUsedError;
+  double? get redeemedAmount => throw _privateConstructorUsedError;
+  double? get couponDiscount => throw _privateConstructorUsedError;
+  String? get couponType => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -58,7 +70,11 @@ mixin _$PlaceOrderButtonEvent {
             int addressId,
             String remark,
             bool isAdvancedOrder,
-            String dateTime)
+            String dateTime,
+            int? couponId,
+            double? redeemedAmount,
+            double? couponDiscount,
+            String? couponType)
         placeOrder,
   }) =>
       throw _privateConstructorUsedError;
@@ -71,7 +87,11 @@ mixin _$PlaceOrderButtonEvent {
             int addressId,
             String remark,
             bool isAdvancedOrder,
-            String dateTime)?
+            String dateTime,
+            int? couponId,
+            double? redeemedAmount,
+            double? couponDiscount,
+            String? couponType)?
         placeOrder,
     required TResult orElse(),
   }) =>
@@ -105,7 +125,11 @@ abstract class $PlaceOrderButtonEventCopyWith<$Res> {
       int addressId,
       String remark,
       bool isAdvancedOrder,
-      String dateTime});
+      String dateTime,
+      int? couponId,
+      double? redeemedAmount,
+      double? couponDiscount,
+      String? couponType});
 }
 
 /// @nodoc
@@ -126,6 +150,10 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
     Object? remark = freezed,
     Object? isAdvancedOrder = freezed,
     Object? dateTime = freezed,
+    Object? couponId = freezed,
+    Object? redeemedAmount = freezed,
+    Object? couponDiscount = freezed,
+    Object? couponType = freezed,
   }) {
     return _then(_value.copyWith(
       service: service == freezed
@@ -156,6 +184,22 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as String,
+      couponId: couponId == freezed
+          ? _value.couponId
+          : couponId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      redeemedAmount: redeemedAmount == freezed
+          ? _value.redeemedAmount
+          : redeemedAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      couponDiscount: couponDiscount == freezed
+          ? _value.couponDiscount
+          : couponDiscount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      couponType: couponType == freezed
+          ? _value.couponType
+          : couponType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -174,7 +218,11 @@ abstract class _$PlaceOrderCopyWith<$Res>
       int addressId,
       String remark,
       bool isAdvancedOrder,
-      String dateTime});
+      String dateTime,
+      int? couponId,
+      double? redeemedAmount,
+      double? couponDiscount,
+      String? couponType});
 }
 
 /// @nodoc
@@ -197,6 +245,10 @@ class __$PlaceOrderCopyWithImpl<$Res>
     Object? remark = freezed,
     Object? isAdvancedOrder = freezed,
     Object? dateTime = freezed,
+    Object? couponId = freezed,
+    Object? redeemedAmount = freezed,
+    Object? couponDiscount = freezed,
+    Object? couponType = freezed,
   }) {
     return _then(_PlaceOrder(
       service: service == freezed
@@ -227,6 +279,22 @@ class __$PlaceOrderCopyWithImpl<$Res>
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
               as String,
+      couponId: couponId == freezed
+          ? _value.couponId
+          : couponId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      redeemedAmount: redeemedAmount == freezed
+          ? _value.redeemedAmount
+          : redeemedAmount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      couponDiscount: couponDiscount == freezed
+          ? _value.couponDiscount
+          : couponDiscount // ignore: cast_nullable_to_non_nullable
+              as double?,
+      couponType: couponType == freezed
+          ? _value.couponType
+          : couponType // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -241,7 +309,11 @@ class _$_PlaceOrder implements _PlaceOrder {
       required this.addressId,
       required this.remark,
       required this.isAdvancedOrder,
-      required this.dateTime});
+      required this.dateTime,
+      this.couponId,
+      this.redeemedAmount,
+      this.couponDiscount,
+      this.couponType});
 
   @override
   final CartService service;
@@ -257,10 +329,18 @@ class _$_PlaceOrder implements _PlaceOrder {
   final bool isAdvancedOrder;
   @override
   final String dateTime;
+  @override
+  final int? couponId;
+  @override
+  final double? redeemedAmount;
+  @override
+  final double? couponDiscount;
+  @override
+  final String? couponType;
 
   @override
   String toString() {
-    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark, isAdvancedOrder: $isAdvancedOrder, dateTime: $dateTime)';
+    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark, isAdvancedOrder: $isAdvancedOrder, dateTime: $dateTime, couponId: $couponId, redeemedAmount: $redeemedAmount, couponDiscount: $couponDiscount, couponType: $couponType)';
   }
 
   @override
@@ -284,7 +364,19 @@ class _$_PlaceOrder implements _PlaceOrder {
                     .equals(other.isAdvancedOrder, isAdvancedOrder)) &&
             (identical(other.dateTime, dateTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.dateTime, dateTime)));
+                    .equals(other.dateTime, dateTime)) &&
+            (identical(other.couponId, couponId) ||
+                const DeepCollectionEquality()
+                    .equals(other.couponId, couponId)) &&
+            (identical(other.redeemedAmount, redeemedAmount) ||
+                const DeepCollectionEquality()
+                    .equals(other.redeemedAmount, redeemedAmount)) &&
+            (identical(other.couponDiscount, couponDiscount) ||
+                const DeepCollectionEquality()
+                    .equals(other.couponDiscount, couponDiscount)) &&
+            (identical(other.couponType, couponType) ||
+                const DeepCollectionEquality()
+                    .equals(other.couponType, couponType)));
   }
 
   @override
@@ -296,7 +388,11 @@ class _$_PlaceOrder implements _PlaceOrder {
       const DeepCollectionEquality().hash(addressId) ^
       const DeepCollectionEquality().hash(remark) ^
       const DeepCollectionEquality().hash(isAdvancedOrder) ^
-      const DeepCollectionEquality().hash(dateTime);
+      const DeepCollectionEquality().hash(dateTime) ^
+      const DeepCollectionEquality().hash(couponId) ^
+      const DeepCollectionEquality().hash(redeemedAmount) ^
+      const DeepCollectionEquality().hash(couponDiscount) ^
+      const DeepCollectionEquality().hash(couponType);
 
   @JsonKey(ignore: true)
   @override
@@ -313,11 +409,25 @@ class _$_PlaceOrder implements _PlaceOrder {
             int addressId,
             String remark,
             bool isAdvancedOrder,
-            String dateTime)
+            String dateTime,
+            int? couponId,
+            double? redeemedAmount,
+            double? couponDiscount,
+            String? couponType)
         placeOrder,
   }) {
     return placeOrder(
-        service, items, shopId, addressId, remark, isAdvancedOrder, dateTime);
+        service,
+        items,
+        shopId,
+        addressId,
+        remark,
+        isAdvancedOrder,
+        dateTime,
+        couponId,
+        redeemedAmount,
+        couponDiscount,
+        couponType);
   }
 
   @override
@@ -330,13 +440,27 @@ class _$_PlaceOrder implements _PlaceOrder {
             int addressId,
             String remark,
             bool isAdvancedOrder,
-            String dateTime)?
+            String dateTime,
+            int? couponId,
+            double? redeemedAmount,
+            double? couponDiscount,
+            String? couponType)?
         placeOrder,
     required TResult orElse(),
   }) {
     if (placeOrder != null) {
       return placeOrder(
-          service, items, shopId, addressId, remark, isAdvancedOrder, dateTime);
+          service,
+          items,
+          shopId,
+          addressId,
+          remark,
+          isAdvancedOrder,
+          dateTime,
+          couponId,
+          redeemedAmount,
+          couponDiscount,
+          couponType);
     }
     return orElse();
   }
@@ -370,7 +494,11 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
       required int addressId,
       required String remark,
       required bool isAdvancedOrder,
-      required String dateTime}) = _$_PlaceOrder;
+      required String dateTime,
+      int? couponId,
+      double? redeemedAmount,
+      double? couponDiscount,
+      String? couponType}) = _$_PlaceOrder;
 
   @override
   CartService get service => throw _privateConstructorUsedError;
@@ -386,6 +514,14 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
   bool get isAdvancedOrder => throw _privateConstructorUsedError;
   @override
   String get dateTime => throw _privateConstructorUsedError;
+  @override
+  int? get couponId => throw _privateConstructorUsedError;
+  @override
+  double? get redeemedAmount => throw _privateConstructorUsedError;
+  @override
+  double? get couponDiscount => throw _privateConstructorUsedError;
+  @override
+  String? get couponType => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PlaceOrderCopyWith<_PlaceOrder> get copyWith =>

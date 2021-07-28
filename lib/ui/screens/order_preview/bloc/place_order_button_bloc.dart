@@ -60,6 +60,10 @@ class PlaceOrderButtonBloc
             event.remark,
             event.isAdvancedOrder,
             event.dateTime,
+            event.couponId,
+            event.redeemedAmount,
+            event.couponDiscount,
+            event.couponType,
           );
           placeOrderResponse.when(success: (orderId) {
             LocalStorage localStorage = LocalStorage();

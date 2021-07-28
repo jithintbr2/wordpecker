@@ -15,6 +15,9 @@ _$_OrderPreviewModel _$_$_OrderPreviewModelFromJson(Map<String, dynamic> json) {
     paymentMethods: PaymentOptionsModel.fromJson(
         json['paymentMethods'] as Map<String, dynamic>),
     deliveryCharge: (json['deliveryCharge'] as num).toDouble(),
+    coupenList: (json['coupenList'] as List<dynamic>)
+        .map((e) => CouponModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 
@@ -25,6 +28,7 @@ Map<String, dynamic> _$_$_OrderPreviewModelToJson(
       'addonsList': instance.addonsList,
       'paymentMethods': instance.paymentMethods,
       'deliveryCharge': instance.deliveryCharge,
+      'coupenList': instance.coupenList,
     };
 
 _$_PaymentOptionsModel _$_$_PaymentOptionsModelFromJson(

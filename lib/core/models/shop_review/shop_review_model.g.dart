@@ -8,10 +8,9 @@ part of 'shop_review_model.dart';
 
 _$_ShopReviewModel _$_$_ShopReviewModelFromJson(Map<String, dynamic> json) {
   return _$_ShopReviewModel(
-    userReview: json['user_review'] == null
-        ? null
-        : ShopReviewDataModel.fromJson(
-            json['user_review'] as Map<String, dynamic>),
+    userReview: (json['user_review'] as List<dynamic>)
+        .map((e) => ShopReviewDataModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
     allReviews: (json['all_reviews'] as List<dynamic>)
         .map((e) => ShopReviewDataModel.fromJson(e as Map<String, dynamic>))
         .toList(),

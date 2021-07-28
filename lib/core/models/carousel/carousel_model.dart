@@ -10,6 +10,7 @@ class CarouselModel with _$CarouselModel {
     required int id,
     required int shopId,
     required int itemId,
+    String? name,
     required String imageUrl,
     required double aspectRatio,
     String? externalLink,

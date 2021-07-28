@@ -16,6 +16,8 @@ class CategoryViewAll extends StatelessWidget {
         appBar: AppBar(
           title: Text('All $title'),
         ),
-        body: Category(items: items, onTap: onTap, limit: items.length));
+        body: ListView(
+          children: [Category(items: items, onTap: onTap, limit: items.length)],
+        ));
   }
 }

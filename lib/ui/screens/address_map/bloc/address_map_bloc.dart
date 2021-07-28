@@ -50,7 +50,7 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                     id: id,
                     house: event.house,
                     locality: event.locality,
-                    pin: int.parse(event.pincode),
+                    pin: event.pincode != '' ? int.parse(event.pincode) : 0,
                     lat: event.lat,
                     lng: event.lng,
                     nickName: event.nickName,
@@ -128,7 +128,9 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                                         id: -1,
                                         house: event.house,
                                         locality: event.locality,
-                                        pin: int.parse(event.pincode),
+                                        pin: event.pincode != ''
+                                            ? int.parse(event.pincode)
+                                            : 0,
                                         lat: event.lat,
                                         lng: event.lng,
                                         nickName: event.nickName,
@@ -152,7 +154,7 @@ class AddressMapBloc extends Bloc<AddressMapEvent, AddressMapState> {
                     id: -1,
                     house: event.house,
                     locality: event.locality,
-                    pin: int.parse(event.pincode),
+                    pin: event.pincode != '' ? int.parse(event.pincode) : 0,
                     lat: event.lat,
                     lng: event.lng,
                     nickName: event.nickName,

@@ -10,5 +10,9 @@ class PlaceOrderButtonEvent with _$PlaceOrderButtonEvent {
     required String remark,
     required bool isAdvancedOrder,
     required String dateTime,
+    int? couponId,
+    double? redeemedAmount,
+    double? couponDiscount,
+    String? couponType,
   }) = _PlaceOrder;
 }

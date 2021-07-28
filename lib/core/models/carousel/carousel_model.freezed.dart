@@ -24,6 +24,7 @@ class _$CarouselModelTearOff {
       {required int id,
       required int shopId,
       required int itemId,
+      String? name,
       required String imageUrl,
       required double aspectRatio,
       String? externalLink}) {
@@ -31,6 +32,7 @@ class _$CarouselModelTearOff {
       id: id,
       shopId: shopId,
       itemId: itemId,
+      name: name,
       imageUrl: imageUrl,
       aspectRatio: aspectRatio,
       externalLink: externalLink,
@@ -50,6 +52,7 @@ mixin _$CarouselModel {
   int get id => throw _privateConstructorUsedError;
   int get shopId => throw _privateConstructorUsedError;
   int get itemId => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   double get aspectRatio => throw _privateConstructorUsedError;
   String? get externalLink => throw _privateConstructorUsedError;
@@ -69,6 +72,7 @@ abstract class $CarouselModelCopyWith<$Res> {
       {int id,
       int shopId,
       int itemId,
+      String? name,
       String imageUrl,
       double aspectRatio,
       String? externalLink});
@@ -88,6 +92,7 @@ class _$CarouselModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? shopId = freezed,
     Object? itemId = freezed,
+    Object? name = freezed,
     Object? imageUrl = freezed,
     Object? aspectRatio = freezed,
     Object? externalLink = freezed,
@@ -105,6 +110,10 @@ class _$CarouselModelCopyWithImpl<$Res>
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as int,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -132,6 +141,7 @@ abstract class _$CarouselModelCopyWith<$Res>
       {int id,
       int shopId,
       int itemId,
+      String? name,
       String imageUrl,
       double aspectRatio,
       String? externalLink});
@@ -153,6 +163,7 @@ class __$CarouselModelCopyWithImpl<$Res>
     Object? id = freezed,
     Object? shopId = freezed,
     Object? itemId = freezed,
+    Object? name = freezed,
     Object? imageUrl = freezed,
     Object? aspectRatio = freezed,
     Object? externalLink = freezed,
@@ -170,6 +181,10 @@ class __$CarouselModelCopyWithImpl<$Res>
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
               as int,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
@@ -193,6 +208,7 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
       {required this.id,
       required this.shopId,
       required this.itemId,
+      this.name,
       required this.imageUrl,
       required this.aspectRatio,
       this.externalLink});
@@ -207,6 +223,8 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
   @override
   final int itemId;
   @override
+  final String? name;
+  @override
   final String imageUrl;
   @override
   final double aspectRatio;
@@ -215,7 +233,7 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'CarouselModel(id: $id, shopId: $shopId, itemId: $itemId, imageUrl: $imageUrl, aspectRatio: $aspectRatio, externalLink: $externalLink)';
+    return 'CarouselModel(id: $id, shopId: $shopId, itemId: $itemId, name: $name, imageUrl: $imageUrl, aspectRatio: $aspectRatio, externalLink: $externalLink)';
   }
 
   @override
@@ -226,6 +244,7 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('shopId', shopId))
       ..add(DiagnosticsProperty('itemId', itemId))
+      ..add(DiagnosticsProperty('name', name))
       ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('aspectRatio', aspectRatio))
       ..add(DiagnosticsProperty('externalLink', externalLink));
@@ -241,6 +260,8 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
                 const DeepCollectionEquality().equals(other.shopId, shopId)) &&
             (identical(other.itemId, itemId) ||
                 const DeepCollectionEquality().equals(other.itemId, itemId)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.imageUrl, imageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.imageUrl, imageUrl)) &&
@@ -258,6 +279,7 @@ class _$_CarouselModel with DiagnosticableTreeMixin implements _CarouselModel {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(shopId) ^
       const DeepCollectionEquality().hash(itemId) ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(aspectRatio) ^
       const DeepCollectionEquality().hash(externalLink);
@@ -278,6 +300,7 @@ abstract class _CarouselModel implements CarouselModel {
       {required int id,
       required int shopId,
       required int itemId,
+      String? name,
       required String imageUrl,
       required double aspectRatio,
       String? externalLink}) = _$_CarouselModel;
@@ -291,6 +314,8 @@ abstract class _CarouselModel implements CarouselModel {
   int get shopId => throw _privateConstructorUsedError;
   @override
   int get itemId => throw _privateConstructorUsedError;
+  @override
+  String? get name => throw _privateConstructorUsedError;
   @override
   String get imageUrl => throw _privateConstructorUsedError;
   @override

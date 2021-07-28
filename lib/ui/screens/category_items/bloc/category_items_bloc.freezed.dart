@@ -212,7 +212,7 @@ class _$CategoryItemsStateTearOff {
     return const _Loading();
   }
 
-  _Loaded loaded(List<ItemModel> data) {
+  _Loaded loaded(List<SubCategoryModel> data) {
     return _Loaded(
       data,
     );
@@ -233,14 +233,14 @@ mixin _$CategoryItemsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ItemModel> data) loaded,
+    required TResult Function(List<SubCategoryModel> data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ItemModel> data)? loaded,
+    TResult Function(List<SubCategoryModel> data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
@@ -318,7 +318,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ItemModel> data) loaded,
+    required TResult Function(List<SubCategoryModel> data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
@@ -328,7 +328,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ItemModel> data)? loaded,
+    TResult Function(List<SubCategoryModel> data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -371,7 +371,7 @@ abstract class _Loading implements CategoryItemsState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<ItemModel> data});
+  $Res call({List<SubCategoryModel> data});
 }
 
 /// @nodoc
@@ -391,7 +391,7 @@ class __$LoadedCopyWithImpl<$Res> extends _$CategoryItemsStateCopyWithImpl<$Res>
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<ItemModel>,
+              as List<SubCategoryModel>,
     ));
   }
 }
@@ -402,7 +402,7 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded(this.data);
 
   @override
-  final List<ItemModel> data;
+  final List<SubCategoryModel> data;
 
   @override
   String toString() {
@@ -430,7 +430,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ItemModel> data) loaded,
+    required TResult Function(List<SubCategoryModel> data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
@@ -440,7 +440,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ItemModel> data)? loaded,
+    TResult Function(List<SubCategoryModel> data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -476,9 +476,9 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements CategoryItemsState {
-  const factory _Loaded(List<ItemModel> data) = _$_Loaded;
+  const factory _Loaded(List<SubCategoryModel> data) = _$_Loaded;
 
-  List<ItemModel> get data => throw _privateConstructorUsedError;
+  List<SubCategoryModel> get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -556,7 +556,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ItemModel> data) loaded,
+    required TResult Function(List<SubCategoryModel> data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return failed(exceptions);
@@ -566,7 +566,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ItemModel> data)? loaded,
+    TResult Function(List<SubCategoryModel> data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
