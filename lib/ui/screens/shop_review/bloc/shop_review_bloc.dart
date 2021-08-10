@@ -41,5 +41,19 @@ class ShopReviewBloc extends Bloc<ShopReviewEvent, ShopReviewState> {
           },
           failure: (error) => emit(_Failed(error)));
     }
+
+    if (event is _EditReview) {
+      yield _Loading();
+      final addResponse = await repository.editShopReviews(
+          event.rating, event.review, event.reviewId);
+      addResponse.when(
+          success: (data) async {
+            final response = await repository.fetchShopReviews(shopId);
+            response.when(
+                success: (data) => emit(_Loaded(data)),
+                failure: (error) => emit(_Failed(error)));
+          },
+          failure: (error) => emit(_Failed(error)));
+    }
   }
 }

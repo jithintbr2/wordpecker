@@ -8,6 +8,7 @@ class ServiceModel with _$ServiceModel {
   const factory ServiceModel({
     required int id,
     required String serviceName,
+    required String description,
     @JsonKey(name: 'image_url') required String imageUrl,
   }) = _ServiceModel;
 

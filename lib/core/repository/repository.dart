@@ -3,6 +3,7 @@ import 'package:version/version.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/app_version/app_verification_model.dart';
 import 'package:woodle/core/models/app_version/app_version_model.dart';
+import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
 import 'package:woodle/core/models/home_search/home_search_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
@@ -257,7 +258,7 @@ class ApplicationRepository {
 
   ///Fetch Shop Reviews
   Future<ApiResponse<ShopReviewModel>> fetchShopReviews(int shopId) {
-    Map<String, dynamic> parameters = {"shop_id": shopId};
+    Map<String, dynamic> parameters = {"shopId": shopId};
     return _client
         .getRequest('/list_all_reviews', parameters: parameters)
         .then((response) => ApiResponse.success(
@@ -269,7 +270,7 @@ class ApplicationRepository {
     });
   }
 
-  ///Fetch Shop Reviews
+  ///Add Shop Reviews
   Future<ApiResponse<bool>> addShopReviews(
       double rating, String? review, int shopId) {
     Map<String, dynamic> parameters = {
@@ -279,6 +280,24 @@ class ApplicationRepository {
     };
     return _client
         .getRequest('/add_shop_review', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Edit Shop Reviews
+  Future<ApiResponse<bool>> editShopReviews(
+      double rating, String? review, int reviewId) {
+    Map<String, dynamic> parameters = {
+      "rating": rating,
+      "review": review,
+      "reviewId": reviewId
+    };
+    return _client
+        .getRequest('/edit_shop_review', parameters: parameters)
         .then((response) => ApiResponse.success(data: response['data'] as bool))
         .onError((error, _) {
       print(_);
@@ -313,12 +332,42 @@ class ApplicationRepository {
     });
   }
 
+  /// Check Written Coupon
+  Future<ApiResponse<CouponOrString>> checkCoupon(
+      List items, String couponCode, int shopId, double deliveryCharge) {
+    Map<String, dynamic> parameters = {
+      "items": items,
+      "couponCode": couponCode,
+      "shopId": shopId,
+      "deliveryCharge": deliveryCharge
+    };
+    return _client
+        .postRequest('/coupon_code_check', parameters: parameters)
+        .then((response) => ApiResponse.success(
+            data: CouponOrString(
+                message: response['message'],
+                applicableOn: response['data']['ids'] != null
+                    ? response['data']['ids'] as List
+                    : [],
+                coupon: response['data']['coupon'] != null
+                    ? CouponModel.fromJson(response['data']['coupon'])
+                    : null)))
+        .onError((error, _) {
+      print('.....eerorr');
+      print(_);
+      print('eerorr.....');
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
   /// Fetch Order Preview Options and Addons
   Future<ApiResponse<OrderPreviewModel>> fetchOrderPreviewOptions(
-      int franchiseId, int addressId) {
+      int franchiseId, int addressId, int shopId) {
     Map<String, dynamic> parameters = {
       "addressId": addressId,
-      "franchiseId": franchiseId
+      "franchiseId": franchiseId,
+      "shopId": shopId
     };
     return _client
         .getRequest('/general_details', parameters: parameters)
@@ -473,5 +522,73 @@ class ApplicationRepository {
       return ApiResponse.failure(
           error: NetworkExceptions.getDioExceptions(error));
     });
+  }
+
+  /// Service Request
+  Future<ApiResponse<bool>> requestService(
+    int franchiseId,
+    int service,
+    String jobTitle,
+    String jobDescription,
+    String preferableDate,
+    String time,
+  ) {
+    Map<String, dynamic> parameters = {
+      "franchiseId": franchiseId,
+      "service": service,
+      "jobTitle": jobTitle,
+      "jobDescription": jobDescription,
+      "preferableDate": preferableDate,
+      "time": time
+    };
+    return _client
+        .getRequest('/add_request_service', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  Future<ApiResponse<bool>> changePassword(String password) {
+    Map<String, dynamic> parameters = {"password": password};
+    return _client
+        .getRequest('/change_password', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  Future<ApiResponse<bool>> resetPassword(String phone, String password) {
+    Map<String, dynamic> parameters = {"password": password};
+    return _client
+        .getRequest('/reset_password', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  Future<ApiResponse<bool>> requestItems(
+    List items,
+    int franchiseId,
+    String remark,
+  ) {
+    Map<String, dynamic> parameters = {
+      "items": items,
+      "franchiseId": franchiseId,
+      "remark": remark
+    };
+    return _client.postRequest('/request_item', parameters: parameters).then(
+        (response) {
+      return ApiResponse.success(data: response['data'] as bool);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }
 }

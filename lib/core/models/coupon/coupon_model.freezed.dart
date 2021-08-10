@@ -354,3 +354,207 @@ abstract class _CouponModel implements CouponModel {
   _$CouponModelCopyWith<_CouponModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$CouponOrStringTearOff {
+  const _$CouponOrStringTearOff();
+
+  _CouponOrString call(
+      {CouponModel? coupon,
+      List<dynamic>? applicableOn,
+      required String message}) {
+    return _CouponOrString(
+      coupon: coupon,
+      applicableOn: applicableOn,
+      message: message,
+    );
+  }
+}
+
+/// @nodoc
+const $CouponOrString = _$CouponOrStringTearOff();
+
+/// @nodoc
+mixin _$CouponOrString {
+  CouponModel? get coupon => throw _privateConstructorUsedError;
+  List<dynamic>? get applicableOn => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $CouponOrStringCopyWith<CouponOrString> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CouponOrStringCopyWith<$Res> {
+  factory $CouponOrStringCopyWith(
+          CouponOrString value, $Res Function(CouponOrString) then) =
+      _$CouponOrStringCopyWithImpl<$Res>;
+  $Res call({CouponModel? coupon, List<dynamic>? applicableOn, String message});
+
+  $CouponModelCopyWith<$Res>? get coupon;
+}
+
+/// @nodoc
+class _$CouponOrStringCopyWithImpl<$Res>
+    implements $CouponOrStringCopyWith<$Res> {
+  _$CouponOrStringCopyWithImpl(this._value, this._then);
+
+  final CouponOrString _value;
+  // ignore: unused_field
+  final $Res Function(CouponOrString) _then;
+
+  @override
+  $Res call({
+    Object? coupon = freezed,
+    Object? applicableOn = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_value.copyWith(
+      coupon: coupon == freezed
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponModel?,
+      applicableOn: applicableOn == freezed
+          ? _value.applicableOn
+          : applicableOn // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+
+  @override
+  $CouponModelCopyWith<$Res>? get coupon {
+    if (_value.coupon == null) {
+      return null;
+    }
+
+    return $CouponModelCopyWith<$Res>(_value.coupon!, (value) {
+      return _then(_value.copyWith(coupon: value));
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$CouponOrStringCopyWith<$Res>
+    implements $CouponOrStringCopyWith<$Res> {
+  factory _$CouponOrStringCopyWith(
+          _CouponOrString value, $Res Function(_CouponOrString) then) =
+      __$CouponOrStringCopyWithImpl<$Res>;
+  @override
+  $Res call({CouponModel? coupon, List<dynamic>? applicableOn, String message});
+
+  @override
+  $CouponModelCopyWith<$Res>? get coupon;
+}
+
+/// @nodoc
+class __$CouponOrStringCopyWithImpl<$Res>
+    extends _$CouponOrStringCopyWithImpl<$Res>
+    implements _$CouponOrStringCopyWith<$Res> {
+  __$CouponOrStringCopyWithImpl(
+      _CouponOrString _value, $Res Function(_CouponOrString) _then)
+      : super(_value, (v) => _then(v as _CouponOrString));
+
+  @override
+  _CouponOrString get _value => super._value as _CouponOrString;
+
+  @override
+  $Res call({
+    Object? coupon = freezed,
+    Object? applicableOn = freezed,
+    Object? message = freezed,
+  }) {
+    return _then(_CouponOrString(
+      coupon: coupon == freezed
+          ? _value.coupon
+          : coupon // ignore: cast_nullable_to_non_nullable
+              as CouponModel?,
+      applicableOn: applicableOn == freezed
+          ? _value.applicableOn
+          : applicableOn // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_CouponOrString
+    with DiagnosticableTreeMixin
+    implements _CouponOrString {
+  const _$_CouponOrString(
+      {this.coupon, this.applicableOn, required this.message});
+
+  @override
+  final CouponModel? coupon;
+  @override
+  final List<dynamic>? applicableOn;
+  @override
+  final String message;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'CouponOrString(coupon: $coupon, applicableOn: $applicableOn, message: $message)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'CouponOrString'))
+      ..add(DiagnosticsProperty('coupon', coupon))
+      ..add(DiagnosticsProperty('applicableOn', applicableOn))
+      ..add(DiagnosticsProperty('message', message));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _CouponOrString &&
+            (identical(other.coupon, coupon) ||
+                const DeepCollectionEquality().equals(other.coupon, coupon)) &&
+            (identical(other.applicableOn, applicableOn) ||
+                const DeepCollectionEquality()
+                    .equals(other.applicableOn, applicableOn)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(coupon) ^
+      const DeepCollectionEquality().hash(applicableOn) ^
+      const DeepCollectionEquality().hash(message);
+
+  @JsonKey(ignore: true)
+  @override
+  _$CouponOrStringCopyWith<_CouponOrString> get copyWith =>
+      __$CouponOrStringCopyWithImpl<_CouponOrString>(this, _$identity);
+}
+
+abstract class _CouponOrString implements CouponOrString {
+  const factory _CouponOrString(
+      {CouponModel? coupon,
+      List<dynamic>? applicableOn,
+      required String message}) = _$_CouponOrString;
+
+  @override
+  CouponModel? get coupon => throw _privateConstructorUsedError;
+  @override
+  List<dynamic>? get applicableOn => throw _privateConstructorUsedError;
+  @override
+  String get message => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$CouponOrStringCopyWith<_CouponOrString> get copyWith =>
+      throw _privateConstructorUsedError;
+}

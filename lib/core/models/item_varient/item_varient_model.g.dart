@@ -24,6 +24,7 @@ _$_ItemVarientModel _$_$_ItemVarientModelFromJson(Map<String, dynamic> json) {
             ?.map((e) => e as String)
             .toList() ??
         [],
+    aspectRatio: (json['aspectRatio'] as num?)?.toDouble() ?? 1,
   );
 }
 
@@ -43,4 +44,5 @@ Map<String, dynamic> _$_$_ItemVarientModelToJson(
       'mrp': instance.mrp,
       'maxQuantity': instance.maxQuantity,
       'itemImages': instance.itemImages,
+      'aspectRatio': instance.aspectRatio,
     };

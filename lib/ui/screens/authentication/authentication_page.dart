@@ -5,6 +5,7 @@ import 'package:woodle/ui/screens/authentication/bloc/authenticationpage_bloc.da
 import 'package:woodle/ui/screens/authentication/widgets/body_card.dart';
 import 'package:woodle/ui/screens/authentication/widgets/otp_card.dart';
 import 'package:woodle/ui/screens/authentication/widgets/register_card.dart';
+import 'package:woodle/ui/screens/authentication/widgets/reset_card.dart';
 import 'package:woodle/ui/screens/authentication/widgets/styled_scaffold.dart';
 
 class AuthenticationPage extends HookWidget {
@@ -50,11 +51,14 @@ class AuthenticationPage extends HookWidget {
               return null;
             },
             controller: _passwordController,
+            onForgotPassword: () => context
+                .read<AuthenticationpageBloc>()
+                .add(AuthenticationpageEvent.yeildOTPState()),
             onSubmit: () => context.read<AuthenticationpageBloc>().add(
                 AuthenticationpageEvent.login(
                     phone: _phoneController.text,
                     password: _passwordController.text)));
-      }, otpState: () {
+      }, otpState: (isResetting) {
         _viewer = OTPCard(
             sendOTP: (signature, generatedOTP) => context
                 .read<AuthenticationpageBloc>()
@@ -65,7 +69,9 @@ class AuthenticationPage extends HookWidget {
             otp: _otpController,
             yeildRegisterState: () => context
                 .read<AuthenticationpageBloc>()
-                .add(AuthenticationpageEvent.yeildRegisterState()));
+                .add(isResetting
+                    ? AuthenticationpageEvent.yeildResetState()
+                    : AuthenticationpageEvent.yeildRegisterState()));
       }, registerState: (isLoading) {
         _viewer = RegisterCard(
           onRegister: () => context.read<AuthenticationpageBloc>().add(
@@ -81,6 +87,15 @@ class AuthenticationPage extends HookWidget {
           isLoading: isLoading,
           referalId: referredLink == null ? _referalController : null,
         );
+      }, resetState: (isLoading) {
+        _viewer = ResetCard(
+            onReset: () => context.read<AuthenticationpageBloc>().add(
+                AuthenticationpageEvent.resetPassword(
+                    phone: _phoneController.text,
+                    password: _passwordController.text)),
+            password: _passwordController,
+            passwordConfirmation: _passwordConfirmController,
+            isLoading: isLoading);
       });
       return _viewer;
     }));

@@ -33,7 +33,8 @@ class _$ItemVarientModelTearOff {
       @JsonKey(name: "itemCost") double? salePrice,
       required double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: []) List<String>? itemImages}) {
+      @JsonKey(defaultValue: []) List<String>? itemImages,
+      @JsonKey(defaultValue: 1) double? aspectRatio}) {
     return _ItemVarientModel(
       varientId: varientId,
       varientType: varientType,
@@ -48,6 +49,7 @@ class _$ItemVarientModelTearOff {
       mrp: mrp,
       maxQuantity: maxQuantity,
       itemImages: itemImages,
+      aspectRatio: aspectRatio,
     );
   }
 
@@ -77,6 +79,8 @@ mixin _$ItemVarientModel {
   int? get maxQuantity => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: [])
   List<String>? get itemImages => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: 1)
+  double? get aspectRatio => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -102,7 +106,8 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: []) List<String>? itemImages});
+      @JsonKey(defaultValue: []) List<String>? itemImages,
+      @JsonKey(defaultValue: 1) double? aspectRatio});
 }
 
 /// @nodoc
@@ -129,6 +134,7 @@ class _$ItemVarientModelCopyWithImpl<$Res>
     Object? mrp = freezed,
     Object? maxQuantity = freezed,
     Object? itemImages = freezed,
+    Object? aspectRatio = freezed,
   }) {
     return _then(_value.copyWith(
       varientId: varientId == freezed
@@ -183,6 +189,10 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemImages
           : itemImages // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      aspectRatio: aspectRatio == freezed
+          ? _value.aspectRatio
+          : aspectRatio // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -207,7 +217,8 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       @JsonKey(name: "itemCost") double? salePrice,
       double mrp,
       int? maxQuantity,
-      @JsonKey(defaultValue: []) List<String>? itemImages});
+      @JsonKey(defaultValue: []) List<String>? itemImages,
+      @JsonKey(defaultValue: 1) double? aspectRatio});
 }
 
 /// @nodoc
@@ -236,6 +247,7 @@ class __$ItemVarientModelCopyWithImpl<$Res>
     Object? mrp = freezed,
     Object? maxQuantity = freezed,
     Object? itemImages = freezed,
+    Object? aspectRatio = freezed,
   }) {
     return _then(_ItemVarientModel(
       varientId: varientId == freezed
@@ -290,6 +302,10 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.itemImages
           : itemImages // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      aspectRatio: aspectRatio == freezed
+          ? _value.aspectRatio
+          : aspectRatio // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -312,7 +328,8 @@ class _$_ItemVarientModel
       @JsonKey(name: "itemCost") this.salePrice,
       required this.mrp,
       this.maxQuantity,
-      @JsonKey(defaultValue: []) this.itemImages});
+      @JsonKey(defaultValue: []) this.itemImages,
+      @JsonKey(defaultValue: 1) this.aspectRatio});
 
   factory _$_ItemVarientModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemVarientModelFromJson(json);
@@ -346,10 +363,13 @@ class _$_ItemVarientModel
   @override
   @JsonKey(defaultValue: [])
   final List<String>? itemImages;
+  @override
+  @JsonKey(defaultValue: 1)
+  final double? aspectRatio;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages)';
+    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages, aspectRatio: $aspectRatio)';
   }
 
   @override
@@ -369,7 +389,8 @@ class _$_ItemVarientModel
       ..add(DiagnosticsProperty('salePrice', salePrice))
       ..add(DiagnosticsProperty('mrp', mrp))
       ..add(DiagnosticsProperty('maxQuantity', maxQuantity))
-      ..add(DiagnosticsProperty('itemImages', itemImages));
+      ..add(DiagnosticsProperty('itemImages', itemImages))
+      ..add(DiagnosticsProperty('aspectRatio', aspectRatio));
   }
 
   @override
@@ -410,7 +431,10 @@ class _$_ItemVarientModel
                     .equals(other.maxQuantity, maxQuantity)) &&
             (identical(other.itemImages, itemImages) ||
                 const DeepCollectionEquality()
-                    .equals(other.itemImages, itemImages)));
+                    .equals(other.itemImages, itemImages)) &&
+            (identical(other.aspectRatio, aspectRatio) ||
+                const DeepCollectionEquality()
+                    .equals(other.aspectRatio, aspectRatio)));
   }
 
   @override
@@ -428,7 +452,8 @@ class _$_ItemVarientModel
       const DeepCollectionEquality().hash(salePrice) ^
       const DeepCollectionEquality().hash(mrp) ^
       const DeepCollectionEquality().hash(maxQuantity) ^
-      const DeepCollectionEquality().hash(itemImages);
+      const DeepCollectionEquality().hash(itemImages) ^
+      const DeepCollectionEquality().hash(aspectRatio);
 
   @JsonKey(ignore: true)
   @override
@@ -443,20 +468,20 @@ class _$_ItemVarientModel
 
 abstract class _ItemVarientModel implements ItemVarientModel {
   const factory _ItemVarientModel(
-          {required int varientId,
-          required String varientType,
-          required String varientName,
-          required String itemName,
-          required int itemId,
-          required int shopId,
-          required String shopName,
-          @JsonKey(name: "imgUrl") required String image,
-          String? description,
-          @JsonKey(name: "itemCost") double? salePrice,
-          required double mrp,
-          int? maxQuantity,
-          @JsonKey(defaultValue: []) List<String>? itemImages}) =
-      _$_ItemVarientModel;
+      {required int varientId,
+      required String varientType,
+      required String varientName,
+      required String itemName,
+      required int itemId,
+      required int shopId,
+      required String shopName,
+      @JsonKey(name: "imgUrl") required String image,
+      String? description,
+      @JsonKey(name: "itemCost") double? salePrice,
+      required double mrp,
+      int? maxQuantity,
+      @JsonKey(defaultValue: []) List<String>? itemImages,
+      @JsonKey(defaultValue: 1) double? aspectRatio}) = _$_ItemVarientModel;
 
   factory _ItemVarientModel.fromJson(Map<String, dynamic> json) =
       _$_ItemVarientModel.fromJson;
@@ -490,6 +515,9 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   @override
   @JsonKey(defaultValue: [])
   List<String>? get itemImages => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(defaultValue: 1)
+  double? get aspectRatio => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ItemVarientModelCopyWith<_ItemVarientModel> get copyWith =>

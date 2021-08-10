@@ -20,3 +20,12 @@ class CouponModel with _$CouponModel {
   factory CouponModel.fromJson(Map<String, dynamic> json) =>
       _$CouponModelFromJson(json);
 }
+
+@freezed
+class CouponOrString with _$CouponOrString {
+  const factory CouponOrString({
+    CouponModel? coupon,
+    List? applicableOn,
+    required String message,
+  }) = _CouponOrString;
+}

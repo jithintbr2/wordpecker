@@ -98,48 +98,74 @@ class HomePage extends HookWidget {
   }
 
   _buildPage(BuildContext context, HomePageModel data) {
-    return ListView(
-      padding: EdgeInsets.symmetric(vertical: 10),
+    return Stack(
       children: [
-        Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
-        SizedBox(height: 10),
-        MarqueeWidget(text: data.message ?? ''),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Carousel(items: data.carouselx2 ?? [], viewportFraction: 1)),
-        SizedBox(height: 10),
-        Category(
-          title: 'Items',
-          items: data.itemCategories ?? [],
-          limit: Config.itemCategoriesLimit,
-          onTap: (index) =>
-              Navigator.of(context).pushNamed('/itemList', arguments: {
-            "categories": data.itemCategories,
-            "categoryName": data.itemCategories![index].title,
-            "categoryId": data.itemCategories![index].id
-          }),
+        ListView(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          children: [
+            Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
+            SizedBox(height: 10),
+            MarqueeWidget(text: data.message ?? ''),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Carousel(
+                    items: data.carouselx2 ?? [], viewportFraction: 1)),
+            SizedBox(height: 10),
+            Category(
+              title: 'Items',
+              items: data.itemCategories ?? [],
+              limit: Config.itemCategoriesLimit,
+              onTap: (index) =>
+                  Navigator.of(context).pushNamed('/itemList', arguments: {
+                "categories": data.itemCategories,
+                "categoryName": data.itemCategories![index].title,
+                "categoryId": data.itemCategories![index].id
+              }),
+            ),
+            SizedBox(height: 10),
+            Category(
+              title: 'Shops',
+              items: data.shopCategories ?? [],
+              limit: Config.shopCategoriesLimit,
+              onTap: (index) =>
+                  Navigator.of(context).pushNamed('/shopList', arguments: {
+                "categoryName": data.shopCategories![index].title,
+                "categoryId": data.shopCategories![index].id
+              }),
+            ),
+            SizedBox(height: 10),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Carousel(
+                    items: data.carouselx3 ?? [], viewportFraction: 1)),
+            SizedBox(height: 10),
+            SpecialOffers(data: data.homeCategoreis),
+            SizedBox(height: 10),
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                child: Carousel(
+                    items: data.carouselx4 ?? [], viewportFraction: 1)),
+            SizedBox(height: 60)
+          ],
         ),
-        SizedBox(height: 10),
-        Category(
-          title: 'Shops',
-          items: data.shopCategories ?? [],
-          limit: Config.shopCategoriesLimit,
-          onTap: (index) =>
-              Navigator.of(context).pushNamed('/shopList', arguments: {
-            "categoryName": data.shopCategories![index].title,
-            "categoryId": data.shopCategories![index].id
-          }),
-        ),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Carousel(items: data.carouselx3 ?? [], viewportFraction: 1)),
-        SizedBox(height: 10),
-        SpecialOffers(data: data.homeCategoreis),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Carousel(items: data.carouselx4 ?? [], viewportFraction: 1))
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: data.isPendingOrders
+              ? Container(
+                  color: Theme.of(context).primaryColor,
+                  child: ListTile(
+                      leading: Icon(
+                        Icons.card_giftcard,
+                        color: Colors.white,
+                      ),
+                      title: Text(
+                        'Your orders are being processed.',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onTap: () => Navigator.pushNamed(context, '/orders')),
+                )
+              : SizedBox(),
+        )
       ],
     );
   }

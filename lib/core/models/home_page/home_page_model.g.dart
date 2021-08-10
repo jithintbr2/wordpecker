@@ -32,6 +32,7 @@ _$_HomePageModel _$_$_HomePageModelFromJson(Map<String, dynamic> json) {
         ?.map((e) => HomeCategoriesModel.fromJson(e as Map<String, dynamic>))
         .toList(),
     contactNumber: json['contactNumber'] as int?,
+    isPendingOrders: json['isPendingOrders'] as bool,
   );
 }
 
@@ -47,6 +48,7 @@ Map<String, dynamic> _$_$_HomePageModelToJson(_$_HomePageModel instance) =>
       'minimum_order_cost': instance.minOrderCost,
       'homeCategoreis': instance.homeCategoreis,
       'contactNumber': instance.contactNumber,
+      'isPendingOrders': instance.isPendingOrders,
     };
 
 _$_HomeCategoriesModel _$_$_HomeCategoriesModelFromJson(

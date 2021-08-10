@@ -24,20 +24,32 @@ class CategoryItemsBuild extends HookWidget {
     required this.service,
   }) : super(key: key);
 
-  Widget _buildSubCategoryItem(SubCategoryModel item) => Card(
+  Widget _buildSubCategoryItem(
+          BuildContext context, SubCategoryModel item, bool isSelected) =>
+      Card(
+        elevation: isSelected ? 5 : 1,
         clipBehavior: Clip.antiAliasWithSaveLayer,
-        child: Stack(
-          children: [
-            Container(
+        child: Container(
+          height: 100,
+          width: 100,
+          decoration: isSelected
+              ? BoxDecoration(
+                  border: Border.all(
+                      color: Theme.of(context).primaryColor, width: 2))
+              : null,
+          child: Stack(children: [
+            SizedBox(
+              child: CachedNetworkImage(
                 height: 100,
                 width: 100,
-                child: CachedNetworkImage(
-                  imageUrl: item.items.length > 0 ? item.items[0].image : '',
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) =>
-                      Center(child: Image.asset(Assets.appIcon)),
-                  errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
-                )),
+                // imageUrl: item.items.length > 0 ? item.items[0].image : '',
+                imageUrl: item.imageUrl ?? '',
+                fit: BoxFit.cover,
+                placeholder: (_, __) =>
+                    Center(child: Image.asset(Assets.appIcon)),
+                errorWidget: (_, __, ___) => Center(child: Icon(Icons.error)),
+              ),
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
@@ -49,7 +61,7 @@ class CategoryItemsBuild extends HookWidget {
                     textAlign: TextAlign.center,
                   )),
             )
-          ],
+          ]),
         ),
       );
 
@@ -88,7 +100,8 @@ class CategoryItemsBuild extends HookWidget {
                     shrinkWrap: true,
                     itemBuilder: (context, index) => InkWell(
                         onTap: () => _selectedSubCategory.value = index,
-                        child: _buildSubCategoryItem(data[index])),
+                        child: _buildSubCategoryItem(context, data[index],
+                            _selectedSubCategory.value == index)),
                     itemCount: data.length,
                     scrollDirection: Axis.horizontal,
                   )),
@@ -137,7 +150,8 @@ class CategoryItemsBuild extends HookWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) => InkWell(
                               onTap: () => _selectedSubCategory.value = index,
-                              child: _buildSubCategoryItem(data[index])),
+                              child: _buildSubCategoryItem(context, data[index],
+                                  _selectedSubCategory.value == index)),
                           itemCount: data.length,
                           scrollDirection: Axis.horizontal,
                         )),
@@ -150,8 +164,8 @@ class CategoryItemsBuild extends HookWidget {
                           if (filteredData[index].varients.length == 1) {
                             return ItemVarientTile(
                               item: filteredData[index].varients[0],
-                              onAdd: () => service
-                                  .addItem(filteredData[index].varients[0]),
+                              onAdd: () => service.addItem(
+                                  context, filteredData[index].varients[0]),
                               onRemove: () => service
                                   .removeItem(filteredData[index].varients[0]),
                               quantity: _getCartQuantity(snap.data,
@@ -167,7 +181,7 @@ class CategoryItemsBuild extends HookWidget {
                             item: filteredData[index],
                             service: service,
                             cartItems: snap.data,
-                            onAdd: (item) => service.addItem(item),
+                            onAdd: (item) => service.addItem(context, item),
                             onRemove: (item) => service.removeItem(item),
                             onTap: () => Navigator.of(context)
                                 .pushNamed('/item', arguments: {

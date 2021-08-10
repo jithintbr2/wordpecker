@@ -10,6 +10,7 @@ class SubCategoryModel with _$SubCategoryModel {
   const factory SubCategoryModel({
     @JsonKey(name: "sub_cat_id") required int id,
     @JsonKey(name: "sub_cat_name") required String name,
+    required String? imageUrl,
     required List<ItemModel> items,
   }) = _SubCategoryModel;
 

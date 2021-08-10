@@ -39,7 +39,7 @@ class AuthenticationpageBloc
         if (isVerified)
           yield _LoginState(isLoading: false);
         else
-          yield _OTPState();
+          yield _OTPState(false);
       } catch (e) {}
     }
 
@@ -47,6 +47,38 @@ class AuthenticationpageBloc
       repository.sendOTP(event.phone, event.signature, event.otp);
 
     if (event is _YieldRegisterState) yield _RegisterState(isLoading: false);
+
+    if (event is _YieldOTPState) yield _OTPState(true);
+
+    if (event is _YieldResetState) yield _ResetState(isLoading: false);
+
+    if (event is _ResetPassword) {
+      yield _ResetState(isLoading: true);
+      final response =
+          await repository.resetPassword(event.phone, event.password);
+
+      response.when(success: (isDone) {
+        if (isDone) {
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Password Changed Succesfully'),
+            backgroundColor: Colors.green,
+            elevation: 10,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.all(10),
+          ));
+        }
+      }, failure: (error) {
+        emit(_ResetState(isLoading: false));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Something Went Wrong'),
+          backgroundColor: Colors.red,
+          elevation: 10,
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.all(10),
+        ));
+      });
+    }
 
     if (event is _Login) {
       yield _LoginState(isLoading: true);

@@ -196,7 +196,8 @@ class ShopPage extends HookWidget {
                             }),
                     margin: EdgeInsets.zero,
                     item: data[index].varients[0],
-                    onAdd: () => service.addItem(data[index].varients[0]),
+                    onAdd: () =>
+                        service.addItem(context, data[index].varients[0]),
                     onRemove: () => service.removeItem(data[index].varients[0]),
                     quantity: _getCartQuantity(
                         snap.data, data[index].varients[0].varientId));
@@ -213,7 +214,7 @@ class ShopPage extends HookWidget {
                   item: data[index],
                   service: service,
                   cartItems: snap.data,
-                  onAdd: (item) => service.addItem(item),
+                  onAdd: (item) => service.addItem(context, item),
                   onRemove: (item) => service.removeItem(item));
             }
             return Container();

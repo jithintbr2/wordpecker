@@ -23,10 +23,12 @@ class _$ServiceModelTearOff {
   _ServiceModel call(
       {required int id,
       required String serviceName,
+      required String description,
       @JsonKey(name: 'image_url') required String imageUrl}) {
     return _ServiceModel(
       id: id,
       serviceName: serviceName,
+      description: description,
       imageUrl: imageUrl,
     );
   }
@@ -43,6 +45,7 @@ const $ServiceModel = _$ServiceModelTearOff();
 mixin _$ServiceModel {
   int get id => throw _privateConstructorUsedError;
   String get serviceName => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;
 
@@ -60,6 +63,7 @@ abstract class $ServiceModelCopyWith<$Res> {
   $Res call(
       {int id,
       String serviceName,
+      String description,
       @JsonKey(name: 'image_url') String imageUrl});
 }
 
@@ -75,6 +79,7 @@ class _$ServiceModelCopyWithImpl<$Res> implements $ServiceModelCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? serviceName = freezed,
+    Object? description = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
@@ -85,6 +90,10 @@ class _$ServiceModelCopyWithImpl<$Res> implements $ServiceModelCopyWith<$Res> {
       serviceName: serviceName == freezed
           ? _value.serviceName
           : serviceName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -104,6 +113,7 @@ abstract class _$ServiceModelCopyWith<$Res>
   $Res call(
       {int id,
       String serviceName,
+      String description,
       @JsonKey(name: 'image_url') String imageUrl});
 }
 
@@ -121,6 +131,7 @@ class __$ServiceModelCopyWithImpl<$Res> extends _$ServiceModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? serviceName = freezed,
+    Object? description = freezed,
     Object? imageUrl = freezed,
   }) {
     return _then(_ServiceModel(
@@ -131,6 +142,10 @@ class __$ServiceModelCopyWithImpl<$Res> extends _$ServiceModelCopyWithImpl<$Res>
       serviceName: serviceName == freezed
           ? _value.serviceName
           : serviceName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
               as String,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -146,6 +161,7 @@ class _$_ServiceModel implements _ServiceModel {
   const _$_ServiceModel(
       {required this.id,
       required this.serviceName,
+      required this.description,
       @JsonKey(name: 'image_url') required this.imageUrl});
 
   factory _$_ServiceModel.fromJson(Map<String, dynamic> json) =>
@@ -156,12 +172,14 @@ class _$_ServiceModel implements _ServiceModel {
   @override
   final String serviceName;
   @override
+  final String description;
+  @override
   @JsonKey(name: 'image_url')
   final String imageUrl;
 
   @override
   String toString() {
-    return 'ServiceModel(id: $id, serviceName: $serviceName, imageUrl: $imageUrl)';
+    return 'ServiceModel(id: $id, serviceName: $serviceName, description: $description, imageUrl: $imageUrl)';
   }
 
   @override
@@ -173,6 +191,9 @@ class _$_ServiceModel implements _ServiceModel {
             (identical(other.serviceName, serviceName) ||
                 const DeepCollectionEquality()
                     .equals(other.serviceName, serviceName)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
             (identical(other.imageUrl, imageUrl) ||
                 const DeepCollectionEquality()
                     .equals(other.imageUrl, imageUrl)));
@@ -183,6 +204,7 @@ class _$_ServiceModel implements _ServiceModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(serviceName) ^
+      const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(imageUrl);
 
   @JsonKey(ignore: true)
@@ -200,6 +222,7 @@ abstract class _ServiceModel implements ServiceModel {
   const factory _ServiceModel(
       {required int id,
       required String serviceName,
+      required String description,
       @JsonKey(name: 'image_url') required String imageUrl}) = _$_ServiceModel;
 
   factory _ServiceModel.fromJson(Map<String, dynamic> json) =
@@ -209,6 +232,8 @@ abstract class _ServiceModel implements ServiceModel {
   int get id => throw _privateConstructorUsedError;
   @override
   String get serviceName => throw _privateConstructorUsedError;
+  @override
+  String get description => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'image_url')
   String get imageUrl => throw _privateConstructorUsedError;

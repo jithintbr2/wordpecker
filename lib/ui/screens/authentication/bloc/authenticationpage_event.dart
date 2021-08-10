@@ -22,4 +22,11 @@ class AuthenticationpageEvent with _$AuthenticationpageEvent {
     String? referredLink,
     String? referalId,
   }) = _Register;
+  const factory AuthenticationpageEvent.yeildOTPState() = _YieldOTPState;
+  const factory AuthenticationpageEvent.yeildResetState() = _YieldResetState;
+
+  const factory AuthenticationpageEvent.resetPassword({
+    required String phone,
+    required String password,
+  }) = _ResetPassword;
 }

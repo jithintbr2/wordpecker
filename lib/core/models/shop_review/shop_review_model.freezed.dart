@@ -22,7 +22,7 @@ class _$ShopReviewModelTearOff {
 
   _ShopReviewModel call(
       {@JsonKey(name: 'user_review')
-          required List<ShopReviewDataModel> userReview,
+          ShopReviewDataModel? userReview,
       @JsonKey(name: 'all_reviews')
           required List<ShopReviewDataModel> allReviews}) {
     return _ShopReviewModel(
@@ -42,8 +42,7 @@ const $ShopReviewModel = _$ShopReviewModelTearOff();
 /// @nodoc
 mixin _$ShopReviewModel {
   @JsonKey(name: 'user_review')
-  List<ShopReviewDataModel> get userReview =>
-      throw _privateConstructorUsedError;
+  ShopReviewDataModel? get userReview => throw _privateConstructorUsedError;
   @JsonKey(name: 'all_reviews')
   List<ShopReviewDataModel> get allReviews =>
       throw _privateConstructorUsedError;
@@ -60,8 +59,10 @@ abstract class $ShopReviewModelCopyWith<$Res> {
           ShopReviewModel value, $Res Function(ShopReviewModel) then) =
       _$ShopReviewModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'user_review') List<ShopReviewDataModel> userReview,
+      {@JsonKey(name: 'user_review') ShopReviewDataModel? userReview,
       @JsonKey(name: 'all_reviews') List<ShopReviewDataModel> allReviews});
+
+  $ShopReviewDataModelCopyWith<$Res>? get userReview;
 }
 
 /// @nodoc
@@ -82,12 +83,23 @@ class _$ShopReviewModelCopyWithImpl<$Res>
       userReview: userReview == freezed
           ? _value.userReview
           : userReview // ignore: cast_nullable_to_non_nullable
-              as List<ShopReviewDataModel>,
+              as ShopReviewDataModel?,
       allReviews: allReviews == freezed
           ? _value.allReviews
           : allReviews // ignore: cast_nullable_to_non_nullable
               as List<ShopReviewDataModel>,
     ));
+  }
+
+  @override
+  $ShopReviewDataModelCopyWith<$Res>? get userReview {
+    if (_value.userReview == null) {
+      return null;
+    }
+
+    return $ShopReviewDataModelCopyWith<$Res>(_value.userReview!, (value) {
+      return _then(_value.copyWith(userReview: value));
+    });
   }
 }
 
@@ -99,8 +111,11 @@ abstract class _$ShopReviewModelCopyWith<$Res>
       __$ShopReviewModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'user_review') List<ShopReviewDataModel> userReview,
+      {@JsonKey(name: 'user_review') ShopReviewDataModel? userReview,
       @JsonKey(name: 'all_reviews') List<ShopReviewDataModel> allReviews});
+
+  @override
+  $ShopReviewDataModelCopyWith<$Res>? get userReview;
 }
 
 /// @nodoc
@@ -123,7 +138,7 @@ class __$ShopReviewModelCopyWithImpl<$Res>
       userReview: userReview == freezed
           ? _value.userReview
           : userReview // ignore: cast_nullable_to_non_nullable
-              as List<ShopReviewDataModel>,
+              as ShopReviewDataModel?,
       allReviews: allReviews == freezed
           ? _value.allReviews
           : allReviews // ignore: cast_nullable_to_non_nullable
@@ -136,7 +151,7 @@ class __$ShopReviewModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ShopReviewModel implements _ShopReviewModel {
   const _$_ShopReviewModel(
-      {@JsonKey(name: 'user_review') required this.userReview,
+      {@JsonKey(name: 'user_review') this.userReview,
       @JsonKey(name: 'all_reviews') required this.allReviews});
 
   factory _$_ShopReviewModel.fromJson(Map<String, dynamic> json) =>
@@ -144,7 +159,7 @@ class _$_ShopReviewModel implements _ShopReviewModel {
 
   @override
   @JsonKey(name: 'user_review')
-  final List<ShopReviewDataModel> userReview;
+  final ShopReviewDataModel? userReview;
   @override
   @JsonKey(name: 'all_reviews')
   final List<ShopReviewDataModel> allReviews;
@@ -186,7 +201,7 @@ class _$_ShopReviewModel implements _ShopReviewModel {
 abstract class _ShopReviewModel implements ShopReviewModel {
   const factory _ShopReviewModel(
       {@JsonKey(name: 'user_review')
-          required List<ShopReviewDataModel> userReview,
+          ShopReviewDataModel? userReview,
       @JsonKey(name: 'all_reviews')
           required List<ShopReviewDataModel> allReviews}) = _$_ShopReviewModel;
 
@@ -195,8 +210,7 @@ abstract class _ShopReviewModel implements ShopReviewModel {
 
   @override
   @JsonKey(name: 'user_review')
-  List<ShopReviewDataModel> get userReview =>
-      throw _privateConstructorUsedError;
+  ShopReviewDataModel? get userReview => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'all_reviews')
   List<ShopReviewDataModel> get allReviews =>
@@ -216,17 +230,15 @@ class _$ShopReviewDataModelTearOff {
   const _$ShopReviewDataModelTearOff();
 
   _ShopReviewDataModel call(
-      {required String reviewId,
-      required String userId,
-      required String shopId,
-      required String rating,
+      {required int reviewId,
+      required int userId,
+      required int rating,
       required String review,
       required String date,
       required String userName}) {
     return _ShopReviewDataModel(
       reviewId: reviewId,
       userId: userId,
-      shopId: shopId,
       rating: rating,
       review: review,
       date: date,
@@ -244,14 +256,9 @@ const $ShopReviewDataModel = _$ShopReviewDataModelTearOff();
 
 /// @nodoc
 mixin _$ShopReviewDataModel {
-// required int reviewId,
-// required int userId,
-// required int shopId,
-// required int rating,
-  String get reviewId => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get shopId => throw _privateConstructorUsedError;
-  String get rating => throw _privateConstructorUsedError;
+  int get reviewId => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
   String get review => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
@@ -268,10 +275,9 @@ abstract class $ShopReviewDataModelCopyWith<$Res> {
           ShopReviewDataModel value, $Res Function(ShopReviewDataModel) then) =
       _$ShopReviewDataModelCopyWithImpl<$Res>;
   $Res call(
-      {String reviewId,
-      String userId,
-      String shopId,
-      String rating,
+      {int reviewId,
+      int userId,
+      int rating,
       String review,
       String date,
       String userName});
@@ -290,7 +296,6 @@ class _$ShopReviewDataModelCopyWithImpl<$Res>
   $Res call({
     Object? reviewId = freezed,
     Object? userId = freezed,
-    Object? shopId = freezed,
     Object? rating = freezed,
     Object? review = freezed,
     Object? date = freezed,
@@ -300,19 +305,15 @@ class _$ShopReviewDataModelCopyWithImpl<$Res>
       reviewId: reviewId == freezed
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       userId: userId == freezed
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      shopId: shopId == freezed
-          ? _value.shopId
-          : shopId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       review: review == freezed
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -337,10 +338,9 @@ abstract class _$ShopReviewDataModelCopyWith<$Res>
       __$ShopReviewDataModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String reviewId,
-      String userId,
-      String shopId,
-      String rating,
+      {int reviewId,
+      int userId,
+      int rating,
       String review,
       String date,
       String userName});
@@ -361,7 +361,6 @@ class __$ShopReviewDataModelCopyWithImpl<$Res>
   $Res call({
     Object? reviewId = freezed,
     Object? userId = freezed,
-    Object? shopId = freezed,
     Object? rating = freezed,
     Object? review = freezed,
     Object? date = freezed,
@@ -371,19 +370,15 @@ class __$ShopReviewDataModelCopyWithImpl<$Res>
       reviewId: reviewId == freezed
           ? _value.reviewId
           : reviewId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       userId: userId == freezed
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      shopId: shopId == freezed
-          ? _value.shopId
-          : shopId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       rating: rating == freezed
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       review: review == freezed
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
@@ -406,7 +401,6 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
   const _$_ShopReviewDataModel(
       {required this.reviewId,
       required this.userId,
-      required this.shopId,
       required this.rating,
       required this.review,
       required this.date,
@@ -415,17 +409,12 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
   factory _$_ShopReviewDataModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ShopReviewDataModelFromJson(json);
 
-  @override // required int reviewId,
-// required int userId,
-// required int shopId,
-// required int rating,
-  final String reviewId;
   @override
-  final String userId;
+  final int reviewId;
   @override
-  final String shopId;
+  final int userId;
   @override
-  final String rating;
+  final int rating;
   @override
   final String review;
   @override
@@ -435,7 +424,7 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
 
   @override
   String toString() {
-    return 'ShopReviewDataModel(reviewId: $reviewId, userId: $userId, shopId: $shopId, rating: $rating, review: $review, date: $date, userName: $userName)';
+    return 'ShopReviewDataModel(reviewId: $reviewId, userId: $userId, rating: $rating, review: $review, date: $date, userName: $userName)';
   }
 
   @override
@@ -447,8 +436,6 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
                     .equals(other.reviewId, reviewId)) &&
             (identical(other.userId, userId) ||
                 const DeepCollectionEquality().equals(other.userId, userId)) &&
-            (identical(other.shopId, shopId) ||
-                const DeepCollectionEquality().equals(other.shopId, shopId)) &&
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
             (identical(other.review, review) ||
@@ -465,7 +452,6 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(reviewId) ^
       const DeepCollectionEquality().hash(userId) ^
-      const DeepCollectionEquality().hash(shopId) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(review) ^
       const DeepCollectionEquality().hash(date) ^
@@ -485,10 +471,9 @@ class _$_ShopReviewDataModel implements _ShopReviewDataModel {
 
 abstract class _ShopReviewDataModel implements ShopReviewDataModel {
   const factory _ShopReviewDataModel(
-      {required String reviewId,
-      required String userId,
-      required String shopId,
-      required String rating,
+      {required int reviewId,
+      required int userId,
+      required int rating,
       required String review,
       required String date,
       required String userName}) = _$_ShopReviewDataModel;
@@ -496,17 +481,12 @@ abstract class _ShopReviewDataModel implements ShopReviewDataModel {
   factory _ShopReviewDataModel.fromJson(Map<String, dynamic> json) =
       _$_ShopReviewDataModel.fromJson;
 
-  @override // required int reviewId,
-// required int userId,
-// required int shopId,
-// required int rating,
-  String get reviewId => throw _privateConstructorUsedError;
   @override
-  String get userId => throw _privateConstructorUsedError;
+  int get reviewId => throw _privateConstructorUsedError;
   @override
-  String get shopId => throw _privateConstructorUsedError;
+  int get userId => throw _privateConstructorUsedError;
   @override
-  String get rating => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
   @override
   String get review => throw _privateConstructorUsedError;
   @override

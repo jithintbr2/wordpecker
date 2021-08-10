@@ -101,7 +101,7 @@ class TextIconButton extends StatelessWidget {
     return InkWell(
       child: Column(
         children: [
-          Icon(icon, color: Theme.of(context).primaryColor),
+          Icon(icon, color: Config.drawerIconColor),
           SizedBox(height: 8),
           Text(
             title,
@@ -222,7 +222,7 @@ class DrawerBody extends StatelessWidget {
       dense: true,
       leading: Icon(
         icon,
-        color: Theme.of(context).primaryColor,
+        color: Config.drawerIconColor,
         size: 20,
       ),
       title: Text(
@@ -253,10 +253,15 @@ class DrawerBody extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, '/notifications')),
         _itemTile(context, Icons.track_changes, "My Orders",
             onTap: () => Navigator.pushNamed(context, '/orders')),
+        _itemTile(context, Icons.request_quote, "Request Items",
+            onTap: () => Navigator.pushNamed(context, '/requestItems')),
         _itemTile(context, Icons.account_balance_wallet, "Wallet",
             onTap: () => Navigator.pushNamed(context, '/wallet')),
         _itemTile(context, Icons.share, "Refer and Earn",
             onTap: () => Navigator.pushNamed(context, '/referral')),
+        Divider(color: Theme.of(context).accentColor.withOpacity(0.5)),
+        _itemTile(context, Icons.password, "Change Password",
+            onTap: () => Navigator.pushNamed(context, '/changePassword')),
         Divider(color: Theme.of(context).accentColor.withOpacity(0.5)),
         _itemTile(context, Icons.local_atm, "Cancellation & Refund Policy",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {

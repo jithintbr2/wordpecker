@@ -99,7 +99,7 @@ class DeliveryOptions extends HookWidget {
                 });
               }
             });
-          }),
+          }, subtitle: isScheduledOrder.value ? deliveryDate.value : null),
           Divider(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),

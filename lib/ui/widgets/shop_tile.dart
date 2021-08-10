@@ -54,9 +54,7 @@ class ShopTile extends HookWidget {
                           5,
                           (i) => Icon(
                                 Icons.star,
-                                color: i <
-                                        ( //shop.rating ??
-                                            5)
+                                color: i < (shop.rating as num)
                                     ? Colors.yellow[800]
                                     : Colors.grey.withOpacity(0.5),
                                 size: 14,
@@ -64,9 +62,7 @@ class ShopTile extends HookWidget {
                     ),
                     SizedBox(width: 4),
                     Text(
-                      ( //shop.rating ??
-                              5)
-                          .toString(),
+                      shop.rating.toString(),
                       style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     )
                   ],

@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/coupon/coupon_model.dart';
+import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/ui/screens/order_preview/bloc/coupon_written_bloc.dart';
 
-class CouponsPage extends StatelessWidget {
+class CouponsPage extends HookWidget {
+  final List<ItemVarientModel> items;
+  final double deliveryCharge;
   final List<CouponModel> coupons;
-  final void Function(CouponModel) onSelect;
-  const CouponsPage({Key? key, required this.coupons, required this.onSelect})
-      : super(key: key);
+  final void Function(CouponModel, List) onSelect;
+  const CouponsPage({
+    Key? key,
+    required this.coupons,
+    required this.onSelect,
+    required this.items,
+    required this.deliveryCharge,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _couponController = useTextEditingController();
     return Scaffold(
         appBar: AppBar(title: Text('Coupons')),
         body: SingleChildScrollView(
@@ -48,12 +60,24 @@ class CouponsPage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Apply'),
-                          ),
-                        ),
+                            padding: const EdgeInsets.only(right: 16),
+                            child: BlocBuilder<CouponWrittenBloc,
+                                    CouponWrittenState>(
+                                builder: (context, state) => state.when(
+                                      busy: () => CircularProgressIndicator(),
+                                      idle: () => ElevatedButton(
+                                        onPressed: () => context
+                                            .read<CouponWrittenBloc>()
+                                            .add(CouponWrittenEvent.checkCoupon(
+                                                items: items,
+                                                couponCode:
+                                                    _couponController.text,
+                                                shopId: items[0].shopId,
+                                                deliveryCharge: deliveryCharge,
+                                                onSelect: onSelect)),
+                                        child: Text('Apply'),
+                                      ),
+                                    ))),
                       ],
                     ),
                     // showStatus
@@ -124,7 +148,14 @@ class CouponsPage extends StatelessWidget {
       itemBuilder: (_, int index) {
         final CouponModel coupon = coupons[index];
         return InkWell(
-          onTap: () => onSelect(coupons[index]),
+          // onTap: () => onSelect(coupons[index]),
+          onTap: () => context.read<CouponWrittenBloc>().add(
+              CouponWrittenEvent.checkCoupon(
+                  items: items,
+                  couponCode: coupons[index].couponCode,
+                  shopId: items[0].shopId,
+                  deliveryCharge: deliveryCharge,
+                  onSelect: onSelect)),
           // onTap: coupon.status
           //     ? () {
           //         _couponCode = coupon.couponCode;

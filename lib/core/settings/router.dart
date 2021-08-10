@@ -35,8 +35,12 @@ import 'package:woodle/ui/screens/order_preview/bloc/place_order_button_bloc.dar
 import 'package:woodle/ui/screens/order_preview/order_preview_page.dart';
 import 'package:woodle/ui/screens/orders/bloc/orders_bloc.dart';
 import 'package:woodle/ui/screens/orders/orders_page.dart';
+import 'package:woodle/ui/screens/password_change/bloc/password_change_bloc.dart';
+import 'package:woodle/ui/screens/password_change/password_change_page.dart';
 import 'package:woodle/ui/screens/referral/bloc/referral_bloc.dart';
 import 'package:woodle/ui/screens/referral/referral_page.dart';
+import 'package:woodle/ui/screens/request_item/bloc/request_item_bloc.dart';
+import 'package:woodle/ui/screens/request_item/request_item_page.dart';
 import 'package:woodle/ui/screens/service/bloc/service_bloc.dart';
 import 'package:woodle/ui/screens/service/service_page.dart';
 import 'package:woodle/ui/screens/shop/bloc/shop_bloc.dart';
@@ -49,6 +53,7 @@ import 'package:woodle/ui/screens/splash/bloc/splash_bloc.dart';
 import 'package:woodle/ui/screens/splash/splash_page.dart';
 import 'package:woodle/ui/screens/wallet/bloc/wallet_bloc.dart';
 import 'package:woodle/ui/screens/wallet/wallet_page.dart';
+import 'package:woodle/ui/screens/wallet/wallet_redeem_page.dart';
 import 'package:woodle/ui/screens/web_view/web_view_page.dart';
 
 class AppRouter {
@@ -105,6 +110,14 @@ class AppRouter {
 
       case '/cart':
         return _generatePlatformRoute(CartPage());
+
+      case '/changePassword':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => PasswordChangeBloc(
+              repository: context.read<ApplicationRepository>(),
+              context: context),
+          child: PasswordChangePage(),
+        ));
 
       case '/home':
         return _generatePlatformRoute(BlocProvider(
@@ -252,11 +265,28 @@ class AppRouter {
           child: ReferralPage(),
         ));
 
+      case '/requestItems':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => RequestItemBloc(
+              context: context,
+              repository: context.read<ApplicationRepository>()),
+          child: RequestItemPage(),
+        ));
+
       case '/wallet':
         return _generatePlatformRoute(BlocProvider(
           create: (context) =>
               WalletBloc(repository: context.read<ApplicationRepository>()),
           child: WalletPage(),
+        ));
+
+      case '/walletRedeem':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) =>
+              WalletBloc(repository: context.read<ApplicationRepository>()),
+          child: WalletRedeemPage(orderAmount: args['orderAmount']),
         ));
 
       case '/webView':

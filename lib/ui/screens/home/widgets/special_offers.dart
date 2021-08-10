@@ -51,8 +51,10 @@ class SpecialOffers extends StatelessWidget {
                                           data![index]
                                               .itemVarients[childIndex]
                                               .varientId),
-                                      onAdd: () => service.addItem(data![index]
-                                          .itemVarients[childIndex]),
+                                      onAdd: () => service.addItem(
+                                          context,
+                                          data![index]
+                                              .itemVarients[childIndex]),
                                       onRemove: () => service.removeItem(
                                           data![index]
                                               .itemVarients[childIndex]),

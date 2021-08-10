@@ -56,6 +56,22 @@ class _$AuthenticationpageEventTearOff {
       referalId: referalId,
     );
   }
+
+  _YieldOTPState yeildOTPState() {
+    return const _YieldOTPState();
+  }
+
+  _YieldResetState yeildResetState() {
+    return const _YieldResetState();
+  }
+
+  _ResetPassword resetPassword(
+      {required String phone, required String password}) {
+    return _ResetPassword(
+      phone: phone,
+      password: password,
+    );
+  }
 }
 
 /// @nodoc
@@ -73,6 +89,9 @@ mixin _$AuthenticationpageEvent {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -84,6 +103,9 @@ mixin _$AuthenticationpageEvent {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -94,6 +116,9 @@ mixin _$AuthenticationpageEvent {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -103,6 +128,9 @@ mixin _$AuthenticationpageEvent {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -198,6 +226,9 @@ class _$_VerifyPhone implements _VerifyPhone {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) {
     return verifyPhone(phone);
   }
@@ -212,6 +243,9 @@ class _$_VerifyPhone implements _VerifyPhone {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) {
     if (verifyPhone != null) {
@@ -228,6 +262,9 @@ class _$_VerifyPhone implements _VerifyPhone {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) {
     return verifyPhone(this);
   }
@@ -240,6 +277,9 @@ class _$_VerifyPhone implements _VerifyPhone {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) {
     if (verifyPhone != null) {
@@ -354,6 +394,9 @@ class _$_GenerateOTP implements _GenerateOTP {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) {
     return generateOTP(phone, signature, otp);
   }
@@ -368,6 +411,9 @@ class _$_GenerateOTP implements _GenerateOTP {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) {
     if (generateOTP != null) {
@@ -384,6 +430,9 @@ class _$_GenerateOTP implements _GenerateOTP {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) {
     return generateOTP(this);
   }
@@ -396,6 +445,9 @@ class _$_GenerateOTP implements _GenerateOTP {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) {
     if (generateOTP != null) {
@@ -502,6 +554,9 @@ class _$_Login implements _Login {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) {
     return login(phone, password);
   }
@@ -516,6 +571,9 @@ class _$_Login implements _Login {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -532,6 +590,9 @@ class _$_Login implements _Login {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) {
     return login(this);
   }
@@ -544,6 +605,9 @@ class _$_Login implements _Login {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -611,6 +675,9 @@ class _$_YieldRegisterState implements _YieldRegisterState {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) {
     return yeildRegisterState();
   }
@@ -625,6 +692,9 @@ class _$_YieldRegisterState implements _YieldRegisterState {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) {
     if (yeildRegisterState != null) {
@@ -641,6 +711,9 @@ class _$_YieldRegisterState implements _YieldRegisterState {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) {
     return yeildRegisterState(this);
   }
@@ -653,6 +726,9 @@ class _$_YieldRegisterState implements _YieldRegisterState {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) {
     if (yeildRegisterState != null) {
@@ -791,6 +867,9 @@ class _$_Register implements _Register {
     required TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)
         register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
   }) {
     return register(name, phone, password, referredLink, referalId);
   }
@@ -805,6 +884,9 @@ class _$_Register implements _Register {
     TResult Function(String name, String phone, String password,
             String? referredLink, String? referalId)?
         register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -821,6 +903,9 @@ class _$_Register implements _Register {
     required TResult Function(_Login value) login,
     required TResult Function(_YieldRegisterState value) yeildRegisterState,
     required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
   }) {
     return register(this);
   }
@@ -833,6 +918,9 @@ class _$_Register implements _Register {
     TResult Function(_Login value)? login,
     TResult Function(_YieldRegisterState value)? yeildRegisterState,
     TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -861,6 +949,395 @@ abstract class _Register implements AuthenticationpageEvent {
 }
 
 /// @nodoc
+abstract class _$YieldOTPStateCopyWith<$Res> {
+  factory _$YieldOTPStateCopyWith(
+          _YieldOTPState value, $Res Function(_YieldOTPState) then) =
+      __$YieldOTPStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$YieldOTPStateCopyWithImpl<$Res>
+    extends _$AuthenticationpageEventCopyWithImpl<$Res>
+    implements _$YieldOTPStateCopyWith<$Res> {
+  __$YieldOTPStateCopyWithImpl(
+      _YieldOTPState _value, $Res Function(_YieldOTPState) _then)
+      : super(_value, (v) => _then(v as _YieldOTPState));
+
+  @override
+  _YieldOTPState get _value => super._value as _YieldOTPState;
+}
+
+/// @nodoc
+
+class _$_YieldOTPState implements _YieldOTPState {
+  const _$_YieldOTPState();
+
+  @override
+  String toString() {
+    return 'AuthenticationpageEvent.yeildOTPState()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _YieldOTPState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone) verifyPhone,
+    required TResult Function(String phone, String signature, int otp)
+        generateOTP,
+    required TResult Function(String phone, String password) login,
+    required TResult Function() yeildRegisterState,
+    required TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)
+        register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
+  }) {
+    return yeildOTPState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone)? verifyPhone,
+    TResult Function(String phone, String signature, int otp)? generateOTP,
+    TResult Function(String phone, String password)? login,
+    TResult Function()? yeildRegisterState,
+    TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)?
+        register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (yeildOTPState != null) {
+      return yeildOTPState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_VerifyPhone value) verifyPhone,
+    required TResult Function(_GenerateOTP value) generateOTP,
+    required TResult Function(_Login value) login,
+    required TResult Function(_YieldRegisterState value) yeildRegisterState,
+    required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
+  }) {
+    return yeildOTPState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_VerifyPhone value)? verifyPhone,
+    TResult Function(_GenerateOTP value)? generateOTP,
+    TResult Function(_Login value)? login,
+    TResult Function(_YieldRegisterState value)? yeildRegisterState,
+    TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (yeildOTPState != null) {
+      return yeildOTPState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _YieldOTPState implements AuthenticationpageEvent {
+  const factory _YieldOTPState() = _$_YieldOTPState;
+}
+
+/// @nodoc
+abstract class _$YieldResetStateCopyWith<$Res> {
+  factory _$YieldResetStateCopyWith(
+          _YieldResetState value, $Res Function(_YieldResetState) then) =
+      __$YieldResetStateCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$YieldResetStateCopyWithImpl<$Res>
+    extends _$AuthenticationpageEventCopyWithImpl<$Res>
+    implements _$YieldResetStateCopyWith<$Res> {
+  __$YieldResetStateCopyWithImpl(
+      _YieldResetState _value, $Res Function(_YieldResetState) _then)
+      : super(_value, (v) => _then(v as _YieldResetState));
+
+  @override
+  _YieldResetState get _value => super._value as _YieldResetState;
+}
+
+/// @nodoc
+
+class _$_YieldResetState implements _YieldResetState {
+  const _$_YieldResetState();
+
+  @override
+  String toString() {
+    return 'AuthenticationpageEvent.yeildResetState()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _YieldResetState);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone) verifyPhone,
+    required TResult Function(String phone, String signature, int otp)
+        generateOTP,
+    required TResult Function(String phone, String password) login,
+    required TResult Function() yeildRegisterState,
+    required TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)
+        register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
+  }) {
+    return yeildResetState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone)? verifyPhone,
+    TResult Function(String phone, String signature, int otp)? generateOTP,
+    TResult Function(String phone, String password)? login,
+    TResult Function()? yeildRegisterState,
+    TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)?
+        register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (yeildResetState != null) {
+      return yeildResetState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_VerifyPhone value) verifyPhone,
+    required TResult Function(_GenerateOTP value) generateOTP,
+    required TResult Function(_Login value) login,
+    required TResult Function(_YieldRegisterState value) yeildRegisterState,
+    required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
+  }) {
+    return yeildResetState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_VerifyPhone value)? verifyPhone,
+    TResult Function(_GenerateOTP value)? generateOTP,
+    TResult Function(_Login value)? login,
+    TResult Function(_YieldRegisterState value)? yeildRegisterState,
+    TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (yeildResetState != null) {
+      return yeildResetState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _YieldResetState implements AuthenticationpageEvent {
+  const factory _YieldResetState() = _$_YieldResetState;
+}
+
+/// @nodoc
+abstract class _$ResetPasswordCopyWith<$Res> {
+  factory _$ResetPasswordCopyWith(
+          _ResetPassword value, $Res Function(_ResetPassword) then) =
+      __$ResetPasswordCopyWithImpl<$Res>;
+  $Res call({String phone, String password});
+}
+
+/// @nodoc
+class __$ResetPasswordCopyWithImpl<$Res>
+    extends _$AuthenticationpageEventCopyWithImpl<$Res>
+    implements _$ResetPasswordCopyWith<$Res> {
+  __$ResetPasswordCopyWithImpl(
+      _ResetPassword _value, $Res Function(_ResetPassword) _then)
+      : super(_value, (v) => _then(v as _ResetPassword));
+
+  @override
+  _ResetPassword get _value => super._value as _ResetPassword;
+
+  @override
+  $Res call({
+    Object? phone = freezed,
+    Object? password = freezed,
+  }) {
+    return _then(_ResetPassword(
+      phone: phone == freezed
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String,
+      password: password == freezed
+          ? _value.password
+          : password // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ResetPassword implements _ResetPassword {
+  const _$_ResetPassword({required this.phone, required this.password});
+
+  @override
+  final String phone;
+  @override
+  final String password;
+
+  @override
+  String toString() {
+    return 'AuthenticationpageEvent.resetPassword(phone: $phone, password: $password)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ResetPassword &&
+            (identical(other.phone, phone) ||
+                const DeepCollectionEquality().equals(other.phone, phone)) &&
+            (identical(other.password, password) ||
+                const DeepCollectionEquality()
+                    .equals(other.password, password)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(phone) ^
+      const DeepCollectionEquality().hash(password);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ResetPasswordCopyWith<_ResetPassword> get copyWith =>
+      __$ResetPasswordCopyWithImpl<_ResetPassword>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String phone) verifyPhone,
+    required TResult Function(String phone, String signature, int otp)
+        generateOTP,
+    required TResult Function(String phone, String password) login,
+    required TResult Function() yeildRegisterState,
+    required TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)
+        register,
+    required TResult Function() yeildOTPState,
+    required TResult Function() yeildResetState,
+    required TResult Function(String phone, String password) resetPassword,
+  }) {
+    return resetPassword(phone, password);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String phone)? verifyPhone,
+    TResult Function(String phone, String signature, int otp)? generateOTP,
+    TResult Function(String phone, String password)? login,
+    TResult Function()? yeildRegisterState,
+    TResult Function(String name, String phone, String password,
+            String? referredLink, String? referalId)?
+        register,
+    TResult Function()? yeildOTPState,
+    TResult Function()? yeildResetState,
+    TResult Function(String phone, String password)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (resetPassword != null) {
+      return resetPassword(phone, password);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_VerifyPhone value) verifyPhone,
+    required TResult Function(_GenerateOTP value) generateOTP,
+    required TResult Function(_Login value) login,
+    required TResult Function(_YieldRegisterState value) yeildRegisterState,
+    required TResult Function(_Register value) register,
+    required TResult Function(_YieldOTPState value) yeildOTPState,
+    required TResult Function(_YieldResetState value) yeildResetState,
+    required TResult Function(_ResetPassword value) resetPassword,
+  }) {
+    return resetPassword(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_VerifyPhone value)? verifyPhone,
+    TResult Function(_GenerateOTP value)? generateOTP,
+    TResult Function(_Login value)? login,
+    TResult Function(_YieldRegisterState value)? yeildRegisterState,
+    TResult Function(_Register value)? register,
+    TResult Function(_YieldOTPState value)? yeildOTPState,
+    TResult Function(_YieldResetState value)? yeildResetState,
+    TResult Function(_ResetPassword value)? resetPassword,
+    required TResult orElse(),
+  }) {
+    if (resetPassword != null) {
+      return resetPassword(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetPassword implements AuthenticationpageEvent {
+  const factory _ResetPassword(
+      {required String phone, required String password}) = _$_ResetPassword;
+
+  String get phone => throw _privateConstructorUsedError;
+  String get password => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ResetPasswordCopyWith<_ResetPassword> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 class _$AuthenticationpageStateTearOff {
   const _$AuthenticationpageStateTearOff();
 
@@ -882,8 +1359,16 @@ class _$AuthenticationpageStateTearOff {
     );
   }
 
-  _OTPState otpState() {
-    return const _OTPState();
+  _OTPState otpState(bool isResetting) {
+    return _OTPState(
+      isResetting,
+    );
+  }
+
+  _ResetState resetState({required bool isLoading}) {
+    return _ResetState(
+      isLoading: isLoading,
+    );
   }
 }
 
@@ -897,7 +1382,8 @@ mixin _$AuthenticationpageState {
     required TResult Function(bool isLoading) initial,
     required TResult Function(bool isLoading) loginState,
     required TResult Function(bool isLoading) registerState,
-    required TResult Function() otpState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -905,7 +1391,8 @@ mixin _$AuthenticationpageState {
     TResult Function(bool isLoading)? initial,
     TResult Function(bool isLoading)? loginState,
     TResult Function(bool isLoading)? registerState,
-    TResult Function()? otpState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -915,6 +1402,7 @@ mixin _$AuthenticationpageState {
     required TResult Function(_LoginState value) loginState,
     required TResult Function(_RegisterState value) registerState,
     required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -923,6 +1411,7 @@ mixin _$AuthenticationpageState {
     TResult Function(_LoginState value)? loginState,
     TResult Function(_RegisterState value)? registerState,
     TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -1012,7 +1501,8 @@ class _$_Initial implements _Initial {
     required TResult Function(bool isLoading) initial,
     required TResult Function(bool isLoading) loginState,
     required TResult Function(bool isLoading) registerState,
-    required TResult Function() otpState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
   }) {
     return initial(isLoading);
   }
@@ -1023,7 +1513,8 @@ class _$_Initial implements _Initial {
     TResult Function(bool isLoading)? initial,
     TResult Function(bool isLoading)? loginState,
     TResult Function(bool isLoading)? registerState,
-    TResult Function()? otpState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1039,6 +1530,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_LoginState value) loginState,
     required TResult Function(_RegisterState value) registerState,
     required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
   }) {
     return initial(this);
   }
@@ -1050,6 +1542,7 @@ class _$_Initial implements _Initial {
     TResult Function(_LoginState value)? loginState,
     TResult Function(_RegisterState value)? registerState,
     TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1137,7 +1630,8 @@ class _$_LoginState implements _LoginState {
     required TResult Function(bool isLoading) initial,
     required TResult Function(bool isLoading) loginState,
     required TResult Function(bool isLoading) registerState,
-    required TResult Function() otpState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
   }) {
     return loginState(isLoading);
   }
@@ -1148,7 +1642,8 @@ class _$_LoginState implements _LoginState {
     TResult Function(bool isLoading)? initial,
     TResult Function(bool isLoading)? loginState,
     TResult Function(bool isLoading)? registerState,
-    TResult Function()? otpState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
     required TResult orElse(),
   }) {
     if (loginState != null) {
@@ -1164,6 +1659,7 @@ class _$_LoginState implements _LoginState {
     required TResult Function(_LoginState value) loginState,
     required TResult Function(_RegisterState value) registerState,
     required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
   }) {
     return loginState(this);
   }
@@ -1175,6 +1671,7 @@ class _$_LoginState implements _LoginState {
     TResult Function(_LoginState value)? loginState,
     TResult Function(_RegisterState value)? registerState,
     TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
     required TResult orElse(),
   }) {
     if (loginState != null) {
@@ -1262,7 +1759,8 @@ class _$_RegisterState implements _RegisterState {
     required TResult Function(bool isLoading) initial,
     required TResult Function(bool isLoading) loginState,
     required TResult Function(bool isLoading) registerState,
-    required TResult Function() otpState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
   }) {
     return registerState(isLoading);
   }
@@ -1273,7 +1771,8 @@ class _$_RegisterState implements _RegisterState {
     TResult Function(bool isLoading)? initial,
     TResult Function(bool isLoading)? loginState,
     TResult Function(bool isLoading)? registerState,
-    TResult Function()? otpState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
     required TResult orElse(),
   }) {
     if (registerState != null) {
@@ -1289,6 +1788,7 @@ class _$_RegisterState implements _RegisterState {
     required TResult Function(_LoginState value) loginState,
     required TResult Function(_RegisterState value) registerState,
     required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
   }) {
     return registerState(this);
   }
@@ -1300,6 +1800,7 @@ class _$_RegisterState implements _RegisterState {
     TResult Function(_LoginState value)? loginState,
     TResult Function(_RegisterState value)? registerState,
     TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
     required TResult orElse(),
   }) {
     if (registerState != null) {
@@ -1322,6 +1823,7 @@ abstract class _RegisterState implements AuthenticationpageState {
 abstract class _$OTPStateCopyWith<$Res> {
   factory _$OTPStateCopyWith(_OTPState value, $Res Function(_OTPState) then) =
       __$OTPStateCopyWithImpl<$Res>;
+  $Res call({bool isResetting});
 }
 
 /// @nodoc
@@ -1333,25 +1835,50 @@ class __$OTPStateCopyWithImpl<$Res>
 
   @override
   _OTPState get _value => super._value as _OTPState;
+
+  @override
+  $Res call({
+    Object? isResetting = freezed,
+  }) {
+    return _then(_OTPState(
+      isResetting == freezed
+          ? _value.isResetting
+          : isResetting // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_OTPState implements _OTPState {
-  const _$_OTPState();
+  const _$_OTPState(this.isResetting);
+
+  @override
+  final bool isResetting;
 
   @override
   String toString() {
-    return 'AuthenticationpageState.otpState()';
+    return 'AuthenticationpageState.otpState(isResetting: $isResetting)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _OTPState);
+    return identical(this, other) ||
+        (other is _OTPState &&
+            (identical(other.isResetting, isResetting) ||
+                const DeepCollectionEquality()
+                    .equals(other.isResetting, isResetting)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isResetting);
+
+  @JsonKey(ignore: true)
+  @override
+  _$OTPStateCopyWith<_OTPState> get copyWith =>
+      __$OTPStateCopyWithImpl<_OTPState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1359,9 +1886,10 @@ class _$_OTPState implements _OTPState {
     required TResult Function(bool isLoading) initial,
     required TResult Function(bool isLoading) loginState,
     required TResult Function(bool isLoading) registerState,
-    required TResult Function() otpState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
   }) {
-    return otpState();
+    return otpState(isResetting);
   }
 
   @override
@@ -1370,11 +1898,12 @@ class _$_OTPState implements _OTPState {
     TResult Function(bool isLoading)? initial,
     TResult Function(bool isLoading)? loginState,
     TResult Function(bool isLoading)? registerState,
-    TResult Function()? otpState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
     required TResult orElse(),
   }) {
     if (otpState != null) {
-      return otpState();
+      return otpState(isResetting);
     }
     return orElse();
   }
@@ -1386,6 +1915,7 @@ class _$_OTPState implements _OTPState {
     required TResult Function(_LoginState value) loginState,
     required TResult Function(_RegisterState value) registerState,
     required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
   }) {
     return otpState(this);
   }
@@ -1397,6 +1927,7 @@ class _$_OTPState implements _OTPState {
     TResult Function(_LoginState value)? loginState,
     TResult Function(_RegisterState value)? registerState,
     TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
     required TResult orElse(),
   }) {
     if (otpState != null) {
@@ -1407,5 +1938,139 @@ class _$_OTPState implements _OTPState {
 }
 
 abstract class _OTPState implements AuthenticationpageState {
-  const factory _OTPState() = _$_OTPState;
+  const factory _OTPState(bool isResetting) = _$_OTPState;
+
+  bool get isResetting => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$OTPStateCopyWith<_OTPState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ResetStateCopyWith<$Res> {
+  factory _$ResetStateCopyWith(
+          _ResetState value, $Res Function(_ResetState) then) =
+      __$ResetStateCopyWithImpl<$Res>;
+  $Res call({bool isLoading});
+}
+
+/// @nodoc
+class __$ResetStateCopyWithImpl<$Res>
+    extends _$AuthenticationpageStateCopyWithImpl<$Res>
+    implements _$ResetStateCopyWith<$Res> {
+  __$ResetStateCopyWithImpl(
+      _ResetState _value, $Res Function(_ResetState) _then)
+      : super(_value, (v) => _then(v as _ResetState));
+
+  @override
+  _ResetState get _value => super._value as _ResetState;
+
+  @override
+  $Res call({
+    Object? isLoading = freezed,
+  }) {
+    return _then(_ResetState(
+      isLoading: isLoading == freezed
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ResetState implements _ResetState {
+  const _$_ResetState({required this.isLoading});
+
+  @override
+  final bool isLoading;
+
+  @override
+  String toString() {
+    return 'AuthenticationpageState.resetState(isLoading: $isLoading)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ResetState &&
+            (identical(other.isLoading, isLoading) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLoading, isLoading)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(isLoading);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ResetStateCopyWith<_ResetState> get copyWith =>
+      __$ResetStateCopyWithImpl<_ResetState>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(bool isLoading) initial,
+    required TResult Function(bool isLoading) loginState,
+    required TResult Function(bool isLoading) registerState,
+    required TResult Function(bool isResetting) otpState,
+    required TResult Function(bool isLoading) resetState,
+  }) {
+    return resetState(isLoading);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(bool isLoading)? initial,
+    TResult Function(bool isLoading)? loginState,
+    TResult Function(bool isLoading)? registerState,
+    TResult Function(bool isResetting)? otpState,
+    TResult Function(bool isLoading)? resetState,
+    required TResult orElse(),
+  }) {
+    if (resetState != null) {
+      return resetState(isLoading);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_LoginState value) loginState,
+    required TResult Function(_RegisterState value) registerState,
+    required TResult Function(_OTPState value) otpState,
+    required TResult Function(_ResetState value) resetState,
+  }) {
+    return resetState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_LoginState value)? loginState,
+    TResult Function(_RegisterState value)? registerState,
+    TResult Function(_OTPState value)? otpState,
+    TResult Function(_ResetState value)? resetState,
+    required TResult orElse(),
+  }) {
+    if (resetState != null) {
+      return resetState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetState implements AuthenticationpageState {
+  const factory _ResetState({required bool isLoading}) = _$_ResetState;
+
+  bool get isLoading => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ResetStateCopyWith<_ResetState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

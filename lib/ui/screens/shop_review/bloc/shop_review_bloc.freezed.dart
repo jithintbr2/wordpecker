@@ -27,8 +27,12 @@ class _$ShopReviewEventTearOff {
     );
   }
 
-  _EditReview editReview() {
-    return const _EditReview();
+  _EditReview editReview(int reviewId, double rating, String? review) {
+    return _EditReview(
+      reviewId,
+      rating,
+      review,
+    );
   }
 
   _DeleteReview deleteReview() {
@@ -45,7 +49,8 @@ mixin _$ShopReviewEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() fetchData,
     required TResult Function(double rating, String? review) addReview,
-    required TResult Function() editReview,
+    required TResult Function(int reviewId, double rating, String? review)
+        editReview,
     required TResult Function() deleteReview,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,7 +58,7 @@ mixin _$ShopReviewEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchData,
     TResult Function(double rating, String? review)? addReview,
-    TResult Function()? editReview,
+    TResult Function(int reviewId, double rating, String? review)? editReview,
     TResult Function()? deleteReview,
     required TResult orElse(),
   }) =>
@@ -134,7 +139,8 @@ class _$_FetchData implements _FetchData {
   TResult when<TResult extends Object?>({
     required TResult Function() fetchData,
     required TResult Function(double rating, String? review) addReview,
-    required TResult Function() editReview,
+    required TResult Function(int reviewId, double rating, String? review)
+        editReview,
     required TResult Function() deleteReview,
   }) {
     return fetchData();
@@ -145,7 +151,7 @@ class _$_FetchData implements _FetchData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchData,
     TResult Function(double rating, String? review)? addReview,
-    TResult Function()? editReview,
+    TResult Function(int reviewId, double rating, String? review)? editReview,
     TResult Function()? deleteReview,
     required TResult orElse(),
   }) {
@@ -262,7 +268,8 @@ class _$_AddReview implements _AddReview {
   TResult when<TResult extends Object?>({
     required TResult Function() fetchData,
     required TResult Function(double rating, String? review) addReview,
-    required TResult Function() editReview,
+    required TResult Function(int reviewId, double rating, String? review)
+        editReview,
     required TResult Function() deleteReview,
   }) {
     return addReview(rating, review);
@@ -273,7 +280,7 @@ class _$_AddReview implements _AddReview {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchData,
     TResult Function(double rating, String? review)? addReview,
-    TResult Function()? editReview,
+    TResult Function(int reviewId, double rating, String? review)? editReview,
     TResult Function()? deleteReview,
     required TResult orElse(),
   }) {
@@ -325,6 +332,7 @@ abstract class _$EditReviewCopyWith<$Res> {
   factory _$EditReviewCopyWith(
           _EditReview value, $Res Function(_EditReview) then) =
       __$EditReviewCopyWithImpl<$Res>;
+  $Res call({int reviewId, double rating, String? review});
 }
 
 /// @nodoc
@@ -337,35 +345,82 @@ class __$EditReviewCopyWithImpl<$Res>
 
   @override
   _EditReview get _value => super._value as _EditReview;
+
+  @override
+  $Res call({
+    Object? reviewId = freezed,
+    Object? rating = freezed,
+    Object? review = freezed,
+  }) {
+    return _then(_EditReview(
+      reviewId == freezed
+          ? _value.reviewId
+          : reviewId // ignore: cast_nullable_to_non_nullable
+              as int,
+      rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double,
+      review == freezed
+          ? _value.review
+          : review // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_EditReview implements _EditReview {
-  const _$_EditReview();
+  const _$_EditReview(this.reviewId, this.rating, this.review);
+
+  @override
+  final int reviewId;
+  @override
+  final double rating;
+  @override
+  final String? review;
 
   @override
   String toString() {
-    return 'ShopReviewEvent.editReview()';
+    return 'ShopReviewEvent.editReview(reviewId: $reviewId, rating: $rating, review: $review)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _EditReview);
+    return identical(this, other) ||
+        (other is _EditReview &&
+            (identical(other.reviewId, reviewId) ||
+                const DeepCollectionEquality()
+                    .equals(other.reviewId, reviewId)) &&
+            (identical(other.rating, rating) ||
+                const DeepCollectionEquality().equals(other.rating, rating)) &&
+            (identical(other.review, review) ||
+                const DeepCollectionEquality().equals(other.review, review)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(reviewId) ^
+      const DeepCollectionEquality().hash(rating) ^
+      const DeepCollectionEquality().hash(review);
+
+  @JsonKey(ignore: true)
+  @override
+  _$EditReviewCopyWith<_EditReview> get copyWith =>
+      __$EditReviewCopyWithImpl<_EditReview>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchData,
     required TResult Function(double rating, String? review) addReview,
-    required TResult Function() editReview,
+    required TResult Function(int reviewId, double rating, String? review)
+        editReview,
     required TResult Function() deleteReview,
   }) {
-    return editReview();
+    return editReview(reviewId, rating, review);
   }
 
   @override
@@ -373,12 +428,12 @@ class _$_EditReview implements _EditReview {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchData,
     TResult Function(double rating, String? review)? addReview,
-    TResult Function()? editReview,
+    TResult Function(int reviewId, double rating, String? review)? editReview,
     TResult Function()? deleteReview,
     required TResult orElse(),
   }) {
     if (editReview != null) {
-      return editReview();
+      return editReview(reviewId, rating, review);
     }
     return orElse();
   }
@@ -411,7 +466,15 @@ class _$_EditReview implements _EditReview {
 }
 
 abstract class _EditReview implements ShopReviewEvent {
-  const factory _EditReview() = _$_EditReview;
+  const factory _EditReview(int reviewId, double rating, String? review) =
+      _$_EditReview;
+
+  int get reviewId => throw _privateConstructorUsedError;
+  double get rating => throw _privateConstructorUsedError;
+  String? get review => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$EditReviewCopyWith<_EditReview> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -456,7 +519,8 @@ class _$_DeleteReview implements _DeleteReview {
   TResult when<TResult extends Object?>({
     required TResult Function() fetchData,
     required TResult Function(double rating, String? review) addReview,
-    required TResult Function() editReview,
+    required TResult Function(int reviewId, double rating, String? review)
+        editReview,
     required TResult Function() deleteReview,
   }) {
     return deleteReview();
@@ -467,7 +531,7 @@ class _$_DeleteReview implements _DeleteReview {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchData,
     TResult Function(double rating, String? review)? addReview,
-    TResult Function()? editReview,
+    TResult Function(int reviewId, double rating, String? review)? editReview,
     TResult Function()? deleteReview,
     required TResult orElse(),
   }) {

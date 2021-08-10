@@ -19,7 +19,7 @@ class ShopReviewPage extends HookWidget {
       context.read<ShopReviewBloc>().add(ShopReviewEvent.fetchData());
     }, []);
     return Scaffold(
-      appBar: AppBar(title: Text('Reviews')),
+      appBar: AppBar(title: Text('Rate the shop')),
       body: _buildBloc(),
     );
   }
@@ -43,9 +43,14 @@ class ShopReviewPage extends HookWidget {
       children: [
         user != null
             ? InteractiveRatingBox(
+                userReview: data.userReview,
                 onAdd: (ratingValue, ratingText) => context
                     .read<ShopReviewBloc>()
                     .add(ShopReviewEvent.addReview(ratingValue, ratingText)),
+                onEdit: (reviewId, ratingValue, ratingText) => context
+                    .read<ShopReviewBloc>()
+                    .add(ShopReviewEvent.editReview(
+                        reviewId, ratingValue, ratingText)),
               )
             : SizedBox(),
         Divider(),
@@ -55,9 +60,14 @@ class ShopReviewPage extends HookWidget {
           textAlign: TextAlign.start,
         ),
         data.allReviews.length > 0
-            ? ListView.builder(
+            ? ListView.separated(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: data.allReviews.length,
                 itemBuilder: (context, index) =>
-                    ReviewViewBox(data: data.allReviews[index]))
+                    ReviewViewBox(data: data.allReviews[index]),
+                separatorBuilder: (_, __) => Divider(),
+              )
             : EmptyView(icon: Icons.reviews, title: 'No Reviews')
       ],
     );

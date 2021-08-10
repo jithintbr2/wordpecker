@@ -23,10 +23,12 @@ class _$SubCategoryModelTearOff {
   _SubCategoryModel call(
       {@JsonKey(name: "sub_cat_id") required int id,
       @JsonKey(name: "sub_cat_name") required String name,
+      required String? imageUrl,
       required List<ItemModel> items}) {
     return _SubCategoryModel(
       id: id,
       name: name,
+      imageUrl: imageUrl,
       items: items,
     );
   }
@@ -45,6 +47,7 @@ mixin _$SubCategoryModel {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: "sub_cat_name")
   String get name => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   List<ItemModel> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,6 +64,7 @@ abstract class $SubCategoryModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: "sub_cat_id") int id,
       @JsonKey(name: "sub_cat_name") String name,
+      String? imageUrl,
       List<ItemModel> items});
 }
 
@@ -77,6 +81,7 @@ class _$SubCategoryModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? imageUrl = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -88,6 +93,10 @@ class _$SubCategoryModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -106,6 +115,7 @@ abstract class _$SubCategoryModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: "sub_cat_id") int id,
       @JsonKey(name: "sub_cat_name") String name,
+      String? imageUrl,
       List<ItemModel> items});
 }
 
@@ -124,6 +134,7 @@ class __$SubCategoryModelCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? imageUrl = freezed,
     Object? items = freezed,
   }) {
     return _then(_SubCategoryModel(
@@ -135,6 +146,10 @@ class __$SubCategoryModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -151,6 +166,7 @@ class _$_SubCategoryModel
   const _$_SubCategoryModel(
       {@JsonKey(name: "sub_cat_id") required this.id,
       @JsonKey(name: "sub_cat_name") required this.name,
+      required this.imageUrl,
       required this.items});
 
   factory _$_SubCategoryModel.fromJson(Map<String, dynamic> json) =>
@@ -163,11 +179,13 @@ class _$_SubCategoryModel
   @JsonKey(name: "sub_cat_name")
   final String name;
   @override
+  final String? imageUrl;
+  @override
   final List<ItemModel> items;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SubCategoryModel(id: $id, name: $name, items: $items)';
+    return 'SubCategoryModel(id: $id, name: $name, imageUrl: $imageUrl, items: $items)';
   }
 
   @override
@@ -177,6 +195,7 @@ class _$_SubCategoryModel
       ..add(DiagnosticsProperty('type', 'SubCategoryModel'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('imageUrl', imageUrl))
       ..add(DiagnosticsProperty('items', items));
   }
 
@@ -188,6 +207,9 @@ class _$_SubCategoryModel
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.imageUrl, imageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageUrl, imageUrl)) &&
             (identical(other.items, items) ||
                 const DeepCollectionEquality().equals(other.items, items)));
   }
@@ -197,6 +219,7 @@ class _$_SubCategoryModel
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(items);
 
   @JsonKey(ignore: true)
@@ -214,6 +237,7 @@ abstract class _SubCategoryModel implements SubCategoryModel {
   const factory _SubCategoryModel(
       {@JsonKey(name: "sub_cat_id") required int id,
       @JsonKey(name: "sub_cat_name") required String name,
+      required String? imageUrl,
       required List<ItemModel> items}) = _$_SubCategoryModel;
 
   factory _SubCategoryModel.fromJson(Map<String, dynamic> json) =
@@ -225,6 +249,8 @@ abstract class _SubCategoryModel implements SubCategoryModel {
   @override
   @JsonKey(name: "sub_cat_name")
   String get name => throw _privateConstructorUsedError;
+  @override
+  String? get imageUrl => throw _privateConstructorUsedError;
   @override
   List<ItemModel> get items => throw _privateConstructorUsedError;
   @override

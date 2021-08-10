@@ -10,6 +10,7 @@ _$_SubCategoryModel _$_$_SubCategoryModelFromJson(Map<String, dynamic> json) {
   return _$_SubCategoryModel(
     id: json['sub_cat_id'] as int,
     name: json['sub_cat_name'] as String,
+    imageUrl: json['imageUrl'] as String?,
     items: (json['items'] as List<dynamic>)
         .map((e) => ItemModel.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -21,5 +22,6 @@ Map<String, dynamic> _$_$_SubCategoryModelToJson(
     <String, dynamic>{
       'sub_cat_id': instance.id,
       'sub_cat_name': instance.name,
+      'imageUrl': instance.imageUrl,
       'items': instance.items,
     };

@@ -7,11 +7,14 @@ import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/models/order_preview/order_preview_model.dart';
+import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/ui/screens/order_preview/bloc/coupon_written_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/order_preview_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/place_order_button_bloc.dart';
 import 'package:woodle/ui/screens/order_preview/coupons_page.dart';
+import 'package:woodle/ui/screens/order_preview/widgets/addons.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/coupon_redeem.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/delivery_options.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/instruction_box.dart';
@@ -55,30 +58,34 @@ class OrderPreviewPage extends HookWidget {
     final _isScheduledOrder = useState(false);
     final _deliveryDate = useState(_getNowDateTime());
     final _selectedCoupon = useState<CouponModel?>(null);
-    final _walletRedeemController = useTextEditingController();
+    final _redeemedAmount = useState(0.0);
+    final _couponApplicableOn = useState<List<int>>([]);
+    // final _walletRedeemController = useTextEditingController(text: '0.0');
 
     useEffect(() {
       context.read<OrderPreviewBloc>().add(OrderPreviewEvent.getSupportingData(
           addressId: _address.value!.id,
-          franchiseId: _address.value!.franchiseId));
+          franchiseId: _address.value!.franchiseId,
+          shopId: service.initialValue()[0].shopId));
     }, [_address.value]);
 
     return Scaffold(
       appBar: AppBar(title: Text('Order Summary')),
       body: _buildBloc(service, _remarkController, _address, _isScheduledOrder,
-          _deliveryDate, _selectedCoupon, _walletRedeemController),
+          _deliveryDate, _selectedCoupon, _couponApplicableOn, _redeemedAmount),
     );
   }
 
   _buildBloc(
-    CartService service,
-    TextEditingController remarkController,
-    ValueNotifier<AddressModel?> address,
-    ValueNotifier<bool> isScheduledOrder,
-    ValueNotifier<String> deliveryDate,
-    ValueNotifier<CouponModel?> selectedCoupon,
-    TextEditingController walletRedeemController,
-  ) {
+      CartService service,
+      TextEditingController remarkController,
+      ValueNotifier<AddressModel?> address,
+      ValueNotifier<bool> isScheduledOrder,
+      ValueNotifier<String> deliveryDate,
+      ValueNotifier<CouponModel?> selectedCoupon,
+      ValueNotifier<List<int>> couponApplicableOn,
+      // TextEditingController walletRedeemController,
+      ValueNotifier<double> redeemedAmount) {
     return BlocBuilder<OrderPreviewBloc, OrderPreviewState>(
       builder: (context, state) {
         return state.when(
@@ -87,16 +94,17 @@ class OrderPreviewPage extends HookWidget {
                 BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
                     builder: (context, state) => state.when(
                         buttonInitial: () => _buildPage(
-                              context,
-                              service,
-                              data,
-                              remarkController,
-                              address,
-                              isScheduledOrder,
-                              deliveryDate,
-                              selectedCoupon,
-                              walletRedeemController,
-                            ),
+                            context,
+                            service,
+                            data,
+                            remarkController,
+                            address,
+                            isScheduledOrder,
+                            deliveryDate,
+                            selectedCoupon,
+                            couponApplicableOn,
+                            // walletRedeemController,
+                            redeemedAmount),
                         buttonLoading: () =>
                             Center(child: CircularProgressIndicator()))),
             failed: (error) => FailedView(
@@ -105,7 +113,8 @@ class OrderPreviewPage extends HookWidget {
                   context.read<OrderPreviewBloc>().add(
                       OrderPreviewEvent.getSupportingData(
                           addressId: address.value!.id,
-                          franchiseId: address.value!.franchiseId));
+                          franchiseId: address.value!.franchiseId,
+                          shopId: service.initialValue()[0].shopId));
                 }));
       },
     );
@@ -175,16 +184,17 @@ class OrderPreviewPage extends HookWidget {
   }
 
   Widget _buildPage(
-    BuildContext context,
-    CartService service,
-    OrderPreviewModel data,
-    TextEditingController remarkController,
-    ValueNotifier<AddressModel?> address,
-    ValueNotifier<bool> isScheduledOrder,
-    ValueNotifier<String> deliveryDateTime,
-    ValueNotifier<CouponModel?> selectedCoupon,
-    TextEditingController walletRedeemController,
-  ) {
+      BuildContext context,
+      CartService service,
+      OrderPreviewModel data,
+      TextEditingController remarkController,
+      ValueNotifier<AddressModel?> address,
+      ValueNotifier<bool> isScheduledOrder,
+      ValueNotifier<String> deliveryDateTime,
+      ValueNotifier<CouponModel?> selectedCoupon,
+      ValueNotifier<List<int>> couponApplicableOn,
+      // TextEditingController walletRedeemController,
+      ValueNotifier<double> redeemedAmount) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -194,15 +204,23 @@ class OrderPreviewPage extends HookWidget {
                   padding: EdgeInsets.all(10),
                   children: [
                     CartPrice(
+                      couponApplicableOn: couponApplicableOn,
+                      selectedCoupon: selectedCoupon,
                       service: service,
                       deliveryCharge: data.deliveryCharge,
                       couponDiscount: selectedCoupon.value != null
                           ? selectedCoupon.value!.couponDiscount
                           : 0.0,
-                      redeemedAmount: walletRedeemController.text.isNotEmpty
-                          ? double.parse(walletRedeemController.text)
-                          : 0.0,
+                      redeemedAmount: redeemedAmount.value,
+                      // redeemedAmount: walletRedeemController.text.isNotEmpty
+                      //     ? double.parse(walletRedeemController.text)
+                      //     : 0.0,
                     ),
+
+                    data.addonsList.length > 0
+                        ? Addons(data: data.addonsList)
+                        : SizedBox(),
+
                     // Card(
                     //   child: Padding(
                     //       padding: EdgeInsets.all(10),
@@ -240,24 +258,45 @@ class OrderPreviewPage extends HookWidget {
                     ),
                     PaymentOptions(),
                     SizedBox(height: 10),
-                    CouponRedeem(
-                      selectedCoupon: selectedCoupon.value,
-                      onSelect: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CouponsPage(
-                                  coupons: data.coupenList,
-                                  onSelect: (coupon) {
-                                    selectedCoupon.value = coupon;
-                                    Navigator.pop(context);
-                                  }))),
-                      onRemove: () => selectedCoupon.value = null,
-                    ),
+                    redeemedAmount.value == 0.0
+                        ? CouponRedeem(
+                            selectedCoupon: selectedCoupon.value,
+                            onSelect: () =>
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => BlocProvider(
+                                          create: (context) =>
+                                              CouponWrittenBloc(
+                                                  context: context,
+                                                  repository: context.read<
+                                                      ApplicationRepository>()),
+                                          child: CouponsPage(
+                                              deliveryCharge:
+                                                  data.deliveryCharge,
+                                              items: service.initialValue(),
+                                              coupons: data.coupenList,
+                                              onSelect: (coupon, applicableOn) {
+                                                selectedCoupon.value = coupon;
+                                                couponApplicableOn.value =
+                                                    applicableOn.cast<int>();
+                                                Navigator.pop(context);
+                                              }),
+                                        ))),
+                            onRemove: () => selectedCoupon.value = null,
+                          )
+                        : SizedBox(),
                     SizedBox(height: 10),
                     selectedCoupon.value == null
-                        ? WalletRedeem(
-                            walletAmount: data.walletAmount,
-                            controller: walletRedeemController,
+                        ? PaymentRedeem(
+                            service: service,
+                            redeemedAmount: redeemedAmount.value,
+                            onRedeem: (double value) =>
+                                redeemedAmount.value = value,
+                            onRemove: () => redeemedAmount.value = 0.0,
                           )
+                        // ? WalletRedeem(
+                        //     walletAmount: data.walletAmount,
+                        //     controller: walletRedeemController,
+                        //   )
                         : SizedBox(),
                     InstructionBox(controller: remarkController),
                   ],
@@ -266,7 +305,8 @@ class OrderPreviewPage extends HookWidget {
                   context.read<OrderPreviewBloc>().add(
                       OrderPreviewEvent.getSupportingData(
                           addressId: address.value!.id,
-                          franchiseId: address.value!.franchiseId));
+                          franchiseId: address.value!.franchiseId,
+                          shopId: service.initialValue()[0].shopId));
                   return null;
                 })),
         Padding(
@@ -279,9 +319,11 @@ class OrderPreviewPage extends HookWidget {
                 deliveryDateTime.value,
                 isScheduledOrder.value,
                 selectedCoupon.value,
-                walletRedeemController.text.isNotEmpty
-                    ? double.parse(walletRedeemController.text)
-                    : 0.0)
+                redeemedAmount.value
+                // walletRedeemController.text.isNotEmpty
+                //     ? double.parse(walletRedeemController.text)
+                //     : 0.0
+                )
             // ElevatedButton(
             //   child: Text('Place Order'),
             //   onPressed: () {

@@ -56,7 +56,7 @@ class CartPage extends HookWidget {
                 //         }),
                 showParent: true,
                 item: sortedData[index],
-                onAdd: () => service.addItem(sortedData[index]),
+                onAdd: () => service.addItem(context, sortedData[index]),
                 onRemove: () => service.removeItem(sortedData[index]),
                 quantity: quantity);
           },

@@ -20,6 +20,7 @@ class HomePageModel with _$HomePageModel {
     @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
     List<HomeCategoriesModel>? homeCategoreis,
     int? contactNumber,
+    required bool isPendingOrders,
   }) = _HomePageModel;
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) =>

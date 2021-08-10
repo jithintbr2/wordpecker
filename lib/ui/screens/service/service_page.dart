@@ -6,10 +6,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/service/service_model.dart';
+import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/service/bloc/service_bloc.dart';
+import 'package:woodle/ui/screens/service/bloc/service_request_bloc.dart';
+import 'package:woodle/ui/screens/service/service_request_page.dart';
 import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
@@ -70,7 +73,21 @@ class ServicePage extends HookWidget {
         shrinkWrap: true,
         gridDelegate: _gridDelegate(),
         padding: EdgeInsets.symmetric(horizontal: 4),
-        itemBuilder: (context, index) => _buildItem(data: data[index]),
+        itemBuilder: (context, index) => _buildItem(
+            data: data[index],
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                          create: (context) => ServiceRequestBloc(
+                              repository: context.read<ApplicationRepository>(),
+                              context: context),
+                          child: ServiceRequestPage(
+                            serviceDescription: data[index].description,
+                            serviceName: data[index].serviceName,
+                            serviceId: data[index].id,
+                          ),
+                        )))),
         itemCount: data.length);
   }
 

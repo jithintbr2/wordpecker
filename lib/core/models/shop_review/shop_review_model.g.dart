@@ -8,9 +8,10 @@ part of 'shop_review_model.dart';
 
 _$_ShopReviewModel _$_$_ShopReviewModelFromJson(Map<String, dynamic> json) {
   return _$_ShopReviewModel(
-    userReview: (json['user_review'] as List<dynamic>)
-        .map((e) => ShopReviewDataModel.fromJson(e as Map<String, dynamic>))
-        .toList(),
+    userReview: json['user_review'] == null
+        ? null
+        : ShopReviewDataModel.fromJson(
+            json['user_review'] as Map<String, dynamic>),
     allReviews: (json['all_reviews'] as List<dynamic>)
         .map((e) => ShopReviewDataModel.fromJson(e as Map<String, dynamic>))
         .toList(),
@@ -26,10 +27,9 @@ Map<String, dynamic> _$_$_ShopReviewModelToJson(_$_ShopReviewModel instance) =>
 _$_ShopReviewDataModel _$_$_ShopReviewDataModelFromJson(
     Map<String, dynamic> json) {
   return _$_ShopReviewDataModel(
-    reviewId: json['reviewId'] as String,
-    userId: json['userId'] as String,
-    shopId: json['shopId'] as String,
-    rating: json['rating'] as String,
+    reviewId: json['reviewId'] as int,
+    userId: json['userId'] as int,
+    rating: json['rating'] as int,
     review: json['review'] as String,
     date: json['date'] as String,
     userName: json['userName'] as String,
@@ -41,7 +41,6 @@ Map<String, dynamic> _$_$_ShopReviewDataModelToJson(
     <String, dynamic>{
       'reviewId': instance.reviewId,
       'userId': instance.userId,
-      'shopId': instance.shopId,
       'rating': instance.rating,
       'review': instance.review,
       'date': instance.date,

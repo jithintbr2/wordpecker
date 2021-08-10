@@ -20,7 +20,7 @@ class ReviewViewBox extends StatelessWidget {
                   5,
                   (i) => Icon(
                         Icons.star,
-                        color: i < (data.rating as int)
+                        color: i < data.rating
                             ? Colors.yellow[800]
                             : Colors.grey.withOpacity(0.5),
                         size: 14,

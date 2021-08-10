@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
@@ -28,7 +29,7 @@ class CartService {
     return cartStandardizedItems;
   }
 
-  void addItem(ItemVarientModel item) {
+  void addItem(BuildContext context, ItemVarientModel item) {
     final _storeData = _store.get('cart');
     List<String> cartItems = _storeData != null
         ? List.from(_storeData as Iterable<dynamic>, growable: true)
@@ -59,6 +60,15 @@ class CartService {
         _controller.add([item]);
       }
     }
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      duration: Duration(milliseconds: 500),
+      content: Text('Item added to cart'),
+      backgroundColor: Colors.green,
+      elevation: 10,
+      behavior: SnackBarBehavior.floating,
+      margin: EdgeInsets.all(10),
+    ));
   }
 
   void removeItem(ItemVarientModel item) {

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/services/cart.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/price_indicator.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
 
@@ -9,11 +11,15 @@ class CartPrice extends StatelessWidget {
   final double deliveryCharge;
   final double redeemedAmount;
   final double couponDiscount;
+  final ValueNotifier<List<int>> couponApplicableOn;
+  final ValueNotifier<CouponModel?> selectedCoupon;
   const CartPrice({
     required this.service,
     required this.deliveryCharge,
     required this.couponDiscount,
     required this.redeemedAmount,
+    required this.couponApplicableOn,
+    required this.selectedCoupon,
     Key? key,
   }) : super(key: key);
 
@@ -28,6 +34,21 @@ class CartPrice extends StatelessWidget {
             double totalPrice = 0;
 
             snap.data!.forEach((item) => totalPrice += item.salePrice!);
+
+            if (selectedCoupon.value != null) {
+              bool _flag = false;
+              snap.data!.forEach((item) {
+                if (couponApplicableOn.value.contains(item.varientId))
+                  _flag = true;
+              });
+              if (!_flag) {
+                WidgetsBinding.instance?.addPostFrameCallback((_) {
+                  print('okay condition satisfied');
+                  selectedCoupon.value = null;
+                  couponApplicableOn.value = [];
+                });
+              }
+            }
 
             return Card(
               child: Column(
@@ -44,7 +65,8 @@ class CartPrice extends StatelessWidget {
                       return ItemVarientTile(
                           showParent: true,
                           item: sortedData[index],
-                          onAdd: () => service.addItem(sortedData[index]),
+                          onAdd: () =>
+                              service.addItem(context, sortedData[index]),
                           onRemove: () => service.removeItem(sortedData[index]),
                           quantity: quantity);
                     },
@@ -87,7 +109,8 @@ class CartPrice extends StatelessWidget {
                 ],
               ),
             );
-          }
+          } else
+            Navigator.of(context).pop();
           return SizedBox();
         });
   }

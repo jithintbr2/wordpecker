@@ -135,7 +135,7 @@ class HomeSearchPage extends HookWidget {
                                               'itemName': data.items[index].name
                                             }),
                                         item: data.items[index].varients[0],
-                                        onAdd: () => service.addItem(
+                                        onAdd: () => service.addItem(context,
                                             data.items[index].varients[0]),
                                         onRemove: () => service.removeItem(
                                             data.items[index].varients[0]),
@@ -153,7 +153,8 @@ class HomeSearchPage extends HookWidget {
                                       item: data.items[index],
                                       service: service,
                                       cartItems: snap.data,
-                                      onAdd: (item) => service.addItem(item),
+                                      onAdd: (item) =>
+                                          service.addItem(context, item),
                                       onRemove: (item) =>
                                           service.removeItem(item));
                                 },

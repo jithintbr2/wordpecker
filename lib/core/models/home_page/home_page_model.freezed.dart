@@ -30,7 +30,8 @@ class _$HomePageModelTearOff {
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
-      int? contactNumber}) {
+      int? contactNumber,
+      required bool isPendingOrders}) {
     return _HomePageModel(
       carouselx1: carouselx1,
       carouselx2: carouselx2,
@@ -42,6 +43,7 @@ class _$HomePageModelTearOff {
       minOrderCost: minOrderCost,
       homeCategoreis: homeCategoreis,
       contactNumber: contactNumber,
+      isPendingOrders: isPendingOrders,
     );
   }
 
@@ -72,6 +74,7 @@ mixin _$HomePageModel {
   List<HomeCategoriesModel>? get homeCategoreis =>
       throw _privateConstructorUsedError;
   int? get contactNumber => throw _privateConstructorUsedError;
+  bool get isPendingOrders => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -94,7 +97,8 @@ abstract class $HomePageModelCopyWith<$Res> {
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
-      int? contactNumber});
+      int? contactNumber,
+      bool isPendingOrders});
 }
 
 /// @nodoc
@@ -118,6 +122,7 @@ class _$HomePageModelCopyWithImpl<$Res>
     Object? minOrderCost = freezed,
     Object? homeCategoreis = freezed,
     Object? contactNumber = freezed,
+    Object? isPendingOrders = freezed,
   }) {
     return _then(_value.copyWith(
       carouselx1: carouselx1 == freezed
@@ -160,6 +165,10 @@ class _$HomePageModelCopyWithImpl<$Res>
           ? _value.contactNumber
           : contactNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      isPendingOrders: isPendingOrders == freezed
+          ? _value.isPendingOrders
+          : isPendingOrders // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -181,7 +190,8 @@ abstract class _$HomePageModelCopyWith<$Res>
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
-      int? contactNumber});
+      int? contactNumber,
+      bool isPendingOrders});
 }
 
 /// @nodoc
@@ -207,6 +217,7 @@ class __$HomePageModelCopyWithImpl<$Res>
     Object? minOrderCost = freezed,
     Object? homeCategoreis = freezed,
     Object? contactNumber = freezed,
+    Object? isPendingOrders = freezed,
   }) {
     return _then(_HomePageModel(
       carouselx1: carouselx1 == freezed
@@ -249,6 +260,10 @@ class __$HomePageModelCopyWithImpl<$Res>
           ? _value.contactNumber
           : contactNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      isPendingOrders: isPendingOrders == freezed
+          ? _value.isPendingOrders
+          : isPendingOrders // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -266,7 +281,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       @JsonKey(name: 'scrollingMessage') this.message,
       @JsonKey(name: 'minimum_order_cost') this.minOrderCost,
       this.homeCategoreis,
-      this.contactNumber});
+      this.contactNumber,
+      required this.isPendingOrders});
 
   factory _$_HomePageModel.fromJson(Map<String, dynamic> json) =>
       _$_$_HomePageModelFromJson(json);
@@ -297,10 +313,12 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
   final List<HomeCategoriesModel>? homeCategoreis;
   @override
   final int? contactNumber;
+  @override
+  final bool isPendingOrders;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, itemCategories: $itemCategories, shopCategories: $shopCategories, message: $message, minOrderCost: $minOrderCost, homeCategoreis: $homeCategoreis, contactNumber: $contactNumber)';
+    return 'HomePageModel(carouselx1: $carouselx1, carouselx2: $carouselx2, carouselx3: $carouselx3, carouselx4: $carouselx4, itemCategories: $itemCategories, shopCategories: $shopCategories, message: $message, minOrderCost: $minOrderCost, homeCategoreis: $homeCategoreis, contactNumber: $contactNumber, isPendingOrders: $isPendingOrders)';
   }
 
   @override
@@ -317,7 +335,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('minOrderCost', minOrderCost))
       ..add(DiagnosticsProperty('homeCategoreis', homeCategoreis))
-      ..add(DiagnosticsProperty('contactNumber', contactNumber));
+      ..add(DiagnosticsProperty('contactNumber', contactNumber))
+      ..add(DiagnosticsProperty('isPendingOrders', isPendingOrders));
   }
 
   @override
@@ -353,7 +372,10 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
                     .equals(other.homeCategoreis, homeCategoreis)) &&
             (identical(other.contactNumber, contactNumber) ||
                 const DeepCollectionEquality()
-                    .equals(other.contactNumber, contactNumber)));
+                    .equals(other.contactNumber, contactNumber)) &&
+            (identical(other.isPendingOrders, isPendingOrders) ||
+                const DeepCollectionEquality()
+                    .equals(other.isPendingOrders, isPendingOrders)));
   }
 
   @override
@@ -368,7 +390,8 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       const DeepCollectionEquality().hash(message) ^
       const DeepCollectionEquality().hash(minOrderCost) ^
       const DeepCollectionEquality().hash(homeCategoreis) ^
-      const DeepCollectionEquality().hash(contactNumber);
+      const DeepCollectionEquality().hash(contactNumber) ^
+      const DeepCollectionEquality().hash(isPendingOrders);
 
   @JsonKey(ignore: true)
   @override
@@ -392,7 +415,8 @@ abstract class _HomePageModel implements HomePageModel {
       @JsonKey(name: 'scrollingMessage') String? message,
       @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
-      int? contactNumber}) = _$_HomePageModel;
+      int? contactNumber,
+      required bool isPendingOrders}) = _$_HomePageModel;
 
   factory _HomePageModel.fromJson(Map<String, dynamic> json) =
       _$_HomePageModel.fromJson;
@@ -424,6 +448,8 @@ abstract class _HomePageModel implements HomePageModel {
       throw _privateConstructorUsedError;
   @override
   int? get contactNumber => throw _privateConstructorUsedError;
+  @override
+  bool get isPendingOrders => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$HomePageModelCopyWith<_HomePageModel> get copyWith =>

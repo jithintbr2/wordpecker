@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class Config {
   // Application Whitelabel
   static String get applicationName => "Delvento Template";
@@ -16,6 +18,13 @@ class Config {
   // Application UI
   static double get cartTileHeight => 60;
   static bool get addButtonInvert => false;
+
+  static Color get themeColor => Colors.blue;
+  static Color get iconColor => Colors.blue;
+  static Color get buttonColor => Colors.blue;
+  static Color get drawerIconColor => Colors.blue;
+  static Color get shopListingPageMenuHeadingColor => Colors.blue;
+  static Color get textBoxBorderColor => Colors.blue;
 
   // Application Feature
   static bool get useDashboardEntry => true;

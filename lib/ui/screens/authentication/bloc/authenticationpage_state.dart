@@ -8,5 +8,7 @@ class AuthenticationpageState with _$AuthenticationpageState {
       _LoginState;
   const factory AuthenticationpageState.registerState(
       {required bool isLoading}) = _RegisterState;
-  const factory AuthenticationpageState.otpState() = _OTPState;
+  const factory AuthenticationpageState.otpState(bool isResetting) = _OTPState;
+  const factory AuthenticationpageState.resetState({required bool isLoading}) =
+      _ResetState;
 }

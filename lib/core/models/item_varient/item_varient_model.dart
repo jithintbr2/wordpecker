@@ -20,6 +20,7 @@ class ItemVarientModel with _$ItemVarientModel {
     required double mrp,
     int? maxQuantity,
     @JsonKey(defaultValue: []) List<String>? itemImages,
+    @JsonKey(defaultValue: 1) double? aspectRatio,
   }) = _ItemVarientModel;
 
   factory ItemVarientModel.fromJson(Map<String, dynamic> json) =>

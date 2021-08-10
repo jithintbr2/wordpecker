@@ -9,6 +9,7 @@ class BodyCard extends StatelessWidget {
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function()? onSubmit;
+  final void Function()? onForgotPassword;
   final bool? isPassword;
   const BodyCard({
     required this.buttonText,
@@ -19,6 +20,7 @@ class BodyCard extends StatelessWidget {
     this.isPassword,
     this.isLoading = false,
     required this.onSubmit,
+    this.onForgotPassword,
     Key? key,
   }) : super(key: key);
 
@@ -79,17 +81,40 @@ class BodyCard extends StatelessWidget {
                               ),
                             )
                           : Text(buttonText))),
-              Container(
-                height: 100,
-                alignment: Alignment.bottomRight,
-                child: TextButton(
-                  child: Text("Back",
-                      style: TextStyle(color: Theme.of(context).primaryColor)),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              )
+              onForgotPassword == null
+                  ? Container(
+                      height: 100,
+                      alignment: Alignment.bottomRight,
+                      child: TextButton(
+                        child: Text("Back",
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    )
+                  : Container(
+                      height: 100,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            child: Text("Forgot Password ?",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            onPressed: onForgotPassword,
+                          ),
+                          TextButton(
+                            child: Text("Back",
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ))
             ],
           ),
         ),

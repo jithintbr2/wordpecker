@@ -34,7 +34,16 @@ class AddressPage extends HookWidget {
     final _locationSearchController = useTextEditingController();
     final _isDeleting = useState(false);
     return Scaffold(
-      appBar: AppBar(title: Text('Address')),
+      appBar: AppBar(
+        title: Text('Address'),
+        actions: [
+          IconButton(
+              onPressed: () => _isDeleting.value = !_isDeleting.value,
+              icon: _isDeleting.value
+                  ? Icon(Icons.delete_forever)
+                  : Icon(Icons.delete))
+        ],
+      ),
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [

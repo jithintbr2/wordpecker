@@ -6,7 +6,7 @@ part 'shop_review_model.g.dart';
 @freezed
 class ShopReviewModel with _$ShopReviewModel {
   const factory ShopReviewModel({
-    @JsonKey(name: 'user_review') required List<ShopReviewDataModel> userReview,
+    @JsonKey(name: 'user_review') ShopReviewDataModel? userReview,
     @JsonKey(name: 'all_reviews') required List<ShopReviewDataModel> allReviews,
   }) = _ShopReviewModel;
 
@@ -17,14 +17,9 @@ class ShopReviewModel with _$ShopReviewModel {
 @freezed
 class ShopReviewDataModel with _$ShopReviewDataModel {
   const factory ShopReviewDataModel({
-    // required int reviewId,
-    // required int userId,
-    // required int shopId,
-    // required int rating,
-    required String reviewId,
-    required String userId,
-    required String shopId,
-    required String rating,
+    required int reviewId,
+    required int userId,
+    required int rating,
     required String review,
     required String date,
     required String userName,

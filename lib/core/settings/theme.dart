@@ -1,33 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:woodle/core/settings/config.dart';
 
 ThemeData appTheme() {
-  //Add more
-  // TextTheme _textTheme(TextTheme base) {
-  //   return base.copyWith(
-  //       headline1: base.headline1!.copyWith(fontSize: 22, color: Colors.black),
-  //       headline6:
-  //           base.headline6!.copyWith(fontSize: 15.0, color: Colors.green));
-  // }
-
-  // IconThemeData _iconTheme(IconThemeData base) {
-  //   return base.copyWith(color: Colors.white, size: 20);
-  // }
-
   final ThemeData base = ThemeData.light();
 
   return base.copyWith(
-    // textTheme: _textTheme(base.textTheme),
-    primaryColor: Colors.blue,
-    canvasColor: Colors.white,
-    // indicatorColor: Color(0xFF807A6B),
-    // scaffoldBackgroundColor: Color(0xFFF5F5F5),
-    accentColor: Colors.blue,
-    buttonColor: Colors.white,
-    backgroundColor: Colors.white,
-    // iconTheme: _iconTheme(base.iconTheme),
-    // tabBarTheme: base.tabBarTheme.copyWith(
-    //   labelColor: Color(0xffce107c),
-    //   unselectedLabelColor: Colors.grey,
-    // )
-  );
+      primaryColor: Config.themeColor,
+      canvasColor: Colors.white,
+      accentColor: Config.themeColor,
+      buttonColor: Colors.white,
+      backgroundColor: Colors.white,
+      iconTheme: IconThemeData(color: Config.iconColor),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Config.buttonColor))),
+      buttonTheme: ButtonThemeData(buttonColor: Config.buttonColor));
 }
