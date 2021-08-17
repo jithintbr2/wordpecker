@@ -121,8 +121,10 @@ class AppRouter {
 
       case '/home':
         return _generatePlatformRoute(BlocProvider(
-            create: (context) =>
-                HomeBloc(repository: context.read<ApplicationRepository>()),
+            create: (context) => HomeBloc(
+                context: context,
+                localStorage: LocalStorage(),
+                repository: context.read<ApplicationRepository>()),
             child: HomePage(
               localStorage: LocalStorage(),
             )));
@@ -130,8 +132,10 @@ class AppRouter {
       case '/homeDashboard':
         return _generatePlatformRoute(MultiBlocProvider(providers: [
           BlocProvider(
-              create: (context) =>
-                  HomeBloc(repository: context.read<ApplicationRepository>())),
+              create: (context) => HomeBloc(
+                  context: context,
+                  localStorage: LocalStorage(),
+                  repository: context.read<ApplicationRepository>())),
           BlocProvider(
               create: (context) => ServiceBloc(
                   repository: context.read<ApplicationRepository>())),

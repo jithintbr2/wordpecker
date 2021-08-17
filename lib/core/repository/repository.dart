@@ -85,6 +85,15 @@ class ApplicationRepository {
     });
   }
 
+  Future<ApiResponse<bool>> logout(String? firebaseId) {
+    Map<String, dynamic> parameters = {"firebaseId": firebaseId};
+    return _client
+        .getRequest('/logout', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) => ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error)));
+  }
+
   ///Sets a token to the https client
   void setToken(String token) => _client.addAuthorization(token);
 

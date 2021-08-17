@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/core/settings/config.dart';
+import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 
 class HomeDrawer extends StatelessWidget {
   final int? whatsappNumber;
@@ -163,6 +164,7 @@ class DrawerTopBar extends StatelessWidget {
                       child: Text('Yes'),
                       onPressed: () {
                         Navigator.of(dialogContext).pop();
+                        context.read<HomeBloc>().add(HomeEvent.logout());
                         context
                             .read<AuthenticationCubit>()
                             .changeState(user: null);

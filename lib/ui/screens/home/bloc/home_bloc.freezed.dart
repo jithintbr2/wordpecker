@@ -21,6 +21,10 @@ class _$HomeEventTearOff {
       franchiseId,
     );
   }
+
+  _Logout logout() {
+    return const _Logout();
+  }
 }
 
 /// @nodoc
@@ -28,33 +32,31 @@ const $HomeEvent = _$HomeEventTearOff();
 
 /// @nodoc
 mixin _$HomeEvent {
-  int get franchiseId => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int franchiseId) fetchData,
+    required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int franchiseId)? fetchData,
+    TResult Function()? logout,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchData value) fetchData,
+    required TResult Function(_Logout value) logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchData value)? fetchData,
+    TResult Function(_Logout value)? logout,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $HomeEventCopyWith<HomeEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -62,7 +64,6 @@ mixin _$HomeEvent {
 abstract class $HomeEventCopyWith<$Res> {
   factory $HomeEventCopyWith(HomeEvent value, $Res Function(HomeEvent) then) =
       _$HomeEventCopyWithImpl<$Res>;
-  $Res call({int franchiseId});
 }
 
 /// @nodoc
@@ -72,26 +73,13 @@ class _$HomeEventCopyWithImpl<$Res> implements $HomeEventCopyWith<$Res> {
   final HomeEvent _value;
   // ignore: unused_field
   final $Res Function(HomeEvent) _then;
-
-  @override
-  $Res call({
-    Object? franchiseId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      franchiseId: franchiseId == freezed
-          ? _value.franchiseId
-          : franchiseId // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class _$FetchDataCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+abstract class _$FetchDataCopyWith<$Res> {
   factory _$FetchDataCopyWith(
           _FetchData value, $Res Function(_FetchData) then) =
       __$FetchDataCopyWithImpl<$Res>;
-  @override
   $Res call({int franchiseId});
 }
 
@@ -152,6 +140,7 @@ class _$_FetchData implements _FetchData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int franchiseId) fetchData,
+    required TResult Function() logout,
   }) {
     return fetchData(franchiseId);
   }
@@ -160,6 +149,7 @@ class _$_FetchData implements _FetchData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int franchiseId)? fetchData,
+    TResult Function()? logout,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
@@ -172,6 +162,7 @@ class _$_FetchData implements _FetchData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchData value) fetchData,
+    required TResult Function(_Logout value) logout,
   }) {
     return fetchData(this);
   }
@@ -180,6 +171,7 @@ class _$_FetchData implements _FetchData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchData value)? fetchData,
+    TResult Function(_Logout value)? logout,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
@@ -192,12 +184,93 @@ class _$_FetchData implements _FetchData {
 abstract class _FetchData implements HomeEvent {
   const factory _FetchData(int franchiseId) = _$_FetchData;
 
-  @override
   int get franchiseId => throw _privateConstructorUsedError;
-  @override
   @JsonKey(ignore: true)
   _$FetchDataCopyWith<_FetchData> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$LogoutCopyWith<$Res> {
+  factory _$LogoutCopyWith(_Logout value, $Res Function(_Logout) then) =
+      __$LogoutCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$LogoutCopyWithImpl<$Res> extends _$HomeEventCopyWithImpl<$Res>
+    implements _$LogoutCopyWith<$Res> {
+  __$LogoutCopyWithImpl(_Logout _value, $Res Function(_Logout) _then)
+      : super(_value, (v) => _then(v as _Logout));
+
+  @override
+  _Logout get _value => super._value as _Logout;
+}
+
+/// @nodoc
+
+class _$_Logout implements _Logout {
+  const _$_Logout();
+
+  @override
+  String toString() {
+    return 'HomeEvent.logout()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is _Logout);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int franchiseId) fetchData,
+    required TResult Function() logout,
+  }) {
+    return logout();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int franchiseId)? fetchData,
+    TResult Function()? logout,
+    required TResult orElse(),
+  }) {
+    if (logout != null) {
+      return logout();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchData value) fetchData,
+    required TResult Function(_Logout value) logout,
+  }) {
+    return logout(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchData value)? fetchData,
+    TResult Function(_Logout value)? logout,
+    required TResult orElse(),
+  }) {
+    if (logout != null) {
+      return logout(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Logout implements HomeEvent {
+  const factory _Logout() = _$_Logout;
 }
 
 /// @nodoc
