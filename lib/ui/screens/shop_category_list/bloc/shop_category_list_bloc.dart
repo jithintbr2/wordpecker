@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:woodle/core/models/custom_page/custom_page_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
+import 'package:woodle/core/network/api_response/api_response.dart';
 import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/repository/repository.dart';
 
@@ -22,8 +24,10 @@ class ShopCategoryListBloc
   ) async* {
     if (event is _FetchData) {
       yield _Loading();
-      final response =
-          await repository.fetchShopList(event.franchiseId, event.categoryId);
+      // final response =
+      //     await repository.fetchShopList(event.franchiseId, event.categoryId);
+      ApiResponse<CustomPageModel> response =
+          await repository.fetchCustomPageData(event.franchiseId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

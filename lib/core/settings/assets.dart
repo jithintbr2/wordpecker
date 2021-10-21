@@ -8,6 +8,8 @@ class Assets {
   static String get rewardCardBackground => "assets/images/bg_scratch_card.jpg";
   static String get rewardLockedIcon => "assets/images/ic_scratch_card_fg.png";
   static String get rewardUnScratched => "assets/images/ic_scratch_card.png";
+  static String get rewardUnScratchedBig =>
+      "assets/images/ic_scratch_card_big.png";
   static String get rewardWon => "assets/images/ic_trophy.png";
   static String get rewardAppBarBackground => "assets/images/bg_reward.jpg";
 }

@@ -29,7 +29,8 @@ class _$ShopModelTearOff {
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
       List<MenuModel>? category,
-      List<String>? slider}) {
+      List<String>? slider,
+      @JsonKey(name: 'scrollingMessage') String? message}) {
     return _ShopModel(
       shopId: shopId,
       shopName: shopName,
@@ -40,6 +41,7 @@ class _$ShopModelTearOff {
       rating: rating,
       category: category,
       slider: slider,
+      message: message,
     );
   }
 
@@ -67,6 +69,8 @@ mixin _$ShopModel {
   double? get rating => throw _privateConstructorUsedError;
   List<MenuModel>? get category => throw _privateConstructorUsedError;
   List<String>? get slider => throw _privateConstructorUsedError;
+  @JsonKey(name: 'scrollingMessage')
+  String? get message => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -87,7 +91,8 @@ abstract class $ShopModelCopyWith<$Res> {
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
       List<MenuModel>? category,
-      List<String>? slider});
+      List<String>? slider,
+      @JsonKey(name: 'scrollingMessage') String? message});
 }
 
 /// @nodoc
@@ -109,6 +114,7 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
     Object? rating = freezed,
     Object? category = freezed,
     Object? slider = freezed,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       shopId: shopId == freezed
@@ -147,6 +153,10 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
           ? _value.slider
           : slider // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -166,7 +176,8 @@ abstract class _$ShopModelCopyWith<$Res> implements $ShopModelCopyWith<$Res> {
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
       List<MenuModel>? category,
-      List<String>? slider});
+      List<String>? slider,
+      @JsonKey(name: 'scrollingMessage') String? message});
 }
 
 /// @nodoc
@@ -189,6 +200,7 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
     Object? rating = freezed,
     Object? category = freezed,
     Object? slider = freezed,
+    Object? message = freezed,
   }) {
     return _then(_ShopModel(
       shopId: shopId == freezed
@@ -227,6 +239,10 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
           ? _value.slider
           : slider // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      message: message == freezed
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -243,7 +259,8 @@ class _$_ShopModel implements _ShopModel {
       @JsonKey(defaultValue: 0) this.ratingCount,
       @JsonKey(defaultValue: 0) this.rating,
       this.category,
-      this.slider});
+      this.slider,
+      @JsonKey(name: 'scrollingMessage') this.message});
 
   factory _$_ShopModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ShopModelFromJson(json);
@@ -271,10 +288,13 @@ class _$_ShopModel implements _ShopModel {
   final List<MenuModel>? category;
   @override
   final List<String>? slider;
+  @override
+  @JsonKey(name: 'scrollingMessage')
+  final String? message;
 
   @override
   String toString() {
-    return 'ShopModel(shopId: $shopId, shopName: $shopName, imageUrl: $imageUrl, servicesNow: $servicesNow, services: $services, ratingCount: $ratingCount, rating: $rating, category: $category, slider: $slider)';
+    return 'ShopModel(shopId: $shopId, shopName: $shopName, imageUrl: $imageUrl, servicesNow: $servicesNow, services: $services, ratingCount: $ratingCount, rating: $rating, category: $category, slider: $slider, message: $message)';
   }
 
   @override
@@ -304,7 +324,9 @@ class _$_ShopModel implements _ShopModel {
                 const DeepCollectionEquality()
                     .equals(other.category, category)) &&
             (identical(other.slider, slider) ||
-                const DeepCollectionEquality().equals(other.slider, slider)));
+                const DeepCollectionEquality().equals(other.slider, slider)) &&
+            (identical(other.message, message) ||
+                const DeepCollectionEquality().equals(other.message, message)));
   }
 
   @override
@@ -318,7 +340,8 @@ class _$_ShopModel implements _ShopModel {
       const DeepCollectionEquality().hash(ratingCount) ^
       const DeepCollectionEquality().hash(rating) ^
       const DeepCollectionEquality().hash(category) ^
-      const DeepCollectionEquality().hash(slider);
+      const DeepCollectionEquality().hash(slider) ^
+      const DeepCollectionEquality().hash(message);
 
   @JsonKey(ignore: true)
   @override
@@ -341,7 +364,8 @@ abstract class _ShopModel implements ShopModel {
       @JsonKey(defaultValue: 0) int? ratingCount,
       @JsonKey(defaultValue: 0) double? rating,
       List<MenuModel>? category,
-      List<String>? slider}) = _$_ShopModel;
+      List<String>? slider,
+      @JsonKey(name: 'scrollingMessage') String? message}) = _$_ShopModel;
 
   factory _ShopModel.fromJson(Map<String, dynamic> json) =
       _$_ShopModel.fromJson;
@@ -369,6 +393,9 @@ abstract class _ShopModel implements ShopModel {
   List<MenuModel>? get category => throw _privateConstructorUsedError;
   @override
   List<String>? get slider => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'scrollingMessage')
+  String? get message => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ShopModelCopyWith<_ShopModel> get copyWith =>

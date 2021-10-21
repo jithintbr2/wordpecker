@@ -6,5 +6,7 @@ class RequestItemEvent with _$RequestItemEvent {
     required List items,
     required int franchiseId,
     required String remark,
+    required List images,
+    required FlutterUploader uploader,
   }) = _Request;
 }

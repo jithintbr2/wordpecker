@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
+import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/assets.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
@@ -241,6 +245,20 @@ class DrawerBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocalStorage _localStorage = LocalStorage();
+    AddressModel? _getAddress() {
+      if (_localStorage.get('currentAddress') != null) {
+        Map<String, dynamic> currentAddressRaw =
+            jsonDecode(_localStorage.get('currentAddress') as String);
+        return AddressModel.fromJson(currentAddressRaw);
+      }
+      return null;
+    }
+
+    int franchieId = -1;
+    final address = _getAddress();
+    franchieId = address!.franchiseId;
+
     return ListView(
       shrinkWrap: true,
       padding: EdgeInsets.all(0),
@@ -256,7 +274,24 @@ class DrawerBody extends StatelessWidget {
         _itemTile(context, Icons.track_changes, "My Orders",
             onTap: () => Navigator.pushNamed(context, '/orders')),
         _itemTile(context, Icons.request_quote, "Request Items",
-            onTap: () => Navigator.pushNamed(context, '/requestItems')),
+            onTap: () => franchieId == -1
+                ? showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                          title: Text("Select Location"),
+                          content: Text(
+                              "Please Select a location to access this feature"),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushNamed(context, '/address');
+                              },
+                              child: Text("okay"),
+                            ),
+                          ],
+                        ))
+                : Navigator.pushNamed(context, '/requestItems')),
         _itemTile(context, Icons.account_balance_wallet, "Wallet",
             onTap: () => Navigator.pushNamed(context, '/wallet')),
         _itemTile(context, Icons.share, "Refer and Earn",

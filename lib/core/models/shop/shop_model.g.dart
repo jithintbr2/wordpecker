@@ -21,6 +21,7 @@ _$_ShopModel _$_$_ShopModelFromJson(Map<String, dynamic> json) {
         .toList(),
     slider:
         (json['slider'] as List<dynamic>?)?.map((e) => e as String).toList(),
+    message: json['scrollingMessage'] as String?,
   );
 }
 
@@ -35,4 +36,5 @@ Map<String, dynamic> _$_$_ShopModelToJson(_$_ShopModel instance) =>
       'rating': instance.rating,
       'category': instance.category,
       'slider': instance.slider,
+      'scrollingMessage': instance.message,
     };

@@ -19,11 +19,15 @@ class _$RequestItemEventTearOff {
   _Request request(
       {required List<dynamic> items,
       required int franchiseId,
-      required String remark}) {
+      required String remark,
+      required List<dynamic> images,
+      required FlutterUploader uploader}) {
     return _Request(
       items: items,
       franchiseId: franchiseId,
       remark: remark,
+      images: images,
+      uploader: uploader,
     );
   }
 }
@@ -36,17 +40,20 @@ mixin _$RequestItemEvent {
   List<dynamic> get items => throw _privateConstructorUsedError;
   int get franchiseId => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
+  List<dynamic> get images => throw _privateConstructorUsedError;
+  FlutterUploader get uploader => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<dynamic> items, int franchiseId, String remark)
+    required TResult Function(List<dynamic> items, int franchiseId,
+            String remark, List<dynamic> images, FlutterUploader uploader)
         request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<dynamic> items, int franchiseId, String remark)?
+    TResult Function(List<dynamic> items, int franchiseId, String remark,
+            List<dynamic> images, FlutterUploader uploader)?
         request,
     required TResult orElse(),
   }) =>
@@ -73,7 +80,12 @@ abstract class $RequestItemEventCopyWith<$Res> {
   factory $RequestItemEventCopyWith(
           RequestItemEvent value, $Res Function(RequestItemEvent) then) =
       _$RequestItemEventCopyWithImpl<$Res>;
-  $Res call({List<dynamic> items, int franchiseId, String remark});
+  $Res call(
+      {List<dynamic> items,
+      int franchiseId,
+      String remark,
+      List<dynamic> images,
+      FlutterUploader uploader});
 }
 
 /// @nodoc
@@ -90,6 +102,8 @@ class _$RequestItemEventCopyWithImpl<$Res>
     Object? items = freezed,
     Object? franchiseId = freezed,
     Object? remark = freezed,
+    Object? images = freezed,
+    Object? uploader = freezed,
   }) {
     return _then(_value.copyWith(
       items: items == freezed
@@ -104,6 +118,14 @@ class _$RequestItemEventCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      images: images == freezed
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      uploader: uploader == freezed
+          ? _value.uploader
+          : uploader // ignore: cast_nullable_to_non_nullable
+              as FlutterUploader,
     ));
   }
 }
@@ -114,7 +136,12 @@ abstract class _$RequestCopyWith<$Res>
   factory _$RequestCopyWith(_Request value, $Res Function(_Request) then) =
       __$RequestCopyWithImpl<$Res>;
   @override
-  $Res call({List<dynamic> items, int franchiseId, String remark});
+  $Res call(
+      {List<dynamic> items,
+      int franchiseId,
+      String remark,
+      List<dynamic> images,
+      FlutterUploader uploader});
 }
 
 /// @nodoc
@@ -131,6 +158,8 @@ class __$RequestCopyWithImpl<$Res> extends _$RequestItemEventCopyWithImpl<$Res>
     Object? items = freezed,
     Object? franchiseId = freezed,
     Object? remark = freezed,
+    Object? images = freezed,
+    Object? uploader = freezed,
   }) {
     return _then(_Request(
       items: items == freezed
@@ -145,6 +174,14 @@ class __$RequestCopyWithImpl<$Res> extends _$RequestItemEventCopyWithImpl<$Res>
           ? _value.remark
           : remark // ignore: cast_nullable_to_non_nullable
               as String,
+      images: images == freezed
+          ? _value.images
+          : images // ignore: cast_nullable_to_non_nullable
+              as List<dynamic>,
+      uploader: uploader == freezed
+          ? _value.uploader
+          : uploader // ignore: cast_nullable_to_non_nullable
+              as FlutterUploader,
     ));
   }
 }
@@ -153,7 +190,11 @@ class __$RequestCopyWithImpl<$Res> extends _$RequestItemEventCopyWithImpl<$Res>
 
 class _$_Request implements _Request {
   const _$_Request(
-      {required this.items, required this.franchiseId, required this.remark});
+      {required this.items,
+      required this.franchiseId,
+      required this.remark,
+      required this.images,
+      required this.uploader});
 
   @override
   final List<dynamic> items;
@@ -161,10 +202,14 @@ class _$_Request implements _Request {
   final int franchiseId;
   @override
   final String remark;
+  @override
+  final List<dynamic> images;
+  @override
+  final FlutterUploader uploader;
 
   @override
   String toString() {
-    return 'RequestItemEvent.request(items: $items, franchiseId: $franchiseId, remark: $remark)';
+    return 'RequestItemEvent.request(items: $items, franchiseId: $franchiseId, remark: $remark, images: $images, uploader: $uploader)';
   }
 
   @override
@@ -177,7 +222,12 @@ class _$_Request implements _Request {
                 const DeepCollectionEquality()
                     .equals(other.franchiseId, franchiseId)) &&
             (identical(other.remark, remark) ||
-                const DeepCollectionEquality().equals(other.remark, remark)));
+                const DeepCollectionEquality().equals(other.remark, remark)) &&
+            (identical(other.images, images) ||
+                const DeepCollectionEquality().equals(other.images, images)) &&
+            (identical(other.uploader, uploader) ||
+                const DeepCollectionEquality()
+                    .equals(other.uploader, uploader)));
   }
 
   @override
@@ -185,7 +235,9 @@ class _$_Request implements _Request {
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(items) ^
       const DeepCollectionEquality().hash(franchiseId) ^
-      const DeepCollectionEquality().hash(remark);
+      const DeepCollectionEquality().hash(remark) ^
+      const DeepCollectionEquality().hash(images) ^
+      const DeepCollectionEquality().hash(uploader);
 
   @JsonKey(ignore: true)
   @override
@@ -195,22 +247,23 @@ class _$_Request implements _Request {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<dynamic> items, int franchiseId, String remark)
+    required TResult Function(List<dynamic> items, int franchiseId,
+            String remark, List<dynamic> images, FlutterUploader uploader)
         request,
   }) {
-    return request(items, franchiseId, remark);
+    return request(items, franchiseId, remark, images, uploader);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<dynamic> items, int franchiseId, String remark)?
+    TResult Function(List<dynamic> items, int franchiseId, String remark,
+            List<dynamic> images, FlutterUploader uploader)?
         request,
     required TResult orElse(),
   }) {
     if (request != null) {
-      return request(items, franchiseId, remark);
+      return request(items, franchiseId, remark, images, uploader);
     }
     return orElse();
   }
@@ -240,7 +293,9 @@ abstract class _Request implements RequestItemEvent {
   const factory _Request(
       {required List<dynamic> items,
       required int franchiseId,
-      required String remark}) = _$_Request;
+      required String remark,
+      required List<dynamic> images,
+      required FlutterUploader uploader}) = _$_Request;
 
   @override
   List<dynamic> get items => throw _privateConstructorUsedError;
@@ -248,6 +303,10 @@ abstract class _Request implements RequestItemEvent {
   int get franchiseId => throw _privateConstructorUsedError;
   @override
   String get remark => throw _privateConstructorUsedError;
+  @override
+  List<dynamic> get images => throw _privateConstructorUsedError;
+  @override
+  FlutterUploader get uploader => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$RequestCopyWith<_Request> get copyWith =>

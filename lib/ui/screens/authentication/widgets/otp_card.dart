@@ -1,9 +1,48 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:woodle/core/settings/assets.dart';
+
+int useCountDown(int count) => use(_CountTimer(count: count));
+
+class _CountTimer extends Hook<int> {
+  final int count;
+  const _CountTimer({required this.count});
+
+  @override
+  __CountTimerState createState() => __CountTimerState();
+}
+
+class __CountTimerState extends HookState<int, _CountTimer> {
+  late Timer _timer;
+  int _currentCount = 0;
+
+  @override
+  void initHook() {
+    super.initHook();
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      setState(() {
+        _currentCount = timer.tick;
+        if (hook.count - _currentCount == 0) _timer.cancel();
+      });
+    });
+  }
+
+  @override
+  int build(BuildContext context) {
+    return _currentCount - hook.count == 0 ? 0 : hook.count - _currentCount;
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+}
 
 class OTPCard extends HookWidget {
   final void Function(String signature, int otp) sendOTP;
@@ -24,14 +63,18 @@ class OTPCard extends HookWidget {
     return otp;
   }
 
+  smsFill(int generatedOTP) {
+    SmsAutoFill().listenForCode;
+    SmsAutoFill()
+        .getAppSignature
+        .then((signature) => sendOTP(signature, generatedOTP));
+  }
+
   @override
   Widget build(BuildContext context) {
     int generatedOTP = generateOTP();
     useEffect(() {
-      SmsAutoFill().listenForCode;
-      SmsAutoFill()
-          .getAppSignature
-          .then((signature) => sendOTP(signature, generatedOTP));
+      smsFill(generatedOTP);
     }, []);
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 20),
@@ -79,8 +122,9 @@ class OTPCard extends HookWidget {
                         ));
                     },
                     child: Text("Verify"))),
+            ResendOTP(sendOTP: () => smsFill(generatedOTP)),
             Container(
-              height: 100,
+              height: 50,
               alignment: Alignment.bottomRight,
               child: TextButton(
                 child: Text("Back",
@@ -93,6 +137,27 @@ class OTPCard extends HookWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ResendOTP extends HookWidget {
+  final void Function() sendOTP;
+  const ResendOTP({Key? key, required this.sendOTP}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    int time = 0;
+    time = useCountDown(30);
+    return Container(
+      height: 50,
+      alignment: Alignment.center,
+      child: time == 0
+          ? InkWell(
+              onTap: sendOTP,
+              child: Text('Resend OTP',
+                  style: TextStyle(color: Theme.of(context).primaryColor)))
+          : Text('Resend OTP in $time seconds'),
     );
   }
 }

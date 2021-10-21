@@ -15,6 +15,7 @@ import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/item_varient_container_tile.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
 import 'package:woodle/ui/widgets/loading.dart';
+import 'package:woodle/ui/widgets/marquee.dart';
 
 class ShopPage extends HookWidget {
   final int shopId;
@@ -88,7 +89,8 @@ class ShopPage extends HookWidget {
           shop: data,
           selectedMenuId: selectedMenuId.value,
           onMenuSelection: (id) => selectedMenuId.value = id,
-        )
+        ),
+        MarqueeWidget(text: data.message ?? ''),
       ])));
 
     _filteredCategories.forEach((category) {

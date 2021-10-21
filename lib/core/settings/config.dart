@@ -5,12 +5,14 @@ class Config {
   static String get applicationName => "Delvento Template";
   static int get contactNumber => 8848486761;
   static String get apiBaseUrl =>
-      "https://woodle.in/delvento/index.php/User_mobile_version_nine";
+      "https://woodle.in/delvento/index.php/User_mobile_version_one";
   static String get cancellationPolicy =>
       "https://delvento.in/cancellation_policy/";
   static String get termsConditions =>
       "https://delvento.in/privacy_terms_and_condition/";
   static String get aboutUs => "https://delvento.in/about_us/";
+  static String get appStoreLink =>
+      "https://play.google.com/store/apps/details?id=com.car360.user";
 
   // Keys
   static String kGoogleApiKey = "AIzaSyBIFTn0-99un9Vg_irKX9ve2i54xcTMAO4";

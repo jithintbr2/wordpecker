@@ -16,6 +16,7 @@ class ShopModel with _$ShopModel {
     @JsonKey(defaultValue: 0) double? rating,
     List<MenuModel>? category,
     List<String>? slider,
+    @JsonKey(name: 'scrollingMessage') String? message,
   }) = _ShopModel;
 
   factory ShopModel.fromJson(Map<String, dynamic> json) =>

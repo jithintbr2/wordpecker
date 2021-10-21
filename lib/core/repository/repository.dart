@@ -1,9 +1,11 @@
+import 'package:flutter_uploader/flutter_uploader.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:version/version.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/app_version/app_verification_model.dart';
 import 'package:woodle/core/models/app_version/app_version_model.dart';
 import 'package:woodle/core/models/coupon/coupon_model.dart';
+import 'package:woodle/core/models/custom_page/custom_page_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
 import 'package:woodle/core/models/home_search/home_search_model.dart';
 import 'package:woodle/core/models/item/item_model.dart';
@@ -21,6 +23,7 @@ import 'package:woodle/core/models/wallet/wallet_model.dart';
 import 'package:woodle/core/network/api_response/api_response.dart';
 import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/services/http_client.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class ApplicationRepository {
   HttpService _client = HttpService();
@@ -136,6 +139,16 @@ class ApplicationRepository {
         .getRequest('/home_page', parameters: parameters)
         .then((response) =>
             ApiResponse.success(data: HomePageModel.fromJson(response['data'])))
+        .onError((error, _) => ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error)));
+  }
+
+  Future<ApiResponse<CustomPageModel>> fetchCustomPageData(int franchiseId) {
+    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
+    return _client
+        .getRequest('/list_shops', parameters: parameters)
+        .then((response) => ApiResponse.success(
+            data: CustomPageModel.fromJson(response['data'])))
         .onError((error, _) => ApiResponse.failure(
             error: NetworkExceptions.getDioExceptions(error)));
   }
@@ -315,6 +328,56 @@ class ApplicationRepository {
     });
   }
 
+  ///Fetch item Reviews
+  Future<ApiResponse<ShopReviewModel>> fetchItemReviews(int itemId) {
+    Map<String, dynamic> parameters = {"itemId": itemId};
+    return _client
+        .getRequest('/list_all_item_reviews', parameters: parameters)
+        .then((response) => ApiResponse.success(
+            data: ShopReviewModel.fromJson(response['data'])))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Add Item Reviews
+  Future<ApiResponse<bool>> addItemReviews(
+      double rating, String? review, int itemId) {
+    Map<String, dynamic> parameters = {
+      "rating": rating,
+      "review": review,
+      "itemId": itemId
+    };
+    return _client
+        .getRequest('/add_item_review', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
+  ///Edit item Reviews
+  Future<ApiResponse<bool>> editItemReviews(
+      double rating, String? review, int reviewId) {
+    Map<String, dynamic> parameters = {
+      "rating": rating,
+      "review": review,
+      "reviewId": reviewId
+    };
+    return _client
+        .getRequest('/edit_item_review', parameters: parameters)
+        .then((response) => ApiResponse.success(data: response['data'] as bool))
+        .onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+
   ///Fetch Referral Details
   Future<ApiResponse<ReferralModel>> fetchReferralDetails() {
     return _client
@@ -406,17 +469,17 @@ class ApplicationRepository {
 
   /// Place Order
   Future<ApiResponse<int>> placeOrder(
-    List items,
-    int shopId,
-    int addressId,
-    String remark,
-    bool isAdvancedOrder,
-    String datetime,
-    int? couponId,
-    double? redeemedAmount,
-    double? couponDiscount,
-    String? couponType,
-  ) {
+      List items,
+      int shopId,
+      int addressId,
+      String remark,
+      bool isAdvancedOrder,
+      String datetime,
+      int? couponId,
+      double? redeemedAmount,
+      double? couponDiscount,
+      String? couponType,
+      bool isOnlinePayment) {
     Map<String, dynamic> parameters = {
       "items": items,
       "shopId": shopId,
@@ -427,7 +490,7 @@ class ApplicationRepository {
       "couponDiscount": couponDiscount ?? 0.0,
       "couponType": couponType ?? "",
       "advancedOrder": isAdvancedOrder,
-      "paymentMode": "cash_on_delivery",
+      "paymentMode": isOnlinePayment ? "onlinePayment" : "cash_on_delivery",
       "scheduledDeliveryDateTime": datetime,
       "additionalCharges": []
     };
@@ -479,8 +542,9 @@ class ApplicationRepository {
   }
 
   /// Fetch Order Details
-  Future<ApiResponse<OrderDetailsModel>> fetchOrderDetails(int orderId) {
-    Map<String, dynamic> parameters = {"orderId": orderId};
+  Future<ApiResponse<OrderDetailsModel>> fetchOrderDetails(
+      int orderId, int? tempId) {
+    Map<String, dynamic> parameters = {"orderId": orderId, "tempId": tempId};
     return _client
         .getRequest('/order_details', parameters: parameters)
         .then((response) => ApiResponse.success(
@@ -573,7 +637,7 @@ class ApplicationRepository {
   }
 
   Future<ApiResponse<bool>> resetPassword(String phone, String password) {
-    Map<String, dynamic> parameters = {"password": password};
+    Map<String, dynamic> parameters = {"password": password, "phone": phone};
     return _client
         .getRequest('/reset_password', parameters: parameters)
         .then((response) => ApiResponse.success(data: response['data'] as bool))
@@ -584,7 +648,7 @@ class ApplicationRepository {
     });
   }
 
-  Future<ApiResponse<bool>> requestItems(
+  Future<ApiResponse<int>> requestItems(
     List items,
     int franchiseId,
     String remark,
@@ -596,8 +660,21 @@ class ApplicationRepository {
     };
     return _client.postRequest('/request_item', parameters: parameters).then(
         (response) {
-      return ApiResponse.success(data: response['data'] as bool);
+      return ApiResponse.success(data: response['data'] as int);
     }).onError((error, _) =>
         ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+  }
+
+  Upload uploadFile(List<String> paths, int requiredId) {
+    final tag = 'upload';
+    var url = Config.apiBaseUrl + '/upload_req_item_photo';
+
+    return MultipartFormDataUpload(
+      url: url.toString(),
+      data: {'requestId': requiredId.toString()},
+      files: paths.map((e) => FileItem(path: e, field: 'file')).toList(),
+      method: UploadMethod.POST,
+      tag: tag,
+    );
   }
 }

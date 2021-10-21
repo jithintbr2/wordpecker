@@ -18,7 +18,7 @@ class HomeBottomNavigationBar extends StatelessWidget {
       onTap: onTap,
       items: [
         BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.store), label: "Custom"),
+        BottomNavigationBarItem(icon: Icon(Icons.store), label: "Shops"),
         BottomNavigationBarItem(icon: Icon(Icons.message), label: "Services"),
         BottomNavigationBarItem(icon: Icon(Icons.dehaze), label: "More"),
       ],

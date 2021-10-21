@@ -4,14 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/item/item_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
 import 'package:woodle/ui/screens/item/widgets/go_shop.dart';
-import 'package:woodle/ui/screens/item/widgets/varient_lister.dart';
+import 'package:woodle/ui/screens/item_reviews/bloc/item_review_bloc.dart';
+import 'package:woodle/ui/screens/item_reviews/item_review_page.dart';
+import 'package:woodle/ui/screens/shop_review/widgets/review_view_box.dart';
 import 'package:woodle/ui/widgets/cart_tile.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/item_varient_tile.dart';
 import 'package:woodle/ui/widgets/loading.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 ///ItemPage represents item details page aka. product page.
 ///This page will contain the product details.
@@ -84,12 +88,81 @@ class ItemPage extends HookWidget {
               Expanded(
                   child: ListView(
                 children: [
-                  ItemImages(
-                    aspectRatio:
-                        data.varients[currentVarient.value].aspectRatio!,
-                    imgList: itemImages,
-                  ),
+                  Card(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ItemImages(
+                        aspectRatio:
+                            data.varients[currentVarient.value].aspectRatio!,
+                        imgList: itemImages,
+                      ),
+                      SizedBox(height: 10),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            data.varients[currentVarient.value].varientName,
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          )),
+                      Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Text(
+                            data.varients[currentVarient.value].description ??
+                                '',
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          )),
+                      Padding(
+                          padding:
+                              EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  data.varients[currentVarient.value]
+                                              .salePrice ==
+                                          data.varients[currentVarient.value]
+                                              .mrp
+                                      ? Text(
+                                          "₹${data.varients[currentVarient.value].salePrice}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText1!
+                                              .copyWith(fontSize: 14))
+                                      : Row(children: [
+                                          Text(
+                                              "₹${data.varients[currentVarient.value].salePrice}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(fontSize: 14)),
+                                          SizedBox(width: 10),
+                                          Text(
+                                              "₹${data.varients[currentVarient.value].mrp}",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1!
+                                                  .copyWith(
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                    decorationThickness: 2,
+                                                    color: Colors.red,
+                                                    fontSize: 12,
+                                                  ))
+                                        ])
+                                ],
+                              ),
+                              ElevatedButton(
+                                  onPressed: () => service.addItem(context,
+                                      data.varients[currentVarient.value]),
+                                  child: Text('Add'))
+                            ],
+                          ))
+                    ],
+                  )),
                   Divider(),
+                  ItemReviews(itemId: itemId),
                   // VarientLister(
                   //     varients: data.varients,
                   //     currentVarientId: data.varients[currentVarient.value].varientId,
@@ -141,22 +214,6 @@ class ItemPage extends HookWidget {
                             ))
                         .toList(),
                   ),
-                  Divider(),
-                  data.varients[currentVarient.value].description != null
-                      ? Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Description',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17)),
-                              Text(data
-                                  .varients[currentVarient.value].description!)
-                            ],
-                          ))
-                      : SizedBox(),
                   SizedBox(height: 50)
                 ],
               )),
@@ -195,10 +252,15 @@ class ItemImages extends HookWidget {
         children: [
           CarouselSlider.builder(
               itemCount: imgList.length,
-              itemBuilder: (context, index, _) => Image.network(
+              itemBuilder: (context, index, _) => Zoom(
+                  colorScrollBars: Colors.transparent,
+                  initZoom: 0.0,
+                  maxZoomWidth: 1800,
+                  maxZoomHeight: 1800,
+                  child: Image.network(
                     imgList[index],
                     fit: BoxFit.contain,
-                  ),
+                  )),
               options: _options()),
           // Align(
           //   alignment: Alignment.bottomCenter,
@@ -220,5 +282,115 @@ class ItemImages extends HookWidget {
         ],
       ),
     );
+  }
+}
+
+class ItemReviews extends HookWidget {
+  final int itemId;
+  const ItemReviews({Key? key, required this.itemId}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    useEffect(() {
+      context.read<ItemReviewBloc>().add(ItemReviewEvent.fetchAll(itemId));
+    }, []);
+    return BlocBuilder<ItemReviewBloc, ItemReviewState>(
+        builder: (context, state) => state.when(
+            loading: () => LoadingView(),
+            loaded: (data) => InkWell(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => BlocProvider(
+                          create: (context) => ItemReviewBloc(
+                              repository:
+                                  context.read<ApplicationRepository>()),
+                          child: ItemReviewPage(
+                            itemId: itemId,
+                          )))),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "All Reviews",
+                        style: Theme.of(context).textTheme.subtitle2,
+                        textAlign: TextAlign.start,
+                      ),
+                      data.allReviews.length > 0
+                          ? ListView.separated(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: data.allReviews.length > 3
+                                  ? 3
+                                  : data.allReviews.length,
+                              itemBuilder: (context, index) =>
+                                  ReviewViewBox(data: data.allReviews[index]),
+                              separatorBuilder: (_, __) => Divider(),
+                            )
+                          : Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('No Reviews yet'),
+                                  ElevatedButton(
+                                      onPressed: () => Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BlocProvider(
+                                                      create: (context) =>
+                                                          ItemReviewBloc(
+                                                              repository:
+                                                                  context.read<
+                                                                      ApplicationRepository>()),
+                                                      child: ItemReviewPage(
+                                                        itemId: itemId,
+                                                      )))),
+                                      child: Text('Add a Review'))
+                                ],
+                              ),
+                            )
+                    ],
+                  ),
+                ),
+            failed: (exception) => SizedBox()));
+  }
+}
+
+class ItemReviewsPage extends StatelessWidget {
+  final int itemId;
+  const ItemReviewsPage({Key? key, required this.itemId}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    useEffect(() {
+      context.read<ItemReviewBloc>().add(ItemReviewEvent.fetchAll(itemId));
+    }, []);
+    return BlocBuilder<ItemReviewBloc, ItemReviewState>(
+        builder: (context, state) => state.when(
+            loading: () => LoadingView(),
+            loaded: (data) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "All Reviews",
+                      style: Theme.of(context).textTheme.subtitle2,
+                      textAlign: TextAlign.start,
+                    ),
+                    data.allReviews.length > 0
+                        ? ListView.separated(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: data.allReviews.length,
+                            itemBuilder: (context, index) =>
+                                ReviewViewBox(data: data.allReviews[index]),
+                            separatorBuilder: (_, __) => Divider(),
+                          )
+                        : Padding(
+                            padding: EdgeInsets.all(10),
+                            child: Text('No Reviews yet'),
+                          )
+                  ],
+                ),
+            failed: (exception) => SizedBox()));
   }
 }

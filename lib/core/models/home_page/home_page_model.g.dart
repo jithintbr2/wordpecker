@@ -31,8 +31,12 @@ _$_HomePageModel _$_$_HomePageModelFromJson(Map<String, dynamic> json) {
     homeCategoreis: (json['homeCategoreis'] as List<dynamic>?)
         ?.map((e) => HomeCategoriesModel.fromJson(e as Map<String, dynamic>))
         .toList(),
+    featuredRestaurants: (json['featuredRestaurants'] as List<dynamic>?)
+        ?.map((e) => ShopModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
     contactNumber: json['contactNumber'] as int?,
     isPendingOrders: json['isPendingOrders'] as bool,
+    popupImage: json['popupImage'] as String?,
   );
 }
 
@@ -47,8 +51,10 @@ Map<String, dynamic> _$_$_HomePageModelToJson(_$_HomePageModel instance) =>
       'scrollingMessage': instance.message,
       'minimum_order_cost': instance.minOrderCost,
       'homeCategoreis': instance.homeCategoreis,
+      'featuredRestaurants': instance.featuredRestaurants,
       'contactNumber': instance.contactNumber,
       'isPendingOrders': instance.isPendingOrders,
+      'popupImage': instance.popupImage,
     };
 
 _$_HomeCategoriesModel _$_$_HomeCategoriesModelFromJson(

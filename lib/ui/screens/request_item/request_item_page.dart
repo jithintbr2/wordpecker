@@ -1,11 +1,21 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math';
+import 'package:path/path.dart';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:flutter_uploader/flutter_uploader.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/models/upload_item.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/request_item/bloc/request_item_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 class RequestItemPage extends HookWidget {
   const RequestItemPage({Key? key}) : super(key: key);
@@ -17,8 +27,15 @@ class RequestItemPage extends HookWidget {
     final _itemQuantity = useState(1);
     final _remarkController = useTextEditingController();
     final _items = useState([]);
+    final _imageList = useState<List<String>>([]);
+
+    StreamSubscription<UploadTaskProgress>? _progressSubscription;
+    StreamSubscription<UploadTaskResponse>? _resultSubscription;
+
+    final _tasks = useState<Map<String, UploadItem>>({});
 
     int franchieId = 0;
+    FlutterUploader _uploader = FlutterUploader();
 
     useEffect(() {
       LocalStorage _localStorage = LocalStorage();
@@ -35,15 +52,107 @@ class RequestItemPage extends HookWidget {
       franchieId = address!.franchiseId;
     }, []);
 
+    useEffect(() {
+      _progressSubscription = _uploader.progress.listen((progress) {
+        final task = _tasks.value[progress.taskId];
+        print(
+            'In MAIN APP: ID: ${progress.taskId}, progress: ${progress.progress}');
+        if (task == null) return;
+        if (task.isCompleted()) return;
+
+        var tmp = <String, UploadItem>{}..addAll(_tasks.value);
+        tmp.putIfAbsent(progress.taskId, () => UploadItem(progress.taskId));
+        tmp[progress.taskId] =
+            task.copyWith(progress: progress.progress, status: progress.status);
+        _tasks.value = tmp;
+      }, onError: (ex, stacktrace) {
+        print('exception: $ex');
+        print('stacktrace: $stacktrace');
+      });
+
+      _resultSubscription = _uploader.result.listen((result) {
+        print(
+            'IN MAIN APP: ${result.taskId}, status: ${result.status}, statusCode: ${result.statusCode}, headers: ${result.headers}');
+
+        var tmp = <String, UploadItem>{}..addAll(_tasks.value);
+        tmp.putIfAbsent(result.taskId, () => UploadItem(result.taskId));
+        tmp[result.taskId] = tmp[result.taskId]!
+            .copyWith(status: result.status, response: result);
+
+        _tasks.value = tmp;
+      }, onError: (ex, stacktrace) {
+        print('exception: $ex');
+        print('stacktrace: $stacktrace');
+      });
+
+      return () {
+        _progressSubscription?.cancel();
+        _resultSubscription?.cancel();
+        FlutterUploader().clearUploads();
+      };
+    }, []);
+
     return Scaffold(
         appBar: AppBar(
           title: Text('Request for item'),
         ),
         body: BlocBuilder<RequestItemBloc, RequestItemState>(
           builder: (context, state) => state.when(
-              busy: () => Center(
-                    child: CircularProgressIndicator(),
-                  ),
+              busy: () {
+                if (_tasks.value.length > 0) {
+                  bool flag = true;
+                  bool iterated = false;
+                  int iteratedIndex = 0;
+                  _tasks.value.values.forEach((element) {
+                    if (element.status != UploadTaskStatus.complete)
+                      flag = false;
+                    iteratedIndex = iteratedIndex + 1;
+
+                    if (iteratedIndex == _tasks.value.values.length)
+                      iterated = true;
+                  });
+
+                  if (flag && iterated) {
+                    WidgetsBinding.instance!
+                        .addPostFrameCallback((_) => showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                title: Text("Request Submitted"),
+                                content: Text(
+                                    "Your request has been submitted. Our representative will call you shortly after request evaluation."),
+                                actions: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          Config.useDashboardEntry
+                                              ? '/homeDashboard'
+                                              : '/home',
+                                          (route) => false);
+                                    },
+                                    child: Text("okay"),
+                                  ),
+                                ],
+                              ),
+                            ));
+                  }
+
+                  return ListView.separated(
+                    padding: EdgeInsets.all(20.0),
+                    itemCount: _tasks.value.values.length,
+                    itemBuilder: (context, index) {
+                      final item = _tasks.value.values.elementAt(index);
+                      return UploadView1(item: item);
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox();
+                    },
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
               idle: () => _buildBody(
                     context: context,
                     items: _items,
@@ -52,6 +161,8 @@ class RequestItemPage extends HookWidget {
                     itemNameController: _itemNameController,
                     itemQuantity: _itemQuantity,
                     key: _formKey,
+                    uploader: _uploader,
+                    imageList: _imageList,
                   )),
         ));
   }
@@ -64,6 +175,8 @@ class RequestItemPage extends HookWidget {
     required TextEditingController itemNameController,
     required ValueNotifier<int> itemQuantity,
     required GlobalKey<FormState> key,
+    required FlutterUploader uploader,
+    required ValueNotifier<List<String>> imageList,
   }) {
     print('....');
     print(items.value);
@@ -84,6 +197,7 @@ class RequestItemPage extends HookWidget {
                       context, key, itemNameController, itemQuantity, items),
                   _buildItemList(context, items),
                   _buildRemark(remarkController),
+                  _imageUploader(uploader, imageList)
                 ],
               ),
             ),
@@ -96,9 +210,12 @@ class RequestItemPage extends HookWidget {
               onPressed: () {
                 if (items.value.length > 0) {
                   context.read<RequestItemBloc>().add(RequestItemEvent.request(
-                      items: items.value,
-                      franchiseId: franchiseId,
-                      remark: remarkController.text));
+                        items: items.value,
+                        franchiseId: franchiseId,
+                        remark: remarkController.text,
+                        images: imageList.value,
+                        uploader: uploader,
+                      ));
                 }
               },
             )),
@@ -431,5 +548,123 @@ class RequestItemPage extends HookWidget {
               ),
             ),
           );
+  }
+
+  Widget _imageUploader(
+      FlutterUploader uploader, ValueNotifier<List<String>> imageList) {
+    print('.........asdfasdfasdf..........');
+    print(imageList);
+    return Card(
+      margin: const EdgeInsets.all(4.0),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  "Upload Image",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      //  var picture = await picker.getImage(source: ImageSource.camera);
+                      var picture = await FilePicker.platform.pickFiles(
+                        type: FileType.image,
+                      );
+                      if (picture != null)
+                        _handleFileUpload(
+                            picture.files.single.path!, uploader, imageList);
+                    },
+                    child: Text('Add Image'))
+              ],
+            ),
+            SizedBox(height: 8),
+            ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: imageList.value.length,
+                itemBuilder: (context, index) => ListTile(
+                      leading: Icon(Icons.image),
+                      title: Text(imageList.value[index].split('/').last),
+                      trailing: IconButton(
+                        icon: Icon(Icons.cancel),
+                        onPressed: () {
+                          var imageListtemp = imageList.value;
+                          imageListtemp.removeAt(index);
+                          imageList.value = [];
+                          imageList.value = imageListtemp;
+                        },
+                      ),
+                    ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _handleFileUpload(String path, FlutterUploader uploader,
+      ValueNotifier<List<String>> imageList) async {
+    var dir = await getTemporaryDirectory();
+    var random = new Random();
+    // final temptargetpath =
+    //     dir.absolute.path + random.nextInt(100).toString() + 'temp.jpg';
+
+    final filename = basename(path);
+    final filenameWithoutExt = filename.split('.');
+    filenameWithoutExt.removeLast();
+
+    final temptargetpath =
+        dir.absolute.path + filenameWithoutExt.join('.') + '.jpg';
+    // 'image' +
+    // (imageList.value.length + 1).toString() +
+    // '.jpg';
+
+    var result = await FlutterImageCompress.compressAndGetFile(
+      path,
+      temptargetpath,
+      quality: 88,
+      rotate: 180,
+    );
+
+    if (result != null) {
+      print('.....a123123123123');
+      print(result.absolute.path);
+      List<String> temp = imageList.value;
+      temp.add(result.absolute.path);
+      imageList.value = [];
+      imageList.value = temp;
+    }
+  }
+}
+
+class UploadView1 extends StatelessWidget {
+  final UploadItem item;
+  const UploadView1({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.upload),
+        title: item.status == UploadTaskStatus.running
+            ? Text('Uploading')
+            : item.status == UploadTaskStatus.complete
+                ? Text('Uploaded')
+                : item.status == UploadTaskStatus.enqueued
+                    ? Text('Upload Queued')
+                    : item.status == UploadTaskStatus.undefined
+                        ? Text('Upload initialized')
+                        : item.status == UploadTaskStatus.canceled
+                            ? Text('Upload Canceled')
+                            : item.status == UploadTaskStatus.failed
+                                ? Text('Upload Failed')
+                                : Text('Initializing'),
+        subtitle: item.status == UploadTaskStatus.running
+            ? LinearProgressIndicator(value: item.progress!.toDouble() / 100)
+            : SizedBox(),
+      ),
+    );
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:woodle/core/models/carousel/carousel_model.dart';
 import 'package:woodle/core/models/category/category_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
+import 'package:woodle/core/models/shop/shop_model.dart';
 
 part 'home_page_model.freezed.dart';
 part 'home_page_model.g.dart';
@@ -19,8 +20,10 @@ class HomePageModel with _$HomePageModel {
     @JsonKey(name: 'scrollingMessage') String? message,
     @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
     List<HomeCategoriesModel>? homeCategoreis,
+    List<ShopModel>? featuredRestaurants,
     int? contactNumber,
     required bool isPendingOrders,
+    String? popupImage,
   }) = _HomePageModel;
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) =>

@@ -17,6 +17,7 @@ import 'package:woodle/ui/screens/authentication/bloc/authenticationpage_bloc.da
 import 'package:woodle/ui/screens/cart/cart_page.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/screens/category_items/category_items_page.dart';
+import 'package:woodle/ui/screens/custom/bloc/custom_bloc.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 import 'package:woodle/ui/screens/home/dashboard_page.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
@@ -24,6 +25,7 @@ import 'package:woodle/ui/screens/home_search/bloc/home_search_bloc.dart';
 import 'package:woodle/ui/screens/home_search/home_search_page.dart';
 import 'package:woodle/ui/screens/item/bloc/item_bloc.dart';
 import 'package:woodle/ui/screens/item/item_page.dart';
+import 'package:woodle/ui/screens/item_reviews/bloc/item_review_bloc.dart';
 import 'package:woodle/ui/screens/notification/bloc/notification_bloc.dart';
 import 'package:woodle/ui/screens/notification/notification_page.dart';
 import 'package:woodle/ui/screens/order_cancel/bloc/order_cancel_bloc.dart';
@@ -132,6 +134,9 @@ class AppRouter {
       case '/homeDashboard':
         return _generatePlatformRoute(MultiBlocProvider(providers: [
           BlocProvider(
+              create: (context) => CustomBloc(
+                  repository: context.read<ApplicationRepository>())),
+          BlocProvider(
               create: (context) => HomeBloc(
                   context: context,
                   localStorage: LocalStorage(),
@@ -153,14 +158,21 @@ class AppRouter {
       case '/item':
         final Map<String, dynamic> args =
             settings.arguments as Map<String, dynamic>;
-        return _generatePlatformRoute(BlocProvider(
-          create: (context) =>
-              ItemBloc(repository: context.read<ApplicationRepository>()),
-          child: ItemPage(
-            itemId: args['itemId'],
-            itemName: args['itemName'],
-          ),
-        ));
+        return _generatePlatformRoute(MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    ItemBloc(repository: context.read<ApplicationRepository>()),
+              ),
+              BlocProvider(
+                create: (context) => ItemReviewBloc(
+                    repository: context.read<ApplicationRepository>()),
+              ),
+            ],
+            child: ItemPage(
+              itemId: args['itemId'],
+              itemName: args['itemName'],
+            )));
 
       case '/itemList':
         final Map<String, dynamic> args =
@@ -256,7 +268,10 @@ class AppRouter {
         return _generatePlatformRoute(BlocProvider(
           create: (context) => OrderDetailsBloc(
               repository: context.read<ApplicationRepository>()),
-          child: OrderDetailsPage(orderId: args['orderId']),
+          child: OrderDetailsPage(
+            orderId: args['orderId'],
+            tempId: args['tempId'],
+          ),
         ));
 
       // case '/profile':

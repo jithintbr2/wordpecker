@@ -9,6 +9,7 @@ import 'package:woodle/core/repository/repository.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
+import 'package:woodle/ui/screens/order_preview/payment_online.dart';
 
 part 'place_order_button_event.dart';
 part 'place_order_button_state.dart';
@@ -64,13 +65,22 @@ class PlaceOrderButtonBloc
             event.redeemedAmount,
             event.couponDiscount,
             event.couponType,
+            event.isOnlinePayment,
           );
           placeOrderResponse.when(success: (orderId) {
-            LocalStorage localStorage = LocalStorage();
-            localStorage.remove('cart');
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                '/orderDetails', (route) => false,
-                arguments: {'orderId': orderId});
+            if (event.isOnlinePayment) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PaymentWebPage(tempId: orderId)));
+            } else {
+              LocalStorage localStorage = LocalStorage();
+              localStorage.remove('cart');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/orderDetails', (route) => false,
+                  arguments: {'orderId': 0, 'tempId': orderId});
+            }
+
             // Navigator.of(context).pushNamedAndRemoveUntil(
             //     Config.useDashboardEntry ? '/homeDashboard' : '/home',
             //     (route) => false);

@@ -105,7 +105,7 @@ class ShopCategoryListPage extends HookWidget {
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(data, search),
+            loaded: (data) => _buildPage(data.shops ?? [], search),
             failed: (exceptions) => FailedView(
                 exceptions: exceptions,
                 onRetry: () => context.read<ShopCategoryListBloc>().add(

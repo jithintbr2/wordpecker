@@ -28,6 +28,7 @@ class _$ItemVarientModelTearOff {
       required int itemId,
       required int shopId,
       required String shopName,
+      String? tag,
       @JsonKey(name: "imgUrl") required String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -43,6 +44,7 @@ class _$ItemVarientModelTearOff {
       itemId: itemId,
       shopId: shopId,
       shopName: shopName,
+      tag: tag,
       image: image,
       description: description,
       salePrice: salePrice,
@@ -70,6 +72,7 @@ mixin _$ItemVarientModel {
   int get itemId => throw _privateConstructorUsedError;
   int get shopId => throw _privateConstructorUsedError;
   String get shopName => throw _privateConstructorUsedError;
+  String? get tag => throw _privateConstructorUsedError;
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -101,6 +104,7 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       int itemId,
       int shopId,
       String shopName,
+      String? tag,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -128,6 +132,7 @@ class _$ItemVarientModelCopyWithImpl<$Res>
     Object? itemId = freezed,
     Object? shopId = freezed,
     Object? shopName = freezed,
+    Object? tag = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
@@ -165,6 +170,10 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: tag == freezed
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String?,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -212,6 +221,7 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       int itemId,
       int shopId,
       String shopName,
+      String? tag,
       @JsonKey(name: "imgUrl") String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -241,6 +251,7 @@ class __$ItemVarientModelCopyWithImpl<$Res>
     Object? itemId = freezed,
     Object? shopId = freezed,
     Object? shopName = freezed,
+    Object? tag = freezed,
     Object? image = freezed,
     Object? description = freezed,
     Object? salePrice = freezed,
@@ -278,6 +289,10 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.shopName
           : shopName // ignore: cast_nullable_to_non_nullable
               as String,
+      tag: tag == freezed
+          ? _value.tag
+          : tag // ignore: cast_nullable_to_non_nullable
+              as String?,
       image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
@@ -323,6 +338,7 @@ class _$_ItemVarientModel
       required this.itemId,
       required this.shopId,
       required this.shopName,
+      this.tag,
       @JsonKey(name: "imgUrl") required this.image,
       this.description,
       @JsonKey(name: "itemCost") this.salePrice,
@@ -349,6 +365,8 @@ class _$_ItemVarientModel
   @override
   final String shopName;
   @override
+  final String? tag;
+  @override
   @JsonKey(name: "imgUrl")
   final String image;
   @override
@@ -369,7 +387,7 @@ class _$_ItemVarientModel
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages, aspectRatio: $aspectRatio)';
+    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, tag: $tag, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages, aspectRatio: $aspectRatio)';
   }
 
   @override
@@ -384,6 +402,7 @@ class _$_ItemVarientModel
       ..add(DiagnosticsProperty('itemId', itemId))
       ..add(DiagnosticsProperty('shopId', shopId))
       ..add(DiagnosticsProperty('shopName', shopName))
+      ..add(DiagnosticsProperty('tag', tag))
       ..add(DiagnosticsProperty('image', image))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('salePrice', salePrice))
@@ -416,6 +435,8 @@ class _$_ItemVarientModel
             (identical(other.shopName, shopName) ||
                 const DeepCollectionEquality()
                     .equals(other.shopName, shopName)) &&
+            (identical(other.tag, tag) ||
+                const DeepCollectionEquality().equals(other.tag, tag)) &&
             (identical(other.image, image) ||
                 const DeepCollectionEquality().equals(other.image, image)) &&
             (identical(other.description, description) ||
@@ -447,6 +468,7 @@ class _$_ItemVarientModel
       const DeepCollectionEquality().hash(itemId) ^
       const DeepCollectionEquality().hash(shopId) ^
       const DeepCollectionEquality().hash(shopName) ^
+      const DeepCollectionEquality().hash(tag) ^
       const DeepCollectionEquality().hash(image) ^
       const DeepCollectionEquality().hash(description) ^
       const DeepCollectionEquality().hash(salePrice) ^
@@ -475,6 +497,7 @@ abstract class _ItemVarientModel implements ItemVarientModel {
       required int itemId,
       required int shopId,
       required String shopName,
+      String? tag,
       @JsonKey(name: "imgUrl") required String image,
       String? description,
       @JsonKey(name: "itemCost") double? salePrice,
@@ -500,6 +523,8 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   int get shopId => throw _privateConstructorUsedError;
   @override
   String get shopName => throw _privateConstructorUsedError;
+  @override
+  String? get tag => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: "imgUrl")
   String get image => throw _privateConstructorUsedError;

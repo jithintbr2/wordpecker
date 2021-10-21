@@ -33,9 +33,9 @@ class ItemVarientTile extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: margin,
-      elevation: elevation,
-      child: ListTile(
+        margin: margin,
+        elevation: elevation,
+        child: ListTile(
           tileColor: color,
           onTap: onTap,
           leading: Container(
@@ -87,9 +87,28 @@ class ItemVarientTile extends HookWidget {
                   Icons.timelapse,
                   color: Colors.grey.withOpacity(0.5),
                 )
-              : PurchaseControlButton(
-                  onAdd: onAdd, onRemove: onRemove, itemQuantity: quantity)),
-    );
+              : item.tag != null
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Card(
+                          color: Theme.of(context).primaryColor,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                item.tag!,
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                        PurchaseControlButton(
+                            onAdd: onAdd,
+                            onRemove: onRemove,
+                            itemQuantity: quantity)
+                      ],
+                    )
+                  : PurchaseControlButton(
+                      onAdd: onAdd, onRemove: onRemove, itemQuantity: quantity),
+        ));
   }
 }
 

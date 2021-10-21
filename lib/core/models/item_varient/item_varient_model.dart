@@ -14,6 +14,7 @@ class ItemVarientModel with _$ItemVarientModel {
     required int itemId,
     required int shopId,
     required String shopName,
+    String? tag,
     @JsonKey(name: "imgUrl") required String image,
     String? description,
     @JsonKey(name: "itemCost") double? salePrice,

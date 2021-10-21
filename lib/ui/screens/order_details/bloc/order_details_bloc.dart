@@ -20,7 +20,8 @@ class OrderDetailsBloc extends Bloc<OrderDetailsEvent, OrderDetailsState> {
   ) async* {
     if (event is _FetchDetails) {
       yield _Loading();
-      final response = await repository.fetchOrderDetails(event.orderId);
+      final response =
+          await repository.fetchOrderDetails(event.orderId, event.tempId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

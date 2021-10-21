@@ -27,7 +27,8 @@ class _$PlaceOrderButtonEventTearOff {
       int? couponId,
       double? redeemedAmount,
       double? couponDiscount,
-      String? couponType}) {
+      String? couponType,
+      required bool isOnlinePayment}) {
     return _PlaceOrder(
       service: service,
       items: items,
@@ -40,6 +41,7 @@ class _$PlaceOrderButtonEventTearOff {
       redeemedAmount: redeemedAmount,
       couponDiscount: couponDiscount,
       couponType: couponType,
+      isOnlinePayment: isOnlinePayment,
     );
   }
 }
@@ -60,6 +62,7 @@ mixin _$PlaceOrderButtonEvent {
   double? get redeemedAmount => throw _privateConstructorUsedError;
   double? get couponDiscount => throw _privateConstructorUsedError;
   String? get couponType => throw _privateConstructorUsedError;
+  bool get isOnlinePayment => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -74,7 +77,8 @@ mixin _$PlaceOrderButtonEvent {
             int? couponId,
             double? redeemedAmount,
             double? couponDiscount,
-            String? couponType)
+            String? couponType,
+            bool isOnlinePayment)
         placeOrder,
   }) =>
       throw _privateConstructorUsedError;
@@ -91,7 +95,8 @@ mixin _$PlaceOrderButtonEvent {
             int? couponId,
             double? redeemedAmount,
             double? couponDiscount,
-            String? couponType)?
+            String? couponType,
+            bool isOnlinePayment)?
         placeOrder,
     required TResult orElse(),
   }) =>
@@ -129,7 +134,8 @@ abstract class $PlaceOrderButtonEventCopyWith<$Res> {
       int? couponId,
       double? redeemedAmount,
       double? couponDiscount,
-      String? couponType});
+      String? couponType,
+      bool isOnlinePayment});
 }
 
 /// @nodoc
@@ -154,6 +160,7 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
     Object? redeemedAmount = freezed,
     Object? couponDiscount = freezed,
     Object? couponType = freezed,
+    Object? isOnlinePayment = freezed,
   }) {
     return _then(_value.copyWith(
       service: service == freezed
@@ -200,6 +207,10 @@ class _$PlaceOrderButtonEventCopyWithImpl<$Res>
           ? _value.couponType
           : couponType // ignore: cast_nullable_to_non_nullable
               as String?,
+      isOnlinePayment: isOnlinePayment == freezed
+          ? _value.isOnlinePayment
+          : isOnlinePayment // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -222,7 +233,8 @@ abstract class _$PlaceOrderCopyWith<$Res>
       int? couponId,
       double? redeemedAmount,
       double? couponDiscount,
-      String? couponType});
+      String? couponType,
+      bool isOnlinePayment});
 }
 
 /// @nodoc
@@ -249,6 +261,7 @@ class __$PlaceOrderCopyWithImpl<$Res>
     Object? redeemedAmount = freezed,
     Object? couponDiscount = freezed,
     Object? couponType = freezed,
+    Object? isOnlinePayment = freezed,
   }) {
     return _then(_PlaceOrder(
       service: service == freezed
@@ -295,6 +308,10 @@ class __$PlaceOrderCopyWithImpl<$Res>
           ? _value.couponType
           : couponType // ignore: cast_nullable_to_non_nullable
               as String?,
+      isOnlinePayment: isOnlinePayment == freezed
+          ? _value.isOnlinePayment
+          : isOnlinePayment // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -313,7 +330,8 @@ class _$_PlaceOrder implements _PlaceOrder {
       this.couponId,
       this.redeemedAmount,
       this.couponDiscount,
-      this.couponType});
+      this.couponType,
+      required this.isOnlinePayment});
 
   @override
   final CartService service;
@@ -337,10 +355,12 @@ class _$_PlaceOrder implements _PlaceOrder {
   final double? couponDiscount;
   @override
   final String? couponType;
+  @override
+  final bool isOnlinePayment;
 
   @override
   String toString() {
-    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark, isAdvancedOrder: $isAdvancedOrder, dateTime: $dateTime, couponId: $couponId, redeemedAmount: $redeemedAmount, couponDiscount: $couponDiscount, couponType: $couponType)';
+    return 'PlaceOrderButtonEvent.placeOrder(service: $service, items: $items, shopId: $shopId, addressId: $addressId, remark: $remark, isAdvancedOrder: $isAdvancedOrder, dateTime: $dateTime, couponId: $couponId, redeemedAmount: $redeemedAmount, couponDiscount: $couponDiscount, couponType: $couponType, isOnlinePayment: $isOnlinePayment)';
   }
 
   @override
@@ -376,7 +396,10 @@ class _$_PlaceOrder implements _PlaceOrder {
                     .equals(other.couponDiscount, couponDiscount)) &&
             (identical(other.couponType, couponType) ||
                 const DeepCollectionEquality()
-                    .equals(other.couponType, couponType)));
+                    .equals(other.couponType, couponType)) &&
+            (identical(other.isOnlinePayment, isOnlinePayment) ||
+                const DeepCollectionEquality()
+                    .equals(other.isOnlinePayment, isOnlinePayment)));
   }
 
   @override
@@ -392,7 +415,8 @@ class _$_PlaceOrder implements _PlaceOrder {
       const DeepCollectionEquality().hash(couponId) ^
       const DeepCollectionEquality().hash(redeemedAmount) ^
       const DeepCollectionEquality().hash(couponDiscount) ^
-      const DeepCollectionEquality().hash(couponType);
+      const DeepCollectionEquality().hash(couponType) ^
+      const DeepCollectionEquality().hash(isOnlinePayment);
 
   @JsonKey(ignore: true)
   @override
@@ -413,7 +437,8 @@ class _$_PlaceOrder implements _PlaceOrder {
             int? couponId,
             double? redeemedAmount,
             double? couponDiscount,
-            String? couponType)
+            String? couponType,
+            bool isOnlinePayment)
         placeOrder,
   }) {
     return placeOrder(
@@ -427,7 +452,8 @@ class _$_PlaceOrder implements _PlaceOrder {
         couponId,
         redeemedAmount,
         couponDiscount,
-        couponType);
+        couponType,
+        isOnlinePayment);
   }
 
   @override
@@ -444,7 +470,8 @@ class _$_PlaceOrder implements _PlaceOrder {
             int? couponId,
             double? redeemedAmount,
             double? couponDiscount,
-            String? couponType)?
+            String? couponType,
+            bool isOnlinePayment)?
         placeOrder,
     required TResult orElse(),
   }) {
@@ -460,7 +487,8 @@ class _$_PlaceOrder implements _PlaceOrder {
           couponId,
           redeemedAmount,
           couponDiscount,
-          couponType);
+          couponType,
+          isOnlinePayment);
     }
     return orElse();
   }
@@ -498,7 +526,8 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
       int? couponId,
       double? redeemedAmount,
       double? couponDiscount,
-      String? couponType}) = _$_PlaceOrder;
+      String? couponType,
+      required bool isOnlinePayment}) = _$_PlaceOrder;
 
   @override
   CartService get service => throw _privateConstructorUsedError;
@@ -522,6 +551,8 @@ abstract class _PlaceOrder implements PlaceOrderButtonEvent {
   double? get couponDiscount => throw _privateConstructorUsedError;
   @override
   String? get couponType => throw _privateConstructorUsedError;
+  @override
+  bool get isOnlinePayment => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PlaceOrderCopyWith<_PlaceOrder> get copyWith =>

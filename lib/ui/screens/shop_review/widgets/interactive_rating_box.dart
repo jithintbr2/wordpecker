@@ -24,7 +24,7 @@ class InteractiveRatingBox extends HookWidget {
     final _spacing = (MediaQuery.of(context).size.width - 300) / 3.5;
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        'Rate this Shop',
+        'Rate',
         style: Theme.of(context).textTheme.subtitle1,
       ),
       Text(
@@ -98,7 +98,7 @@ class InteractiveRatingBox extends HookWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'You have Rated this Shop',
+            'You have Rated',
             style: Theme.of(context).textTheme.subtitle1,
           ),
           IconButton(
@@ -140,13 +140,14 @@ class InteractiveRatingBox extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ratingValue = useState(0.0);
+    final _ratingValue =
+        useState(userReview != null ? userReview!.rating + 0.0 : 0.0);
     final _showReviewBox = useState(false);
     final _reviewController = useTextEditingController();
     final _showRatedBox = useState(userReview != null ? true : false);
 
     if (userReview != null) {
-      _ratingValue.value = userReview!.rating + 0.0;
+      // _ratingValue.value = userReview!.rating + 0.0;
       _showReviewBox.value = true;
       _reviewController.text = userReview!.review;
     }

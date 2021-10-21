@@ -15,7 +15,9 @@ import 'package:woodle/ui/widgets/loading.dart';
 
 class OrderDetailsPage extends HookWidget {
   final int orderId;
-  const OrderDetailsPage({Key? key, required this.orderId}) : super(key: key);
+  final int? tempId;
+  const OrderDetailsPage({Key? key, required this.orderId, this.tempId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class OrderDetailsPage extends HookWidget {
     useEffect(() {
       context
           .read<OrderDetailsBloc>()
-          .add(OrderDetailsEvent.fetchDetails(orderId));
+          .add(OrderDetailsEvent.fetchDetails(orderId, tempId: tempId));
     }, []);
     return Scaffold(
       appBar: AppBar(

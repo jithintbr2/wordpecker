@@ -233,7 +233,7 @@ class _$ShopCategoryListStateTearOff {
     return const _Loading();
   }
 
-  _Loaded loaded(List<ShopModel> data) {
+  _Loaded loaded(CustomPageModel data) {
     return _Loaded(
       data,
     );
@@ -254,14 +254,14 @@ mixin _$ShopCategoryListState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ShopModel> data) loaded,
+    required TResult Function(CustomPageModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ShopModel> data)? loaded,
+    TResult Function(CustomPageModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) =>
@@ -339,7 +339,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ShopModel> data) loaded,
+    required TResult Function(CustomPageModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loading();
@@ -349,7 +349,7 @@ class _$_Loading implements _Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ShopModel> data)? loaded,
+    TResult Function(CustomPageModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -392,7 +392,9 @@ abstract class _Loading implements ShopCategoryListState {
 abstract class _$LoadedCopyWith<$Res> {
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) then) =
       __$LoadedCopyWithImpl<$Res>;
-  $Res call({List<ShopModel> data});
+  $Res call({CustomPageModel data});
+
+  $CustomPageModelCopyWith<$Res> get data;
 }
 
 /// @nodoc
@@ -413,8 +415,15 @@ class __$LoadedCopyWithImpl<$Res>
       data == freezed
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<ShopModel>,
+              as CustomPageModel,
     ));
+  }
+
+  @override
+  $CustomPageModelCopyWith<$Res> get data {
+    return $CustomPageModelCopyWith<$Res>(_value.data, (value) {
+      return _then(_value.copyWith(data: value));
+    });
   }
 }
 
@@ -424,7 +433,7 @@ class _$_Loaded implements _Loaded {
   const _$_Loaded(this.data);
 
   @override
-  final List<ShopModel> data;
+  final CustomPageModel data;
 
   @override
   String toString() {
@@ -452,7 +461,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ShopModel> data) loaded,
+    required TResult Function(CustomPageModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return loaded(data);
@@ -462,7 +471,7 @@ class _$_Loaded implements _Loaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ShopModel> data)? loaded,
+    TResult Function(CustomPageModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {
@@ -498,9 +507,9 @@ class _$_Loaded implements _Loaded {
 }
 
 abstract class _Loaded implements ShopCategoryListState {
-  const factory _Loaded(List<ShopModel> data) = _$_Loaded;
+  const factory _Loaded(CustomPageModel data) = _$_Loaded;
 
-  List<ShopModel> get data => throw _privateConstructorUsedError;
+  CustomPageModel get data => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$LoadedCopyWith<_Loaded> get copyWith => throw _privateConstructorUsedError;
 }
@@ -579,7 +588,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<ShopModel> data) loaded,
+    required TResult Function(CustomPageModel data) loaded,
     required TResult Function(NetworkExceptions exceptions) failed,
   }) {
     return failed(exceptions);
@@ -589,7 +598,7 @@ class _$_Failed implements _Failed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<ShopModel> data)? loaded,
+    TResult Function(CustomPageModel data)? loaded,
     TResult Function(NetworkExceptions exceptions)? failed,
     required TResult orElse(),
   }) {

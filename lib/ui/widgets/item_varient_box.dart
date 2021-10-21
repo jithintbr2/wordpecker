@@ -28,74 +28,94 @@ class ItemVarientBox extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-          height: 150,
-          width: 160,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CachedNetworkImage(
-                  height: 90,
-                  imageUrl: data.image,
-                  fit: BoxFit.cover,
-                  placeholder: (_, __) =>
-                      Center(child: Image.asset(Assets.appIcon)),
-                  errorWidget: (_, __, ___) => Center(
-                      child: Icon(Icons.error,
-                          color: Theme.of(context).accentColor))),
-              SizedBox(height: 4),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(data.itemName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis)),
-              SizedBox(height: 4),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Text(data.shopName,
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(fontSize: 10))),
-              SizedBox(height: 4),
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text("₹${data.salePrice}",
+            height: 150,
+            width: 160,
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CachedNetworkImage(
+                        height: 90,
+                        imageUrl: data.image,
+                        fit: BoxFit.cover,
+                        placeholder: (_, __) =>
+                            Center(child: Image.asset(Assets.appIcon)),
+                        errorWidget: (_, __, ___) => Center(
+                            child: Icon(Icons.error,
+                                color: Theme.of(context).accentColor))),
+                    SizedBox(height: 4),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(data.itemName,
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle2!
-                                .copyWith(color: Colors.orange[700])),
-                        SizedBox(width: 10),
-                        data.mrp == data.salePrice
-                            ? Container()
-                            : Text("₹${data.mrp}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                      decoration: TextDecoration.lineThrough,
-                                      decorationThickness: 2,
-                                      color: Colors.red,
-                                      fontSize: 12,
-                                    ))
-                      ])),
-              SizedBox(height: 5),
-              Wrap(
-                alignment: WrapAlignment.center,
-                children: [
-                  PurchaseControlButton(
-                      itemQuantity: quantity, onAdd: onAdd, onRemove: onRemove)
-                ],
-              )
-            ],
-          ),
-        ),
+                                .copyWith(fontSize: 12),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis)),
+                    SizedBox(height: 4),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(data.shopName,
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(fontSize: 10))),
+                    SizedBox(height: 4),
+                    Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text("₹${data.salePrice}",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle2!
+                                      .copyWith(color: Colors.orange[700])),
+                              SizedBox(width: 10),
+                              data.mrp == data.salePrice
+                                  ? Container()
+                                  : Text("₹${data.mrp}",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle2!
+                                          .copyWith(
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            decorationThickness: 2,
+                                            color: Colors.red,
+                                            fontSize: 12,
+                                          ))
+                            ])),
+                    SizedBox(height: 5),
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        PurchaseControlButton(
+                            itemQuantity: quantity,
+                            onAdd: onAdd,
+                            onRemove: onRemove)
+                      ],
+                    )
+                  ],
+                ),
+                data.tag != null
+                    ? Align(
+                        alignment: Alignment.topRight,
+                        child: Card(
+                          color: Theme.of(context).primaryColor,
+                          child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              child: Text(
+                                data.tag!,
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                      )
+                    : SizedBox()
+              ],
+            )),
       ),
     );
   }

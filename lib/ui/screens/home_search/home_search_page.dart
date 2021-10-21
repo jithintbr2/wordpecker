@@ -169,6 +169,7 @@ class HomeSearchPage extends HookWidget {
                   children: [
                     Text('Shops'),
                     ListView.builder(
+                      shrinkWrap: true,
                       itemBuilder: (context, index) =>
                           ShopTile(shop: data.shops[index]),
                       itemCount: data.shops.length,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class AppUpdateScreen extends StatelessWidget {
   const AppUpdateScreen({Key? key}) : super(key: key);
@@ -30,7 +32,8 @@ class AppUpdateScreen extends StatelessWidget {
           SizedBox(height: 35),
           ElevatedButton(
               onPressed: () async {
-                // if (await canLaunch(storeLink)) await launch(storeLink);
+                if (await canLaunch(Config.appStoreLink))
+                  await launch(Config.appStoreLink);
               },
               child: Text('Update Now'))
         ],

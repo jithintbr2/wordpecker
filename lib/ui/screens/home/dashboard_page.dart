@@ -7,6 +7,7 @@ import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/cart.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
+import 'package:woodle/ui/screens/custom/custom_page.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
 import 'package:woodle/ui/screens/home/widgets/appbar.dart';
 import 'package:woodle/ui/screens/home/widgets/bottom_appbar.dart';
@@ -64,7 +65,10 @@ class DashboardPage extends HookWidget {
   }
 
   Widget _buildPage(int currentTabIndex, ValueNotifier<int> conactNumber) {
-    if (currentTabIndex == 1) return Container();
+    if (currentTabIndex == 1)
+      return CustomPage(
+        localStorage: LocalStorage(),
+      );
     if (currentTabIndex == 2)
       return ServicePage(
         localStorage: LocalStorage(),
