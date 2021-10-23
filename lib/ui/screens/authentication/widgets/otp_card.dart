@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -65,9 +66,12 @@ class OTPCard extends HookWidget {
 
   smsFill(int generatedOTP) {
     SmsAutoFill().listenForCode;
-    SmsAutoFill()
-        .getAppSignature
-        .then((signature) => sendOTP(signature, generatedOTP));
+    if (Platform.isIOS)
+      sendOTP('', generatedOTP);
+    else
+      SmsAutoFill()
+          .getAppSignature
+          .then((signature) => sendOTP(signature, generatedOTP));
   }
 
   @override

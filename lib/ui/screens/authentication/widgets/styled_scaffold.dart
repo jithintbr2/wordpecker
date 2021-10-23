@@ -17,12 +17,12 @@ class StyledScaffold extends StatelessWidget {
                   image: AssetImage(Assets.loginBackground),
                   fit: BoxFit.cover)),
         ),
-        Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-          Theme.of(context).primaryColor.withOpacity(0.7),
-          Colors.transparent
-        ], begin: Alignment.bottomCenter, end: Alignment.topCenter))),
+        // Container(
+        //     decoration: BoxDecoration(
+        //         gradient: LinearGradient(colors: [
+        //   Theme.of(context).primaryColor.withOpacity(0.7),
+        //   Colors.transparent
+        // ], begin: Alignment.bottomCenter, end: Alignment.topCenter))),
         Center(child: child)
       ],
     ));
