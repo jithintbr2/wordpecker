@@ -18,7 +18,7 @@ class HomePageModel with _$HomePageModel {
     List<CategoryModel>? itemCategories,
     List<CategoryModel>? shopCategories,
     @JsonKey(name: 'scrollingMessage') String? message,
-    @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+    @JsonKey(name: 'maxLimit') double? minOrderCost,
     List<HomeCategoriesModel>? homeCategoreis,
     List<ShopModel>? featuredRestaurants,
     int? contactNumber,

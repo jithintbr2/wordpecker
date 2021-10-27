@@ -28,7 +28,7 @@ class _$HomePageModelTearOff {
       List<CategoryModel>? itemCategories,
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
-      @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+      @JsonKey(name: 'maxLimit') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
       List<ShopModel>? featuredRestaurants,
       int? contactNumber,
@@ -73,7 +73,7 @@ mixin _$HomePageModel {
   List<CategoryModel>? get shopCategories => throw _privateConstructorUsedError;
   @JsonKey(name: 'scrollingMessage')
   String? get message => throw _privateConstructorUsedError;
-  @JsonKey(name: 'minimum_order_cost')
+  @JsonKey(name: 'maxLimit')
   double? get minOrderCost => throw _privateConstructorUsedError;
   List<HomeCategoriesModel>? get homeCategoreis =>
       throw _privateConstructorUsedError;
@@ -102,7 +102,7 @@ abstract class $HomePageModelCopyWith<$Res> {
       List<CategoryModel>? itemCategories,
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
-      @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+      @JsonKey(name: 'maxLimit') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
       List<ShopModel>? featuredRestaurants,
       int? contactNumber,
@@ -207,7 +207,7 @@ abstract class _$HomePageModelCopyWith<$Res>
       List<CategoryModel>? itemCategories,
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
-      @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+      @JsonKey(name: 'maxLimit') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
       List<ShopModel>? featuredRestaurants,
       int? contactNumber,
@@ -310,7 +310,7 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
       this.itemCategories,
       this.shopCategories,
       @JsonKey(name: 'scrollingMessage') this.message,
-      @JsonKey(name: 'minimum_order_cost') this.minOrderCost,
+      @JsonKey(name: 'maxLimit') this.minOrderCost,
       this.homeCategoreis,
       this.featuredRestaurants,
       this.contactNumber,
@@ -340,7 +340,7 @@ class _$_HomePageModel with DiagnosticableTreeMixin implements _HomePageModel {
   @JsonKey(name: 'scrollingMessage')
   final String? message;
   @override
-  @JsonKey(name: 'minimum_order_cost')
+  @JsonKey(name: 'maxLimit')
   final double? minOrderCost;
   @override
   final List<HomeCategoriesModel>? homeCategoreis;
@@ -460,7 +460,7 @@ abstract class _HomePageModel implements HomePageModel {
       List<CategoryModel>? itemCategories,
       List<CategoryModel>? shopCategories,
       @JsonKey(name: 'scrollingMessage') String? message,
-      @JsonKey(name: 'minimum_order_cost') double? minOrderCost,
+      @JsonKey(name: 'maxLimit') double? minOrderCost,
       List<HomeCategoriesModel>? homeCategoreis,
       List<ShopModel>? featuredRestaurants,
       int? contactNumber,
@@ -490,7 +490,7 @@ abstract class _HomePageModel implements HomePageModel {
   @JsonKey(name: 'scrollingMessage')
   String? get message => throw _privateConstructorUsedError;
   @override
-  @JsonKey(name: 'minimum_order_cost')
+  @JsonKey(name: 'maxLimit')
   double? get minOrderCost => throw _privateConstructorUsedError;
   @override
   List<HomeCategoriesModel>? get homeCategoreis =>
