@@ -60,7 +60,7 @@ class OrderPreviewPage extends HookWidget {
     final _selectedCoupon = useState<CouponModel?>(null);
     final _redeemedAmount = useState(0.0);
     final _couponApplicableOn = useState<List<int>>([]);
-    final _isOnlinePayment = useState(false);
+    final _selectedPaymentMode = useState(0); // 0 - cod, 1-online, 2-pickup
     // final _walletRedeemController = useTextEditingController(text: '0.0');
 
     useEffect(() {
@@ -81,7 +81,7 @@ class OrderPreviewPage extends HookWidget {
           _selectedCoupon,
           _couponApplicableOn,
           _redeemedAmount,
-          _isOnlinePayment),
+          _selectedPaymentMode),
     );
   }
 
@@ -95,30 +95,36 @@ class OrderPreviewPage extends HookWidget {
       ValueNotifier<List<int>> couponApplicableOn,
       // TextEditingController walletRedeemController,
       ValueNotifier<double> redeemedAmount,
-      ValueNotifier<bool> isOnlinePayment) {
+      ValueNotifier<int> selectedPaymentMode) {
     return BlocBuilder<OrderPreviewBloc, OrderPreviewState>(
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) =>
-                BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
-                    builder: (context, state) => state.when(
-                        buttonInitial: () => _buildPage(
-                              context,
-                              service,
-                              data,
-                              remarkController,
-                              address,
-                              isScheduledOrder,
-                              deliveryDate,
-                              selectedCoupon,
-                              couponApplicableOn,
-                              // walletRedeemController,
-                              redeemedAmount,
-                              isOnlinePayment,
-                            ),
-                        buttonLoading: () =>
-                            Center(child: CircularProgressIndicator()))),
+            loaded: (data) {
+              data.paymentMethods.cod
+                  ? selectedPaymentMode.value = 0
+                  : data.paymentMethods.onlinePayment
+                      ? selectedPaymentMode.value = 1
+                      : selectedPaymentMode.value = 2;
+              return BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
+                  builder: (context, state) => state.when(
+                      buttonInitial: () => _buildPage(
+                            context,
+                            service,
+                            data,
+                            remarkController,
+                            address,
+                            isScheduledOrder,
+                            deliveryDate,
+                            selectedCoupon,
+                            couponApplicableOn,
+                            // walletRedeemController,
+                            redeemedAmount,
+                            selectedPaymentMode,
+                          ),
+                      buttonLoading: () =>
+                          Center(child: CircularProgressIndicator())));
+            },
             failed: (error) => FailedView(
                 exceptions: error,
                 onRetry: () {
@@ -141,7 +147,7 @@ class OrderPreviewPage extends HookWidget {
     bool isAdvancedOrder,
     CouponModel? selectedCoupon,
     double? redeemedAmount,
-    bool isOnlinePayment,
+    int selectedPaymentMode,
   ) {
     AddressModel? _getAddress() {
       if (localStorage.get('currentAddress') != null) {
@@ -182,7 +188,7 @@ class OrderPreviewPage extends HookWidget {
                                         selectedCoupon?.couponDiscount,
                                     couponType: selectedCoupon?.couponType,
                                     redeemedAmount: redeemedAmount,
-                                    isOnlinePayment: isOnlinePayment,
+                                    selectedPaymentMode: selectedPaymentMode,
                                   ));
                             },
                             child: Text('Yes')),
@@ -201,18 +207,19 @@ class OrderPreviewPage extends HookWidget {
   }
 
   Widget _buildPage(
-      BuildContext context,
-      CartService service,
-      OrderPreviewModel data,
-      TextEditingController remarkController,
-      ValueNotifier<AddressModel?> address,
-      ValueNotifier<bool> isScheduledOrder,
-      ValueNotifier<String> deliveryDateTime,
-      ValueNotifier<CouponModel?> selectedCoupon,
-      ValueNotifier<List<int>> couponApplicableOn,
-      // TextEditingController walletRedeemController,
-      ValueNotifier<double> redeemedAmount,
-      ValueNotifier<bool> isOnlinePayment) {
+    BuildContext context,
+    CartService service,
+    OrderPreviewModel data,
+    TextEditingController remarkController,
+    ValueNotifier<AddressModel?> address,
+    ValueNotifier<bool> isScheduledOrder,
+    ValueNotifier<String> deliveryDateTime,
+    ValueNotifier<CouponModel?> selectedCoupon,
+    ValueNotifier<List<int>> couponApplicableOn,
+    // TextEditingController walletRedeemController,
+    ValueNotifier<double> redeemedAmount,
+    ValueNotifier<int> selectedPaymentMode,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -274,7 +281,12 @@ class OrderPreviewPage extends HookWidget {
                       isScheduledOrder: isScheduledOrder,
                       deliveryDate: deliveryDateTime,
                     ),
-                    PaymentOptions(isOnlinePayment: isOnlinePayment),
+                    PaymentOptions(
+                      selectedPaymentMode: selectedPaymentMode,
+                      hasCOD: data.paymentMethods.cod,
+                      hasOnlinePayment: data.paymentMethods.onlinePayment,
+                      hasPickup: data.paymentMethods.selfPickup,
+                    ),
                     SizedBox(height: 10),
                     redeemedAmount.value == 0.0
                         ? CouponRedeem(
@@ -338,7 +350,7 @@ class OrderPreviewPage extends HookWidget {
               isScheduledOrder.value,
               selectedCoupon.value,
               redeemedAmount.value,
-              isOnlinePayment.value,
+              selectedPaymentMode.value,
               // walletRedeemController.text.isNotEmpty
               //     ? double.parse(walletRedeemController.text)
               //     : 0.0

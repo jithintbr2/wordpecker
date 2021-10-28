@@ -33,7 +33,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ApiResponse<HomePageModel> response =
           await repository.fetchHomePageData(event.franchiseId);
       response.when(
-          success: (data) => emit(_Loaded(data)),
+          success: (data) => {
+                localStorage.set('minOrderCost', data.minOrderCost ?? 0),
+                emit(_Loaded(data))
+              },
           failure: (error) => emit(_Failed(error)));
     }
 

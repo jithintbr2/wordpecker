@@ -21,8 +21,11 @@ class OrderPreviewModel with _$OrderPreviewModel {
 
 @freezed
 class PaymentOptionsModel with _$PaymentOptionsModel {
-  const factory PaymentOptionsModel({required bool onlinePayment}) =
-      _PaymentOptionsModel;
+  const factory PaymentOptionsModel({
+    required bool onlinePayment,
+    required bool selfPickup,
+    required bool cod,
+  }) = _PaymentOptionsModel;
 
   factory PaymentOptionsModel.fromJson(Map<String, dynamic> json) =>
       _$PaymentOptionsModelFromJson(json);

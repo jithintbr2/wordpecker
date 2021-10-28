@@ -35,6 +35,8 @@ _$_PaymentOptionsModel _$_$_PaymentOptionsModelFromJson(
     Map<String, dynamic> json) {
   return _$_PaymentOptionsModel(
     onlinePayment: json['onlinePayment'] as bool,
+    selfPickup: json['selfPickup'] as bool,
+    cod: json['cod'] as bool,
   );
 }
 
@@ -42,4 +44,6 @@ Map<String, dynamic> _$_$_PaymentOptionsModelToJson(
         _$_PaymentOptionsModel instance) =>
     <String, dynamic>{
       'onlinePayment': instance.onlinePayment,
+      'selfPickup': instance.selfPickup,
+      'cod': instance.cod,
     };

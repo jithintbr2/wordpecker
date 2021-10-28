@@ -54,8 +54,8 @@ class CartTile extends StatelessWidget {
   //     Navigator.pushNamed(context, '/authenticate');
   // }
 
-  void handleCheckout(context) {
-    final double minimumOrder = 100;
+  void handleCheckout(context, minimumOrder) {
+    // final double minimumOrder = 100;
     if (totalPrice > minimumOrder) {
       Navigator.pushNamed(context, '/orderPreview');
     } else
@@ -79,6 +79,10 @@ class CartTile extends StatelessWidget {
     }
 
     AddressModel? address = _getAddress();
+
+    double minimumOrder = localStorage.get('minOrderCost') != null
+        ? localStorage.get('minOrderCost') as double
+        : 0;
 
     return Container(
       color: Theme.of(context).primaryColor,
@@ -126,7 +130,7 @@ class CartTile extends StatelessWidget {
                   builder: (context, state) {
                 if (state.user != null && address?.id != -1) {
                   return InkWell(
-                    onTap: () => handleCheckout(context),
+                    onTap: () => handleCheckout(context, minimumOrder),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: 16.0,

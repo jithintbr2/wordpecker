@@ -479,7 +479,7 @@ class ApplicationRepository {
       double? redeemedAmount,
       double? couponDiscount,
       String? couponType,
-      bool isOnlinePayment) {
+      int selectedPaymentMode) {
     Map<String, dynamic> parameters = {
       "items": items,
       "shopId": shopId,
@@ -490,7 +490,11 @@ class ApplicationRepository {
       "couponDiscount": couponDiscount ?? 0.0,
       "couponType": couponType ?? "",
       "advancedOrder": isAdvancedOrder,
-      "paymentMode": isOnlinePayment ? "onlinePayment" : "cash_on_delivery",
+      "paymentMode": selectedPaymentMode == 0
+          ? "onlinePayment"
+          : selectedPaymentMode == 1
+              ? "cash_on_delivery"
+              : "self_pickup",
       "scheduledDeliveryDateTime": datetime,
       "additionalCharges": []
     };

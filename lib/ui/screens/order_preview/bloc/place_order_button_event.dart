@@ -14,6 +14,6 @@ class PlaceOrderButtonEvent with _$PlaceOrderButtonEvent {
     double? redeemedAmount,
     double? couponDiscount,
     String? couponType,
-    required bool isOnlinePayment,
+    required int selectedPaymentMode,
   }) = _PlaceOrder;
 }

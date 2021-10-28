@@ -65,10 +65,10 @@ class PlaceOrderButtonBloc
             event.redeemedAmount,
             event.couponDiscount,
             event.couponType,
-            event.isOnlinePayment,
+            event.selectedPaymentMode,
           );
           placeOrderResponse.when(success: (orderId) {
-            if (event.isOnlinePayment) {
+            if (event.selectedPaymentMode == 1) {
               Navigator.push(
                   context,
                   MaterialPageRoute(

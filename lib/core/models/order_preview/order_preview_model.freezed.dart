@@ -288,9 +288,14 @@ PaymentOptionsModel _$PaymentOptionsModelFromJson(Map<String, dynamic> json) {
 class _$PaymentOptionsModelTearOff {
   const _$PaymentOptionsModelTearOff();
 
-  _PaymentOptionsModel call({required bool onlinePayment}) {
+  _PaymentOptionsModel call(
+      {required bool onlinePayment,
+      required bool selfPickup,
+      required bool cod}) {
     return _PaymentOptionsModel(
       onlinePayment: onlinePayment,
+      selfPickup: selfPickup,
+      cod: cod,
     );
   }
 
@@ -305,6 +310,8 @@ const $PaymentOptionsModel = _$PaymentOptionsModelTearOff();
 /// @nodoc
 mixin _$PaymentOptionsModel {
   bool get onlinePayment => throw _privateConstructorUsedError;
+  bool get selfPickup => throw _privateConstructorUsedError;
+  bool get cod => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -317,7 +324,7 @@ abstract class $PaymentOptionsModelCopyWith<$Res> {
   factory $PaymentOptionsModelCopyWith(
           PaymentOptionsModel value, $Res Function(PaymentOptionsModel) then) =
       _$PaymentOptionsModelCopyWithImpl<$Res>;
-  $Res call({bool onlinePayment});
+  $Res call({bool onlinePayment, bool selfPickup, bool cod});
 }
 
 /// @nodoc
@@ -332,11 +339,21 @@ class _$PaymentOptionsModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? onlinePayment = freezed,
+    Object? selfPickup = freezed,
+    Object? cod = freezed,
   }) {
     return _then(_value.copyWith(
       onlinePayment: onlinePayment == freezed
           ? _value.onlinePayment
           : onlinePayment // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selfPickup: selfPickup == freezed
+          ? _value.selfPickup
+          : selfPickup // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cod: cod == freezed
+          ? _value.cod
+          : cod // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -349,7 +366,7 @@ abstract class _$PaymentOptionsModelCopyWith<$Res>
           $Res Function(_PaymentOptionsModel) then) =
       __$PaymentOptionsModelCopyWithImpl<$Res>;
   @override
-  $Res call({bool onlinePayment});
+  $Res call({bool onlinePayment, bool selfPickup, bool cod});
 }
 
 /// @nodoc
@@ -366,11 +383,21 @@ class __$PaymentOptionsModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? onlinePayment = freezed,
+    Object? selfPickup = freezed,
+    Object? cod = freezed,
   }) {
     return _then(_PaymentOptionsModel(
       onlinePayment: onlinePayment == freezed
           ? _value.onlinePayment
           : onlinePayment // ignore: cast_nullable_to_non_nullable
+              as bool,
+      selfPickup: selfPickup == freezed
+          ? _value.selfPickup
+          : selfPickup // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cod: cod == freezed
+          ? _value.cod
+          : cod // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -379,17 +406,24 @@ class __$PaymentOptionsModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_PaymentOptionsModel implements _PaymentOptionsModel {
-  const _$_PaymentOptionsModel({required this.onlinePayment});
+  const _$_PaymentOptionsModel(
+      {required this.onlinePayment,
+      required this.selfPickup,
+      required this.cod});
 
   factory _$_PaymentOptionsModel.fromJson(Map<String, dynamic> json) =>
       _$_$_PaymentOptionsModelFromJson(json);
 
   @override
   final bool onlinePayment;
+  @override
+  final bool selfPickup;
+  @override
+  final bool cod;
 
   @override
   String toString() {
-    return 'PaymentOptionsModel(onlinePayment: $onlinePayment)';
+    return 'PaymentOptionsModel(onlinePayment: $onlinePayment, selfPickup: $selfPickup, cod: $cod)';
   }
 
   @override
@@ -398,12 +432,20 @@ class _$_PaymentOptionsModel implements _PaymentOptionsModel {
         (other is _PaymentOptionsModel &&
             (identical(other.onlinePayment, onlinePayment) ||
                 const DeepCollectionEquality()
-                    .equals(other.onlinePayment, onlinePayment)));
+                    .equals(other.onlinePayment, onlinePayment)) &&
+            (identical(other.selfPickup, selfPickup) ||
+                const DeepCollectionEquality()
+                    .equals(other.selfPickup, selfPickup)) &&
+            (identical(other.cod, cod) ||
+                const DeepCollectionEquality().equals(other.cod, cod)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(onlinePayment);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(onlinePayment) ^
+      const DeepCollectionEquality().hash(selfPickup) ^
+      const DeepCollectionEquality().hash(cod);
 
   @JsonKey(ignore: true)
   @override
@@ -418,14 +460,20 @@ class _$_PaymentOptionsModel implements _PaymentOptionsModel {
 }
 
 abstract class _PaymentOptionsModel implements PaymentOptionsModel {
-  const factory _PaymentOptionsModel({required bool onlinePayment}) =
-      _$_PaymentOptionsModel;
+  const factory _PaymentOptionsModel(
+      {required bool onlinePayment,
+      required bool selfPickup,
+      required bool cod}) = _$_PaymentOptionsModel;
 
   factory _PaymentOptionsModel.fromJson(Map<String, dynamic> json) =
       _$_PaymentOptionsModel.fromJson;
 
   @override
   bool get onlinePayment => throw _privateConstructorUsedError;
+  @override
+  bool get selfPickup => throw _privateConstructorUsedError;
+  @override
+  bool get cod => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$PaymentOptionsModelCopyWith<_PaymentOptionsModel> get copyWith =>

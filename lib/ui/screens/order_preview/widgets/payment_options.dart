@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
 class PaymentOptions extends StatelessWidget {
-  final ValueNotifier<bool> isOnlinePayment;
-  const PaymentOptions({Key? key, required this.isOnlinePayment})
-      : super(key: key);
+  final ValueNotifier<int> selectedPaymentMode;
+  final bool hasOnlinePayment;
+  final bool hasCOD;
+  final bool hasPickup;
+  const PaymentOptions({
+    Key? key,
+    required this.selectedPaymentMode,
+    required this.hasCOD,
+    required this.hasOnlinePayment,
+    required this.hasPickup,
+  }) : super(key: key);
 
   Widget _customListTile(BuildContext context, IconData icon, String title,
       bool selected, void Function()? onTap,
@@ -32,10 +40,30 @@ class PaymentOptions extends StatelessWidget {
             Text("Payment Method",
                 style: TextStyle(fontWeight: FontWeight.bold)),
             SizedBox(height: 10),
-            _customListTile(context, Icons.local_atm, "Cash on Delivery",
-                !isOnlinePayment.value, () => isOnlinePayment.value = false),
-            _customListTile(context, Icons.local_atm, "Online Payment",
-                isOnlinePayment.value, () => isOnlinePayment.value = true),
+            hasCOD
+                ? _customListTile(
+                    context,
+                    Icons.local_atm,
+                    "Cash on Delivery",
+                    selectedPaymentMode.value == 0,
+                    () => selectedPaymentMode.value == 0)
+                : SizedBox(),
+            hasOnlinePayment
+                ? _customListTile(
+                    context,
+                    Icons.local_atm,
+                    "Online Payment",
+                    selectedPaymentMode.value == 2,
+                    () => selectedPaymentMode.value == 1)
+                : SizedBox(),
+            hasPickup
+                ? _customListTile(
+                    context,
+                    Icons.local_atm,
+                    "Pickup",
+                    selectedPaymentMode.value == 2,
+                    () => selectedPaymentMode.value == 2)
+                : SizedBox(),
           ],
         ),
       ),
