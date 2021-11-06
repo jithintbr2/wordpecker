@@ -7,7 +7,9 @@ import 'package:woodle/ui/screens/wallet/widgets/reward_card.dart';
 
 class WalletRewardHistory extends StatelessWidget {
   final List<WalletRewardModel> rewards;
-  const WalletRewardHistory({Key? key, required this.rewards})
+  final void Function(int) onScratch;
+  const WalletRewardHistory(
+      {Key? key, required this.rewards, required this.onScratch})
       : super(key: key);
 
   @override
@@ -42,7 +44,8 @@ class WalletRewardHistory extends StatelessWidget {
                                 content: AspectRatio(
                                   aspectRatio: 1,
                                   child: ScratchAlert(
-                                      reward: reward, onScratch: () {}),
+                                      reward: reward,
+                                      onScratch: () => onScratch(reward.id)),
                                 ),
                               );
                             },

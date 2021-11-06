@@ -404,6 +404,23 @@ class ApplicationRepository {
     });
   }
 
+  Future<ApiResponse<WalletModel>> scratchRegister(int cardId) {
+    Map<String, dynamic> parameters = {"pointId": cardId};
+    return _client
+        .getRequest('/scratch_card', parameters: parameters)
+        .then((response) {
+      return _client
+          .getRequest('/wallet_details')
+          .then((response) =>
+              ApiResponse.success(data: WalletModel.fromJson(response['data'])))
+          .onError((error, _) {
+        print(_);
+        return ApiResponse.failure(
+            error: NetworkExceptions.getDioExceptions(error));
+      });
+    });
+  }
+
   /// Check Written Coupon
   Future<ApiResponse<CouponOrString>> checkCoupon(
       List items, String couponCode, int shopId, double deliveryCharge) {
@@ -491,9 +508,9 @@ class ApplicationRepository {
       "couponType": couponType ?? "",
       "advancedOrder": isAdvancedOrder,
       "paymentMode": selectedPaymentMode == 0
-          ? "onlinePayment"
+          ? "cash_on_delivery"
           : selectedPaymentMode == 1
-              ? "cash_on_delivery"
+              ? "onlinePayment"
               : "self_pickup",
       "scheduledDeliveryDateTime": datetime,
       "additionalCharges": []

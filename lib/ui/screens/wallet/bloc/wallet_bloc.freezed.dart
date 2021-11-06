@@ -19,6 +19,12 @@ class _$WalletEventTearOff {
   _FetchWalletData fetchWalletData() {
     return const _FetchWalletData();
   }
+
+  _ScratchCard scratchCard(int cardId) {
+    return _ScratchCard(
+      cardId,
+    );
+  }
 }
 
 /// @nodoc
@@ -29,22 +35,26 @@ mixin _$WalletEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchWalletData,
+    required TResult Function(int cardId) scratchCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchWalletData,
+    TResult Function(int cardId)? scratchCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchWalletData value) fetchWalletData,
+    required TResult Function(_ScratchCard value) scratchCard,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchWalletData value)? fetchWalletData,
+    TResult Function(_ScratchCard value)? scratchCard,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -107,6 +117,7 @@ class _$_FetchWalletData implements _FetchWalletData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() fetchWalletData,
+    required TResult Function(int cardId) scratchCard,
   }) {
     return fetchWalletData();
   }
@@ -115,6 +126,7 @@ class _$_FetchWalletData implements _FetchWalletData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? fetchWalletData,
+    TResult Function(int cardId)? scratchCard,
     required TResult orElse(),
   }) {
     if (fetchWalletData != null) {
@@ -127,6 +139,7 @@ class _$_FetchWalletData implements _FetchWalletData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchWalletData value) fetchWalletData,
+    required TResult Function(_ScratchCard value) scratchCard,
   }) {
     return fetchWalletData(this);
   }
@@ -135,6 +148,7 @@ class _$_FetchWalletData implements _FetchWalletData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchWalletData value)? fetchWalletData,
+    TResult Function(_ScratchCard value)? scratchCard,
     required TResult orElse(),
   }) {
     if (fetchWalletData != null) {
@@ -146,6 +160,121 @@ class _$_FetchWalletData implements _FetchWalletData {
 
 abstract class _FetchWalletData implements WalletEvent {
   const factory _FetchWalletData() = _$_FetchWalletData;
+}
+
+/// @nodoc
+abstract class _$ScratchCardCopyWith<$Res> {
+  factory _$ScratchCardCopyWith(
+          _ScratchCard value, $Res Function(_ScratchCard) then) =
+      __$ScratchCardCopyWithImpl<$Res>;
+  $Res call({int cardId});
+}
+
+/// @nodoc
+class __$ScratchCardCopyWithImpl<$Res> extends _$WalletEventCopyWithImpl<$Res>
+    implements _$ScratchCardCopyWith<$Res> {
+  __$ScratchCardCopyWithImpl(
+      _ScratchCard _value, $Res Function(_ScratchCard) _then)
+      : super(_value, (v) => _then(v as _ScratchCard));
+
+  @override
+  _ScratchCard get _value => super._value as _ScratchCard;
+
+  @override
+  $Res call({
+    Object? cardId = freezed,
+  }) {
+    return _then(_ScratchCard(
+      cardId == freezed
+          ? _value.cardId
+          : cardId // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ScratchCard implements _ScratchCard {
+  const _$_ScratchCard(this.cardId);
+
+  @override
+  final int cardId;
+
+  @override
+  String toString() {
+    return 'WalletEvent.scratchCard(cardId: $cardId)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _ScratchCard &&
+            (identical(other.cardId, cardId) ||
+                const DeepCollectionEquality().equals(other.cardId, cardId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(cardId);
+
+  @JsonKey(ignore: true)
+  @override
+  _$ScratchCardCopyWith<_ScratchCard> get copyWith =>
+      __$ScratchCardCopyWithImpl<_ScratchCard>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() fetchWalletData,
+    required TResult Function(int cardId) scratchCard,
+  }) {
+    return scratchCard(cardId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? fetchWalletData,
+    TResult Function(int cardId)? scratchCard,
+    required TResult orElse(),
+  }) {
+    if (scratchCard != null) {
+      return scratchCard(cardId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchWalletData value) fetchWalletData,
+    required TResult Function(_ScratchCard value) scratchCard,
+  }) {
+    return scratchCard(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchWalletData value)? fetchWalletData,
+    TResult Function(_ScratchCard value)? scratchCard,
+    required TResult orElse(),
+  }) {
+    if (scratchCard != null) {
+      return scratchCard(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ScratchCard implements WalletEvent {
+  const factory _ScratchCard(int cardId) = _$_ScratchCard;
+
+  int get cardId => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$ScratchCardCopyWith<_ScratchCard> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

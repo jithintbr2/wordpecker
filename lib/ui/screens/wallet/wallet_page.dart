@@ -26,7 +26,11 @@ class WalletPage extends HookWidget {
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(data),
+            loaded: (data) => _buildPage(
+                data,
+                (int cardId) => context
+                    .read<WalletBloc>()
+                    .add(WalletEvent.scratchCard(cardId))),
             failed: (exceptions) => FailedView(
                 exceptions: exceptions,
                 onRetry: () => context
@@ -36,14 +40,19 @@ class WalletPage extends HookWidget {
     );
   }
 
-  Widget _buildPage(WalletModel data) {
+  Widget _buildPage(WalletModel data, void Function(int) onScratch) {
     return Column(
       children: [
         WalletTitlebar(currentBalance: data.walletBalance),
         Expanded(
             child: ListView(
           padding: EdgeInsets.all(0),
-          children: [WalletRewardHistory(rewards: data.rewardDetails)],
+          children: [
+            WalletRewardHistory(
+              rewards: data.rewardDetails,
+              onScratch: (int cardId) => onScratch(cardId),
+            )
+          ],
         ))
       ],
     );

@@ -47,7 +47,6 @@ class CouponWrittenBloc extends Bloc<CouponWrittenEvent, CouponWrittenState> {
         if (!flag) sentableData.add({'varientId': id, 'qty': 1});
       });
 
-      print(sentableData);
       final response = await repository.checkCoupon(
           sentableData, event.couponCode, event.shopId, event.deliveryCharge);
       response.when(success: (data) {

@@ -101,11 +101,11 @@ class OrderPreviewPage extends HookWidget {
         return state.when(
             loading: () => LoadingView(),
             loaded: (data) {
-              data.paymentMethods.cod
-                  ? selectedPaymentMode.value = 0
-                  : data.paymentMethods.onlinePayment
-                      ? selectedPaymentMode.value = 1
-                      : selectedPaymentMode.value = 2;
+              // data.paymentMethods.cod
+              //     ? selectedPaymentMode.value = 0
+              //     : data.paymentMethods.onlinePayment
+              //         ? selectedPaymentMode.value = 1
+              //         : selectedPaymentMode.value = 2;
               return BlocBuilder<PlaceOrderButtonBloc, PlaceOrderButtonState>(
                   builder: (context, state) => state.when(
                       buttonInitial: () => _buildPage(

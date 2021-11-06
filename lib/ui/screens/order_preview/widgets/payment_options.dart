@@ -46,15 +46,15 @@ class PaymentOptions extends StatelessWidget {
                     Icons.local_atm,
                     "Cash on Delivery",
                     selectedPaymentMode.value == 0,
-                    () => selectedPaymentMode.value == 0)
+                    () => selectedPaymentMode.value = 0)
                 : SizedBox(),
             hasOnlinePayment
                 ? _customListTile(
                     context,
                     Icons.local_atm,
                     "Online Payment",
-                    selectedPaymentMode.value == 2,
-                    () => selectedPaymentMode.value == 1)
+                    selectedPaymentMode.value == 1,
+                    () => selectedPaymentMode.value = 1)
                 : SizedBox(),
             hasPickup
                 ? _customListTile(
@@ -62,7 +62,7 @@ class PaymentOptions extends StatelessWidget {
                     Icons.local_atm,
                     "Pickup",
                     selectedPaymentMode.value == 2,
-                    () => selectedPaymentMode.value == 2)
+                    () => selectedPaymentMode.value = 2)
                 : SizedBox(),
           ],
         ),

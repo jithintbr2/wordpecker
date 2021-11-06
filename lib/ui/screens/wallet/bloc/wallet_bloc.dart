@@ -25,5 +25,12 @@ class WalletBloc extends Bloc<WalletEvent, WalletState> {
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));
     }
+
+    if (event is _ScratchCard) {
+      final response = await repository.scratchRegister(event.cardId);
+      response.when(
+          success: (data) => emit(_Loaded(data)),
+          failure: (error) => emit(_Failed(error)));
+    }
   }
 }

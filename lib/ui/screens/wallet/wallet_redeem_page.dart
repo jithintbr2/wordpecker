@@ -30,7 +30,12 @@ class WalletRedeemPage extends HookWidget {
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(context, data),
+            loaded: (data) => _buildPage(
+                context,
+                data,
+                (int cardId) => context
+                    .read<WalletBloc>()
+                    .add(WalletEvent.scratchCard(cardId))),
             failed: (exceptions) => FailedView(
                 exceptions: exceptions,
                 onRetry: () => context
@@ -119,7 +124,8 @@ class WalletRedeemPage extends HookWidget {
     );
   }
 
-  Widget _buildPage(BuildContext context, WalletModel data) {
+  Widget _buildPage(
+      BuildContext context, WalletModel data, void Function(int) onScratch) {
     return Column(
       children: [
         WalletTitlebar(currentBalance: data.walletBalance),
@@ -127,7 +133,12 @@ class WalletRedeemPage extends HookWidget {
         Expanded(
             child: ListView(
           padding: EdgeInsets.all(0),
-          children: [WalletRewardHistory(rewards: data.rewardDetails)],
+          children: [
+            WalletRewardHistory(
+              rewards: data.rewardDetails,
+              onScratch: (int cardId) => onScratch(cardId),
+            )
+          ],
         ))
       ],
     );

@@ -52,6 +52,7 @@ class CouponsPage extends HookWidget {
                             child: TextFormField(
                               // initialValue: widget.couponCode,
                               // key: _couponCodeKey,
+                              controller: _couponController,
                               decoration: InputDecoration(
                                 labelText: "Coupon Code",
                                 isDense: true,
