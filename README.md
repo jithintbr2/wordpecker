@@ -18,3 +18,21 @@ Steps:
     * android/key.properties -> change params
 6. Customize
     * lib/core/settings/config.dart
+7. Release a build
+* APK
+```console
+flutter build apk --split-per-abi
+```
+
+* ABB
+```console
+flutter build appbundle
+```
+8. Access files from 
+    * build\app\outputs\apk\release
+    or
+    * build\app\outputs\bundle\release
+
+    
+
+
