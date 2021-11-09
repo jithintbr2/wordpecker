@@ -31,8 +31,10 @@ class ShopPage extends HookWidget {
     }, []);
 
     final showCancel = useState(false);
+    final searchValue = useState<String>('');
     useEffect(() {
       searchController.addListener(() {
+        searchValue.value = searchController.text;
         if (showCancel.value != searchController.text.isNotEmpty)
           showCancel.value = searchController.text.isNotEmpty;
       });
@@ -46,8 +48,14 @@ class ShopPage extends HookWidget {
           body: BlocBuilder<ShopBloc, ShopState>(
               builder: (context, state) => state.when(
                   loading: () => LoadingView(),
-                  loaded: (data) => _buildPage(context, data, service,
-                      searchController, showCancel, selectedMenuId),
+                  loaded: (data) => _buildPage(
+                      context,
+                      data,
+                      service,
+                      searchController,
+                      showCancel,
+                      selectedMenuId,
+                      searchValue),
                   failed: (exception) => FailedView(
                       exceptions: exception,
                       onRetry: () => context
@@ -61,13 +69,15 @@ class ShopPage extends HookWidget {
   }
 
   Widget _buildPage(
-    BuildContext context,
-    ShopModel data,
-    CartService service,
-    TextEditingController searchController,
-    ValueNotifier<bool> showCancel,
-    ValueNotifier<int> selectedMenuId,
-  ) {
+      BuildContext context,
+      ShopModel data,
+      CartService service,
+      TextEditingController searchController,
+      ValueNotifier<bool> showCancel,
+      ValueNotifier<int> selectedMenuId,
+      ValueNotifier<String> searchvalue) {
+    print('lister////////');
+    print(searchController.text);
     List<MenuModel> _filteredCategories = selectedMenuId.value != -1
         ? data.category
                 ?.where((element) => element.id == selectedMenuId.value)
@@ -109,7 +119,7 @@ class ShopPage extends HookWidget {
             ),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                _buildItemList(service, category.items, searchController.text,
+                _buildItemList(service, category.items, searchvalue.value,
                     data.servicesNow ?? true)
               ]),
             )));
@@ -184,6 +194,8 @@ class ShopPage extends HookWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
+            print('///////////////////////');
+            print(serachValue);
             if (data[index]
                 .name
                 .toLowerCase()

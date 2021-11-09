@@ -1,16 +1,20 @@
-# woodle
-
-A new Flutter project.
+# Template Project
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Steps:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. change icons
+    * android/app/src/main/res -> change icons
+2. change Google service file
+    * android/app/google-services.json -> change file
+3. change Google key and App label
+    * android/app/src/main/AndroidManifest.xml
+        - (line 9) android:label="woodle" to android:label="your application name"
+        - (line 15) android:value="AIzaSyCOtLm7D2gL6HoJ_s3jMTyT2kHzRZZSfx4" to android:value="new key"
+4. Find and change applicationId :
+    Example -> "com.woodle" to "com.delguys.user"
+5. App Signature
+    * android/key.properties -> change params
+6. Customize
+    * lib/core/settings/config.dart
