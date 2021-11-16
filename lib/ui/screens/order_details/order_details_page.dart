@@ -27,6 +27,28 @@ class OrderDetailsPage extends HookWidget {
           .read<OrderDetailsBloc>()
           .add(OrderDetailsEvent.fetchDetails(orderId, tempId: tempId));
     }, []);
+
+    if (tempId != null) {
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("You have won a coupon"),
+          content: Text("Show your coupons?"),
+          actions: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/wallet');
+                },
+                child: Text('Yes')),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).errorColor),
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('No'))
+          ],
+        ),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Order Details'),
