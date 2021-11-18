@@ -17,8 +17,8 @@ class OrderDetailsCashback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (data.cashbackEarned && tempId != null)
-      Container(
+    if (showCashback)
+      return Container(
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.8),
         ),

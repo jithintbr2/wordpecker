@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/models/custom_page/custom_page_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/shop_category_list/bloc/shop_category_list_bloc.dart';
+import 'package:woodle/ui/widgets/carousel.dart';
 import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
+import 'package:woodle/ui/widgets/marquee.dart';
 import 'package:woodle/ui/widgets/shop_tile.dart';
 
 class ShopCategoryListPage extends HookWidget {
@@ -105,7 +108,7 @@ class ShopCategoryListPage extends HookWidget {
       builder: (context, state) {
         return state.when(
             loading: () => LoadingView(),
-            loaded: (data) => _buildPage(data.shops ?? [], search),
+            loaded: (data) => _buildPage(context, data, search),
             failed: (exceptions) => FailedView(
                 exceptions: exceptions,
                 onRetry: () => context.read<ShopCategoryListBloc>().add(
@@ -114,23 +117,64 @@ class ShopCategoryListPage extends HookWidget {
     );
   }
 
-  Widget _buildPage(List<ShopModel> data, TextEditingController search) {
+  // Widget _buildPage(List<ShopModel> data, TextEditingController search) {
+  //   List<ShopModel> filteredData = [];
+  //   if (search.text.isEmpty)
+  //     filteredData = data;
+  //   else
+  //     data.forEach((value) {
+  //       print(value.shopName);
+  //       print(search.text);
+  //       if (value.shopName.toLowerCase().contains(search.text.toLowerCase()))
+  //         filteredData.add(value);
+  //     });
+
+  //   if (data.isNotEmpty)
+  //     return ListView.builder(
+  //       itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
+  //       itemCount: filteredData.length,
+  //     );
+  //   return EmptyView(icon: Icons.shopping_basket, title: 'No Shops Available');
+  // }
+
+  Widget _buildPage(BuildContext context, CustomPageModel data,
+      TextEditingController search) {
     List<ShopModel> filteredData = [];
     if (search.text.isEmpty)
-      filteredData = data;
+      filteredData = data.shops ?? [];
     else
-      data.forEach((value) {
-        print(value.shopName);
-        print(search.text);
+      data.shops?.forEach((value) {
         if (value.shopName.toLowerCase().contains(search.text.toLowerCase()))
           filteredData.add(value);
       });
 
-    if (data.isNotEmpty)
-      return ListView.builder(
-        itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
-        itemCount: filteredData.length,
-      );
-    return EmptyView(icon: Icons.shopping_basket, title: 'No Shops Available');
+    return ListView(
+      shrinkWrap: true,
+      padding: EdgeInsets.symmetric(vertical: 10),
+      children: [
+        Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
+        SizedBox(height: 10),
+        MarqueeWidget(text: data.message ?? ''),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx2 ?? [], viewportFraction: 1)),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx3 ?? [], viewportFraction: 1)),
+        SizedBox(height: 10),
+        ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
+          itemCount: filteredData.length,
+          physics: NeverScrollableScrollPhysics(),
+        ),
+        SizedBox(height: 10),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12),
+            child: Carousel(items: data.carouselx4 ?? [], viewportFraction: 1)),
+        SizedBox(height: 60)
+      ],
+    );
   }
 }
