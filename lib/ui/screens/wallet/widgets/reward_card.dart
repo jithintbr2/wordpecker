@@ -18,7 +18,7 @@ class RewardCard extends StatelessWidget {
           image: AssetImage(Assets.rewardCardBackground),
           fit: BoxFit.cover,
         )),
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.zero,
         child: child,
       ),
     );
@@ -108,7 +108,7 @@ class NegativeRewardCard extends StatelessWidget {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Expanded(child: Hero(tag: reward.hashCode, child: Image.asset('name'))),
+        // Expanded(child: Hero(tag: reward.hashCode, child: Image.asset(Assets.reward))),
         Text("Better luck\nnext time!",
             style: TextStyle(fontWeight: FontWeight.bold)),
       ],

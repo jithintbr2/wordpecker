@@ -40,7 +40,7 @@ class WalletRewardHistory extends StatelessWidget {
                               return AlertDialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
-                                contentPadding: EdgeInsets.all(0),
+                                contentPadding: EdgeInsets.zero,
                                 content: AspectRatio(
                                   aspectRatio: 1,
                                   child: ScratchAlert(
@@ -68,7 +68,10 @@ class ScratchAlert extends HookWidget {
   Widget build(BuildContext context) {
     final scratched = useState(false);
     if (scratched.value == true) {
-      return PositiveRewardCard(reward: reward);
+      if (reward.point > 0)
+        return PositiveRewardCard(reward: reward);
+      else
+        return NegativeRewardCard(reward: reward);
     }
     return Scratcher(
       accuracy: ScratchAccuracy.low,
@@ -84,8 +87,14 @@ class ScratchAlert extends HookWidget {
       ),
       color: Colors.blue,
       child: reward.point > 0
-          ? PositiveRewardCard(reward: reward)
-          : NegativeRewardCard(reward: reward),
+          ? AspectRatio(
+              aspectRatio: 1,
+              child: PositiveRewardCard(reward: reward),
+            )
+          : AspectRatio(
+              aspectRatio: 1,
+              child: NegativeRewardCard(reward: reward),
+            ),
     );
   }
 }
