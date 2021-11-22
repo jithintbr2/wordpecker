@@ -9,6 +9,7 @@ import 'package:woodle/core/services/storage.dart';
 import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/custom/bloc/custom_bloc.dart';
 import 'package:woodle/ui/widgets/carousel.dart';
+import 'package:woodle/ui/widgets/empty.dart';
 import 'package:woodle/ui/widgets/failed.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 import 'package:woodle/ui/widgets/marquee.dart';
@@ -36,23 +37,31 @@ class CustomPage extends HookWidget {
             address != null ? address.franchiseId : Config.locationId));
     }, []);
 
-    return BlocBuilder<CustomBloc, CustomState>(builder: (context, state) {
-      return state.when(
-          loading: () => LoadingView(),
-          loaded: (data) => RefreshIndicator(
-              child: _buildPage(context, data),
-              onRefresh: () async {
-                context.read<CustomBloc>().add(CustomEvent.fetchData(
-                    address != null ? address.franchiseId : Config.locationId));
-                return null;
-              }),
-          failed: (error) => FailedView(
-              exceptions: error,
-              onRetry: () {
-                context.read<CustomBloc>().add(CustomEvent.fetchData(
-                    address != null ? address.franchiseId : Config.locationId));
-              }));
-    });
+    if (Config.locationId != -1 || address != null)
+      return BlocBuilder<CustomBloc, CustomState>(builder: (context, state) {
+        return state.when(
+            loading: () => LoadingView(),
+            loaded: (data) => RefreshIndicator(
+                child: _buildPage(context, data),
+                onRefresh: () async {
+                  context.read<CustomBloc>().add(CustomEvent.fetchData(
+                      address != null
+                          ? address.franchiseId
+                          : Config.locationId));
+                  return null;
+                }),
+            failed: (error) => FailedView(
+                exceptions: error,
+                onRetry: () {
+                  context.read<CustomBloc>().add(CustomEvent.fetchData(
+                      address != null
+                          ? address.franchiseId
+                          : Config.locationId));
+                }));
+      });
+
+    return EmptyView(
+        icon: Icons.location_searching, title: 'No Location Selected.');
   }
 
   Widget _buildPage(BuildContext context, CustomPageModel data) {

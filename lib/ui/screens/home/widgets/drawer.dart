@@ -257,7 +257,7 @@ class DrawerBody extends StatelessWidget {
 
     int franchieId = -1;
     final address = _getAddress();
-    franchieId = address!.franchiseId;
+    franchieId = address != null ? address.franchiseId : -1;
 
     return ListView(
       shrinkWrap: true,
