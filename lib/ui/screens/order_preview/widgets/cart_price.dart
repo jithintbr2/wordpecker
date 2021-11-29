@@ -67,7 +67,12 @@ class CartPrice extends StatelessWidget {
                           item: sortedData[index],
                           onAdd: () =>
                               service.addItem(context, sortedData[index]),
-                          onRemove: () => service.removeItem(sortedData[index]),
+                          onRemove: () {
+                            if (snap.data!.length == 1) {
+                              Navigator.of(context).pop();
+                            }
+                            service.removeItem(sortedData[index]);
+                          },
                           quantity: quantity);
                     },
                     itemCount: sortedData.length,
@@ -109,8 +114,7 @@ class CartPrice extends StatelessWidget {
                 ],
               ),
             );
-          } else
-            Navigator.of(context).pop();
+          }
           return SizedBox();
         });
   }
