@@ -203,11 +203,13 @@ class ShopPage extends HookWidget {
               if (data[index].varients.length == 1) {
                 return ItemVarientTile(
                     isInactive: !isActive,
-                    onTap: () => Navigator.of(context).pushNamed('/item',
-                            arguments: {
-                              'itemId': data[index].id,
-                              'itemName': data[index].name
-                            }),
+                    onTap: !isActive
+                        ? null
+                        : () => Navigator.of(context).pushNamed('/item',
+                                arguments: {
+                                  'itemId': data[index].id,
+                                  'itemName': data[index].name
+                                }),
                     margin: EdgeInsets.zero,
                     item: data[index].varients[0],
                     onAdd: () =>

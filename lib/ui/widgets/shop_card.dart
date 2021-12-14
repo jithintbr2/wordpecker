@@ -64,6 +64,7 @@ class ShopCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(10)),
                           child: Container(
                             width: 60,
+                            height: 20,
                             padding: EdgeInsets.symmetric(
                                 vertical: 2, horizontal: 8),
                             color: Colors.red,
