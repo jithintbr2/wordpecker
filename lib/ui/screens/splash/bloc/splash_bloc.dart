@@ -30,6 +30,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   ) async* {
     if (event is _Verify) {
       try {
+        _localStorage.set('popupSeen', false);
         final appVerificationResult = await repository.verifyApplication();
         if (!appVerificationResult.verified)
           yield _UnVerified();

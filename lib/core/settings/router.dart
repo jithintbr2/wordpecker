@@ -210,7 +210,9 @@ class AppRouter {
             settings.arguments as Map<String, dynamic>;
         return _generatePlatformRoute(BlocProvider(
           create: (context) => ShopCategoryListBloc(
-              repository: context.read<ApplicationRepository>()),
+            repository: context.read<ApplicationRepository>(),
+            context: context,
+          ),
           child: ShopCategoryListPage(
               localStorage: LocalStorage(),
               categoryId: args['categoryId'],

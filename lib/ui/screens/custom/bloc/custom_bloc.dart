@@ -22,7 +22,7 @@ class CustomBloc extends Bloc<CustomEvent, CustomState> {
     if (event is _FetchData) {
       yield _Loading();
       ApiResponse<CustomPageModel> response =
-          await repository.fetchCustomPageData(event.franchiseId);
+          await repository.fetchCustomPageData(event.franchiseId, null);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

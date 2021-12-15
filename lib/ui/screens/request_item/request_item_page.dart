@@ -178,9 +178,6 @@ class RequestItemPage extends HookWidget {
     required FlutterUploader uploader,
     required ValueNotifier<List<String>> imageList,
   }) {
-    print('....');
-    print(items.value);
-    print('....');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.max,
@@ -213,9 +210,16 @@ class RequestItemPage extends HookWidget {
                         items: items.value,
                         franchiseId: franchiseId,
                         remark: remarkController.text,
-                        images: imageList.value,
+                        images:
+                            imageList.value.length > 0 ? imageList.value : null,
                         uploader: uploader,
                       ));
+                } else {
+                  final snackBar = SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text('Add atleast one item'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
               },
             )),

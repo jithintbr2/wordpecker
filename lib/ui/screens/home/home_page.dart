@@ -49,8 +49,10 @@ class HomePage extends HookWidget {
             address != null ? address.franchiseId : Config.locationId));
     }, []);
 
+    bool popupSeenHistory = localStorage.get('popupSeen') as bool;
+
     final conactNumber = useState(-1);
-    final popupSeen = useState(false);
+    final popupSeen = useState(popupSeenHistory);
 
     return Scaffold(
       appBar: Config.useDashboardEntry
@@ -124,6 +126,8 @@ class HomePage extends HookWidget {
                                             child: Icon(Icons.close),
                                             onPressed: () {
                                               popupSeen.value = true;
+                                              localStorage.set(
+                                                  'popupSeen', true);
                                               Navigator.of(dialogContext).pop();
                                             },
                                           ),

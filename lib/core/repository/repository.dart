@@ -143,8 +143,14 @@ class ApplicationRepository {
             error: NetworkExceptions.getDioExceptions(error)));
   }
 
-  Future<ApiResponse<CustomPageModel>> fetchCustomPageData(int franchiseId) {
-    Map<String, dynamic> parameters = {"franchiseId": franchiseId};
+  Future<ApiResponse<CustomPageModel>> fetchCustomPageData(
+    int franchiseId,
+    int? categoryId,
+  ) {
+    Map<String, dynamic> parameters = {
+      "franchiseId": franchiseId,
+      "categoryId": categoryId
+    };
     return _client
         .getRequest('/list_shops', parameters: parameters)
         .then((response) => ApiResponse.success(

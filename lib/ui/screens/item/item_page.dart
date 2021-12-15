@@ -93,10 +93,21 @@ class ItemPage extends HookWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ItemImages(
-                        aspectRatio:
-                            data.varients[currentVarient.value].aspectRatio!,
-                        imgList: itemImages,
-                      ),
+                          aspectRatio:
+                              data.varients[currentVarient.value].aspectRatio!,
+                          imgList: itemImages,
+                          onTap: (image) => showDialog(
+                              context: context,
+                              builder: (ctx) => Zoom(
+                                  backgroundColor: Colors.transparent,
+                                  colorScrollBars: Colors.transparent,
+                                  initZoom: 0.0,
+                                  maxZoomWidth: 1800,
+                                  maxZoomHeight: 1800,
+                                  child: Image.network(
+                                    image,
+                                    fit: BoxFit.contain,
+                                  )))),
                       SizedBox(height: 10),
                       Padding(
                           padding: EdgeInsets.all(10),
@@ -233,8 +244,13 @@ class ItemPage extends HookWidget {
 class ItemImages extends HookWidget {
   final List<String> imgList;
   final double aspectRatio;
-  const ItemImages({Key? key, required this.imgList, required this.aspectRatio})
-      : super(key: key);
+  final Function(String) onTap;
+  const ItemImages({
+    Key? key,
+    required this.imgList,
+    required this.aspectRatio,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -252,15 +268,22 @@ class ItemImages extends HookWidget {
         children: [
           CarouselSlider.builder(
               itemCount: imgList.length,
-              itemBuilder: (context, index, _) => Zoom(
-                  colorScrollBars: Colors.transparent,
-                  initZoom: 0.0,
-                  maxZoomWidth: 1800,
-                  maxZoomHeight: 1800,
-                  child: Image.network(
-                    imgList[index],
-                    fit: BoxFit.contain,
-                  )),
+              // itemBuilder: (context, index, _) => Zoom(
+              //     colorScrollBars: Colors.transparent,
+              //     initZoom: 0.0,
+              //     maxZoomWidth: 1800,
+              //     maxZoomHeight: 1800,
+              //     child: Image.network(
+              //       imgList[index],
+              //       fit: BoxFit.contain,
+              //     )),
+              itemBuilder: (context, index, _) => InkWell(
+                    onTap: () => onTap(imgList[index]),
+                    child: Image.network(
+                      imgList[index],
+                      fit: BoxFit.contain,
+                    ),
+                  ),
               options: _options()),
           // Align(
           //   alignment: Alignment.bottomCenter,

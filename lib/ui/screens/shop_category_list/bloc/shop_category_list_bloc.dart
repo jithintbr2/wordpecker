@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:woodle/core/models/custom_page/custom_page_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
@@ -16,7 +17,11 @@ part 'shop_category_list_bloc.freezed.dart';
 class ShopCategoryListBloc
     extends Bloc<ShopCategoryListEvent, ShopCategoryListState> {
   ApplicationRepository repository;
-  ShopCategoryListBloc({required this.repository}) : super(_Loading());
+  BuildContext context;
+  ShopCategoryListBloc({
+    required this.repository,
+    required this.context,
+  }) : super(_Loading());
 
   @override
   Stream<ShopCategoryListState> mapEventToState(
@@ -26,10 +31,16 @@ class ShopCategoryListBloc
       yield _Loading();
       // final response =
       //     await repository.fetchShopList(event.franchiseId, event.categoryId);
-      ApiResponse<CustomPageModel> response =
-          await repository.fetchCustomPageData(event.franchiseId);
+      ApiResponse<CustomPageModel> response = await repository
+          .fetchCustomPageData(event.franchiseId, event.categoryId);
       response.when(
-          success: (data) => emit(_Loaded(data)),
+          success: (data) {
+            if (data.shops!.length == 1) {
+              Navigator.of(context).pushReplacementNamed('/shopDetail',
+                  arguments: {"shopId": data.shops![0].shopId});
+            } else
+              emit(_Loaded(data));
+          },
           failure: (error) => emit(_Failed(error)));
     }
   }

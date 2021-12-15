@@ -20,7 +20,7 @@ class _$RequestItemEventTearOff {
       {required List<dynamic> items,
       required int franchiseId,
       required String remark,
-      required List<dynamic> images,
+      required List<dynamic>? images,
       required FlutterUploader uploader}) {
     return _Request(
       items: items,
@@ -40,20 +40,20 @@ mixin _$RequestItemEvent {
   List<dynamic> get items => throw _privateConstructorUsedError;
   int get franchiseId => throw _privateConstructorUsedError;
   String get remark => throw _privateConstructorUsedError;
-  List<dynamic> get images => throw _privateConstructorUsedError;
+  List<dynamic>? get images => throw _privateConstructorUsedError;
   FlutterUploader get uploader => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<dynamic> items, int franchiseId,
-            String remark, List<dynamic> images, FlutterUploader uploader)
+            String remark, List<dynamic>? images, FlutterUploader uploader)
         request,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<dynamic> items, int franchiseId, String remark,
-            List<dynamic> images, FlutterUploader uploader)?
+            List<dynamic>? images, FlutterUploader uploader)?
         request,
     required TResult orElse(),
   }) =>
@@ -84,7 +84,7 @@ abstract class $RequestItemEventCopyWith<$Res> {
       {List<dynamic> items,
       int franchiseId,
       String remark,
-      List<dynamic> images,
+      List<dynamic>? images,
       FlutterUploader uploader});
 }
 
@@ -121,7 +121,7 @@ class _$RequestItemEventCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<dynamic>?,
       uploader: uploader == freezed
           ? _value.uploader
           : uploader // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ abstract class _$RequestCopyWith<$Res>
       {List<dynamic> items,
       int franchiseId,
       String remark,
-      List<dynamic> images,
+      List<dynamic>? images,
       FlutterUploader uploader});
 }
 
@@ -177,7 +177,7 @@ class __$RequestCopyWithImpl<$Res> extends _$RequestItemEventCopyWithImpl<$Res>
       images: images == freezed
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
+              as List<dynamic>?,
       uploader: uploader == freezed
           ? _value.uploader
           : uploader // ignore: cast_nullable_to_non_nullable
@@ -203,7 +203,7 @@ class _$_Request implements _Request {
   @override
   final String remark;
   @override
-  final List<dynamic> images;
+  final List<dynamic>? images;
   @override
   final FlutterUploader uploader;
 
@@ -248,7 +248,7 @@ class _$_Request implements _Request {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(List<dynamic> items, int franchiseId,
-            String remark, List<dynamic> images, FlutterUploader uploader)
+            String remark, List<dynamic>? images, FlutterUploader uploader)
         request,
   }) {
     return request(items, franchiseId, remark, images, uploader);
@@ -258,7 +258,7 @@ class _$_Request implements _Request {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(List<dynamic> items, int franchiseId, String remark,
-            List<dynamic> images, FlutterUploader uploader)?
+            List<dynamic>? images, FlutterUploader uploader)?
         request,
     required TResult orElse(),
   }) {
@@ -294,7 +294,7 @@ abstract class _Request implements RequestItemEvent {
       {required List<dynamic> items,
       required int franchiseId,
       required String remark,
-      required List<dynamic> images,
+      required List<dynamic>? images,
       required FlutterUploader uploader}) = _$_Request;
 
   @override
@@ -304,7 +304,7 @@ abstract class _Request implements RequestItemEvent {
   @override
   String get remark => throw _privateConstructorUsedError;
   @override
-  List<dynamic> get images => throw _privateConstructorUsedError;
+  List<dynamic>? get images => throw _privateConstructorUsedError;
   @override
   FlutterUploader get uploader => throw _privateConstructorUsedError;
   @override
