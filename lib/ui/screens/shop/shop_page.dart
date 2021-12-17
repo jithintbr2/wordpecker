@@ -194,8 +194,6 @@ class ShopPage extends HookWidget {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            print('///////////////////////');
-            print(serachValue);
             if (data[index]
                 .name
                 .toLowerCase()

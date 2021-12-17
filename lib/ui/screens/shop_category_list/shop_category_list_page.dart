@@ -117,26 +117,6 @@ class ShopCategoryListPage extends HookWidget {
     );
   }
 
-  // Widget _buildPage(List<ShopModel> data, TextEditingController search) {
-  //   List<ShopModel> filteredData = [];
-  //   if (search.text.isEmpty)
-  //     filteredData = data;
-  //   else
-  //     data.forEach((value) {
-  //       print(value.shopName);
-  //       print(search.text);
-  //       if (value.shopName.toLowerCase().contains(search.text.toLowerCase()))
-  //         filteredData.add(value);
-  //     });
-
-  //   if (data.isNotEmpty)
-  //     return ListView.builder(
-  //       itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
-  //       itemCount: filteredData.length,
-  //     );
-  //   return EmptyView(icon: Icons.shopping_basket, title: 'No Shops Available');
-  // }
-
   Widget _buildPage(BuildContext context, CustomPageModel data,
       TextEditingController search) {
     List<ShopModel> filteredData = [];

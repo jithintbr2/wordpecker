@@ -40,6 +40,7 @@ class ShopHeader extends StatelessWidget {
                 : Text(shop.services!.join(' • '),
                     style: Theme.of(context).textTheme.caption),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Custom item ...like veg selector for food apps.
                 InkWell(
@@ -109,6 +110,10 @@ class ShopHeader extends StatelessWidget {
                         });
                   },
                   child: _menuBox(context),
+                ),
+                Text(
+                  shop.openingTime ?? '',
+                  style: Theme.of(context).textTheme.caption,
                 )
               ],
             ),

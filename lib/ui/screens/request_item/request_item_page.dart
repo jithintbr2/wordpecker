@@ -250,7 +250,7 @@ class RequestItemPage extends HookWidget {
             size: 12,
           ),
           onTap: () {
-            // Navigator.of(context).pushNamed(RouteMyRequests);
+            Navigator.of(context).pushNamed('/requestItemHistory');
           },
         ));
   }
@@ -556,8 +556,6 @@ class RequestItemPage extends HookWidget {
 
   Widget _imageUploader(
       FlutterUploader uploader, ValueNotifier<List<String>> imageList) {
-    print('.........asdfasdfasdf..........');
-    print(imageList);
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: Container(
@@ -573,7 +571,6 @@ class RequestItemPage extends HookWidget {
                 ),
                 ElevatedButton(
                     onPressed: () async {
-                      //  var picture = await picker.getImage(source: ImageSource.camera);
                       var picture = await FilePicker.platform.pickFiles(
                         type: FileType.image,
                       );
@@ -611,9 +608,6 @@ class RequestItemPage extends HookWidget {
   void _handleFileUpload(String path, FlutterUploader uploader,
       ValueNotifier<List<String>> imageList) async {
     var dir = await getTemporaryDirectory();
-    var random = new Random();
-    // final temptargetpath =
-    //     dir.absolute.path + random.nextInt(100).toString() + 'temp.jpg';
 
     final filename = basename(path);
     final filenameWithoutExt = filename.split('.');
@@ -621,9 +615,6 @@ class RequestItemPage extends HookWidget {
 
     final temptargetpath =
         dir.absolute.path + filenameWithoutExt.join('.') + '.jpg';
-    // 'image' +
-    // (imageList.value.length + 1).toString() +
-    // '.jpg';
 
     var result = await FlutterImageCompress.compressAndGetFile(
       path,
@@ -633,8 +624,6 @@ class RequestItemPage extends HookWidget {
     );
 
     if (result != null) {
-      print('.....a123123123123');
-      print(result.absolute.path);
       List<String> temp = imageList.value;
       temp.add(result.absolute.path);
       imageList.value = [];

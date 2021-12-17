@@ -14,6 +14,8 @@ import 'package:woodle/core/models/order_details/order_details_model.dart';
 import 'package:woodle/core/models/order_preview/order_preview_model.dart';
 import 'package:woodle/core/models/orders/orders_model.dart';
 import 'package:woodle/core/models/referral/referral_model.dart';
+import 'package:woodle/core/models/request_details/request_details_model.dart';
+import 'package:woodle/core/models/request_item/request_item_model.dart';
 import 'package:woodle/core/models/service/service_model.dart';
 import 'package:woodle/core/models/shop/shop_model.dart';
 import 'package:woodle/core/models/shop_review/shop_review_model.dart';
@@ -688,6 +690,28 @@ class ApplicationRepository {
     return _client.postRequest('/request_item', parameters: parameters).then(
         (response) {
       return ApiResponse.success(data: response['data'] as int);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+  }
+
+  Future<ApiResponse<List<RequestItemModel>>> getRequestedItems() {
+    return _client.getRequest('/my_requests').then((response) {
+      List<RequestItemModel> dataList = [];
+      response["data"].forEach((requestedItem) =>
+          dataList.add(RequestItemModel.fromJson(requestedItem)));
+      return ApiResponse.success(data: dataList);
+    }).onError((error, _) =>
+        ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
+  }
+
+  Future<ApiResponse<RequestDetailsModel>> getRequestDetails(
+    int requestId,
+  ) {
+    Map<String, dynamic> parameters = {"request_id": requestId};
+    return _client.getRequest('/request_details', parameters: parameters).then(
+        (response) {
+      return ApiResponse.success(
+          data: RequestDetailsModel.fromJson(response['data']));
     }).onError((error, _) =>
         ApiResponse.failure(error: NetworkExceptions.getDioExceptions(error)));
   }

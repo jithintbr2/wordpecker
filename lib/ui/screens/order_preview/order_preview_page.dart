@@ -241,41 +241,9 @@ class OrderPreviewPage extends HookWidget {
                       //     ? double.parse(walletRedeemController.text)
                       //     : 0.0,
                     ),
-
                     data.addonsList.length > 0
                         ? Addons(data: data.addonsList)
                         : SizedBox(),
-
-                    // Card(
-                    //   child: Padding(
-                    //       padding: EdgeInsets.all(10),
-                    //       child: StreamBuilder(
-                    //           stream: service.controller,
-                    //           initialData: service.initialValue(),
-                    //           builder: (context,
-                    //               AsyncSnapshot<List<ItemVarientModel>> snap) {
-                    //             double totalPrice = 0;
-                    //             snap.data!
-                    //                 .forEach((item) => totalPrice += item.salePrice!);
-                    //             return Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 Text("Bill",
-                    //                     style: TextStyle(fontWeight: FontWeight.bold)),
-                    //                 SizedBox(height: 10),
-                    //                 PriceIndicator(
-                    //                     price: totalPrice, title: 'Order Total'),
-                    //                 PriceIndicator(
-                    //                     price: data.deliveryCharge,
-                    //                     title: 'Delivery Charges'),
-                    //                 Divider(),
-                    //                 PriceIndicator(
-                    //                     price: data.deliveryCharge + totalPrice,
-                    //                     title: 'Grand Total')
-                    //               ],
-                    //             );
-                    //           })),
-                    // ),
                     DeliveryOptions(
                       address: address,
                       isScheduledOrder: isScheduledOrder,
@@ -351,31 +319,7 @@ class OrderPreviewPage extends HookWidget {
               selectedCoupon.value,
               redeemedAmount.value,
               selectedPaymentMode.value,
-              // walletRedeemController.text.isNotEmpty
-              //     ? double.parse(walletRedeemController.text)
-              //     : 0.0
-            )
-            // ElevatedButton(
-            //   child: Text('Place Order'),
-            //   onPressed: () {
-            //     List<ItemVarientModel> items = service.initialValue();
-            //     LocalStorage _localStorage = LocalStorage();
-            //     AddressModel? _getAddress() {
-            //       if (_localStorage.get('currentAddress') != null) {
-            //         Map<String, dynamic> currentAddressRaw =
-            //             jsonDecode(_localStorage.get('currentAddress') as String);
-            //         return AddressModel.fromJson(currentAddressRaw);
-            //       }
-            //       return null;
-            //     }
-
-            //     AddressModel? _address = _getAddress();
-            //     context.read<OrderPreviewBloc>().add(
-            //         OrderPreviewEvent.cartExpiryCheck(items, items[0].shopId,
-            //             _address!.id, remarkController.text));
-            //   },
-            // ),
-            ),
+            )),
       ],
     );
   }

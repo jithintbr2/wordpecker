@@ -41,8 +41,12 @@ import 'package:woodle/ui/screens/password_change/bloc/password_change_bloc.dart
 import 'package:woodle/ui/screens/password_change/password_change_page.dart';
 import 'package:woodle/ui/screens/referral/bloc/referral_bloc.dart';
 import 'package:woodle/ui/screens/referral/referral_page.dart';
+import 'package:woodle/ui/screens/request_details/bloc/request_details_bloc.dart';
+import 'package:woodle/ui/screens/request_details/request_details_page.dart';
 import 'package:woodle/ui/screens/request_item/bloc/request_item_bloc.dart';
 import 'package:woodle/ui/screens/request_item/request_item_page.dart';
+import 'package:woodle/ui/screens/request_item_history/bloc/request_item_history_bloc.dart';
+import 'package:woodle/ui/screens/request_item_history/request_item_history_page.dart';
 import 'package:woodle/ui/screens/service/bloc/service_bloc.dart';
 import 'package:woodle/ui/screens/service/service_page.dart';
 import 'package:woodle/ui/screens/shop/bloc/shop_bloc.dart';
@@ -292,6 +296,26 @@ class AppRouter {
               context: context,
               repository: context.read<ApplicationRepository>()),
           child: RequestItemPage(),
+        ));
+
+      case '/requestItemHistory':
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => RequestItemHistoryBloc(
+              context: context,
+              repository: context.read<ApplicationRepository>()),
+          child: RequestItemHistoryPage(),
+        ));
+
+      case '/requestDetails':
+        final Map<String, dynamic> args =
+            settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => RequestDetailsBloc(
+              context: context,
+              repository: context.read<ApplicationRepository>()),
+          child: RequestDetailsPage(
+            requestId: args['requestId'],
+          ),
         ));
 
       case '/wallet':
