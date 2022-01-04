@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
@@ -65,6 +66,11 @@ class HomePage extends HookWidget {
               contactNumber: conactNumber.value,
               onTap: () => Navigator.pushNamed(context, '/address'),
               onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
+              onCall: () async {
+                if (conactNumber.value != -1 &&
+                    await canLaunch("tel:${conactNumber.value}"))
+                  await launch("tel:${conactNumber.value}");
+              },
             ),
       endDrawer: HomeDrawer(whatsappNumber: conactNumber.value),
       body: Config.locationId != -1 || address != null
@@ -211,7 +217,7 @@ class HomePage extends HookWidget {
             data.featuredRestaurants != null
                 ? Padding(
                     padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: Text("featured Restaurant",
+                    child: Text("Featured Restaurant",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

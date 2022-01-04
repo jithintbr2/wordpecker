@@ -65,13 +65,18 @@ class CartPrice extends StatelessWidget {
                       return ItemVarientTile(
                           showParent: true,
                           item: sortedData[index],
-                          onAdd: () =>
-                              service.addItem(context, sortedData[index]),
+                          onAdd: () {
+                            service.addItem(context, sortedData[index]);
+                            selectedCoupon.value = null;
+                            couponApplicableOn.value = [];
+                          },
                           onRemove: () {
                             if (snap.data!.length == 1) {
                               Navigator.of(context).pop();
                             }
                             service.removeItem(sortedData[index]);
+                            selectedCoupon.value = null;
+                            couponApplicableOn.value = [];
                           },
                           quantity: quantity);
                     },

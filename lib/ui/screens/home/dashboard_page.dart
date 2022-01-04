@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/user/user_model.dart';
 import 'package:woodle/core/services/cart.dart';
@@ -49,6 +50,11 @@ class DashboardPage extends HookWidget {
         location: address?.locality,
         onTap: () => Navigator.pushNamed(context, '/address'),
         onSearch: () => Navigator.pushNamed(context, '/homeSearch'),
+        onCall: () async {
+          if (contactNumber.value != -1 &&
+              await canLaunch("tel:${contactNumber.value}"))
+            await launch("tel:${contactNumber.value}");
+        },
       ),
       endDrawer: HomeDrawer(whatsappNumber: contactNumber.value),
       bottomNavigationBar: HomeBottomNavigationBar(

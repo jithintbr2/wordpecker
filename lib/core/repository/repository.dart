@@ -643,6 +643,9 @@ class ApplicationRepository {
       "preferableDate": preferableDate,
       "time": time
     };
+
+    print(parameters);
+
     return _client
         .getRequest('/add_request_service', parameters: parameters)
         .then((response) => ApiResponse.success(data: response['data'] as bool))

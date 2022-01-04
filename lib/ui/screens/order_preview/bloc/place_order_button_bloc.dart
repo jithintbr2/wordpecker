@@ -32,7 +32,7 @@ class PlaceOrderButtonBloc
       final List items = [];
       final List<int> itemIds = [];
       final List sentableData = [];
-      event.items.forEach((item) {
+      event.service.initialValue().forEach((item) {
         itemIds.add(item.varientId);
         items.add(item.toJson());
       });

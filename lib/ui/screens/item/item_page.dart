@@ -98,16 +98,30 @@ class ItemPage extends HookWidget {
                           imgList: itemImages,
                           onTap: (image) => showDialog(
                               context: context,
-                              builder: (ctx) => Zoom(
-                                  backgroundColor: Colors.transparent,
-                                  colorScrollBars: Colors.transparent,
-                                  initZoom: 0.0,
-                                  maxZoomWidth: 1800,
-                                  maxZoomHeight: 1800,
-                                  child: Image.network(
-                                    image,
-                                    fit: BoxFit.contain,
-                                  )))),
+                              builder: (ctx) => Stack(
+                                    children: [
+                                      Zoom(
+                                          backgroundColor: Colors.transparent,
+                                          colorScrollBars: Colors.transparent,
+                                          initZoom: 0.0,
+                                          maxZoomWidth: 1800,
+                                          maxZoomHeight: 1800,
+                                          child: Image.network(
+                                            image,
+                                            fit: BoxFit.contain,
+                                          )),
+                                      Positioned(
+                                          right: 0,
+                                          top: 0,
+                                          child: Card(
+                                            child: IconButton(
+                                              icon: Icon(Icons.cancel),
+                                              onPressed: () =>
+                                                  Navigator.pop(ctx),
+                                            ),
+                                          ))
+                                    ],
+                                  ))),
                       SizedBox(height: 10),
                       Padding(
                           padding: EdgeInsets.all(10),

@@ -12,6 +12,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? location;
   final void Function()? onTap;
   final void Function()? onSearch;
+  final void Function()? onCall;
   final CartService service;
   final int contactNumber;
   const HomeAppBar({
@@ -23,6 +24,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.contactNumber,
     required this.user,
     required this.service,
+    required this.onCall,
   }) : super(key: key);
 
   @override
@@ -62,12 +64,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : Text(Config.applicationName),
       actions: [
-        IconButton(
-            onPressed: () async {
-              if (contactNumber != -1 && await canLaunch("tel:$contactNumber"))
-                await launch("tel:$contactNumber");
-            },
-            icon: Icon(Icons.call)),
+        IconButton(onPressed: onCall, icon: Icon(Icons.call)),
         StreamBuilder(
             stream: service.controller,
             initialData: service.initialValue(),

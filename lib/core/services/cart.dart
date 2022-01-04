@@ -82,8 +82,8 @@ class CartService {
       // cartItems.remove(jsonEncode(item.toJson()));
 
       final matchingItem = cartItems.firstWhere((element) =>
-          ItemVarientModel.fromJson(json.decode(element)).itemId ==
-          item.itemId);
+          ItemVarientModel.fromJson(json.decode(element)).varientId ==
+          item.varientId);
       cartItems.remove(matchingItem);
 
       _store.set('cart', cartItems);
