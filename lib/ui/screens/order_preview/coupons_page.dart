@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/item_varient/item_varient_model.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/order_preview/bloc/coupon_written_bloc.dart';
 
 class CouponsPage extends HookWidget {
@@ -50,6 +51,9 @@ class CouponsPage extends HookWidget {
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: TextFormField(
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: Config.fontFamily),
                               // initialValue: widget.couponCode,
                               // key: _couponCodeKey,
                               controller: _couponController,
@@ -63,22 +67,22 @@ class CouponsPage extends HookWidget {
                         Padding(
                             padding: const EdgeInsets.only(right: 16),
                             child: BlocBuilder<CouponWrittenBloc,
-                                    CouponWrittenState>(
+                                CouponWrittenState>(
                                 builder: (context, state) => state.when(
-                                      busy: () => CircularProgressIndicator(),
-                                      idle: () => ElevatedButton(
-                                        onPressed: () => context
-                                            .read<CouponWrittenBloc>()
-                                            .add(CouponWrittenEvent.checkCoupon(
-                                                items: items,
-                                                couponCode:
-                                                    _couponController.text,
-                                                shopId: items[0].shopId,
-                                                deliveryCharge: deliveryCharge,
-                                                onSelect: onSelect)),
-                                        child: Text('Apply'),
-                                      ),
-                                    ))),
+                                  busy: () => CircularProgressIndicator(),
+                                  idle: () => ElevatedButton(
+                                    onPressed: () => context
+                                        .read<CouponWrittenBloc>()
+                                        .add(CouponWrittenEvent.checkCoupon(
+                                        items: items,
+                                        couponCode:
+                                        _couponController.text,
+                                        shopId: items[0].shopId,
+                                        deliveryCharge: deliveryCharge,
+                                        onSelect: onSelect)),
+                                    child: Text('Apply'),
+                                  ),
+                                ))),
                       ],
                     ),
                     // showStatus
@@ -119,29 +123,29 @@ class CouponsPage extends HookWidget {
           ),
         )
 
-        // ListView.separated(
-        //   itemCount: coupons.length,
-        //   itemBuilder: (context, index) => ListTile(
-        //     onTap: () => onSelect(coupons[index]),
-        //     leading: Text('Rs. ${coupons[index].couponDiscount}'),
-        //     title: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Text(
-        //           coupons[index].couponCode,
-        //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        //         ),
-        //         Divider(),
-        //         Text(coupons[index].couponDescription)
-        //       ],
-        //     ),
-        //     subtitle:
-        //         Text('${coupons[index].validFrom} - ${coupons[index].validTo}'),
-        //     trailing: Icon(Icons.arrow_right),
-        //   ),
-        //   separatorBuilder: (_, __) => Divider(),
-        // ),
-        );
+      // ListView.separated(
+      //   itemCount: coupons.length,
+      //   itemBuilder: (context, index) => ListTile(
+      //     onTap: () => onSelect(coupons[index]),
+      //     leading: Text('Rs. ${coupons[index].couponDiscount}'),
+      //     title: Column(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       children: [
+      //         Text(
+      //           coupons[index].couponCode,
+      //           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      //         ),
+      //         Divider(),
+      //         Text(coupons[index].couponDescription)
+      //       ],
+      //     ),
+      //     subtitle:
+      //         Text('${coupons[index].validFrom} - ${coupons[index].validTo}'),
+      //     trailing: Icon(Icons.arrow_right),
+      //   ),
+      //   separatorBuilder: (_, __) => Divider(),
+      // ),
+    );
   }
 
   Widget _buildCouponList(BuildContext context) {
@@ -192,7 +196,7 @@ class CouponsPage extends HookWidget {
                           child: ListTile(
                             title: Container(
                               padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              const EdgeInsets.symmetric(vertical: 8.0),
                               child: Text(
                                 "${coupon.couponType == "percent" ? "${coupon.couponDiscount} % " : "₹ ${coupon.couponDiscount}"}",
                                 style: TextStyle(
@@ -215,7 +219,7 @@ class CouponsPage extends HookWidget {
                                       .textTheme
                                       .bodyText2!
                                       .copyWith(
-                                          color: Colors.indigo, fontSize: 14),
+                                      color: Colors.indigo, fontSize: 14),
                                 ),
                                 SizedBox(height: 4),
                               ],
@@ -226,7 +230,7 @@ class CouponsPage extends HookWidget {
                     ),
                     ClipRRect(
                       borderRadius:
-                          BorderRadius.vertical(bottom: Radius.circular(10)),
+                      BorderRadius.vertical(bottom: Radius.circular(10)),
                       child: Container(
                         height: 32,
                         color: Colors.grey[300],

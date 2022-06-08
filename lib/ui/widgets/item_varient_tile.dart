@@ -62,19 +62,19 @@ class ItemVarientTile extends HookWidget {
             ),
           ),
           subtitle: item.salePrice == item.mrp
-              ? Text("₹${item.salePrice}",
+              ? Text("₹ ${item.salePrice}",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1!
                       .copyWith(fontSize: 14))
               : Row(children: [
-                  Text("₹${item.salePrice}",
+                  Text("₹ ${item.salePrice}",
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
                           .copyWith(fontSize: 14)),
                   SizedBox(width: 10),
-                  Text("₹${item.mrp}",
+                  Text("₹ ${item.mrp}",
                       style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             decoration: TextDecoration.lineThrough,
                             decorationThickness: 2,

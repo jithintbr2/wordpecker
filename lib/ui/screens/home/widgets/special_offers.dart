@@ -38,9 +38,9 @@ class SpecialOffers extends StatelessWidget {
                                   horizontal: 12, vertical: 8),
                               child: Text(data![index].categoryName,
                                   style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
+                                      TextStyle(fontWeight: FontWeight.bold,fontFamily: 'Audiowide',color: Colors.white))),
                           SizedBox(
-                              height: 200,
+                              height: 250,
                               child: ListView.builder(
                                   itemBuilder: (_, int childIndex) {
                                     return ItemVarientBox(

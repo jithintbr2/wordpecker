@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/wallet/wallet_model.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/wallet/bloc/wallet_bloc.dart';
 import 'package:woodle/ui/screens/wallet/widgets/reward_history.dart';
 import 'package:woodle/ui/screens/wallet/widgets/title_bar.dart';
@@ -33,7 +34,7 @@ class WalletRedeemPage extends HookWidget {
             loaded: (data) => _buildPage(
                 context,
                 data,
-                (int cardId) => context
+                    (int cardId) => context
                     .read<WalletBloc>()
                     .add(WalletEvent.scratchCard(cardId))),
             failed: (exceptions) => FailedView(
@@ -60,7 +61,7 @@ class WalletRedeemPage extends HookWidget {
               children: <Widget>[
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Text(
                     "Redeem from wallet?",
                     style: Theme.of(context)
@@ -76,6 +77,9 @@ class WalletRedeemPage extends HookWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: TextFormField(
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: Config.fontFamily),
                           initialValue: "0.0",
                           key: _redeemAmountKey,
                           keyboardType: TextInputType.number,
@@ -87,7 +91,7 @@ class WalletRedeemPage extends HookWidget {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           validator: (value) {
                             final limit =
-                                [walletBalance, orderAmount].reduce(min);
+                            [walletBalance, orderAmount].reduce(min);
                             if (value != null && value.isNotEmpty) {
                               if (double.parse(value) > limit) {
                                 return "Enter amount below $limit";
@@ -104,11 +108,11 @@ class WalletRedeemPage extends HookWidget {
                           child: Text('Apply'),
                           onPressed: () {
                             redeemAmount =
-                                _redeemAmountKey.currentState!.value != null
-                                    ? double.parse(_redeemAmountKey
-                                        .currentState!.value
-                                        .toString())
-                                    : 0.0;
+                            _redeemAmountKey.currentState!.value != null
+                                ? double.parse(_redeemAmountKey
+                                .currentState!.value
+                                .toString())
+                                : 0.0;
                             if (_redeemAmountKey.currentState!.validate()) {
                               Navigator.of(context).pop(redeemAmount);
                             }
@@ -132,14 +136,14 @@ class WalletRedeemPage extends HookWidget {
         _buildEnterAmount(context, data.walletBalance),
         Expanded(
             child: ListView(
-          padding: EdgeInsets.all(0),
-          children: [
-            WalletRewardHistory(
-              rewards: data.rewardDetails,
-              onScratch: (int cardId) => onScratch(cardId),
-            )
-          ],
-        ))
+              padding: EdgeInsets.all(0),
+              children: [
+                WalletRewardHistory(
+                  rewards: data.rewardDetails,
+                  onScratch: (int cardId) => onScratch(cardId),
+                )
+              ],
+            ))
       ],
     );
   }

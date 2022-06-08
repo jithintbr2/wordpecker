@@ -4,6 +4,7 @@ import 'package:version/version.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/models/app_version/app_verification_model.dart';
 import 'package:woodle/core/models/app_version/app_version_model.dart';
+import 'package:woodle/core/models/authors/authors_model.dart';
 import 'package:woodle/core/models/coupon/coupon_model.dart';
 import 'package:woodle/core/models/custom_page/custom_page_model.dart';
 import 'package:woodle/core/models/home_page/home_page_model.dart';
@@ -26,6 +27,8 @@ import 'package:woodle/core/network/api_response/api_response.dart';
 import 'package:woodle/core/network/network_exceptions/network_exceptions.dart';
 import 'package:woodle/core/services/http_client.dart';
 import 'package:woodle/core/settings/config.dart';
+
+import '../models/epub/epub_model.dart';
 
 class ApplicationRepository {
   HttpService _client = HttpService();
@@ -161,6 +164,8 @@ class ApplicationRepository {
             error: NetworkExceptions.getDioExceptions(error)));
   }
 
+
+
   Future<ApiResponse<List<SubCategoryModel>>> fetchCategoryItemsData(
       int categoryId) {
     Map<String, dynamic> parameters = {"categoryId": categoryId};
@@ -248,6 +253,36 @@ class ApplicationRepository {
           error: NetworkExceptions.getDioExceptions(error));
     });
   }
+  Future<ApiResponse<List<AuthorsModel>>> fetchAuthorList(
+      int franchiseId) {
+    return _client.getRequest('/list_authors').then((response) {
+      List<AuthorsModel> authors = [];
+      // print('abcd');
+      response['data'].forEach((author) => authors.add(AuthorsModel.fromJson(author)));
+      // print('1234');
+      // print(authors.toString());
+      return ApiResponse.success(data: authors);
+    }).onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
+  Future<ApiResponse<List<EPubModel>>> fetchEPubList(
+      int franchiseId) {
+    return _client.getRequest('/e_pub_list').then((response) {
+      List<EPubModel> epub = [];
+      // print('abcd');
+      response['data'].forEach((epubs) => epub.add(EPubModel.fromJson(epubs)));
+      // print('1234');
+      // print(epub.toString());
+      return ApiResponse.success(data: epub);
+    }).onError((error, _) {
+      print(_);
+      return ApiResponse.failure(
+          error: NetworkExceptions.getDioExceptions(error));
+    });
+  }
 
   //Fetch the user's notifications
   Future<ApiResponse<List<NotificationModel>>> fetchNotifications() {
@@ -273,8 +308,8 @@ class ApplicationRepository {
   }
 
   ///Fetch Shop Details
-  Future<ApiResponse<ShopModel>> fetchShopDetails(int shopId) {
-    Map<String, dynamic> parameters = {"shop_id": shopId};
+  Future<ApiResponse<ShopModel>> fetchShopDetails(int shopId,int authorId) {
+    Map<String, dynamic> parameters = {"shop_id": shopId,"authorId":authorId};
     return _client
         .getRequest('/shop_details', parameters: parameters)
         .then((response) =>
@@ -285,6 +320,9 @@ class ApplicationRepository {
           error: NetworkExceptions.getDioExceptions(error));
     });
   }
+
+
+
 
   ///Fetch Shop Reviews
   Future<ApiResponse<ShopReviewModel>> fetchShopReviews(int shopId) {

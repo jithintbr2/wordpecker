@@ -132,23 +132,18 @@ class ShopCategoryListPage extends HookWidget {
       shrinkWrap: true,
       padding: EdgeInsets.symmetric(vertical: 10),
       children: [
-        Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
-        SizedBox(height: 10),
-        MarqueeWidget(text: data.message ?? ''),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Carousel(items: data.carouselx2 ?? [], viewportFraction: 1)),
-        SizedBox(height: 10),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Carousel(items: data.carouselx3 ?? [], viewportFraction: 1)),
-        SizedBox(height: 10),
-        ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: (context, index) => ShopTile(shop: filteredData[index]),
-          itemCount: filteredData.length,
-          physics: NeverScrollableScrollPhysics(),
-        ),
+        // Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
+        // SizedBox(height: 10),
+        // MarqueeWidget(text: data.message ?? ''),
+        // Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 12),
+        //     child: Carousel(items: data.carouselx2 ?? [], viewportFraction: 1)),
+        // SizedBox(height: 10),
+        // Padding(
+        //     padding: EdgeInsets.symmetric(horizontal: 12),
+        //     child: Carousel(items: data.carouselx3 ?? [], viewportFraction: 1)),
+        // SizedBox(height: 10),
+        ShopTile(shop:filteredData),
         SizedBox(height: 10),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),

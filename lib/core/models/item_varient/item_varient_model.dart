@@ -22,6 +22,15 @@ class ItemVarientModel with _$ItemVarientModel {
     int? maxQuantity,
     @JsonKey(defaultValue: []) List<String>? itemImages,
     @JsonKey(defaultValue: 1) double? aspectRatio,
+    String? authorName,
+    String? language,
+    String? bindingType,
+    String? isbn,
+    String? edition,
+    String? noOfPages,
+    String? publishingDate,
+    List<String>?categories,
+
   }) = _ItemVarientModel;
 
   factory ItemVarientModel.fromJson(Map<String, dynamic> json) =>

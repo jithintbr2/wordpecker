@@ -19,7 +19,8 @@ import 'package:woodle/ui/widgets/marquee.dart';
 
 class ShopPage extends HookWidget {
   final int shopId;
-  const ShopPage({Key? key, required this.shopId}) : super(key: key);
+  final int authorId;
+  const ShopPage({Key? key, required this.shopId,required this.authorId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class ShopPage extends HookWidget {
     final searchController = useTextEditingController();
 
     useEffect(() {
-      context.read<ShopBloc>().add(ShopEvent.fetchData(shopId));
+      context.read<ShopBloc>().add(ShopEvent.fetchData(shopId,authorId));
     }, []);
 
     final showCancel = useState(false);
@@ -60,10 +61,10 @@ class ShopPage extends HookWidget {
                       exceptions: exception,
                       onRetry: () => context
                           .read<ShopBloc>()
-                          .add(ShopEvent.fetchData(70))))),
+                          .add(ShopEvent.fetchData(70,authorId))))),
         ),
         onRefresh: () async {
-          context.read<ShopBloc>().add(ShopEvent.fetchData(shopId));
+          context.read<ShopBloc>().add(ShopEvent.fetchData(shopId,authorId));
           return null;
         });
   }

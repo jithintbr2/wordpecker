@@ -20,6 +20,7 @@ class AddressPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+
     GooglePlace _googlePlace = GooglePlace(Config.kGoogleApiKey);
     final _isDeleting = useState(false);
     final _focusNode = useFocusNode();

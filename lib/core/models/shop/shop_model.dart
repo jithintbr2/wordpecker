@@ -18,6 +18,8 @@ class ShopModel with _$ShopModel {
     List<String>? slider,
     @JsonKey(name: 'scrollingMessage') String? message,
     String? openingTime,
+    String? description,
+    String? type,
   }) = _ShopModel;
 
   factory ShopModel.fromJson(Map<String, dynamic> json) =>

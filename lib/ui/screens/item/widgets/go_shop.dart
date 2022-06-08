@@ -17,23 +17,23 @@ class GoToShopAddon extends StatelessWidget {
             children: [
               Text('Buy more items from this shop.',
                   style: TextStyle(color: Theme.of(context).canvasColor)),
-              Row(
-                children: <Widget>[
-                  InkWell(
-                    onTap: () => Navigator.of(context).pushNamed('/shopDetail',
-                        arguments: {"shopId": shopId}),
-                    child: Text(
-                      "Go to shop",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  Icon(
-                    Icons.play_arrow,
-                    size: 16,
-                    color: Colors.white,
-                  )
-                ],
-              ),
+              // Row(
+              //   children: <Widget>[
+              //     InkWell(
+              //       onTap: () => Navigator.of(context).pushNamed('/shopDetail',
+              //           arguments: {"shopId": shopId}),
+              //       child: Text(
+              //         "Go to shop",
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //     ),
+              //     Icon(
+              //       Icons.play_arrow,
+              //       size: 16,
+              //       color: Colors.white,
+              //     )
+              //   ],
+              // ),
             ],
           ),
           SizedBox(height: 10),

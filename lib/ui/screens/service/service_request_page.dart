@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
 import 'package:woodle/core/services/storage.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/service/bloc/service_request_bloc.dart';
 
 final _key = GlobalKey<FormState>();
@@ -33,14 +34,14 @@ class ServiceRequestPage extends HookWidget {
     final _preferedDate = useTextEditingController(
         text: DateTime.now().toString().substring(0, 10));
     final _time =
-        useTextEditingController(text: TimeOfDay.now().format(context));
+    useTextEditingController(text: TimeOfDay.now().format(context));
 
     LocalStorage localStorage = LocalStorage();
 
     AddressModel? _getAddress() {
       if (localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
-            jsonDecode(localStorage.get('currentAddress') as String);
+        jsonDecode(localStorage.get('currentAddress') as String);
         return AddressModel.fromJson(currentAddressRaw);
       }
       return null;
@@ -59,6 +60,8 @@ class ServiceRequestPage extends HookWidget {
               Text(serviceDescription),
               Divider(),
               TextFormField(
+                style: TextStyle(
+                    color: Colors.black, fontFamily: Config.fontFamily),
                 controller: _jobTitleController,
                 keyboardType: TextInputType.text,
                 // autofocus: true,
@@ -74,6 +77,8 @@ class ServiceRequestPage extends HookWidget {
               ),
               SizedBox(height: 10),
               TextFormField(
+                style: TextStyle(
+                    color: Colors.black, fontFamily: Config.fontFamily),
                 controller: _jobDescriptionController,
                 maxLines: 3,
                 minLines: 3,
@@ -90,12 +95,12 @@ class ServiceRequestPage extends HookWidget {
               SizedBox(height: 10),
               TextField(
                 onTap: () => showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2100))
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2100))
                     .then((selectedDate) => _preferedDate.text =
-                        selectedDate.toString().substring(0, 10)),
+                    selectedDate.toString().substring(0, 10)),
                 readOnly: true,
                 controller: _preferedDate,
                 decoration: InputDecoration(
@@ -104,9 +109,9 @@ class ServiceRequestPage extends HookWidget {
               SizedBox(height: 10),
               TextField(
                 onTap: () => showTimePicker(
-                        context: context, initialTime: TimeOfDay.now())
+                    context: context, initialTime: TimeOfDay.now())
                     .then((selectedTime) =>
-                        _time.text = selectedTime!.format(context)),
+                _time.text = selectedTime!.format(context)),
                 controller: _time,
                 readOnly: true,
                 decoration: InputDecoration(
@@ -115,29 +120,29 @@ class ServiceRequestPage extends HookWidget {
               SizedBox(height: 20),
               BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                   builder: (context, state) {
-                return state.when(
-                    loading: () => Center(
+                    return state.when(
+                        loading: () => Center(
                           child: SizedBox(
                             width: 30,
                             height: 30,
                             child: CircularProgressIndicator(),
                           ),
                         ),
-                    idle: () => ElevatedButton(
-                        onPressed: () {
-                          if (_key.currentState!.validate()) {
-                            context.read<ServiceRequestBloc>().add(
-                                ServiceRequestEvent.started(
-                                    _address!.franchiseId,
-                                    serviceId,
-                                    _jobTitleController.text,
-                                    _jobDescriptionController.text,
-                                    getYmdFromDmy(_preferedDate.text),
-                                    _time.text));
-                          }
-                        },
-                        child: Text('Submit')));
-              }),
+                        idle: () => ElevatedButton(
+                            onPressed: () {
+                              if (_key.currentState!.validate()) {
+                                context.read<ServiceRequestBloc>().add(
+                                    ServiceRequestEvent.started(
+                                        _address!.franchiseId,
+                                        serviceId,
+                                        _jobTitleController.text,
+                                        _jobDescriptionController.text,
+                                        getYmdFromDmy(_preferedDate.text),
+                                        _time.text));
+                              }
+                            },
+                            child: Text('Submit')));
+                  }),
             ],
           ),
         ));

@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:woodle/core/cubits/authentication/authentication_cubit.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/address_map/bloc/address_map_bloc.dart';
 import 'package:woodle/ui/widgets/loading.dart';
 
@@ -31,11 +32,11 @@ class AddressMapPage extends HookWidget {
         children: [
           Expanded(
               child: MapSection(
-            latitude: _latitude,
-            longitude: _longitude,
-            localityHook: _locality,
-            pincodeHook: _pincode,
-          )),
+                latitude: _latitude,
+                longitude: _longitude,
+                localityHook: _locality,
+                pincodeHook: _pincode,
+              )),
           AddressPanel(
             locality: _locality.value,
             pincode: _pincode.value,
@@ -180,29 +181,29 @@ class AddressPanel extends HookWidget {
   void saveAddress(BuildContext context, String addressType,
       String localityValue, String pincodeValue) {
     return context.read<AddressMapBloc>().add(AddressMapEvent.saveAddress(
-          locality: localityValue,
-          house: _houseKey.currentState!.value,
-          nickName: addressType,
-          pincode: pincodeValue,
-          lat: latitude,
-          lng: longitude,
-        ));
+      locality: localityValue,
+      house: _houseKey.currentState!.value,
+      nickName: addressType,
+      pincode: pincodeValue,
+      lat: latitude,
+      lng: longitude,
+    ));
   }
 
   void useAddress(BuildContext context, String addressType,
       String localityValue, String pincodeValue) {
     print(localityValue);
     return context.read<AddressMapBloc>().add(AddressMapEvent.useAddress(
-          locality: localityValue,
-          house: _houseKey.currentState != null
-              ? _houseKey.currentState!.value
-              : '',
-          nickName: addressType,
-          pincode: pincodeValue,
-          lat: latitude,
-          lng: longitude,
-          shouldReturn: shouldReturn,
-        ));
+      locality: localityValue,
+      house: _houseKey.currentState != null
+          ? _houseKey.currentState!.value
+          : '',
+      nickName: addressType,
+      pincode: pincodeValue,
+      lat: latitude,
+      lng: longitude,
+      shouldReturn: shouldReturn,
+    ));
   }
 
   @override
@@ -212,112 +213,112 @@ class AddressPanel extends HookWidget {
     return BlocBuilder<AddressMapBloc, AddressMapState>(
         builder: (context, state) => state.when(
             loading: () => Container(
-                  height: 200,
-                  child: LoadingView(),
-                ),
+              height: 200,
+              child: LoadingView(),
+            ),
             loaded: () => Container(
-                  height: 200,
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+              height: 200,
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // ListTile(
+                  //   dense: true,
+                  //   leading: Icon(Icons.location_on),
+                  //   title: Text(locality),
+                  //   subtitle: Text(pincode),
+                  // ),
+                  // SizedBox(height: 10),
+                  _user != null
+                      ? Column(
                     children: [
-                      // ListTile(
-                      //   dense: true,
-                      //   leading: Icon(Icons.location_on),
-                      //   title: Text(locality),
-                      //   subtitle: Text(pincode),
-                      // ),
-                      // SizedBox(height: 10),
-                      _user != null
-                          ? Column(
-                              children: [
-                                AddressDetails(
-                                    houseKey: _houseKey,
-                                    addressType: _addressType.value,
-                                    onAddressTypeChange: (value) =>
-                                        _addressType.value = value),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                        child: ElevatedButton(
-                                            onPressed: () {
-                                              if (_houseKey.currentState!
-                                                  .validate())
-                                                _processAddress(
-                                                    context,
-                                                    latitude,
-                                                    longitude,
-                                                    true,
-                                                    _addressType.value);
-                                              // context
-                                              //     .read<AddressMapBloc>()
-                                              //     .add(AddressMapEvent
-                                              //         .saveAddress(
-                                              //       locality: locality,
-                                              //       house: _houseKey
-                                              //           .currentState!.value,
-                                              //       nickName:
-                                              //           _addressType.value,
-                                              //       pincode: pincode,
-                                              //       lat: latitude,
-                                              //       lng: longitude,
-                                              //     ));
-                                            },
-                                            child: Text('Save'))),
-                                    SizedBox(width: 10),
-                                    Expanded(
-                                        child: ElevatedButton(
-                                            onPressed: () => _processAddress(
-                                                context,
-                                                latitude,
-                                                longitude,
-                                                false,
-                                                _addressType.value),
-                                            // context
-                                            //     .read<AddressMapBloc>()
-                                            //     .add(AddressMapEvent.useAddress(
-                                            //         locality: locality,
-                                            //         house: _houseKey
-                                            //                     .currentState !=
-                                            //                 null
-                                            //             ? _houseKey
-                                            //                 .currentState!.value
-                                            //             : '',
-                                            //         nickName:
-                                            //             _addressType.value,
-                                            //         pincode: pincode,
-                                            //         lat: latitude,
-                                            //         lng: longitude,
-                                            //         shouldReturn:
-                                            //             shouldReturn)),
-                                            child: Text('Use Now')))
-                                  ],
-                                )
-                              ],
-                            )
-                          : ElevatedButton(
-                              onPressed: () => _processAddress(
-                                  context,
-                                  latitude,
-                                  longitude,
-                                  false,
-                                  _addressType.value),
-                              // context
-                              //     .read<AddressMapBloc>()
-                              //     .add(AddressMapEvent.useAddress(
-                              //         locality: locality,
-                              //         house: _houseKey.currentState != null
-                              //             ? _houseKey.currentState!.value
-                              //             : '',
-                              //         nickName: _addressType.value,
-                              //         pincode: pincode,
-                              //         lat: latitude,
-                              //         lng: longitude,
-                              //         shouldReturn: shouldReturn)),
-                              child: Text('Use Now'))
+                      AddressDetails(
+                          houseKey: _houseKey,
+                          addressType: _addressType.value,
+                          onAddressTypeChange: (value) =>
+                          _addressType.value = value),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: ElevatedButton(
+                                  onPressed: () {
+                                    if (_houseKey.currentState!
+                                        .validate())
+                                      _processAddress(
+                                          context,
+                                          latitude,
+                                          longitude,
+                                          true,
+                                          _addressType.value);
+                                    // context
+                                    //     .read<AddressMapBloc>()
+                                    //     .add(AddressMapEvent
+                                    //         .saveAddress(
+                                    //       locality: locality,
+                                    //       house: _houseKey
+                                    //           .currentState!.value,
+                                    //       nickName:
+                                    //           _addressType.value,
+                                    //       pincode: pincode,
+                                    //       lat: latitude,
+                                    //       lng: longitude,
+                                    //     ));
+                                  },
+                                  child: Text('Save'))),
+                          SizedBox(width: 10),
+                          Expanded(
+                              child: ElevatedButton(
+                                  onPressed: () => _processAddress(
+                                      context,
+                                      latitude,
+                                      longitude,
+                                      false,
+                                      _addressType.value),
+                                  // context
+                                  //     .read<AddressMapBloc>()
+                                  //     .add(AddressMapEvent.useAddress(
+                                  //         locality: locality,
+                                  //         house: _houseKey
+                                  //                     .currentState !=
+                                  //                 null
+                                  //             ? _houseKey
+                                  //                 .currentState!.value
+                                  //             : '',
+                                  //         nickName:
+                                  //             _addressType.value,
+                                  //         pincode: pincode,
+                                  //         lat: latitude,
+                                  //         lng: longitude,
+                                  //         shouldReturn:
+                                  //             shouldReturn)),
+                                  child: Text('Use Now')))
+                        ],
+                      )
                     ],
-                  ),
-                )));
+                  )
+                      : ElevatedButton(
+                      onPressed: () => _processAddress(
+                          context,
+                          latitude,
+                          longitude,
+                          false,
+                          _addressType.value),
+                      // context
+                      //     .read<AddressMapBloc>()
+                      //     .add(AddressMapEvent.useAddress(
+                      //         locality: locality,
+                      //         house: _houseKey.currentState != null
+                      //             ? _houseKey.currentState!.value
+                      //             : '',
+                      //         nickName: _addressType.value,
+                      //         pincode: pincode,
+                      //         lat: latitude,
+                      //         lng: longitude,
+                      //         shouldReturn: shouldReturn)),
+                      child: Text('Use Now'))
+                ],
+              ),
+            )));
   }
 }
 
@@ -328,8 +329,8 @@ class AddressDetails extends StatelessWidget {
 
   AddressDetails(
       {required this.houseKey,
-      required this.addressType,
-      required this.onAddressTypeChange});
+        required this.addressType,
+        required this.onAddressTypeChange});
 
   static List<String> addressTypes = ["Home", "Work", "Other"];
 
@@ -342,7 +343,7 @@ class AddressDetails extends StatelessWidget {
           spacing: 8.0,
           children: List<Widget>.generate(
             addressTypes.length,
-            (int index) {
+                (int index) {
               String _value = addressTypes[index];
               return ChoiceChip(
                 pressElevation: 0.0,
@@ -350,7 +351,7 @@ class AddressDetails extends StatelessWidget {
                 backgroundColor: Colors.grey[400],
                 label: Text(_value),
                 labelStyle:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 labelPadding: EdgeInsets.symmetric(horizontal: 15),
                 selected: _value == addressType,
                 onSelected: (_) => onAddressTypeChange(_value),
@@ -360,6 +361,7 @@ class AddressDetails extends StatelessWidget {
         ),
         SizedBox(height: 10),
         TextFormField(
+          style: TextStyle(color: Colors.black, fontFamily: Config.fontFamily),
           key: houseKey,
           validator: (value) {
             if (value!.isEmpty) return "Enter house name or number";

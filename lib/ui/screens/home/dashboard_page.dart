@@ -60,7 +60,7 @@ class DashboardPage extends HookWidget {
       bottomNavigationBar: HomeBottomNavigationBar(
         currenTabIndex: _currentTabIndex.value,
         onTap: (index) {
-          if (index == 3)
+          if (index == 1)
             _scaffoldKey.currentState?.openEndDrawer();
           else
             _currentTabIndex.value = index;

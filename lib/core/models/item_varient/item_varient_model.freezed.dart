@@ -35,7 +35,15 @@ class _$ItemVarientModelTearOff {
       required double mrp,
       int? maxQuantity,
       @JsonKey(defaultValue: []) List<String>? itemImages,
-      @JsonKey(defaultValue: 1) double? aspectRatio}) {
+      @JsonKey(defaultValue: 1) double? aspectRatio,
+      String? authorName,
+      String? language,
+      String? bindingType,
+      String? isbn,
+      String? edition,
+      String? noOfPages,
+      String? publishingDate,
+      List<String>? categories}) {
     return _ItemVarientModel(
       varientId: varientId,
       varientType: varientType,
@@ -52,6 +60,14 @@ class _$ItemVarientModelTearOff {
       maxQuantity: maxQuantity,
       itemImages: itemImages,
       aspectRatio: aspectRatio,
+      authorName: authorName,
+      language: language,
+      bindingType: bindingType,
+      isbn: isbn,
+      edition: edition,
+      noOfPages: noOfPages,
+      publishingDate: publishingDate,
+      categories: categories,
     );
   }
 
@@ -84,6 +100,14 @@ mixin _$ItemVarientModel {
   List<String>? get itemImages => throw _privateConstructorUsedError;
   @JsonKey(defaultValue: 1)
   double? get aspectRatio => throw _privateConstructorUsedError;
+  String? get authorName => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
+  String? get bindingType => throw _privateConstructorUsedError;
+  String? get isbn => throw _privateConstructorUsedError;
+  String? get edition => throw _privateConstructorUsedError;
+  String? get noOfPages => throw _privateConstructorUsedError;
+  String? get publishingDate => throw _privateConstructorUsedError;
+  List<String>? get categories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -111,7 +135,15 @@ abstract class $ItemVarientModelCopyWith<$Res> {
       double mrp,
       int? maxQuantity,
       @JsonKey(defaultValue: []) List<String>? itemImages,
-      @JsonKey(defaultValue: 1) double? aspectRatio});
+      @JsonKey(defaultValue: 1) double? aspectRatio,
+      String? authorName,
+      String? language,
+      String? bindingType,
+      String? isbn,
+      String? edition,
+      String? noOfPages,
+      String? publishingDate,
+      List<String>? categories});
 }
 
 /// @nodoc
@@ -140,6 +172,14 @@ class _$ItemVarientModelCopyWithImpl<$Res>
     Object? maxQuantity = freezed,
     Object? itemImages = freezed,
     Object? aspectRatio = freezed,
+    Object? authorName = freezed,
+    Object? language = freezed,
+    Object? bindingType = freezed,
+    Object? isbn = freezed,
+    Object? edition = freezed,
+    Object? noOfPages = freezed,
+    Object? publishingDate = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_value.copyWith(
       varientId: varientId == freezed
@@ -202,6 +242,38 @@ class _$ItemVarientModelCopyWithImpl<$Res>
           ? _value.aspectRatio
           : aspectRatio // ignore: cast_nullable_to_non_nullable
               as double?,
+      authorName: authorName == freezed
+          ? _value.authorName
+          : authorName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bindingType: bindingType == freezed
+          ? _value.bindingType
+          : bindingType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isbn: isbn == freezed
+          ? _value.isbn
+          : isbn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      edition: edition == freezed
+          ? _value.edition
+          : edition // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noOfPages: noOfPages == freezed
+          ? _value.noOfPages
+          : noOfPages // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishingDate: publishingDate == freezed
+          ? _value.publishingDate
+          : publishingDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -228,7 +300,15 @@ abstract class _$ItemVarientModelCopyWith<$Res>
       double mrp,
       int? maxQuantity,
       @JsonKey(defaultValue: []) List<String>? itemImages,
-      @JsonKey(defaultValue: 1) double? aspectRatio});
+      @JsonKey(defaultValue: 1) double? aspectRatio,
+      String? authorName,
+      String? language,
+      String? bindingType,
+      String? isbn,
+      String? edition,
+      String? noOfPages,
+      String? publishingDate,
+      List<String>? categories});
 }
 
 /// @nodoc
@@ -259,6 +339,14 @@ class __$ItemVarientModelCopyWithImpl<$Res>
     Object? maxQuantity = freezed,
     Object? itemImages = freezed,
     Object? aspectRatio = freezed,
+    Object? authorName = freezed,
+    Object? language = freezed,
+    Object? bindingType = freezed,
+    Object? isbn = freezed,
+    Object? edition = freezed,
+    Object? noOfPages = freezed,
+    Object? publishingDate = freezed,
+    Object? categories = freezed,
   }) {
     return _then(_ItemVarientModel(
       varientId: varientId == freezed
@@ -321,6 +409,38 @@ class __$ItemVarientModelCopyWithImpl<$Res>
           ? _value.aspectRatio
           : aspectRatio // ignore: cast_nullable_to_non_nullable
               as double?,
+      authorName: authorName == freezed
+          ? _value.authorName
+          : authorName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      language: language == freezed
+          ? _value.language
+          : language // ignore: cast_nullable_to_non_nullable
+              as String?,
+      bindingType: bindingType == freezed
+          ? _value.bindingType
+          : bindingType // ignore: cast_nullable_to_non_nullable
+              as String?,
+      isbn: isbn == freezed
+          ? _value.isbn
+          : isbn // ignore: cast_nullable_to_non_nullable
+              as String?,
+      edition: edition == freezed
+          ? _value.edition
+          : edition // ignore: cast_nullable_to_non_nullable
+              as String?,
+      noOfPages: noOfPages == freezed
+          ? _value.noOfPages
+          : noOfPages // ignore: cast_nullable_to_non_nullable
+              as String?,
+      publishingDate: publishingDate == freezed
+          ? _value.publishingDate
+          : publishingDate // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categories: categories == freezed
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -345,7 +465,15 @@ class _$_ItemVarientModel
       required this.mrp,
       this.maxQuantity,
       @JsonKey(defaultValue: []) this.itemImages,
-      @JsonKey(defaultValue: 1) this.aspectRatio});
+      @JsonKey(defaultValue: 1) this.aspectRatio,
+      this.authorName,
+      this.language,
+      this.bindingType,
+      this.isbn,
+      this.edition,
+      this.noOfPages,
+      this.publishingDate,
+      this.categories});
 
   factory _$_ItemVarientModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ItemVarientModelFromJson(json);
@@ -384,10 +512,26 @@ class _$_ItemVarientModel
   @override
   @JsonKey(defaultValue: 1)
   final double? aspectRatio;
+  @override
+  final String? authorName;
+  @override
+  final String? language;
+  @override
+  final String? bindingType;
+  @override
+  final String? isbn;
+  @override
+  final String? edition;
+  @override
+  final String? noOfPages;
+  @override
+  final String? publishingDate;
+  @override
+  final List<String>? categories;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, tag: $tag, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages, aspectRatio: $aspectRatio)';
+    return 'ItemVarientModel(varientId: $varientId, varientType: $varientType, varientName: $varientName, itemName: $itemName, itemId: $itemId, shopId: $shopId, shopName: $shopName, tag: $tag, image: $image, description: $description, salePrice: $salePrice, mrp: $mrp, maxQuantity: $maxQuantity, itemImages: $itemImages, aspectRatio: $aspectRatio, authorName: $authorName, language: $language, bindingType: $bindingType, isbn: $isbn, edition: $edition, noOfPages: $noOfPages, publishingDate: $publishingDate, categories: $categories)';
   }
 
   @override
@@ -409,7 +553,15 @@ class _$_ItemVarientModel
       ..add(DiagnosticsProperty('mrp', mrp))
       ..add(DiagnosticsProperty('maxQuantity', maxQuantity))
       ..add(DiagnosticsProperty('itemImages', itemImages))
-      ..add(DiagnosticsProperty('aspectRatio', aspectRatio));
+      ..add(DiagnosticsProperty('aspectRatio', aspectRatio))
+      ..add(DiagnosticsProperty('authorName', authorName))
+      ..add(DiagnosticsProperty('language', language))
+      ..add(DiagnosticsProperty('bindingType', bindingType))
+      ..add(DiagnosticsProperty('isbn', isbn))
+      ..add(DiagnosticsProperty('edition', edition))
+      ..add(DiagnosticsProperty('noOfPages', noOfPages))
+      ..add(DiagnosticsProperty('publishingDate', publishingDate))
+      ..add(DiagnosticsProperty('categories', categories));
   }
 
   @override
@@ -455,7 +607,30 @@ class _$_ItemVarientModel
                     .equals(other.itemImages, itemImages)) &&
             (identical(other.aspectRatio, aspectRatio) ||
                 const DeepCollectionEquality()
-                    .equals(other.aspectRatio, aspectRatio)));
+                    .equals(other.aspectRatio, aspectRatio)) &&
+            (identical(other.authorName, authorName) ||
+                const DeepCollectionEquality()
+                    .equals(other.authorName, authorName)) &&
+            (identical(other.language, language) ||
+                const DeepCollectionEquality()
+                    .equals(other.language, language)) &&
+            (identical(other.bindingType, bindingType) ||
+                const DeepCollectionEquality()
+                    .equals(other.bindingType, bindingType)) &&
+            (identical(other.isbn, isbn) ||
+                const DeepCollectionEquality().equals(other.isbn, isbn)) &&
+            (identical(other.edition, edition) ||
+                const DeepCollectionEquality()
+                    .equals(other.edition, edition)) &&
+            (identical(other.noOfPages, noOfPages) ||
+                const DeepCollectionEquality()
+                    .equals(other.noOfPages, noOfPages)) &&
+            (identical(other.publishingDate, publishingDate) ||
+                const DeepCollectionEquality()
+                    .equals(other.publishingDate, publishingDate)) &&
+            (identical(other.categories, categories) ||
+                const DeepCollectionEquality()
+                    .equals(other.categories, categories)));
   }
 
   @override
@@ -475,7 +650,15 @@ class _$_ItemVarientModel
       const DeepCollectionEquality().hash(mrp) ^
       const DeepCollectionEquality().hash(maxQuantity) ^
       const DeepCollectionEquality().hash(itemImages) ^
-      const DeepCollectionEquality().hash(aspectRatio);
+      const DeepCollectionEquality().hash(aspectRatio) ^
+      const DeepCollectionEquality().hash(authorName) ^
+      const DeepCollectionEquality().hash(language) ^
+      const DeepCollectionEquality().hash(bindingType) ^
+      const DeepCollectionEquality().hash(isbn) ^
+      const DeepCollectionEquality().hash(edition) ^
+      const DeepCollectionEquality().hash(noOfPages) ^
+      const DeepCollectionEquality().hash(publishingDate) ^
+      const DeepCollectionEquality().hash(categories);
 
   @JsonKey(ignore: true)
   @override
@@ -504,7 +687,15 @@ abstract class _ItemVarientModel implements ItemVarientModel {
       required double mrp,
       int? maxQuantity,
       @JsonKey(defaultValue: []) List<String>? itemImages,
-      @JsonKey(defaultValue: 1) double? aspectRatio}) = _$_ItemVarientModel;
+      @JsonKey(defaultValue: 1) double? aspectRatio,
+      String? authorName,
+      String? language,
+      String? bindingType,
+      String? isbn,
+      String? edition,
+      String? noOfPages,
+      String? publishingDate,
+      List<String>? categories}) = _$_ItemVarientModel;
 
   factory _ItemVarientModel.fromJson(Map<String, dynamic> json) =
       _$_ItemVarientModel.fromJson;
@@ -543,6 +734,22 @@ abstract class _ItemVarientModel implements ItemVarientModel {
   @override
   @JsonKey(defaultValue: 1)
   double? get aspectRatio => throw _privateConstructorUsedError;
+  @override
+  String? get authorName => throw _privateConstructorUsedError;
+  @override
+  String? get language => throw _privateConstructorUsedError;
+  @override
+  String? get bindingType => throw _privateConstructorUsedError;
+  @override
+  String? get isbn => throw _privateConstructorUsedError;
+  @override
+  String? get edition => throw _privateConstructorUsedError;
+  @override
+  String? get noOfPages => throw _privateConstructorUsedError;
+  @override
+  String? get publishingDate => throw _privateConstructorUsedError;
+  @override
+  List<String>? get categories => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ItemVarientModelCopyWith<_ItemVarientModel> get copyWith =>

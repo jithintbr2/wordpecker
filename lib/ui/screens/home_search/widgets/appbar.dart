@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class HomeSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -27,7 +28,7 @@ class HomeSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
             icon:
-                Icon(isGridView ? Icons.list : Icons.apps, color: Colors.white),
+            Icon(isGridView ? Icons.list : Icons.apps, color: Colors.white),
             onPressed: onViewChange)
       ],
       bottom: PreferredSize(
@@ -37,6 +38,8 @@ class HomeSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5), color: Colors.white),
           child: TextField(
+              style:
+              TextStyle(color: Colors.black, fontFamily: Config.fontFamily),
               focusNode: _focusNode,
               controller: controller,
               autofocus: true,
@@ -48,12 +51,12 @@ class HomeSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
                   prefixIcon: Icon(Icons.grid_view, color: Colors.grey),
                   suffixIcon: showCancel
                       ? IconButton(
-                          icon: Icon(Icons.close),
-                          onPressed: () {
-                            _focusNode.unfocus();
-                            controller.clear();
-                          },
-                        )
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      _focusNode.unfocus();
+                      controller.clear();
+                    },
+                  )
                       : Icon(Icons.search))),
         ),
         preferredSize: Size.fromHeight(55),

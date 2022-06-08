@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/order_cancel/bloc/order_cancel_bloc.dart';
 
 class OrderCancelPage extends HookWidget {
@@ -25,10 +26,12 @@ class OrderCancelPage extends HookWidget {
           Text(
             "Cancellation is not guaranteed.\nYou can send a cancel request to the seller.\nYou will be notified when the order is cancelled.",
             style:
-                Theme.of(context).textTheme.headline6!.copyWith(fontSize: 15),
+            Theme.of(context).textTheme.headline6!.copyWith(fontSize: 15),
           ),
           SizedBox(height: 16),
           TextFormField(
+            style:
+            TextStyle(color: Colors.black, fontFamily: Config.fontFamily),
             controller: _reasonController,
             // enabled: !loading,
             keyboardType: TextInputType.multiline,
@@ -43,21 +46,21 @@ class OrderCancelPage extends HookWidget {
           BlocBuilder<OrderCancelBloc, OrderCancelState>(
               builder: (context, state) => state.when(
                   idle: () => ElevatedButton(
-                        onPressed: () {
-                          context.read<OrderCancelBloc>().add(
-                              OrderCancelEvent.cancelOrder(
-                                  orderId, _reasonController.text));
-                        },
-                        child: Text('Request Cancellation'),
-                        style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).errorColor),
-                      ),
+                    onPressed: () {
+                      context.read<OrderCancelBloc>().add(
+                          OrderCancelEvent.cancelOrder(
+                              orderId, _reasonController.text));
+                    },
+                    child: Text('Request Cancellation'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).errorColor),
+                  ),
                   busy: () => ElevatedButton(
-                        onPressed: null,
-                        child: CircularProgressIndicator(),
-                        style: ElevatedButton.styleFrom(
-                            primary: Theme.of(context).errorColor),
-                      )))
+                    onPressed: null,
+                    child: CircularProgressIndicator(),
+                    style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).errorColor),
+                  )))
         ],
       ),
     );

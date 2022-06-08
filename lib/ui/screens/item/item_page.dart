@@ -150,21 +150,21 @@ class ItemPage extends HookWidget {
                                           data.varients[currentVarient.value]
                                               .mrp
                                       ? Text(
-                                          "₹${data.varients[currentVarient.value].salePrice}",
+                                          "₹ ${data.varients[currentVarient.value].salePrice}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1!
                                               .copyWith(fontSize: 14))
                                       : Row(children: [
                                           Text(
-                                              "₹${data.varients[currentVarient.value].salePrice}",
+                                              "₹ ${data.varients[currentVarient.value].salePrice}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
                                                   .copyWith(fontSize: 14)),
                                           SizedBox(width: 10),
                                           Text(
-                                              "₹${data.varients[currentVarient.value].mrp}",
+                                              "₹ ${data.varients[currentVarient.value].mrp}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1!
@@ -186,6 +186,166 @@ class ItemPage extends HookWidget {
                           ))
                     ],
                   )),
+                  Divider(),
+                  Card(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text('Book Detals',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.green),),
+                          ),
+                          Divider(),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+
+                                  child: Text('Author :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+
+                              Container(
+                                width: 200,
+                                child: Text(data.varients[currentVarient.value].authorName??
+          '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Category :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+
+                              Container(width:200,child: (data.varients[currentVarient.value].categories ?? []).isEmpty
+                                  ? SizedBox()
+                                  : Text(data.varients[currentVarient.value].categories!.join(' • '),style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),),)
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Publisher :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].shopName,
+                                  style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Language :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].language??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('ISBN :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].isbn??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Binding Type :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].bindingType??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Publishing Date :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].publishingDate??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('Edition :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].edition??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Row(
+                            children: [
+                              Container(
+                                width :130,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10),
+                                  child: Text('No Of Pages :',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.black),),
+                                ),
+                              ),
+                              SizedBox(width : 5),
+                              Container(width:200,child: Text(data.varients[currentVarient.value].noOfPages??
+                                  '',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.grey),)),
+
+                            ],
+                          ),
+                          SizedBox(height: 10),
+
+
+
+                        ],
+                      )),
                   Divider(),
                   ItemReviews(itemId: itemId),
                   // VarientLister(

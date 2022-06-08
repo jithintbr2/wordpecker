@@ -35,130 +35,131 @@ class PaymentRedeem extends StatelessWidget {
             snap.data!.forEach((item) => totalPrice += item.salePrice!);
           }
 
-          return Container(
-            child: redeemedAmount == 0
-                ? InkWell(
-                    child: Container(
-                      color: Colors.brown[100]!.withOpacity(.5),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            height: 60,
-                            width: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.wallet_giftcard_outlined,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            color: Colors.brown,
-                          ),
-                          SizedBox(width: 16),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: <Widget>[
-                              Text(
-                                "Redeem",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(fontWeight: FontWeight.bold),
-                                textAlign: TextAlign.start,
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                "Redeem from wallet balance",
-                                style: Theme.of(context).textTheme.caption,
-                                textAlign: TextAlign.start,
-                              )
-                            ],
-                          )),
-                          Icon(
-                            Icons.chevron_right,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: () => Navigator.pushNamed(context, '/walletRedeem',
-                            arguments: {'orderAmount': totalPrice})
-                        .then((value) => onRedeem(value as double)),
-                  )
-                : Container(
-                    color: Colors.amber[100]!.withOpacity(.5),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          height: 60,
-                          width: 60,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: Colors.white,
-                                    size: 16,
-                                  ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    "Applied",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .caption!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          color: Colors.amber,
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: <Widget>[
-                            Text(
-                              "Claimed",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1!
-                                  .copyWith(fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.start,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              "You saved ₹ ${getPriceString(redeemedAmount)}",
-                              style: Theme.of(context).textTheme.caption,
-                              textAlign: TextAlign.start,
-                            )
-                          ],
-                        )),
-                        IconButton(
-                          icon: Icon(
-                            Icons.delete_outline,
-                            color: Colors.grey,
-                          ),
-                          onPressed: onRemove,
-                        ),
-                      ],
-                    ),
-                  ),
-          );
+          // return Container(
+          //   child: redeemedAmount == 0
+          //       ? InkWell(
+          //           child: Container(
+          //             color: Colors.brown[100]!.withOpacity(.5),
+          //             child: Row(
+          //               children: <Widget>[
+          //                 Container(
+          //                   height: 60,
+          //                   width: 60,
+          //                   child: Padding(
+          //                     padding: const EdgeInsets.all(8.0),
+          //                     child: Center(
+          //                       child: Column(
+          //                         mainAxisSize: MainAxisSize.min,
+          //                         children: <Widget>[
+          //                           Icon(
+          //                             Icons.wallet_giftcard_outlined,
+          //                             color: Colors.white,
+          //                           ),
+          //                         ],
+          //                       ),
+          //                     ),
+          //                   ),
+          //                   color: Colors.brown,
+          //                 ),
+          //                 SizedBox(width: 16),
+          //                 Expanded(
+          //                     child: Column(
+          //                   crossAxisAlignment: CrossAxisAlignment.stretch,
+          //                   children: <Widget>[
+          //                     Text(
+          //                       "Redeem",
+          //                       style: Theme.of(context)
+          //                           .textTheme
+          //                           .subtitle1!
+          //                           .copyWith(fontWeight: FontWeight.bold),
+          //                       textAlign: TextAlign.start,
+          //                     ),
+          //                     SizedBox(height: 4),
+          //                     Text(
+          //                       "Redeem from wallet balance",
+          //                       style: Theme.of(context).textTheme.caption,
+          //                       textAlign: TextAlign.start,
+          //                     )
+          //                   ],
+          //                 )),
+          //                 Icon(
+          //                   Icons.chevron_right,
+          //                   color: Colors.grey,
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           onTap: () => Navigator.pushNamed(context, '/walletRedeem',
+          //                   arguments: {'orderAmount': totalPrice})
+          //               .then((value) => onRedeem(value as double)),
+          //         )
+          //       : Container(
+          //           color: Colors.amber[100]!.withOpacity(.5),
+          //           child: Row(
+          //             children: <Widget>[
+          //               Container(
+          //                 height: 60,
+          //                 width: 60,
+          //                 child: Padding(
+          //                   padding: const EdgeInsets.all(8.0),
+          //                   child: Center(
+          //                     child: Column(
+          //                       mainAxisSize: MainAxisSize.min,
+          //                       children: <Widget>[
+          //                         Icon(
+          //                           Icons.check_circle,
+          //                           color: Colors.white,
+          //                           size: 16,
+          //                         ),
+          //                         SizedBox(height: 8),
+          //                         Text(
+          //                           "Applied",
+          //                           style: Theme.of(context)
+          //                               .textTheme
+          //                               .caption!
+          //                               .copyWith(
+          //                                   color: Colors.white,
+          //                                   fontWeight: FontWeight.bold),
+          //                         )
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 ),
+          //                 color: Colors.amber,
+          //               ),
+          //               SizedBox(width: 16),
+          //               Expanded(
+          //                   child: Column(
+          //                 crossAxisAlignment: CrossAxisAlignment.stretch,
+          //                 children: <Widget>[
+          //                   Text(
+          //                     "Claimed",
+          //                     style: Theme.of(context)
+          //                         .textTheme
+          //                         .subtitle1!
+          //                         .copyWith(fontWeight: FontWeight.bold),
+          //                     textAlign: TextAlign.start,
+          //                   ),
+          //                   SizedBox(height: 4),
+          //                   Text(
+          //                     "You saved ₹ ${getPriceString(redeemedAmount)}",
+          //                     style: Theme.of(context).textTheme.caption,
+          //                     textAlign: TextAlign.start,
+          //                   )
+          //                 ],
+          //               )),
+          //               IconButton(
+          //                 icon: Icon(
+          //                   Icons.delete_outline,
+          //                   color: Colors.grey,
+          //                 ),
+          //                 onPressed: onRemove,
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          // );
+          return Container();
         });
   }
 }

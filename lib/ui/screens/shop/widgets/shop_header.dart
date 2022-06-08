@@ -23,27 +23,35 @@ class ShopHeader extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  shop.shopName,
-                  style: Theme.of(context).textTheme.headline6,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width - 100,
+                  child: Text(
+                    shop.shopName,
+                    style: Theme.of(context).textTheme.headline6,
+                    // softWrap: true,
+                    // overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                InkWell(
-                  onTap: () => Navigator.of(context).pushNamed('/shopReview',
-                      arguments: {'shopId': shop.shopId}),
-                  child: _ratingBox(
-                      context, shop.rating ?? 0, shop.ratingCount ?? 0),
-                )
+               if(shop.type=='shop') SizedBox(
+                  width: 65,
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pushNamed('/shopReview',
+                        arguments: {'shopId': shop.shopId}),
+                    child: _ratingBox(
+                        context, shop.rating ?? 0, shop.ratingCount ?? 0),
+                  ),
+                ),
               ],
             ),
             (shop.services ?? []).isEmpty
                 ? SizedBox()
                 : Text(shop.services!.join(' • '),
-                    style: Theme.of(context).textTheme.caption),
+                style: Theme.of(context).textTheme.caption),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //Custom item ...like veg selector for food apps.
-                InkWell(
+                if(shop.type=='shop')InkWell(
                   onTap: () {
                     showDialog<int>(
                         context: context,
@@ -70,30 +78,30 @@ class ShopHeader extends StatelessWidget {
                                     },
                                     child: Container(
                                       decoration:
-                                          selectedMenuId == menuItems[index].id
-                                              ? BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  border: Border.all(
-                                                      color: Theme.of(context)
-                                                          .primaryColor))
-                                              : null,
+                                      selectedMenuId == menuItems[index].id
+                                          ? BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                  .primaryColor))
+                                          : null,
                                       child: ListTile(
                                         leading: index == 0
                                             ? Icon(
-                                                Icons.format_list_bulleted,
-                                                color: Colors.black,
-                                                size: 20,
-                                              )
+                                          Icons.format_list_bulleted,
+                                          color: Colors.black,
+                                          size: 20,
+                                        )
                                             : Container(
-                                                child: Text(
-                                                  "${menuItems[index].items.length}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                padding: EdgeInsets.all(8),
-                                              ),
+                                          child: Text(
+                                            "${menuItems[index].items.length}",
+                                            style: TextStyle(
+                                                fontWeight:
+                                                FontWeight.bold),
+                                          ),
+                                          padding: EdgeInsets.all(8),
+                                        ),
                                         title: Text(
                                           menuItems[index].title,
                                           style: TextStyle(
@@ -110,6 +118,12 @@ class ShopHeader extends StatelessWidget {
                         });
                   },
                   child: _menuBox(context),
+                ),
+                Expanded(
+                  child: Text(
+                    shop.description ?? 'aa',
+                    style: Theme.of(context).textTheme.caption,
+                  ),
                 ),
                 Text(
                   shop.openingTime ?? '',
@@ -132,23 +146,23 @@ class ShopHeader extends StatelessWidget {
           color: Colors.blue, borderRadius: BorderRadius.circular(10)),
       child: Center(
           child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Icon(
-            Icons.format_list_bulleted,
-            size: 16,
-            color: Theme.of(context).canvasColor,
-          ),
-          SizedBox(height: 4),
-          Text(
-            "Menu",
-            style: Theme.of(context)
-                .textTheme
-                .caption!
-                .copyWith(color: Colors.white),
-          ),
-        ],
-      )),
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.format_list_bulleted,
+                size: 16,
+                color: Theme.of(context).canvasColor,
+              ),
+              SizedBox(height: 4),
+              Text(
+                "Menu",
+                style: Theme.of(context)
+                    .textTheme
+                    .caption!
+                    .copyWith(color: Colors.white),
+              ),
+            ],
+          )),
     );
   }
 
@@ -162,7 +176,7 @@ class ShopHeader extends StatelessWidget {
             Text(
               ratingCount > 0 ? rating.toString() : '-',
               style:
-                  Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 18),
+              Theme.of(context).textTheme.subtitle2!.copyWith(fontSize: 18),
             )
           ],
         ),
@@ -174,7 +188,7 @@ class ShopHeader extends StatelessWidget {
     );
   }
 
-  // Widget _filter() {
+// Widget _filter() {
 
-  // }
+// }
 }

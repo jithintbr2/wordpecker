@@ -7,14 +7,20 @@ class AppSplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFF27B4C1),
         body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Hero(
-              tag: 'logo',
-              child: Image.asset(Assets.appIcon,
-                  height: 120, fit: BoxFit.contain)),
+          Container(
+            width: 200,
+            height: 200,
+
+            child: Hero(
+                tag: 'logo',
+                child: Image.asset(Assets.appIcon,
+                    height: 120, fit: BoxFit.contain)),
+          ),
           CircularProgressIndicator()
         ],
       ),

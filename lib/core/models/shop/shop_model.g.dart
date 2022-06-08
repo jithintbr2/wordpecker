@@ -23,6 +23,8 @@ _$_ShopModel _$_$_ShopModelFromJson(Map<String, dynamic> json) {
         (json['slider'] as List<dynamic>?)?.map((e) => e as String).toList(),
     message: json['scrollingMessage'] as String?,
     openingTime: json['openingTime'] as String?,
+    description: json['description'] as String?,
+    type: json['type'] as String?,
   );
 }
 
@@ -39,4 +41,6 @@ Map<String, dynamic> _$_$_ShopModelToJson(_$_ShopModel instance) =>
       'slider': instance.slider,
       'scrollingMessage': instance.message,
       'openingTime': instance.openingTime,
+      'description': instance.description,
+      'type': instance.type,
     };

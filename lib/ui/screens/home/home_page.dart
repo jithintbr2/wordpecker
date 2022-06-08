@@ -56,6 +56,7 @@ class HomePage extends HookWidget {
     final popupSeen = useState(popupSeenHistory);
 
     return Scaffold(
+      backgroundColor: Color(0xFF44B1A9),
       appBar: Config.useDashboardEntry
           ? null
           : HomeAppBar(
@@ -173,9 +174,11 @@ class HomePage extends HookWidget {
 
   _buildPage(BuildContext context, HomePageModel data) {
     return Stack(
+
       children: [
         ListView(
           shrinkWrap: true,
+
           padding: EdgeInsets.symmetric(vertical: 10),
           children: [
             Carousel(items: data.carouselx1 ?? [], viewportFraction: 1),
@@ -185,57 +188,38 @@ class HomePage extends HookWidget {
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Carousel(
                     items: data.carouselx2 ?? [], viewportFraction: 1)),
-            SizedBox(height: 10),
+
+            // SizedBox(height: 5),
+
+
+            // Category(
+            //   title: 'Shops',
+            //   items: data.shopCategories ?? [],
+            //   limit: Config.shopCategoriesLimit,
+            //   onTap: (index) =>
+            //       Navigator.of(context).pushNamed('/shopList', arguments: {
+            //         "categoryName": data.shopCategories![index].title,
+            //         "categoryId": data.shopCategories![index].id
+            //       }),
+            // ),
             Category(
               title: 'Items',
               items: data.itemCategories ?? [],
               limit: Config.itemCategoriesLimit,
               onTap: (index) =>
                   Navigator.of(context).pushNamed('/itemList', arguments: {
-                "categories": data.itemCategories,
-                "categoryName": data.itemCategories![index].title,
-                "categoryId": data.itemCategories![index].id
-              }),
+                    "categories": data.itemCategories,
+                    "categoryName": data.itemCategories![index].title,
+                    "categoryId": data.itemCategories![index].id
+                  }),
             ),
-            SizedBox(height: 10),
-            Category(
-              title: 'Shops',
-              items: data.shopCategories ?? [],
-              limit: Config.shopCategoriesLimit,
-              onTap: (index) =>
-                  Navigator.of(context).pushNamed('/shopList', arguments: {
-                "categoryName": data.shopCategories![index].title,
-                "categoryId": data.shopCategories![index].id
-              }),
-            ),
-            SizedBox(height: 10),
+            SizedBox(height: 5),
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12),
                 child: Carousel(
                     items: data.carouselx3 ?? [], viewportFraction: 1)),
-            SizedBox(height: 10),
-            data.featuredRestaurants != null
-                ? Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 12),
-                    child: Text("Featured Restaurant",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            height: 2)))
-                : SizedBox(),
-            data.featuredRestaurants != null
-                ? SizedBox(
-                    height: 160,
-                    child: ListView.builder(
-                        itemBuilder: (_, int childIndex) => ShopCard(
-                            shop: data.featuredRestaurants![childIndex]),
-                        itemCount: data.featuredRestaurants!.length,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        padding: EdgeInsets.symmetric(horizontal: 10)),
-                  )
-                : SizedBox(),
-            SizedBox(height: 10),
+
+           SizedBox(height: 10),
             SpecialOffers(data: data.homeCategoreis),
             SizedBox(height: 10),
             Padding(
@@ -245,24 +229,24 @@ class HomePage extends HookWidget {
             SizedBox(height: 60)
           ],
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: data.isPendingOrders
-              ? Container(
-                  color: Theme.of(context).primaryColor,
-                  child: ListTile(
-                      leading: Icon(
-                        Icons.card_giftcard,
-                        color: Colors.white,
-                      ),
-                      title: Text(
-                        'Your orders are being processed.',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onTap: () => Navigator.pushNamed(context, '/orders')),
-                )
-              : SizedBox(),
-        )
+        // Align(
+        //   alignment: Alignment.bottomCenter,
+        //   child: data.isPendingOrders
+        //       ? Container(
+        //           color: Theme.of(context).primaryColor,
+        //           child: ListTile(
+        //               leading: Icon(
+        //                 Icons.card_giftcard,
+        //                 color: Colors.white,
+        //               ),
+        //               title: Text(
+        //                 'Your orders are being processed.',
+        //                 style: TextStyle(color: Colors.white),
+        //               ),
+        //               onTap: () => Navigator.pushNamed(context, '/orders')),
+        //         )
+        //       : SizedBox(),
+        // )
       ],
     );
   }

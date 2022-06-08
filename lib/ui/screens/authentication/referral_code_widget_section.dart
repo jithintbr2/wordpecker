@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/authentication/bloc/referal_check_bloc.dart';
 
 class ReferralCodeWidgetSection extends HookWidget {
@@ -25,8 +26,10 @@ class ReferralCodeWidgetSection extends HookWidget {
           children: [
             Padding(
               padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+              const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
               child: TextFormField(
+                style: TextStyle(
+                    color: Colors.black, fontFamily: Config.fontFamily),
                 controller: controller,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -39,9 +42,9 @@ class ReferralCodeWidgetSection extends HookWidget {
                           loaded: () => Icon(Icons.check_circle,
                               color: Theme.of(context).primaryColor),
                           failed: () => Icon(
-                                Icons.cancel,
-                                color: Theme.of(context).errorColor,
-                              ))),
+                            Icons.cancel,
+                            color: Theme.of(context).errorColor,
+                          ))),
                   isDense: true,
                   border: OutlineInputBorder(),
                 ),

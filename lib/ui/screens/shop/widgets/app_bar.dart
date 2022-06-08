@@ -22,7 +22,7 @@ class ShopSliverAppBar extends StatelessWidget {
       pinned: true,
       expandedHeight: 200,
       title: Text(
-        title ?? '',
+        '',
         style: TextStyle(color: Theme.of(context).canvasColor),
       ),
       flexibleSpace: LayoutBuilder(

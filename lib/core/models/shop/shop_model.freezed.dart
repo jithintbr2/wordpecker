@@ -31,7 +31,9 @@ class _$ShopModelTearOff {
       List<MenuModel>? category,
       List<String>? slider,
       @JsonKey(name: 'scrollingMessage') String? message,
-      String? openingTime}) {
+      String? openingTime,
+      String? description,
+      String? type}) {
     return _ShopModel(
       shopId: shopId,
       shopName: shopName,
@@ -44,6 +46,8 @@ class _$ShopModelTearOff {
       slider: slider,
       message: message,
       openingTime: openingTime,
+      description: description,
+      type: type,
     );
   }
 
@@ -74,6 +78,8 @@ mixin _$ShopModel {
   @JsonKey(name: 'scrollingMessage')
   String? get message => throw _privateConstructorUsedError;
   String? get openingTime => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -96,7 +102,9 @@ abstract class $ShopModelCopyWith<$Res> {
       List<MenuModel>? category,
       List<String>? slider,
       @JsonKey(name: 'scrollingMessage') String? message,
-      String? openingTime});
+      String? openingTime,
+      String? description,
+      String? type});
 }
 
 /// @nodoc
@@ -120,6 +128,8 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
     Object? slider = freezed,
     Object? message = freezed,
     Object? openingTime = freezed,
+    Object? description = freezed,
+    Object? type = freezed,
   }) {
     return _then(_value.copyWith(
       shopId: shopId == freezed
@@ -166,6 +176,14 @@ class _$ShopModelCopyWithImpl<$Res> implements $ShopModelCopyWith<$Res> {
           ? _value.openingTime
           : openingTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -187,7 +205,9 @@ abstract class _$ShopModelCopyWith<$Res> implements $ShopModelCopyWith<$Res> {
       List<MenuModel>? category,
       List<String>? slider,
       @JsonKey(name: 'scrollingMessage') String? message,
-      String? openingTime});
+      String? openingTime,
+      String? description,
+      String? type});
 }
 
 /// @nodoc
@@ -212,6 +232,8 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
     Object? slider = freezed,
     Object? message = freezed,
     Object? openingTime = freezed,
+    Object? description = freezed,
+    Object? type = freezed,
   }) {
     return _then(_ShopModel(
       shopId: shopId == freezed
@@ -258,6 +280,14 @@ class __$ShopModelCopyWithImpl<$Res> extends _$ShopModelCopyWithImpl<$Res>
           ? _value.openingTime
           : openingTime // ignore: cast_nullable_to_non_nullable
               as String?,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -276,7 +306,9 @@ class _$_ShopModel implements _ShopModel {
       this.category,
       this.slider,
       @JsonKey(name: 'scrollingMessage') this.message,
-      this.openingTime});
+      this.openingTime,
+      this.description,
+      this.type});
 
   factory _$_ShopModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ShopModelFromJson(json);
@@ -309,10 +341,14 @@ class _$_ShopModel implements _ShopModel {
   final String? message;
   @override
   final String? openingTime;
+  @override
+  final String? description;
+  @override
+  final String? type;
 
   @override
   String toString() {
-    return 'ShopModel(shopId: $shopId, shopName: $shopName, imageUrl: $imageUrl, servicesNow: $servicesNow, services: $services, ratingCount: $ratingCount, rating: $rating, category: $category, slider: $slider, message: $message, openingTime: $openingTime)';
+    return 'ShopModel(shopId: $shopId, shopName: $shopName, imageUrl: $imageUrl, servicesNow: $servicesNow, services: $services, ratingCount: $ratingCount, rating: $rating, category: $category, slider: $slider, message: $message, openingTime: $openingTime, description: $description, type: $type)';
   }
 
   @override
@@ -348,7 +384,12 @@ class _$_ShopModel implements _ShopModel {
                     .equals(other.message, message)) &&
             (identical(other.openingTime, openingTime) ||
                 const DeepCollectionEquality()
-                    .equals(other.openingTime, openingTime)));
+                    .equals(other.openingTime, openingTime)) &&
+            (identical(other.description, description) ||
+                const DeepCollectionEquality()
+                    .equals(other.description, description)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)));
   }
 
   @override
@@ -364,7 +405,9 @@ class _$_ShopModel implements _ShopModel {
       const DeepCollectionEquality().hash(category) ^
       const DeepCollectionEquality().hash(slider) ^
       const DeepCollectionEquality().hash(message) ^
-      const DeepCollectionEquality().hash(openingTime);
+      const DeepCollectionEquality().hash(openingTime) ^
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(type);
 
   @JsonKey(ignore: true)
   @override
@@ -389,7 +432,9 @@ abstract class _ShopModel implements ShopModel {
       List<MenuModel>? category,
       List<String>? slider,
       @JsonKey(name: 'scrollingMessage') String? message,
-      String? openingTime}) = _$_ShopModel;
+      String? openingTime,
+      String? description,
+      String? type}) = _$_ShopModel;
 
   factory _ShopModel.fromJson(Map<String, dynamic> json) =
       _$_ShopModel.fromJson;
@@ -422,6 +467,10 @@ abstract class _ShopModel implements ShopModel {
   String? get message => throw _privateConstructorUsedError;
   @override
   String? get openingTime => throw _privateConstructorUsedError;
+  @override
+  String? get description => throw _privateConstructorUsedError;
+  @override
+  String? get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ShopModelCopyWith<_ShopModel> get copyWith =>

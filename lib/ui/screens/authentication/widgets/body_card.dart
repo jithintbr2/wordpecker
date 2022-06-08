@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:woodle/core/settings/assets.dart';
+import 'package:woodle/core/settings/config.dart';
 
 class BodyCard extends StatelessWidget {
   final TextEditingController controller;
@@ -48,8 +49,10 @@ class BodyCard extends StatelessWidget {
               SizedBox(height: 30),
               Padding(
                 padding:
-                    EdgeInsets.only(top: 8.0, bottom: 8, left: 16, right: 48),
+                EdgeInsets.only(top: 8.0, bottom: 8, left: 16, right: 48),
                 child: TextFormField(
+                  style: TextStyle(
+                      color: Colors.black, fontFamily: Config.fontFamily),
                   controller: controller,
                   enabled: !isLoading,
                   validator: validator,
@@ -73,19 +76,39 @@ class BodyCard extends StatelessWidget {
                       },
                       child: isLoading
                           ? SizedBox(
-                              height: 25,
-                              width: 25,
-                              child: CircularProgressIndicator(
-                                color: Colors.white,
-                                strokeWidth: 2,
-                              ),
-                            )
+                        height: 25,
+                        width: 25,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
                           : Text(buttonText))),
               onForgotPassword == null
                   ? Container(
-                      height: 100,
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
+                height: 100,
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  child: Text("Back",
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              )
+                  : Container(
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        child: Text("Forgot Password ?",
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor)),
+                        onPressed: onForgotPassword,
+                      ),
+                      TextButton(
                         child: Text("Back",
                             style: TextStyle(
                                 color: Theme.of(context).primaryColor)),
@@ -93,28 +116,8 @@ class BodyCard extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                       ),
-                    )
-                  : Container(
-                      height: 100,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextButton(
-                            child: Text("Forgot Password ?",
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                            onPressed: onForgotPassword,
-                          ),
-                          TextButton(
-                            child: Text("Back",
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor)),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      ))
+                    ],
+                  ))
             ],
           ),
         ),

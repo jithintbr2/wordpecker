@@ -12,13 +12,14 @@ class MarqueeWidget extends StatelessWidget {
     return Container(
         margin: EdgeInsets.symmetric(vertical: 2),
         decoration: BoxDecoration(
-          border: Border.symmetric(
-              horizontal: BorderSide(width: 2, color: Colors.grey.shade300)),
+
+          // border: Border.symmetric(
+          //     horizontal: BorderSide(width: 2, color: Colors.grey)),
         ),
-        height: 40,
+        height: 20,
         child: Marquee(
           text: text,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold,color: Colors.white),
           scrollAxis: Axis.horizontal,
           crossAxisAlignment: CrossAxisAlignment.center,
           blankSpace: 20.0,

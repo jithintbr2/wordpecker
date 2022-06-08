@@ -102,7 +102,7 @@ class CartTile extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   Text(
-                    "₹${totalPrice.toStringAsFixed(2)}",
+                    "₹ ${totalPrice.toStringAsFixed(2)}",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ],
@@ -128,7 +128,7 @@ class CartTile extends StatelessWidget {
                   )),
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                   builder: (context, state) {
-                if (state.user != null && address?.id != -1) {
+                if (state.user != null && address!=null) {
                   return InkWell(
                     onTap: () => handleCheckout(context, minimumOrder),
                     child: Container(
@@ -152,7 +152,7 @@ class CartTile extends StatelessWidget {
                   );
                 }
 
-                if (state.user != null && address?.id == -1) {
+                if (state.user != null && address == null) {
                   return InkWell(
                     onTap: () => Navigator.pushNamed(context, '/address'),
                     child: Container(

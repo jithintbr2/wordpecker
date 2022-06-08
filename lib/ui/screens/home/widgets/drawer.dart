@@ -18,35 +18,35 @@ class HomeDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
         builder: (context, state) {
-      return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            HomeDrawerHeader(),
-            state.updateAvailable ? UpdateTile() : SizedBox(),
-            state.user != null
-                ? Wrap(
-                    children: [
-                      DrawerTopBar(
-                        name: state.user?.name ?? '',
-                      ),
-                      Divider(),
-                    ],
-                  )
-                : SizedBox(),
-            state.user != null
-                ? Expanded(child: DrawerBody())
-                : Expanded(
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                HomeDrawerHeader(),
+                state.updateAvailable ? UpdateTile() : SizedBox(),
+                state.user != null
+                    ? Wrap(
+                  children: [
+                    DrawerTopBar(
+                      name: state.user?.name ?? '',
+                    ),
+                    Divider(),
+                  ],
+                )
+                    : SizedBox(),
+                state.user != null
+                    ? Expanded(child: DrawerBody())
+                    : Expanded(
                     child: Center(
-                    child: ElevatedButton(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/authenticate'),
-                        child: Text('Login')),
-                  )),
-            Divider(),
-            DrawerBottomBar(whatsappNumber: whatsappNumber)
-          ]);
-    }));
+                      child: ElevatedButton(
+                          onPressed: () =>
+                              Navigator.pushNamed(context, '/authenticate'),
+                          child: Text('Login')),
+                    )),
+                Divider(),
+                DrawerBottomBar(whatsappNumber: whatsappNumber)
+              ]);
+        }));
   }
 }
 
@@ -158,8 +158,16 @@ class DrawerTopBar extends StatelessWidget {
               barrierDismissible: false,
               builder: (BuildContext dialogContext) {
                 return AlertDialog(
-                  title: Text('Logout'),
-                  content: Text('Are you sure you want to logout?'),
+                  title: Text(
+                    'Logout',
+                    style: TextStyle(
+                        color: Colors.black, fontFamily: Config.fontFamily),
+                  ),
+                  content: Text(
+                    'Are you sure you want to logout?',
+                    style: TextStyle(
+                        color: Colors.black, fontFamily: Config.fontFamily),
+                  ),
                   actions: <Widget>[
                     TextButton(
                         child: Text('No'),
@@ -249,7 +257,7 @@ class DrawerBody extends StatelessWidget {
     AddressModel? _getAddress() {
       if (_localStorage.get('currentAddress') != null) {
         Map<String, dynamic> currentAddressRaw =
-            jsonDecode(_localStorage.get('currentAddress') as String);
+        jsonDecode(_localStorage.get('currentAddress') as String);
         return AddressModel.fromJson(currentAddressRaw);
       }
       return null;
@@ -266,50 +274,48 @@ class DrawerBody extends StatelessWidget {
         Config.useDashboardEntry
             ? SizedBox()
             : _itemTile(context, Icons.room_service, "Services",
-                onTap: () => Navigator.pushNamed(context, '/services')),
+            onTap: () => Navigator.pushNamed(context, '/services')),
+        _itemTile(context, Icons.line_style, "E Pub",
+            onTap: () => Navigator.pushNamed(context, '/ePub',arguments: {
+              "categoryId": 1,
+              "categoryName": 'E-Pub',
+            })),
+        _itemTile(context, Icons.line_style, "Authors",
+            onTap: () => Navigator.pushNamed(context, '/authors',arguments: {
+              "categoryId": 1,
+              "categoryName": 'Authors',
+            })),
+        _itemTile(context, Icons.line_style, "Publishers",
+            onTap: () => Navigator.pushNamed(context, '/shopList',arguments: {
+              "categoryId": 1,
+              "categoryName": 'Publishers',
+            })),
+
         _itemTile(context, Icons.line_style, "My Addresses",
             onTap: () => Navigator.pushNamed(context, '/address')),
         _itemTile(context, Icons.notifications, "My Notifications",
             onTap: () => Navigator.pushNamed(context, '/notifications')),
         _itemTile(context, Icons.track_changes, "My Orders",
             onTap: () => Navigator.pushNamed(context, '/orders')),
-        _itemTile(context, Icons.request_quote, "Request Items",
-            onTap: () => franchieId == -1
-                ? showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                          title: Text("Select Location"),
-                          content: Text(
-                              "Please Select a location to access this feature"),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pushNamed(context, '/address');
-                              },
-                              child: Text("okay"),
-                            ),
-                          ],
-                        ))
-                : Navigator.pushNamed(context, '/requestItems')),
-        _itemTile(context, Icons.account_balance_wallet, "Wallet",
-            onTap: () => Navigator.pushNamed(context, '/wallet')),
-        _itemTile(context, Icons.share, "Refer and Earn",
-            onTap: () => Navigator.pushNamed(context, '/referral')),
+
+        // _itemTile(context, Icons.account_balance_wallet, "Wallet",
+        //     onTap: () => Navigator.pushNamed(context, '/wallet')),
+        // _itemTile(context, Icons.share, "Refer and Earn",
+        //     onTap: () => Navigator.pushNamed(context, '/referral')),
         Divider(color: Theme.of(context).accentColor.withOpacity(0.5)),
         _itemTile(context, Icons.password, "Change Password",
             onTap: () => Navigator.pushNamed(context, '/changePassword')),
         Divider(color: Theme.of(context).accentColor.withOpacity(0.5)),
         _itemTile(context, Icons.local_atm, "Cancellation & Refund Policy",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {
-                  "title": "Cancellation & Refund Policy",
-                  "url": Config.cancellationPolicy
-                })),
+              "title": "Cancellation & Refund Policy",
+              "url": Config.cancellationPolicy
+            })),
         _itemTile(context, Icons.security, "Privacy T&C",
             onTap: () => Navigator.pushNamed(context, '/webView', arguments: {
-                  "title": "Privacy T&C",
-                  "url": Config.termsConditions
-                })),
+              "title": "Privacy T&C",
+              "url": Config.termsConditions
+            })),
       ],
     );
   }

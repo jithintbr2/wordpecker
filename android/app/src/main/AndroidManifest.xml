@@ -1,18 +1,18 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.woodle">
+    package="com.wordpecker.user">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     
    <application
-        android:label="woodle"
+        android:label="Wordpecker"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCOtLm7D2gL6HoJ_s3jMTyT2kHzRZZSfx4" />
+            android:value="AIzaSyCOtLm7D2gL6HoJ_s3jMTyT2kHzRZZSfx4"/>
 
         <activity
             android:name=".MainActivity"

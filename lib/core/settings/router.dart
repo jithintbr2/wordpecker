@@ -14,10 +14,13 @@ import 'package:woodle/ui/screens/address_map/address_map_page.dart';
 import 'package:woodle/ui/screens/address_map/bloc/address_map_bloc.dart';
 import 'package:woodle/ui/screens/authentication/authentication_page.dart';
 import 'package:woodle/ui/screens/authentication/bloc/authenticationpage_bloc.dart';
+import 'package:woodle/ui/screens/authors_list/authors_list_page.dart';
+import 'package:woodle/ui/screens/authors_list/bloc/authors_list_bloc.dart';
 import 'package:woodle/ui/screens/cart/cart_page.dart';
 import 'package:woodle/ui/screens/category_items/bloc/category_items_bloc.dart';
 import 'package:woodle/ui/screens/category_items/category_items_page.dart';
 import 'package:woodle/ui/screens/custom/bloc/custom_bloc.dart';
+import 'package:woodle/ui/screens/ePub_list/ePub_list_page.dart';
 import 'package:woodle/ui/screens/home/bloc/home_bloc.dart';
 import 'package:woodle/ui/screens/home/dashboard_page.dart';
 import 'package:woodle/ui/screens/home/home_page.dart';
@@ -61,6 +64,9 @@ import 'package:woodle/ui/screens/wallet/bloc/wallet_bloc.dart';
 import 'package:woodle/ui/screens/wallet/wallet_page.dart';
 import 'package:woodle/ui/screens/wallet/wallet_redeem_page.dart';
 import 'package:woodle/ui/screens/web_view/web_view_page.dart';
+
+
+import '../../ui/screens/ePub_list/bloc/EPub_list_bloc.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -190,6 +196,35 @@ class AppRouter {
               categoryName: args['categoryName']),
         ));
 
+      case '/authors':
+        final Map<String, dynamic> args =
+        settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => AuthorsListBloc(
+            repository: context.read<ApplicationRepository>(),
+            context: context,
+          ),
+          child: AuthorsListPage(
+              localStorage: LocalStorage(),
+              categoryId: args['categoryId'],
+              categoryName: args['categoryName']),
+        ));
+
+      case '/ePub':
+        final Map<String, dynamic> args =
+        settings.arguments as Map<String, dynamic>;
+        return _generatePlatformRoute(BlocProvider(
+          create: (context) => EPubListBloc(
+            repository: context.read<ApplicationRepository>(),
+            context: context,
+          ),
+          child: EPubListPage(
+              localStorage: LocalStorage(),
+              categoryId: args['categoryId'],
+              categoryName: args['categoryName']),
+        ));
+
+
       case '/services':
         return _generatePlatformRoute(BlocProvider(
             create: (context) =>
@@ -206,8 +241,12 @@ class AppRouter {
               ShopBloc(repository: context.read<ApplicationRepository>()),
           child: ShopPage(
             shopId: args['shopId'],
+            authorId: args['authorId'],
+
           ),
         ));
+
+
 
       case '/shopList':
         final Map<String, dynamic> args =

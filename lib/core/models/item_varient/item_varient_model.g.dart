@@ -26,6 +26,16 @@ _$_ItemVarientModel _$_$_ItemVarientModelFromJson(Map<String, dynamic> json) {
             .toList() ??
         [],
     aspectRatio: (json['aspectRatio'] as num?)?.toDouble() ?? 1,
+    authorName: json['authorName'] as String?,
+    language: json['language'] as String?,
+    bindingType: json['bindingType'] as String?,
+    isbn: json['isbn'] as String?,
+    edition: json['edition'] as String?,
+    noOfPages: json['noOfPages'] as String?,
+    publishingDate: json['publishingDate'] as String?,
+    categories: (json['categories'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList(),
   );
 }
 
@@ -47,4 +57,12 @@ Map<String, dynamic> _$_$_ItemVarientModelToJson(
       'maxQuantity': instance.maxQuantity,
       'itemImages': instance.itemImages,
       'aspectRatio': instance.aspectRatio,
+      'authorName': instance.authorName,
+      'language': instance.language,
+      'bindingType': instance.bindingType,
+      'isbn': instance.isbn,
+      'edition': instance.edition,
+      'noOfPages': instance.noOfPages,
+      'publishingDate': instance.publishingDate,
+      'categories': instance.categories,
     };

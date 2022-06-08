@@ -20,7 +20,7 @@ class ShopBloc extends Bloc<ShopEvent, ShopState> {
   ) async* {
     if (event is _FetchData) {
       yield _Loading();
-      final response = await repository.fetchShopDetails(event.shopId);
+      final response = await repository.fetchShopDetails(event.shopId,event.authorId);
       response.when(
           success: (data) => emit(_Loaded(data)),
           failure: (error) => emit(_Failed(error)));

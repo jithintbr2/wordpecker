@@ -82,7 +82,7 @@ class CustomPage extends HookWidget {
         SizedBox(height: 10),
         ListView.builder(
           shrinkWrap: true,
-          itemBuilder: (context, index) => ShopTile(shop: data.shops![index]),
+          itemBuilder: (context, index) => ShopTile(shop: data.shops!),
           itemCount: data.shops!.length,
           physics: NeverScrollableScrollPhysics(),
         ),

@@ -33,8 +33,11 @@ class Carousel extends StatelessWidget {
                 .pushNamed('/shopDetail', arguments: {"shopId": item.shopId});
         },
         child: Card(
+          shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.circular(10)),
           clipBehavior: Clip.antiAliasWithSaveLayer,
-          margin: EdgeInsets.all(0),
+          margin: EdgeInsets.only(left: 10,right: 10),
           child: CachedNetworkImage(
             imageUrl: item.imageUrl,
             placeholder: (_, __) => Image.asset(Assets.appIcon),

@@ -28,15 +28,15 @@ class ItemVarientBox extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Container(
-            height: 150,
-            width: 160,
+            height: 400,
+            width: 120,
             child: Stack(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CachedNetworkImage(
-                        height: 90,
+                        height: 130,
                         imageUrl: data.image,
                         fit: BoxFit.cover,
                         placeholder: (_, __) =>
@@ -68,7 +68,7 @@ class ItemVarientBox extends StatelessWidget {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text("₹${data.salePrice}",
+                              Text("₹ ${data.salePrice}",
                                   style: Theme.of(context)
                                       .textTheme
                                       .subtitle2!
@@ -76,7 +76,7 @@ class ItemVarientBox extends StatelessWidget {
                               SizedBox(width: 10),
                               data.mrp == data.salePrice
                                   ? Container()
-                                  : Text("₹${data.mrp}",
+                                  : Text("₹ ${data.mrp}",
                                       style: Theme.of(context)
                                           .textTheme
                                           .subtitle2!

@@ -1,4 +1,4 @@
-package com.woodle
+package com.wordpecker.user
 
 import io.flutter.embedding.android.FlutterActivity
 

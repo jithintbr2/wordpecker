@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:woodle/core/models/address/address_model.dart';
+import 'package:woodle/core/settings/config.dart';
 import 'package:woodle/ui/screens/order_preview/widgets/price_indicator.dart';
 
 class DeliveryOptions extends HookWidget {
@@ -25,7 +26,12 @@ class DeliveryOptions extends HookWidget {
     return ListTile(
       leading: Icon(icon),
       dense: true,
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(
+            color: selected ? Config.themeColor : Colors.black,
+            fontFamily: Config.fontFamily),
+      ),
       subtitle: _subtitle,
       trailing: Icon(Icons.check_circle, size: 18),
       onTap: onTap,
@@ -69,37 +75,37 @@ class DeliveryOptions extends HookWidget {
         children: [
           _customListTile(context, Icons.local_shipping, "Express Delivery",
               !isScheduledOrder.value, () {
-            isScheduledOrder.value = false;
-            deliveryDate.value = _getNowDateTime();
-          }),
+                isScheduledOrder.value = false;
+                deliveryDate.value = _getNowDateTime();
+              }),
           Divider(),
           _customListTile(context, Icons.calendar_today, "Scheduled Order",
               isScheduledOrder.value, () {
-            showDatePicker(
+                showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
                     firstDate: DateTime.now(),
                     lastDate: DateTime(2100))
-                .then((selectedDate) {
-              if (selectedDate != null) {
-                showTimePicker(context: context, initialTime: TimeOfDay.now())
-                    .then((selectedTime) {
-                  String newDate = selectedDate.toString();
-                  newDate = newDate.substring(0, newDate.indexOf(" "));
-                  String convertedNewDate = getYmdFromDmy(newDate);
-                  if (selectedTime != null) {
-                    isScheduledOrder.value = true;
-                    deliveryDate.value =
+                    .then((selectedDate) {
+                  if (selectedDate != null) {
+                    showTimePicker(context: context, initialTime: TimeOfDay.now())
+                        .then((selectedTime) {
+                      String newDate = selectedDate.toString();
+                      newDate = newDate.substring(0, newDate.indexOf(" "));
+                      String convertedNewDate = getYmdFromDmy(newDate);
+                      if (selectedTime != null) {
+                        isScheduledOrder.value = true;
+                        deliveryDate.value =
                         "$convertedNewDate ${selectedTime.format(context)}";
-                  } else {
-                    isScheduledOrder.value = true;
-                    deliveryDate.value =
+                      } else {
+                        isScheduledOrder.value = true;
+                        deliveryDate.value =
                         "$convertedNewDate ${TimeOfDay.now().format(context)}";
+                      }
+                    });
                   }
                 });
-              }
-            });
-          }, subtitle: isScheduledOrder.value ? deliveryDate.value : null),
+              }, subtitle: isScheduledOrder.value ? deliveryDate.value : null),
           Divider(),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),

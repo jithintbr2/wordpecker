@@ -21,7 +21,8 @@ class OrderDetailsPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _showCashback = useState(tempId != null ? true : false);
+    // final _showCashback = useState(tempId != null ? true : false);
+    final _showCashback = useState(false);
     useEffect(() {
       context
           .read<OrderDetailsBloc>()
@@ -71,8 +72,8 @@ class OrderDetailsPage extends HookWidget {
               padding: EdgeInsets.all(10),
               shrinkWrap: true,
               children: [
-                OrderSteps(data: data.steps),
-                SizedBox(height: 16),
+                // OrderSteps(data: data.steps),
+                // SizedBox(height: 16),
                 OrderTable(data: data),
                 SizedBox(height: 8),
                 (data.couponDiscount > 0)

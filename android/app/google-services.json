@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "624711496360",
-    "project_id": "woodle-d0394",
-    "storage_bucket": "woodle-d0394.appspot.com"
+    "project_number": "1051589090401",
+    "project_id": "wordpecker-61981",
+    "storage_bucket": "wordpecker-61981.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:624711496360:android:9da9fb83afdee2f7e4889d",
+        "mobilesdk_app_id": "1:1051589090401:android:5a1a9f55529b08998d9e20",
         "android_client_info": {
-          "package_name": "com.woodle"
+          "package_name": "com.wordpecker.user"
         }
       },
       "oauth_client": [
         {
-          "client_id": "624711496360-khrtd6daaja0nhis8an6b2tvjdtn37rh.apps.googleusercontent.com",
+          "client_id": "1051589090401-4qn85jo6ijo50b039mgi1qdmh6v3g7p3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCQi2ko17Rm_oTdREA_nPQhDa3uS3XZ7FU"
+          "current_key": "AIzaSyAqlszqNX5JlE8Ot8Vr_WpvlODGa61X7zo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "624711496360-khrtd6daaja0nhis8an6b2tvjdtn37rh.apps.googleusercontent.com",
+              "client_id": "1051589090401-4qn85jo6ijo50b039mgi1qdmh6v3g7p3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

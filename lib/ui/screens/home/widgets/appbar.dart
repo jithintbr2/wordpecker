@@ -33,36 +33,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: showLocation
-          ? InkWell(
-              onTap: onTap,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Delivery Location",
-                    style:
-                        TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
-                  ),
-                  Row(
-                    children: <Widget>[
-                      Flexible(
-                        child: Text(
-                          location ?? 'Select Location',
-                          style: TextStyle(
-                              fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
-                        child: Icon(Icons.edit, size: 12),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            )
-          : Text(Config.applicationName),
+      title: Text(Config.applicationName),
       actions: [
         IconButton(onPressed: onCall, icon: Icon(Icons.call)),
         StreamBuilder(

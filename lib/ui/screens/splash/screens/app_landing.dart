@@ -10,7 +10,7 @@ class AppLandingScreen extends HookWidget {
   Widget build(BuildContext context) {
     final _agreed = useState(false);
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF27B4C1),
         body: Container(
           padding: EdgeInsets.all(10),
           constraints: BoxConstraints.expand(),
@@ -21,10 +21,14 @@ class AppLandingScreen extends HookWidget {
             children: [
               Expanded(
                   child: Center(
-                child: Hero(
-                    tag: 'logo',
-                    child: Image.asset(Assets.appIcon,
-                        height: 120, fit: BoxFit.contain)),
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  child: Hero(
+                      tag: 'logo',
+                      child: Image.asset(Assets.appIcon,
+                          height: 120, fit: BoxFit.contain)),
+                ),
               )),
               Row(
                 children: [
@@ -41,6 +45,7 @@ class AppLandingScreen extends HookWidget {
                   SizedBox(width: 10),
                   Expanded(
                       child: ElevatedButton(
+
                           onPressed: _agreed.value
                               ? () =>
                                   Navigator.pushNamed(context, '/authenticate')
@@ -58,6 +63,15 @@ class AppLandingScreen extends HookWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Checkbox(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
+                        side: BorderSide(
+                          // ======> CHANGE THE BORDER COLOR HERE <======
+                          color: Colors.black,
+                          // Give your checkbox border a custom width
+                          width: 1.5,
+                        ),
                         value: _agreed.value,
                         onChanged: (value) => _agreed.value = !_agreed.value),
                     RichText(
@@ -65,11 +79,13 @@ class AppLandingScreen extends HookWidget {
                         children: [
                           TextSpan(
                               text: "I agree to the",
-                              style: Theme.of(context).textTheme.caption),
+                            style: TextStyle(
+                                color: Colors.black),
+                          ),
                           TextSpan(
                             text: " Terms and conditions",
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor),
+                                color:Colors.white),
                           )
                         ],
                       ),

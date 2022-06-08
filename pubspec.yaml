@@ -38,10 +38,13 @@ dependencies:
   flutter_image_compress: ^1.1.0
   flutter_uploader: ^3.0.0-beta.3
   file_picker: ^4.0.3
-
+  path_provider: ^2.0.1
+  epub_viewer: ^0.2.5
   #versioning
   package_info_plus: ^1.0.3
   version: ^2.0.0
+  path: ^1.8.0
+  permission_handler: ^8.0.0
 
   #connectivity
   connectivity_plus: ^1.0.2
@@ -74,7 +77,7 @@ dependencies:
 
   #sliver ++
   flutter_sticky_header: ^0.6.0
-  
+
   #storage
   shared_preferences: ^2.0.6
 
@@ -92,4 +95,14 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+  fonts:
+    - family: CenturyGothic
+      fonts:
+        - asset: assets/fonts/CenturyGothic.TTF
+    - family: Audiowide-Regular
+      fonts:
+        - asset: assets/fonts/Audiowide-Regular.TTF
+    - family: Oswald-Regular
+      fonts:
+      - asset: assets/fonts/Oswald-Regular.TTF
   uses-material-design: true

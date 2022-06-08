@@ -42,7 +42,7 @@ class RequestItemPage extends HookWidget {
       AddressModel? _getAddress() {
         if (_localStorage.get('currentAddress') != null) {
           Map<String, dynamic> currentAddressRaw =
-              jsonDecode(_localStorage.get('currentAddress') as String);
+          jsonDecode(_localStorage.get('currentAddress') as String);
           return AddressModel.fromJson(currentAddressRaw);
         }
         return null;
@@ -115,26 +115,26 @@ class RequestItemPage extends HookWidget {
                   if (flag && iterated) {
                     WidgetsBinding.instance!
                         .addPostFrameCallback((_) => showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: Text("Request Submitted"),
-                                content: Text(
-                                    "Your request has been submitted. Our representative will call you shortly after request evaluation."),
-                                actions: <Widget>[
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pushNamedAndRemoveUntil(
-                                          context,
-                                          Config.useDashboardEntry
-                                              ? '/homeDashboard'
-                                              : '/home',
-                                          (route) => false);
-                                    },
-                                    child: Text("okay"),
-                                  ),
-                                ],
-                              ),
-                            ));
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: Text("Request Submitted"),
+                        content: Text(
+                            "Your request has been submitted. Our representative will call you shortly after request evaluation."),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  Config.useDashboardEntry
+                                      ? '/homeDashboard'
+                                      : '/home',
+                                      (route) => false);
+                            },
+                            child: Text("okay"),
+                          ),
+                        ],
+                      ),
+                    ));
                   }
 
                   return ListView.separated(
@@ -154,16 +154,16 @@ class RequestItemPage extends HookWidget {
                 );
               },
               idle: () => _buildBody(
-                    context: context,
-                    items: _items,
-                    remarkController: _remarkController,
-                    franchiseId: franchieId,
-                    itemNameController: _itemNameController,
-                    itemQuantity: _itemQuantity,
-                    key: _formKey,
-                    uploader: _uploader,
-                    imageList: _imageList,
-                  )),
+                context: context,
+                items: _items,
+                remarkController: _remarkController,
+                franchiseId: franchieId,
+                itemNameController: _itemNameController,
+                itemQuantity: _itemQuantity,
+                key: _formKey,
+                uploader: _uploader,
+                imageList: _imageList,
+              )),
         ));
   }
 
@@ -207,13 +207,13 @@ class RequestItemPage extends HookWidget {
               onPressed: () {
                 if (items.value.length > 0) {
                   context.read<RequestItemBloc>().add(RequestItemEvent.request(
-                        items: items.value,
-                        franchiseId: franchiseId,
-                        remark: remarkController.text,
-                        images:
-                            imageList.value.length > 0 ? imageList.value : null,
-                        uploader: uploader,
-                      ));
+                    items: items.value,
+                    franchiseId: franchiseId,
+                    remark: remarkController.text,
+                    images:
+                    imageList.value.length > 0 ? imageList.value : null,
+                    uploader: uploader,
+                  ));
                 } else {
                   final snackBar = SnackBar(
                     backgroundColor: Colors.red,
@@ -256,12 +256,12 @@ class RequestItemPage extends HookWidget {
   }
 
   Widget _buildAddItem(
-    BuildContext context,
-    GlobalKey<FormState> key,
-    TextEditingController controller,
-    ValueNotifier<int> itemQuantity,
-    ValueNotifier<List<dynamic>> items,
-  ) {
+      BuildContext context,
+      GlobalKey<FormState> key,
+      TextEditingController controller,
+      ValueNotifier<int> itemQuantity,
+      ValueNotifier<List<dynamic>> items,
+      ) {
     return Card(
         margin: const EdgeInsets.all(4.0),
         child: Container(
@@ -277,6 +277,8 @@ class RequestItemPage extends HookWidget {
                   children: <Widget>[
                     Expanded(
                       child: TextFormField(
+                        style: TextStyle(
+                            color: Colors.black, fontFamily: Config.fontFamily),
                         controller: controller,
                         keyboardType: TextInputType.text,
                         validator: (value) {
@@ -334,13 +336,15 @@ class RequestItemPage extends HookWidget {
             ),
             SizedBox(height: 8),
             TextFormField(
+              style:
+              TextStyle(color: Colors.black, fontFamily: Config.fontFamily),
               controller: controller,
               textCapitalization: TextCapitalization.sentences,
               keyboardType: TextInputType.multiline,
               maxLines: 2,
               minLines: 2,
               decoration:
-                  InputDecoration(isDense: true, border: OutlineInputBorder()),
+              InputDecoration(isDense: true, border: OutlineInputBorder()),
             ),
           ],
         ),
@@ -370,7 +374,7 @@ class RequestItemPage extends HookWidget {
             child: Container(
               color: Colors.transparent,
               padding:
-                  const EdgeInsets.only(left: 8.0, right: 8, top: 8, bottom: 8),
+              const EdgeInsets.only(left: 8.0, right: 8, top: 8, bottom: 8),
               child: Icon(
                 Icons.remove,
                 size: 14,
@@ -385,7 +389,7 @@ class RequestItemPage extends HookWidget {
             child: Text(
               "${itemQuantity.value}",
               style:
-                  TextStyle(fontSize: 12, color: Theme.of(context).canvasColor),
+              TextStyle(fontSize: 12, color: Theme.of(context).canvasColor),
             ),
           ),
           GestureDetector(
@@ -393,7 +397,7 @@ class RequestItemPage extends HookWidget {
             child: Container(
               color: Colors.transparent,
               padding:
-                  const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
+              const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
               child: Icon(Icons.add, size: 14, color: _buttonColor),
             ),
           ),
@@ -408,150 +412,150 @@ class RequestItemPage extends HookWidget {
     return items.value.isEmpty
         ? Container()
         : Card(
-            margin: const EdgeInsets.all(4.0),
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    color: Colors.blue,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                              flex: 3,
-                              child: Text(
-                                "Item",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              )),
-                          Expanded(
-                              child: Text("Qty",
-                                  textAlign: TextAlign.end,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                          Container(
-                            width: 32,
-                            child: InkWell(
-                              child: Center(
-                                  child: Icon(
-                                Icons.delete,
-                                color: Colors.white,
-                              )),
-                              onTap: () {
-                                showDialog<bool>(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (BuildContext dialogContext) {
-                                    return AlertDialog(
-                                      title: Text("Confirm"),
-                                      content: Text(
-                                          "Do you want to delete all items?"),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: Text("No"),
-                                          onPressed: () {
-                                            Navigator.of(dialogContext).pop();
-                                          },
-                                        ),
-                                        TextButton(
-                                          child: Text("Yes"),
-                                          onPressed: () {
-                                            items.value = [];
-                                            Navigator.of(dialogContext).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          )
-                        ],
+      margin: const EdgeInsets.all(4.0),
+      child: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Colors.blue,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 3,
+                        child: Text(
+                          "Item",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        )),
+                    Expanded(
+                        child: Text("Qty",
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white))),
+                    Container(
+                      width: 32,
+                      child: InkWell(
+                        child: Center(
+                            child: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            )),
+                        onTap: () {
+                          showDialog<bool>(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext dialogContext) {
+                              return AlertDialog(
+                                title: Text("Confirm"),
+                                content: Text(
+                                    "Do you want to delete all items?"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text("No"),
+                                    onPressed: () {
+                                      Navigator.of(dialogContext).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text("Yes"),
+                                    onPressed: () {
+                                      items.value = [];
+                                      Navigator.of(dialogContext).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        },
                       ),
-                    ),
-                  ),
-                  ListView.separated(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (_, int index) {
-                      final item = items.value[index];
-                      final slNo = index + 1;
-                      return Container(
-                        padding: const EdgeInsets.symmetric(vertical: 4.0),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 4, horizontal: 8),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(flex: 3, child: Text(item["itemName"])),
-                              Expanded(
-                                  child: Text("${item['quantity']}",
-                                      textAlign: TextAlign.end)),
-                              Container(
-                                width: 32,
-                                child: InkWell(
-                                  child: Center(
-                                      child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  )),
-                                  onTap: () {
-                                    showDialog<bool>(
-                                      context: context,
-                                      barrierDismissible: false,
-                                      builder: (BuildContext dialogContext) {
-                                        return AlertDialog(
-                                          title: Text("Confirm"),
-                                          content: Text(
-                                              "Do you want to delete ${items.value[index]['itemName']}?"),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: Text("No"),
-                                              onPressed: () {
-                                                Navigator.of(dialogContext)
-                                                    .pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text("Yes"),
-                                              onPressed: () {
-                                                List itemsCopy = items.value;
-                                                itemsCopy.removeAt(index);
-                                                // items.value = itemsCopy;
-                                                Navigator.of(dialogContext)
-                                                    .pop();
-                                                items.value = [];
-                                                items.value = itemsCopy;
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    itemCount: items.value.length,
-                    shrinkWrap: true,
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider(
-                        height: 1,
-                      );
-                    },
-                  ),
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          );
+            ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (_, int index) {
+                final item = items.value[index];
+                final slNo = index + 1;
+                return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4, horizontal: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(flex: 3, child: Text(item["itemName"])),
+                        Expanded(
+                            child: Text("${item['quantity']}",
+                                textAlign: TextAlign.end)),
+                        Container(
+                          width: 32,
+                          child: InkWell(
+                            child: Center(
+                                child: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                )),
+                            onTap: () {
+                              showDialog<bool>(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext dialogContext) {
+                                  return AlertDialog(
+                                    title: Text("Confirm"),
+                                    content: Text(
+                                        "Do you want to delete ${items.value[index]['itemName']}?"),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text("No"),
+                                        onPressed: () {
+                                          Navigator.of(dialogContext)
+                                              .pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text("Yes"),
+                                        onPressed: () {
+                                          List itemsCopy = items.value;
+                                          itemsCopy.removeAt(index);
+                                          // items.value = itemsCopy;
+                                          Navigator.of(dialogContext)
+                                              .pop();
+                                          items.value = [];
+                                          items.value = itemsCopy;
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              },
+              itemCount: items.value.length,
+              shrinkWrap: true,
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  height: 1,
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _imageUploader(
@@ -587,18 +591,18 @@ class RequestItemPage extends HookWidget {
                 shrinkWrap: true,
                 itemCount: imageList.value.length,
                 itemBuilder: (context, index) => ListTile(
-                      leading: Icon(Icons.image),
-                      title: Text(imageList.value[index].split('/').last),
-                      trailing: IconButton(
-                        icon: Icon(Icons.cancel),
-                        onPressed: () {
-                          var imageListtemp = imageList.value;
-                          imageListtemp.removeAt(index);
-                          imageList.value = [];
-                          imageList.value = imageListtemp;
-                        },
-                      ),
-                    ))
+                  leading: Icon(Icons.image),
+                  title: Text(imageList.value[index].split('/').last),
+                  trailing: IconButton(
+                    icon: Icon(Icons.cancel),
+                    onPressed: () {
+                      var imageListtemp = imageList.value;
+                      imageListtemp.removeAt(index);
+                      imageList.value = [];
+                      imageList.value = imageListtemp;
+                    },
+                  ),
+                ))
           ],
         ),
       ),
@@ -644,16 +648,16 @@ class UploadView1 extends StatelessWidget {
         title: item.status == UploadTaskStatus.running
             ? Text('Uploading')
             : item.status == UploadTaskStatus.complete
-                ? Text('Uploaded')
-                : item.status == UploadTaskStatus.enqueued
-                    ? Text('Upload Queued')
-                    : item.status == UploadTaskStatus.undefined
-                        ? Text('Upload initialized')
-                        : item.status == UploadTaskStatus.canceled
-                            ? Text('Upload Canceled')
-                            : item.status == UploadTaskStatus.failed
-                                ? Text('Upload Failed')
-                                : Text('Initializing'),
+            ? Text('Uploaded')
+            : item.status == UploadTaskStatus.enqueued
+            ? Text('Upload Queued')
+            : item.status == UploadTaskStatus.undefined
+            ? Text('Upload initialized')
+            : item.status == UploadTaskStatus.canceled
+            ? Text('Upload Canceled')
+            : item.status == UploadTaskStatus.failed
+            ? Text('Upload Failed')
+            : Text('Initializing'),
         subtitle: item.status == UploadTaskStatus.running
             ? LinearProgressIndicator(value: item.progress!.toDouble() / 100)
             : SizedBox(),
